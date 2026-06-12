@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+Header set Cache-Control "max-age=0, no-store"
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /index.html [L]
+
+<FilesMatch "\.(js|css)$">
+    Header set Cache-Control "max-age=0, no-store"
+</FilesMatch>
+
+</IfModule>
