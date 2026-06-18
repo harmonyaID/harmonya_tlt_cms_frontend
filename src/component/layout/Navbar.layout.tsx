@@ -105,24 +105,24 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
                 {/*</div>*/}
 
                 <ul className="list-unstyled topbar-menu d-flex align-items-center float-end mb-0 ms-auto Pms-lg-0 me-1">
-                    <li
-                        className="dropdown me-3 d-sm-block d-none"
-                        id="navbar-link-created">
-                        <button
-                            className="dropdown-toggle hide-arrow btn btn-primary btn-sm mt-0 btn-circle-icon"
-                            id="dropdownMenuCreate"
-                            type="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            aria-haspopup="true">
-                            <Plus size={20} />
-                        </button>
-                        <div
-                            className="dropdown-menu topbar-dropdown-menu"
-                            aria-labelledby="dropdownMenuCreate">
-                            <ShortAddDropdownMenu />
-                        </div>
-                    </li>
+                    {/*<li*/}
+                    {/*    className="dropdown me-3 d-sm-block d-none"*/}
+                    {/*    id="navbar-link-created">*/}
+                    {/*    <button*/}
+                    {/*        className="dropdown-toggle hide-arrow btn btn-primary btn-sm mt-0 btn-circle-icon"*/}
+                    {/*        id="dropdownMenuCreate"*/}
+                    {/*        type="button"*/}
+                    {/*        data-bs-toggle="dropdown"*/}
+                    {/*        aria-expanded="false"*/}
+                    {/*        aria-haspopup="true">*/}
+                    {/*        <Plus size={20} />*/}
+                    {/*    </button>*/}
+                    {/*    <div*/}
+                    {/*        className="dropdown-menu topbar-dropdown-menu"*/}
+                    {/*        aria-labelledby="dropdownMenuCreate">*/}
+                    {/*        <ShortAddDropdownMenu />*/}
+                    {/*    </div>*/}
+                    {/*</li>*/}
 
                     <li
                         className="dropdown me-3 d-sm-block d-none"

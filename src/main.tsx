@@ -1,10 +1,11 @@
 import { createRoot } from 'react-dom/client'
 import '@/asset/theme/theme.scss'
 import App from '@/App.tsx'
-import { useEffect, useLayoutEffect } from 'react'
+import ConfirmAuthExpired from '@/common/misc/ConfirmAuthExpired'
 import { settingClassNameHTMLMain } from '@/helper/base/actionSettingLayout.helper.ts'
 import loadBootstrapHelper from '@/helper/base/loadBootstrap.helper'
-import ConfirmAuthExpired from '@/common/misc/ConfirmAuthExpired'
+
+import { useEffect, useLayoutEffect } from 'react'
 
 const RenderApp = () => {
     useLayoutEffect(() => {
