@@ -1,0 +1,15 @@
+//@mixin svgStyle {
+   svg {
+      &[fill='none'] {
+         fill: currentColor;
+      }
+      &[stroke='currentColor'] {
+         fill: transparent;
+      }
+
+      path[stroke-width] {
+         stroke: currentColor;
+         fill: transparent;
+      }
+   }
+//}

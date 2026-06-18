@@ -1,0 +1,33 @@
+$size-width-second-sidebar: 300px;
+
+.wp-second-sidebar {
+  .content {
+    padding-top: 65px;
+    z-index: 1;
+
+    .container-fluid {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .second-sidebar {
+      margin-top: -2rem;
+      position: fixed;
+      background-color: var(--bs-white-mood-theme);
+      border-right: 1px solid var(--bs-base-border-mood-theme);
+      width: $size-width-second-sidebar;
+      padding: 1.5rem 1rem 3rem;
+      transition: all 0.5s;
+      overflow: auto;
+      height: calc(100% - 2rem);
+    }
+  }
+
+  .wp-content-use-second-sidebar {
+    position: relative;
+    margin-left: $size-width-second-sidebar;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    transition: all 0.5s;
+  }
+}
