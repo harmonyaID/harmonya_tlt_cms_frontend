@@ -1,0 +1,21 @@
+.pagination li {
+   cursor: pointer;
+   padding: 2px 8px !important;
+   margin: 3px;
+   background-color: var(--bs-neutral-500);
+   display: inline-block;
+   border-radius: 6px;
+
+   &:hover {
+      background-color: var(--bs-tint-300);
+      color: var(--bs-black-100);
+   }
+
+   &.active {
+      background-color: var(--bs-primary-brand);
+      color: var(--bs-black-100);
+      &:hover {background-color: var(--bs-tint-300);}
+
+      a {font-size: 16px !important;}
+   }
+}

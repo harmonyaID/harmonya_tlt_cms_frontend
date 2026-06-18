@@ -1,0 +1,132 @@
+@mixin config-typography(
+  $size,
+  $letterSpacing,
+  $lineHeight,
+  $fontWeight: normal
+) {
+  font-size: $size;
+  letter-spacing: $letterSpacing;
+  line-height: $lineHeight;
+  font-weight: $fontWeight;
+}
+
+@mixin config_font_size($size) {
+  font-size: $size;
+}
+
+/* general text */
+.body-16,
+.paragraph-16 {
+  @include config-typography(16px!important, normal!important, 24px);
+}
+body,
+p,
+.p {
+  @include config-typography(14px, normal, 20px);
+}
+
+.leading {
+  @include config-typography(16px, normal, 24px);
+}
+.leading-18 {
+  @include config-typography(18px, normal, 24px);
+}
+
+.caption {
+  @include config-typography(12px, normal, 15px);
+}
+
+label,
+.label {
+  @include config-typography(0.875rem, normal, 17.5px);
+}
+.label-12 {
+  @include config-typography(0.75rem, normal, 17.5px);
+}
+
+button,
+.btn {
+  //@include config-typography(16px, normal, 24px);
+  @include config-typography(14px, normal, 20px);
+}
+.btn-small {
+  @include config-typography(12px, normal, 20px);
+}
+
+.a-16,
+.link-16 {
+  @include config-typography(16px, normal, 19.41px);
+}
+a, .link {@include config-typography(14px, normal, 19.41px);}
+
+.small-text {@include config-typography(12px, normal, 18px);}
+
+/* typography heading */
+.h6, h6 {@include config-typography(16px, 0px, 20px, 600);}
+.h5, h5 {@include config-typography(20px, -0.12px, 25px, 600);}
+.h4, h4 {@include config-typography(26px, -0.2px, 32.5px, 600);}
+.h3, h3 {@include config-typography(34px, -0.32px, 42.5px, 600);}
+.h2, h2 {@include config-typography(42px, -0.37px, 52.5px, 600);}
+.h1, h1 {@include config-typography(51px, -0.45px, 67.5px, 600);}
+
+// Start Font Size
+.fs-10 {@include config_font_size(0.625rem);}
+.fs-11 {@include config_font_size(0.688rem);}
+.fs-12 {@include config_font_size(0.75rem);}
+.fs-13 {@include config_font_size(0.813rem);}
+.fs-14 {@include config_font_size(0.875rem);}
+.fs-16 {@include config_font_size(1rem);}
+.fs-18 {@include config_font_size(1.125rem);}
+.fs-20 {@include config_font_size(1.25rem);}
+.fs-24 {@include config_font_size(1.5rem);}
+.fs-26 {@include config_font_size(1.625rem);}
+.fs-28 {@include config_font_size(1.75rem);}
+.fs-32 {@include config_font_size(2rem);}
+// End Font Size
+
+/* typography font weight*/
+$start: 100;
+$end: 900;
+$step: 100;
+@for $i from $start through $end {
+  @if ($i % $step == 0) {
+    .fw-#{$i} {
+      font-weight: $i;
+    }
+  }
+}
+.normal {font-weight: normal !important;}
+
+@mixin config_text_line($tlFontSize, $tlColor) {
+  font-size: $tlFontSize;
+  font-weight: 400;
+  color: $tlColor;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0;
+}
+.text-line-first {
+  @include config_text_line(0.875rem, var(--bs-neutral-100));
+}
+.text-line-second {
+  @include config_text_line(0.75rem, var(--bs-neutral-300));
+}
+
+.text-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.text-ellipsis-line-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.text-tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
