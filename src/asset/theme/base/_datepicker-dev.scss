@@ -1,0 +1,149 @@
+// By npm vanillajs-datepicker
+@use 'vanillajs-datepicker/sass/datepicker-bs5';
+// ======= End =======
+
+.wp-custom-datepicker {
+   // display: block !important;
+
+   .datepicker-dropdown {
+      .datepicker-picker {
+         box-shadow: none;
+         border: 1px solid var(--bs-neutral-500);
+         background-color: var(--bs-white-mood-theme);
+
+         .datepicker-header {
+            .datepicker-controls {
+               padding: 0.5rem 0.5rem 0 0.5rem;
+
+               button {
+                  margin-top: 0;
+
+                  &.view-switch {
+                     font-size: 0.875rem;
+                     color: var(--bs-neutral-200);
+                     background-color: var(--bs-white-mood-theme);
+                     //border-color: var(--bs-gray-300);
+                     border-color: var(--bs-base-border-mood-theme);
+                  }
+
+                  &.prev-btn,
+                  &.next-btn {
+                     font-size: 1.25rem;
+                     color: $primary-brand;
+                     background-color: var(--bs-white-mood-theme);
+                     border-color: var(--bs-base-border-mood-theme);
+                  }
+
+                  &:hover {
+                     //background-color: #eeeeee;
+                     background-color: var(--bs-gray-400);
+                  }
+               }
+            }
+         }
+
+         .datepicker-main {
+            padding: 0.5rem;
+
+            .datepicker-view {
+               .days-of-week {
+                  .dow {
+                     color: $primary-brand;
+                     font-size: 0.75rem;
+                  }
+               }
+
+               .datepicker-cell {
+                  &:not(.day) {
+                     height: 3.5rem;
+                  }
+
+                  &.focused:not(.selected) {
+                     background-color: var(--bs-primary-brand);
+                     color: var(--bs-black-100);
+                  }
+               }
+            }
+
+            .datepicker-grid {
+               .day {
+                  color: var(--bs-neutral-100);
+                  font-size: 0.75rem;
+                  //background-color: var(--bs-gray-200);
+
+                  &.selected {
+                     //   color: var(--bs-white-mood-theme);
+                     //   color: var(--bs-gray-800);
+                     color: var(--bs-black-100);
+                  }
+
+                  &.prev,
+                  &.next {
+                     //color: #eaecee; // Default
+                     //color: var(--bs-white-mood-theme);
+                     color: var(--bs-gray-300);
+                  }
+
+                  &:hover {
+                     //background-color: #f2f4f5;
+                     background-color: var(--bs-gray-400);
+                  }
+               }
+            }
+
+            .datepicker-cell {
+               &.range {
+                  background-color: var(--bs-gray-200);
+               }
+            }
+         }
+      }
+   }
+
+   .input-daterange {
+      .startDate {
+         &.form-control {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+         }
+      }
+
+      .endDate {
+         &.form-control {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+         }
+      }
+
+      .input-group-addon {
+         background: var(--bs-gray-300);
+         //border: 1px solid var(--gx-input-border-color);
+         color: var(--bs-neutral-300);
+         font-size: 14px;
+         padding: 0 10px;
+         height: 38px;
+         display: flex;
+         align-items: center;
+      }
+   }
+
+   .datepicker-footer {
+      background-color: var(--bs-neutral-600);
+      padding: 8px 4px;
+
+      button {
+         margin-top: 0;
+         width: 100%;
+         //border: unset;
+         border: 1px solid var(--bs-base-border-mood-theme);
+         &:hover {
+            border: 1px solid var(--bs-base-border-mood-theme);
+         }
+      }
+      .clear-button {
+         background-color: var(--bs-gray-400);
+         color: var(--bs-black-100);
+      }
+
+   }
+}

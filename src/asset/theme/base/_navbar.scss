@@ -1,0 +1,82 @@
+.navbar-main {
+    padding: 0 20px;
+    background-color: var(--bs-white-mood-theme);
+    box-shadow: 6px 2px 14px 0 #9aa1ab26;
+    min-height: 65px;
+    position: fixed;
+    left: 240px;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    transition: 0.5s;
+
+    .button-menu-mobile {
+        color: var(--bs-black-100-rgb);
+        float: left;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        font-size: 16px;
+        width: 55px;
+        height: 40px;
+        position: relative;
+        margin-left: -15px;
+        outline: none;
+
+        svg {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    .title-of-page,
+    h5 {
+        margin-bottom: 0 !important;
+    }
+
+    .navbar-menu {
+        position: relative;
+        z-index: 1;
+    }
+
+    .navbar-menu li {
+        float: left;
+        max-height: 65px;
+    }
+
+    .dropdown-menu {
+        margin-top: 1rem !important;
+        border-color: var(--bs-neutral-500);
+    }
+
+    &.body-wp-small {
+        left: 60px;
+    }
+}
+
+@include media-breakpoint-between(md, xl) {
+    .navbar-main {
+        left: 60px;
+
+        .button-menu-mobile {
+            margin-left: -15px;
+        }
+    }
+}
+
+@include media-breakpoint-between(0, sm) {
+    .navbar-main {
+        left: 0;
+        &.body-wp-small {
+            left: 0;
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .navbar-main {
+        padding: 0 15px;
+    }
+}

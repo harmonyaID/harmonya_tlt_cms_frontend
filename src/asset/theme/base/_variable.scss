@@ -1,0 +1,302 @@
+// Import Bootstrap's core
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+$theme-attribute-name: "data-bs-theme" !default;
+
+$bs-gutter-x: 1.25rem;
+$bs-gutter-x-sm: 25px;
+$bs-gutter-x-sm: 25px;
+
+// scss-docs-start border-radius-variables
+$border-radius: 0.5rem;
+$border-radius-sm: 0.2rem !default;
+$border-radius-lg: 0.3rem !default;
+$border-radius-pill: 50rem !default;
+
+$btn-border-radius: 0.5rem;
+$btn-border-radius-sm: $border-radius-sm !default;
+$btn-border-radius-lg: $border-radius-lg !default;
+// scss-docs-end border-radius-variables
+
+//Colors
+//$primary-brand: #30BEB3;
+//$primary: #30BEB3;
+$primary-brand: #00A79C;
+$primary: #00A79C;
+$secondary-brand: #606060;
+
+$neutral-100: #26273b;
+$neutral-200: #454560;
+$neutral-300: #6f708b;
+$neutral-400: #acadc1;
+$neutral-500: #f0f0f5;
+$neutral-600: #f9f9fc;
+$neutral-700: #f4f6f9;
+
+$gray-100: #f9f9f9;
+$gray-200: #f4f4f4;
+$gray-300: #e1e3ea;
+$gray-400: #b5b5c3;
+$gray-500: #a1a5b7;
+$gray-600: #7e8299;
+$gray-700: #5e6278;
+$gray-800: #3f4254;
+$gray-900: #181c32;
+
+$tint-100: #322800;
+$tint-200: #ae8d00;
+$tint-300: #30BEB3;
+$tint-400: #fbd94d;
+$tint-500: #fde999;
+$tint-600: #fefae6;
+
+$blue-100: #18255c;
+$blue-200: #2b40a1;
+$blue-300: #3d5ce6;
+$blue-400: #647deb;
+$blue-500: #c5cef8;
+$blue-600: #eceffd;
+
+$success-100: #208e66;
+$success-200: #2db986;
+$success-300: #c0f4e1;
+
+$danger-100: #a73442;
+$danger-200: #de5263;
+$danger-300: #facdd3;
+
+$warning-100: #a58d38;
+$warning-200: #efcf5d;
+$warning-300: #f8efd1;
+
+$info-100: #3461a5;
+$info-200: #669ae8;
+$info-300: #dce8fa;
+
+$black-100: #000;
+$white-100: #fff;
+
+// COLOR FOR SWITCH MOOD
+$white-mood-theme: #ffffff;
+$base-border-mood-theme: #f4f4fa;
+
+//$body-bg: #181819;
+//$body-color: #f1f1f3;
+
+$theme-colors: (
+   'primary-brand': $primary-brand,
+   'secondary-brand': $secondary-brand,
+   'primary': $primary,
+
+   'neutral-100': $neutral-100,
+   'neutral-200': $neutral-200,
+   'neutral-300': $neutral-300,
+   'neutral-400': $neutral-400,
+   'neutral-500': $neutral-500,
+   'neutral-600': $neutral-600,
+   'neutral-700': $neutral-700,
+
+   'gray-100': $gray-100,
+   'gray-200': $gray-200,
+   'gray-300': $gray-300,
+   'gray-400': $gray-400,
+   'gray-500': $gray-500,
+   'gray-600': $gray-600,
+   'gray-700': $gray-700,
+   'gray-800': $gray-800,
+   'gray-900': $gray-900,
+
+   'tint-100': $tint-100,
+   'tint-200': $tint-200,
+   'tint-300': $tint-300,
+   'tint-400': $tint-400,
+   'tint-500': $tint-500,
+   'tint-600': $tint-600,
+
+   'blue-100': $blue-100,
+   'blue-200': $blue-200,
+   'blue-300': $blue-300,
+   'blue-400': $blue-400,
+   'blue-500': $blue-500,
+   'blue-600': $blue-600,
+
+   'success': $success-300,
+   'success-100': $success-100,
+   'success-200': $success-200,
+   'success-300': $success-300,
+
+   'danger': $danger-200,
+   'danger-100': $danger-100,
+   'danger-200': $danger-200,
+   'danger-300': $danger-300,
+
+   'warning': $warning-200,
+   'warning-100': $warning-100,
+   'warning-200': $warning-200,
+   'warning-300': $warning-300,
+
+   'info': $info-100,
+   'info-100': $info-100,
+   'info-200': $info-200,
+   'info-300': $info-300,
+
+   'black-100': $black-100,
+
+   'white': $white-100,
+   'white-100': $white-100,
+   'white-full': $white-100,
+
+   'white-mood-theme': $white-mood-theme,
+   'base-border-mood-theme': $base-border-mood-theme,
+);
+
+// ========= VAR ROOT
+:root {
+   // Table*
+   --gx-tbl-border-th-color: #f0f0f5;
+   --gx-tbl-bg-hover: #f9f9ff;
+
+   // Navbar Tab
+   --gx-tab-border-color: rgba(0, 0, 0, 0.1);
+
+   // Form
+   --gx-input-border-color: #c9c9d8;
+
+   --time-transastion: 0.5s;
+
+   // Var Custom Modal
+   --gx-custom-modal: rgba(69, 69, 96, 0.25);
+   --gx-custom-modal-bg-btn: rgba(0, 0, 0, 0.5);
+
+   // Body
+   --bs-body-bg: #fff;
+   --bs-body-color: #1b1b1b;
+}
+
+// font family
+$font-family-base: 'Inter';
+$font-family-sans-serif: 'Inter';
+$font-family-monospace: 'Inter';
+
+// Form
+
+// scss-docs-start form-text-variables
+$form-text-margin-top: 0.25rem;
+$form-text-font-size: .875em !default;
+$form-text-font-style: normal;
+$form-text-font-weight: normal;
+$form-text-color: var(--bs-neutral-100);
+// scss-docs-end form-text-variables
+
+// scss-docs-start form-label-variables
+$form-label-margin-bottom: 0.5rem;
+$form-label-font-size: 0.875rem;
+$form-label-font-style: normal;
+$form-label-font-weight: 400;
+$form-label-color: var(--bs-neutral-200);
+// scss-docs-end form-label-variables
+
+// scss-docs-start form-input-variables
+$input-padding-y: $input-btn-padding-y !default;
+$input-padding-x: $input-btn-padding-x !default;
+$input-font-family: $input-btn-font-family !default;
+$input-font-size: 1rem;
+//$input-font-size: 0.875rem;
+$input-font-weight: $font-weight-base !default;
+$input-line-height: $input-btn-line-height !default;
+
+$input-padding-y-sm: $input-btn-padding-y-sm !default;
+$input-padding-x-sm: $input-btn-padding-x-sm !default;
+$input-font-size-sm: $input-btn-font-size-sm !default;
+
+$input-padding-y-lg: $input-btn-padding-y-lg !default;
+$input-padding-x-lg: $input-btn-padding-x-lg !default;
+$input-font-size-lg: $input-btn-font-size-lg !default;
+
+$input-bg: var(--bs-white-mood-theme);
+$input-disabled-bg: var(--gx-input-border-color);
+$input-disabled-border-color: null !default;
+
+$input-color: var(--bs-neutral-200);
+$input-border-color: var(--gx-input-border-color);
+$input-border-width: $input-btn-border-width !default;
+$input-box-shadow: unset;
+
+$input-border-radius: 0.5rem;
+$input-border-radius-sm: $border-radius-sm !default;
+$input-border-radius-lg: $border-radius-lg !default;
+
+$input-focus-bg: $input-bg;
+$input-focus-border-color: var(--bs-yellow-400);
+$input-focus-color: $input-color;
+$input-focus-width: $input-btn-focus-width !default;
+$input-focus-box-shadow: unset;
+
+$input-placeholder-color: var(--bs-neutral-400);
+$input-plaintext-color: var(--bs-body-color);
+
+// Select Option
+$form-select-focus-border-color: var(--bs-yellow-400);
+$form-select-focus-box-shadow: unset;
+$form-select-border-color: var(--gx-input-border-color);
+
+// Cards
+$card-spacer-x: 1rem;
+$card-border-color: var(--bs-neutral-400);
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius: 0.5rem;
+$btn-border-radius-sm: $border-radius-sm !default;
+$btn-border-radius-lg: $border-radius-lg !default;
+
+$enable-cssgrid: true;
+
+// Table
+$table-striped-bg: #fcfcff;
+$table-striped-bg-factor: 0.05;
+
+$table-hover-bg: var(--gx-tbl-bg-hover);
+$table-active-bg: var(--gx-tbl-bg-hover);
+
+$table-cell-padding-y: 0.75rem;
+$table-cell-padding-x: 0.75rem;
+
+// Custom position
+$position-values: (
+   0: 0,
+   3: 1rem,
+   '65px': 65px,
+   '196px': 196px,
+   50: 50%,
+   100: 100%,
+);
+
+// Dropdown
+$dropdown-border-color: var(--bs-base-border-mood-theme);
+$dropdown-link-hover-bg: var(--bs-neutral-500);
+
+// List Group
+$list-group-border-color: var(--bs-base-border-mood-theme);
+$list-group-hover-bg: var(--bs-neutral-500);
+$list-group-active-bg: var(--bs-neutral-500);
+
+// Breadcrumb
+$breadcrumb-active-color: var(--bs-neutral-200);
+
+// Navbar
+$nav-tabs-link-active-color: var(--bs-primary-brand);
+$nav-tabs-link-active-bg: transparent;
+
+// Row
+$grid-columns: 12!default;
+$grid-gutter-width: $bs-gutter-x!default;
+$grid-row-columns:  6!default;
+
+// OffCanvas
+$offcanvas-backdrop-bg: var(--bs-neutral-200);
+$offcanvas-backdrop-opacity: 25%;
+$offcanvas-border-color: var(--bs-base-border-mood-theme);
+
+$min-contrast-ratio: 2;

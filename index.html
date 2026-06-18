@@ -4,10 +4,83 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>harmonya_tlt_cms_frontend</title>
+    <title>CRM - The Lembongan Traveller </title>
+
+    <!--Pace-->
+    <script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css" />
+    <style>
+      .pace .pace-progress {
+        background: #30BEB3;
+        position: fixed;
+        z-index: 2000;
+        top: 0;
+        right: 100%;
+        width: 100%;
+        height: 3px;
+      }
+
+      /* Container untuk gambar */
+      .image-container {
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Gaya untuk gambar dan animasi opacity */
+      .first-load-animated-image {
+        width: 100%;
+        height: auto;
+        opacity: 0;
+        max-width: 100%;
+        animation: fadeInOut 2s infinite;
+      }
+
+      /* Keyframes untuk animasi */
+      @keyframes fadeInOut {
+        0%,
+        100% {
+          max-width: 80%;
+          opacity: 0.2;
+        }
+        50% {
+          max-width: 100%;
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <div id="root">
+    <!--Loading Page-->
+    <div style="height: 100vh; position: relative">
+      <div
+              style="
+                        max-width: 300px;
+                        padding: 2rem;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        position: absolute;
+                        text-align: center;
+                    ">
+        <img
+                src="/src/asset/image/splashScreen/logo-tlm-default-splash-screen.svg"
+                alt="Loading"
+                class="first-load-animated-image"
+                style="max-width: 100%; height: auto" />
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.tsx"></script>
+  <div
+          class="pgn-wrapper"
+          data-position="top-right"
+          id="container-pgn-wrapper"></div>
   </body>
 </html>
