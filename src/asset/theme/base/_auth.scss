@@ -8,7 +8,8 @@
     .wp-image {
         background: linear-gradient(
                 0deg,
-                rgba(0, 0, 0, 1) 0%,
+                //rgba(0, 0, 0, 1) 0%,
+                        rgba(3 16 15) 0%,
                 rgba(255, 255, 255, 0) 25%
             ),
             url('/src/asset/image/background/bg-auth.webp');
@@ -22,7 +23,8 @@
     .wp-image-night {
         background: linear-gradient(
                 0deg,
-                rgba(0, 0, 0, 1) 0%,
+                //rgba(0, 0, 0, 1) 0%,
+                        rgba(3 16 15) 0%,
                 rgba(255, 255, 255, 0) 25%
             ),
             url('/src/asset/image/background/bg-night.webp');

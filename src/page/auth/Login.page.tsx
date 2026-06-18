@@ -116,7 +116,7 @@ const LoginPage: FC = () => {
                                 type="submit"
                                 isDisabled={isLoading}
                                 isLoading={isLoading}
-                                className="btn-small w-100 px-4 mt-3">
+                                className="w-100 mt-3">
                                 Sign In
                             </BtnPrimary>
                         </WrapFormContext>
