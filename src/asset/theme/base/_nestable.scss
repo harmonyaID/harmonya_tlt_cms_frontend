@@ -1,0 +1,20 @@
+.nested-menu {
+   .single-item:hover {background-color: var(--bs-neutral-600);}
+   .single-item {padding: 0.5rem;}
+   .nestable-item-name {
+      padding: unset !important;
+      .label-menu {
+         display: flex;
+         align-items: center;
+      }
+      .label-menu:before {
+         content: url('../../image/icon/drag.svg');
+         margin-right: 0.8em;
+      }
+      .action {
+         display: flex;
+         align-items: center;
+         span {margin: 0 5px;}
+      }
+   }
+}

@@ -1,0 +1,141 @@
+.table th,
+.table td {
+   padding: 0.75rem;
+   vertical-align: top;
+   border-top: 1px solid #dee2e6;
+}
+
+.table-borderless {
+   thead th {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-weight: 600;
+   }
+
+   tbody tr {
+      &:hover {
+         cursor: pointer;
+         background-color: var(--bs-tint-600);
+      }
+
+      td {
+         border: none;
+      }
+   }
+}
+
+/* Table Custom
+------------------------------------
+*/
+
+@mixin config_size_in_tbl($fw, $passColor, $fs) {
+   font-weight: $fw;
+   color: $passColor;
+   font-size: $fs;
+   border-color: var(--gx-tbl-border-th-color) !important;
+}
+
+.table.table-hover {
+   .tr {
+      &:hover {
+         background-color: var(--gx-tbl-bg-hover);
+      }
+   }
+}
+
+.table-custom {
+   th {
+      @include config_size_in_tbl(600, $neutral-100, 0.875rem);
+      border-top: 0;
+      border-bottom-width: 1px !important;
+   }
+   td {
+      color: $neutral-200;
+      font-weight: 400;
+      font-size: 0.875rem;
+      border-top: 0;
+      border-bottom: 1px solid #f0f0f5 !important;
+   }
+}
+
+.table-custom-dashed {
+   th {
+      @include config_size_in_tbl(500, var(--bs-neutral-200-rgb), 0.875rem);
+      border-top: 0;
+      border-bottom-width: 1px !important;
+      border-bottom-style: dashed !important;
+   }
+
+   td,
+   .td {
+      color: var(--bs-neutral-100);
+      font-weight: 400;
+      font-size: 0.875rem;
+      border-top: 0;
+      border-bottom: 1px dashed var(--gx-tbl-border-th-color) !important;
+   }
+}
+
+.table-box {
+   border: 1px solid #dee2e6;
+   thead th {
+      border-top: unset;
+      border-bottom-width: 1px;
+   }
+}
+
+.wp-tr-nowrap {
+   th {
+      white-space: nowrap;
+   }
+   td {
+      white-space: nowrap;
+   }
+}
+
+.tbl-last-no-border tbody > tr:last-child > td {
+   border-bottom: 0 !important;
+}
+
+.tbl-last-with-border-solid tbody > tr:last-child > td {
+   border-bottom: 1px solid var(--bs-border-color) !important;
+}
+
+.tbl-spinner-load {
+   height: 1rem;
+   width: 1rem;
+   border-width: 0.2rem;
+   margin-left: 0.5rem;
+}
+
+.tbl-head-bg-neutral-500 {
+   thead tr th {
+      background-color: var(--bs-neutral-500);
+   }
+}
+
+.table-sticky {
+   thead tr th {
+      top: 0;
+      position: sticky;
+      z-index: 1;
+   }
+}
+
+table {
+   td {
+      &.wp-border-status {
+         position: relative;
+
+         .border-status {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            height: 100%;
+         }
+      }
+   }
+}

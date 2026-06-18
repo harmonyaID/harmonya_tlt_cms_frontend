@@ -1,0 +1,126 @@
+@mixin configDarkMode($themeName) {
+
+   :root[#{$themeName}='dark'] {
+      $body-bg: #181819;
+      $body-color: #f1f1f3;
+      $base-border-mood-theme: #262626;
+
+      $theme-colors: (
+              'neutral-100': #dadada,
+              'neutral-200': #bdbdbd,
+              'neutral-300': #8f8f8f,
+              'neutral-400': #686868,
+              'neutral-500': #2a2a2a,
+              'neutral-600': #272725,
+              'neutral-700': #10100f,
+
+              'gray-100': #2c2c2e,
+              'gray-200': #404041,
+              'gray-300': #525254,
+              'gray-400': #656566,
+              'gray-500': #787879,
+              'gray-600': #8a8a8b,
+              'gray-700': #9e9e9e,
+              'gray-800': #b0b0b1,
+              'gray-900': #bababa,
+
+              'tint-100': #fefae6,
+              'tint-200': #fde999,
+              'tint-300': #fbd94d,
+              'tint-400': #f9c900,
+              'tint-500': #ae8d00,
+              'tint-600': #322800,
+
+              'blue-100': #eceffd,
+              'blue-200': #c3ccf7,
+              'blue-300': #a6b4f4,
+              'blue-400': #7d92ee,
+              'blue-500': #647deb,
+              'blue-600': #3d5ce6,
+
+              'body-bg': #181819,
+              'body-color': #f1f1f3,
+
+              'white-mood-theme': #181819,
+              'white': #181819,
+              'white-100': #181819,
+              'base-border-mood-theme': #262626,
+      );
+
+      // Config oop name without rgb
+      @each $color, $value in $theme-colors {
+         --#{$variable-prefix}#{$color}: #{$value};
+      }
+
+      // Config loop name with rgb
+      $theme-colors-rgb: map-loop($theme-colors, to-rgb, '$value');
+      @each $color, $value in $theme-colors-rgb {
+         --#{$variable-prefix}#{$color}-rgb: #{$value};
+      }
+
+      // Var Root
+      --gx-tbl-border-th-color: #383838;
+      --gx-tbl-bg-hover: #232323;
+      --gx-tab-border-color: #262626;
+      --gx-input-border-color: #454545;
+
+      // Var Custom Modal
+      --gx-custom-modal: rgba(189, 189, 189, 0.25);
+      --gx-custom-modal-bg-btn: rgba(187, 187, 187, 0.45);
+
+      --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+
+      // ========= Element =========
+      .navbar-main {
+         box-shadow: 6px 2px 14px 0 rgb(8, 8, 8);
+         border-bottom: 1px solid $base-border-mood-theme;
+
+         .button-menu-mobile {
+            color: var(--bs-body-color-rgb);
+         }
+      }
+
+      .page-sidebar {
+         .logo-container {
+            &.light-mode {
+               display: none;
+            }
+
+            &.dark-mode,
+            &.d-none {
+               display: flex !important;
+            }
+         }
+      }
+
+      .wp-bottom-footer {
+         border-top: 1px solid $base-border-mood-theme;
+         box-shadow: 0px -4px 5px 0 rgb(8 8 8 / 30%);
+      }
+
+      .slc-gx__control {
+         &.slc-gx__control--is-disabled {
+            background-color: var(--gx-input-border-color);
+         }
+
+         background-color: var(--bs-white-mood-theme);
+      }
+
+
+      // Select Ant
+      .ant-select-selector {
+         background-color: var(--bs-white-mood-theme);
+         color: var(--bs-neutral-200);
+         .ant-select-selection-placeholder {color: var(--bs-neutral-400);}
+         .ant-select-selection-item {background-color: var(--bs-base-border-mood-theme);}
+         .anticon-close {color: var(--bs-neutral-200);}
+      }
+
+      .btn-close {filter: var(--bs-btn-close-white-filter);}
+
+      // Logo Splash Screen
+      .default-logo {display: none!important;}
+      .dark-mode-logo {display: block!important;}
+   }
+
+}

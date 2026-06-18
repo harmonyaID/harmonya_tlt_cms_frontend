@@ -1,0 +1,97 @@
+@import '_variable';
+
+.login-wrapper {
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    .wp-image {
+        background: linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(255, 255, 255, 0) 25%
+            ),
+            url('/src/asset/image/background/bg-auth.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow: hidden;
+        padding: 80px 80px 67px;
+    }
+
+    .wp-image-night {
+        background: linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(255, 255, 255, 0) 25%
+            ),
+            url('/src/asset/image/background/bg-night.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow: hidden;
+        padding: 80px 80px 67px;
+    }
+
+    .wp-image-gx-people {
+        background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0 0 0 / 27%) 25%), url(/src/asset/image/background/bg-auth.webp);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        overflow: hidden;
+        padding: 80px 80px 67px;
+    }
+
+
+    .wp-auth {
+        padding: 40px 16px 20px;
+    }
+}
+.login-wrapper > * {
+    height: 100%;
+}
+.logo-admin-login {
+    //width: calc(100% - 72%);
+    width: 101px;
+    //width: 30vh;
+    //width: 250px;
+}
+.btn-login {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+.wp-image {
+    background: linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(255, 255, 255, 0) 25%
+        ),
+        url('../../../asset/image/background/bg-auth.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    padding: 80px 80px 67px;
+}
+
+@include media-breakpoint-up(lg) {
+    .login-wrapper {
+        .wp-image {padding: 80px 80px 67px;
+        }
+        .wp-auth {
+            padding: 80px 40px 4px;
+        }
+    }
+}
+
+@include media-breakpoint-between(md, lg) {
+    .login-wrapper {
+        .wp-image {
+            padding: 80px 40px 67px;
+        }
+        .wp-auth {
+            padding: 80px 40px 4px;
+        }
+    }
+}

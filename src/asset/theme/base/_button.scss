@@ -1,0 +1,62 @@
+.with-icon-svg {
+   display: flex;
+   align-items: center;
+   svg {margin-left: 0.25rem;}
+}
+
+.btn-circle-icon {
+   cursor: pointer;
+   width: 1.625rem;
+   height: 1.625rem;
+   border-radius: 50%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 2px;
+}
+
+.btn-icon-remove-top-right {
+   position: absolute;
+   top: 0.5rem;
+   right: 0.5rem;
+   box-shadow: 0 2px 2px #00000045;
+}
+
+.btn-close {
+   height: 0.5em;
+   width: 0.5em;
+}
+
+.wp-btn-filter {
+   .btn-filter {
+      &:disabled {
+         border: 1px solid transparent;
+      }
+   }
+
+   .btn-count-filter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateX(7px) translateY(2px);
+      height: 20px;
+      min-width: 20px;
+      border: 2px solid var(--bs-base-border-mood-theme);
+   }
+}
+
+.flatpickr-time {
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-dropdown-priority {
+   font-size: 0.75rem;
+   line-height: 1.25;
+   background-color: transparent;
+   color: inherit;
+   border: 1px solid transparent;
+   padding: 0.25rem 0.5rem;
+}

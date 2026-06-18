@@ -1,9 +1,9 @@
 import { Children } from 'react'
 import { Pagination, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/scss'
-import 'swiper/scss/pagination'
-import 'swiper/scss/navigation'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import {
     CardSliderDefaultProps,
