@@ -3,9 +3,6 @@ import { NavLink, useLocation } from 'react-router'
 import {
     // General
     Home,
-    FolderOpen,
-    FolderCloud,
-    CpuSetting,
     Setting,
 
     // Content Management
@@ -34,8 +31,14 @@ import {
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context'
 import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.ts'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
-// import assetServicePath from '@/path/assetService.path.ts'
 import dashboardPath from '@/path/dashboard.path'
+import homePath from '@/path/home.path'
+import pagePath from '@/path/page.path'
+import blogPath from '@/path/blog.path'
+import cmSettingPath from '@/path/cmSetting.path.ts'
+import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
+import propertyPath from '@/path/property.path.ts'
+import propertySettingPath from '@/path/propertySetting.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -181,12 +184,12 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Home"
-                    to="/cm-home"
+                    to={homePath.main}
                     icon={<MenuBoard variant="Bulk" />}
                     idControl="cm-home"
                     subMenus={[
-                        _configParamSubMenu('Page', '/cm-home/page'),
-                        _configParamSubMenu('Banner', '/cm-home/banner'),
+                        _configParamSubMenu('Page', homePath.page),
+                        _configParamSubMenu('Banner', homePath.banner),
                     ]}
                 />
             </li>
@@ -194,25 +197,25 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                 <LinkMenu
                     name="Page"
                     icon={<TaskSquare variant="Bulk" />}
-                    to="/cm-page"
+                    to={pagePath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
                     name="Blog"
                     icon={<Blogger variant="Bulk" />}
-                    to="/cm-blog"
+                    to={blogPath.main}
                 />
             </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Setting CM"
-                    to="/cm-setting"
+                    to={cmSettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="cm-setting"
                     subMenus={[
-                        _configParamSubMenu('Page', '/cm-setting/page'),
-                        _configParamSubMenu('Blog', '/cm-setting/blog'),
+                        _configParamSubMenu('Page', cmSettingPath.page),
+                        _configParamSubMenu('Blog', cmSettingPath.blog),
                     ]}
                 />
             </li>
@@ -222,30 +225,30 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                 <LinkMenu
                     name="Property"
                     icon={<Building variant="Bulk" />}
-                    to="/property"
+                    to={propertyPath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
                     name="Booking System"
                     icon={<CalendarTick variant="Bulk" />}
-                    to="/property-booking-system"
+                    to={propertyBookingSystemPath.main}
                 />
             </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Setting Property"
-                    to="/property-setting"
+                    to={propertySettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="property-setting"
                     subMenus={[
                         _configParamSubMenu(
                             'General',
-                            '/property-setting/general',
+                            propertySettingPath.general,
                         ),
                         _configParamSubMenu(
                             'Integration',
-                            '/property-setting/integration',
+                            propertySettingPath.integration,
                         ),
                     ]}
                 />
