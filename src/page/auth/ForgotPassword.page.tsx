@@ -10,8 +10,16 @@ import { BtnPrimary } from '@/component/general/Button.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 
 import '@/asset/theme/base/_auth.scss'
+import { apiAuthForgotPassword } from '@/service/api/auth.api.ts'
+import { isSuccess } from '@/helper/base/condition.helper.ts'
+import useIsLoginHook from '@/hook/useIsLogin.hook.ts'
+import { useNavigate } from 'react-router'
 
 const ForgotPasswordPage = () => {
+    useIsLoginHook()
+
+    const navigate = useNavigate()
+
     const [formRequest, setFormRequest] = useState({
         email: '',
     })
@@ -25,7 +33,20 @@ const ForgotPasswordPage = () => {
         }))
     }
 
-    const _handleSubmit = async () => {}
+    const _handleSubmit = async () => {
+        setIsLoading(true)
+
+        apiAuthForgotPassword(formRequest)
+            .then((resData) => {
+                setIsLoading(false)
+                if (isSuccess(resData)) {
+                    navigate(authPath.login)
+                }
+            })
+            .catch((err) => {
+                setIsLoading(false)
+            })
+    }
 
     return (
         <>
@@ -63,6 +84,7 @@ const ForgotPasswordPage = () => {
 
                             <BtnPrimary
                                 type="submit"
+                                className="w-100 mt-3"
                                 isDisabled={isLoading}
                                 isLoading={isLoading}>
                                 Reset Password
