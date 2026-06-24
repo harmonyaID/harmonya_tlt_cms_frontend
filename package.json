@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port 6500",
     "_build_disabled": "tsc -b && vite build",
-    "build:development": "tsc -b && vite build --mode .env.development",
+    "build:development": "tsc -b && vite build --mode .env.dev",
     "build:staging": "tsc -b && vite build --mode .env.staging",
     "build:production": "tsc -b && vite build --mode .env.production --debug",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
