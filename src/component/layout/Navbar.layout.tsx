@@ -50,6 +50,7 @@ import { Loading, NotAvailable } from '../general/TextDefault'
 // import LoadingSpinner from '../loading/LoadingSpinner'
 import ShortAddDropdownMenu from './_menu/ShortAddDropdown.menu'
 import { NavbarProps } from './type/layout.type'
+import { apiAuthLogout } from '@/service/api/auth.api.ts'
 
 const NavbarLayout = ({ title = '' }: NavbarProps) => {
     // const {
@@ -237,10 +238,7 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
             <ModalConfirmLogout
                 configHandle={{
                     // change this with relate logout API
-                    // urlAPI: () => apiAuthLogout(),
-                    urlAPI: () => {
-                        return null
-                    },
+                    urlAPI: () => apiAuthLogout(),
                 }}
             />
         </>

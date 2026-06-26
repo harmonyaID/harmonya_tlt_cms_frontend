@@ -12,9 +12,9 @@ import authPath from '@/path/auth.path.ts'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormInputPassword from '@/component/form/FormInputPassword.tsx'
-import homePath from '@/path/home.path.ts'
 import { apiAuthLogin } from '@/service/api/auth.api.ts'
 import useIsLoginHook from '@/hook/useIsLogin.hook.ts'
+import dashboardPath from '@/path/dashboard.path.ts'
 
 type LoginMainParam = {
     email: string
@@ -48,7 +48,7 @@ const LoginPage = () => {
                 setIsLoading(false)
                 if (isSuccess(resData)) {
                     setLocalStorage(LS_TOKEN, resData.result.token)
-                    navigate(homePath.main)
+                    navigate(dashboardPath.main)
                 }
             })
             .catch((err) => {
