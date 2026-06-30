@@ -7,6 +7,7 @@ import {
 
     // Content Management
     MenuBoard,
+    Home3,
     TaskSquare,
     Blogger,
 
@@ -32,13 +33,15 @@ import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context'
 import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.ts'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import dashboardPath from '@/path/dashboard.path'
-import homePath from '@/path/home.path'
+import contentHomePagePath from '@/path/contentHomePage.path.ts'
 import pagePath from '@/path/page.path'
-import blogPath from '@/path/blog.path'
-import cmSettingPath from '@/path/cmSetting.path.ts'
+import contentBlogPath from '@/path/contentBlog.path'
+import contentSettingPath from '@/path/contentSetting.path.ts'
 import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
 import propertyPath from '@/path/property.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
+import userPath from '@/path/user.path.ts'
+import contentAllPagesPath from '@/path/contentAllPages.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -182,40 +185,46 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
 
             <MenuSection name="Content Management" />
             <li className="submenu-dropdown">
-                <LinkMenuDropdown
-                    name="Home"
-                    to={homePath.main}
-                    icon={<MenuBoard variant="Bulk" />}
-                    idControl="cm-home"
-                    subMenus={[
-                        _configParamSubMenu('Page', homePath.page),
-                        _configParamSubMenu('Banner', homePath.banner),
-                    ]}
+                {/*<LinkMenuDropdown*/}
+                {/*    name="Home"*/}
+                {/*    to={homePath.main}*/}
+                {/*    icon={<MenuBoard variant="Bulk" />}*/}
+                {/*    idControl="cm-home"*/}
+                {/*    subMenus={[*/}
+                {/*        _configParamSubMenu('Page', homePath.page),*/}
+                {/*        _configParamSubMenu('Banner', homePath.banner),*/}
+                {/*    ]}*/}
+                {/*/>*/}
+
+                <LinkMenu
+                    name="Home Page"
+                    icon={<Home3 variant="Bulk" />}
+                    to={contentHomePagePath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
-                    name="Page"
+                    name="All Pages"
                     icon={<TaskSquare variant="Bulk" />}
-                    to={pagePath.main}
+                    to={contentAllPagesPath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
                     name="Blog"
                     icon={<Blogger variant="Bulk" />}
-                    to={blogPath.main}
+                    to={contentBlogPath.main}
                 />
             </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Setting CM"
-                    to={cmSettingPath.main}
+                    to={contentSettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="cm-setting"
                     subMenus={[
-                        _configParamSubMenu('Page', cmSettingPath.page),
-                        _configParamSubMenu('Blog', cmSettingPath.blog),
+                        _configParamSubMenu('Page', contentSettingPath.page),
+                        _configParamSubMenu('Blog', contentSettingPath.blog),
                     ]}
                 />
             </li>
@@ -265,11 +274,11 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Account"
-                    to="/sm-account"
+                    to={userPath.basic}
                     icon={<Profile2User variant="Bulk" />}
                     idControl="sm-user"
                     subMenus={[
-                        _configParamSubMenu('Users', '/sm-account/users'),
+                        _configParamSubMenu('Users', userPath.main),
                         _configParamSubMenu(
                             'Role & Permission',
                             '/sm-account/role-permission',

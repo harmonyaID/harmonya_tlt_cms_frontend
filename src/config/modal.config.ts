@@ -41,3 +41,13 @@ export const MDServiceAssetRemoveDirectory: string =
 export const MDServiceAssetRemoveFile: string = 'modalServiceAssetRemoveFile'
 
 export const MDAssetServiceFileAdd = 'modalServiceAssetFileAdd'
+
+// Content Page Setting
+export const MDPSTabFAQAdd = 'modalSettingPageFAQAdd'
+export const MDPSTabFAQRemove = 'modalSettingPageFAQRemove'
+
+export const MDPSTabLanguageAdd = 'modalSettingPageLanguageAdd'
+export const MDPSTabLanguageRemove = 'modalSettingPageLanguageRemove'
+
+export const MDPSTabTLTReviewAdd = 'modalSettingPageTLTReviewAdd'
+export const MDPSTabTLTReviewRemove = 'modalSettingPageTLTReviewRemove'

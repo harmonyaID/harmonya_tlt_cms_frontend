@@ -16,7 +16,7 @@
   "dependencies": {
     "antd": "^6.4.4",
     "async": "^3.2.6",
-    "axios": "^1.18.0",
+    "axios": "^1.18.1",
     "bootstrap": "^5.3.8",
     "currency-formatter": "^1.5.9",
     "flatpickr": "^4.6.13",

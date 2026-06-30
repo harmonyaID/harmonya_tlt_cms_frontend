@@ -27,7 +27,7 @@ export const TextTrueOrFalse: FC<TextTrueOrFalseProps> = ({
                             variant="Bold"
                             size={iconSize}
                             className={joinClassNameHelper(
-                                'color-status-green-600',
+                                'text-success-200',
                                 classNameIcon,
                             )}
                         />
@@ -36,7 +36,7 @@ export const TextTrueOrFalse: FC<TextTrueOrFalseProps> = ({
                             variant="Bold"
                             size={iconSize}
                             className={joinClassNameHelper(
-                                'color-status-red-500',
+                                'text-danger-200',
                                 classNameIcon,
                             )}
                         />
