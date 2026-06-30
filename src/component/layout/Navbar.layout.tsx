@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { Menu as IconFeatherMenu, Plus } from 'react-feather'
 import { Link } from 'react-router'
@@ -186,6 +187,22 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
                         <div
                             className="dropdown-menu topbar-dropdown-menu"
                             aria-labelledby="dropdownMenuProfile">
+                            {__profile ? (
+                                <div className="px-3 py-2 mb-2">
+                                    <div className="w-100">
+                                        <p className="text-neutral-100 fs-14 fw-600 mb-0 text-truncate">
+                                            {__profile.fullName}
+                                        </p>
+
+                                        {__profile?.email ? (
+                                            <p className="text-neutral-400 fs-12 mb-0 text-truncate">
+                                                {__profile.email}
+                                            </p>
+                                        ) : null}
+                                    </div>
+                                </div>
+                            ) : null}
+
                             <div className="dropdown-item p">
                                 Version {String(__APP_VERSION__)}
                             </div>

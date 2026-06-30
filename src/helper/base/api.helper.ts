@@ -1,3 +1,5 @@
+'use client'
+
 import axios, { AxiosRequestConfig, AxiosError } from 'axios'
 
 interface KeyCancel {
@@ -55,6 +57,7 @@ export const configMethod = (
         headers: { ...headers },
         withCredentials: false,
         ...others,
+        // validateStatus: (status) => status >= 200 && status < 300,
     })
 }
 
@@ -69,9 +72,7 @@ export const post = (
     payload: any,
     others: AxiosRequestConfig = {},
     headers: AxiosRequestConfig['headers'] = {},
-) => {
-    return configMethod('POST', url, headers, { data: payload, ...others })
-}
+) => configMethod('POST', url, headers, { data: payload, ...others })
 
 export const put = (
     url: string,

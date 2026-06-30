@@ -6,11 +6,12 @@ import {
     useLayoutEffect,
     ReactNode,
 } from 'react'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNull } from 'lodash'
 import {
     LS_MODE_THEME,
     LS_PERMISSION,
     LS_ROLES,
+    LS_TOKEN,
 } from '@/config/localStrorage.config'
 import {
     clearSettingBodyLayout,
@@ -27,7 +28,9 @@ import {
     getLocalStorage,
     setLocalStorage,
 } from '@/helper/base/localStorage.helper.ts'
+import { useNavigate, useLocation } from 'react-router'
 import useProfileHook from '@/hook/useProfile.hook'
+import authPath from '@/path/auth.path.ts'
 // import { getBusinessRoleAndPermission } from '@/service/api/access/access.api'
 
 type GlobalPrivateContextType = any
@@ -40,7 +43,10 @@ const GlobalPrivateContext = createContext<GlobalPrivateContextType>(null)
 export const WrapGlobalPrivateContext = ({
     children,
 }: GlobalPrivateCtxProps) => {
+    const navigate = useNavigate()
+    const location = useLocation()
     const useProfile = useProfileHook()
+
     const [isSidebarSmall, setIsSidebarSmall] = useState<boolean>(false)
     const [access, setAccess] = useState({
         roles: {},
@@ -88,6 +94,17 @@ export const WrapGlobalPrivateContext = ({
             settingThemeMode(event.newValue)
         } else if (event.key === LS_ROLES || event.key === LS_PERMISSION) {
             _handleCheckRenderAccess()
+        } else if (
+            event.storageArea === localStorage &&
+            isNull(getLocalStorage(LS_TOKEN))
+        ) {
+            console.log('location: ', location)
+            navigate(authPath.login, {
+                state: {
+                    from: location,
+                },
+            })
+            localStorage.clear()
         }
     }
 

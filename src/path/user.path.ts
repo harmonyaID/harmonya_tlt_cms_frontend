@@ -1,0 +1,10 @@
+import { objectPathMenu } from '@/config/base/objectPath.config.js'
+
+const basic = 'sm-account'
+
+const userPath = {
+    basic: '/' + basic,
+    ...objectPathMenu(basic + '/users'),
+}
+
+export default userPath

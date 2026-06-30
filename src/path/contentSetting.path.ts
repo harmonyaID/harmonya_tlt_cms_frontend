@@ -1,9 +1,9 @@
 const main = '/cm-setting'
 
-const cmSettingPath = {
+const contentSettingPath = {
     main,
     page: main + '/page',
     blog: main + '/blog',
 }
 
-export default cmSettingPath
+export default contentSettingPath
