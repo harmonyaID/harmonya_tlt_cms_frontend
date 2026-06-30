@@ -38,13 +38,13 @@ import CardPreview from '@/component/card/CardPreview.tsx'
 const initForm = {
     code: '',
     country: '',
-    main: 'false',
+    main: '0',
 }
 
 const initMapForm = (passData) => ({
     code: passData.code || '',
     country: passData.country || '',
-    main: passData.main || 'false',
+    main: passData.main ? '1' : '0',
 })
 
 const TabLanguage = () => {
@@ -110,7 +110,7 @@ const TabLanguage = () => {
             ) : (
                 <div className="row g-3">
                     {__list.map((vm, index) => (
-                        <div className="col-lg-3 col-md-6">
+                        <div className="col-lg-3 col-md-6" key={index}>
                             <CardPreview className="mb-0 h-100">
                                 <div className="hstack gap-2 justify-content-between flex-wrap mb-3 align-items-start">
                                     <h6 className="fw-500 text-neutral-100 mb-0">
@@ -129,7 +129,7 @@ const TabLanguage = () => {
                                         actions={{
                                             remove: (e) => {
                                                 e.stopPropagation()
-                                                __actionRemove(vm.id)
+                                                _handleChooseRemove(vm)
                                             },
                                         }}
                                     />
@@ -162,9 +162,9 @@ const TabLanguage = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabFAQRemove}
+                    id={MDPSTabLanguageRemove}
                     configHandle={{
-                        urlAPI: () => apiFAQ.delete(dataForRemove.id),
+                        urlAPI: () => apiLanguage.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -206,11 +206,11 @@ const TabLanguage = () => {
                                 name="main"
                                 checkBoxs={[
                                     {
-                                        defaultValue: false,
+                                        defaultValue: '0',
                                         label: 'No',
                                     },
                                     {
-                                        defaultValue: true,
+                                        defaultValue: '1',
                                         label: 'Yes',
                                     },
                                 ]}
