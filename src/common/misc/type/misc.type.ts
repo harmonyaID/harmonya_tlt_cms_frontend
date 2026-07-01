@@ -165,7 +165,11 @@ export interface PreviewFileModalLogicProps {
     dataUrl: string
     dataBy?: string
     dataFile?: object | any
+    isShowBtnRemove?: boolean
     classNameWidth?: string
+    actions?: {
+        remove: () => void
+    }
 }
 
 export interface PreviewFileModalMultiLogicProps {

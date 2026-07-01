@@ -4,6 +4,7 @@ import TabFAQ from '@/page/contentSetting/pageSetting/container/TabFAQ.tsx'
 import TabLanguage from '@/page/contentSetting/pageSetting/container/TabLanguage.tsx'
 import TabTLTReview from '@/page/contentSetting/pageSetting/container/TabTLTReview.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
+import TabMediaPartner from '@/page/contentSetting/pageSetting/container/TabMediaPartner.tsx'
 
 const PageSettingPage = () => {
     return (
@@ -17,11 +18,13 @@ const PageSettingPage = () => {
                     objectTab('FAQ', 'tabFAQ'),
                     objectTab('Language', 'tabLanguage'),
                     objectTab('TLT Review', 'tabTLTReview'),
+                    objectTab('Media Partner', 'tabMediaPartner'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabFAQ />),
                     objectTabContent('', <TabLanguage />),
                     objectTabContent('', <TabTLTReview />),
+                    objectTabContent('', <TabMediaPartner />),
                 ]}
             />
         </>

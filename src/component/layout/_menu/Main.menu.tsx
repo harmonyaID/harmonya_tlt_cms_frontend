@@ -42,6 +42,11 @@ import propertyPath from '@/path/property.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
 import userPath from '@/path/user.path.ts'
 import contentAllPagesPath from '@/path/contentAllPages.path.ts'
+import {
+    smActivityLogPath,
+    smPlatformInfoPath,
+    smWebConfigPath,
+} from '@/path/systemManagement.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -264,13 +269,6 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
 
             <MenuSection name="System Management" />
-            <li className="">
-                <LinkMenu
-                    name="Website Config"
-                    icon={<GlobalEdit variant="Bulk" />}
-                    to="/sm-website-config"
-                />
-            </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Account"
@@ -281,23 +279,30 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                         _configParamSubMenu('Users', userPath.main),
                         _configParamSubMenu(
                             'Role & Permission',
-                            '/sm-account/role-permission',
+                            userPath.roleAndPermission.main,
                         ),
                     ]}
                 />
             </li>
             <li className="">
                 <LinkMenu
-                    name="Activity Log"
-                    icon={<Clock variant="Bulk" />}
-                    to="/sm-activity-log"
+                    name="Website Config"
+                    icon={<GlobalEdit variant="Bulk" />}
+                    to={smWebConfigPath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
-                    name="Platform Information"
+                    name="Activity Log"
+                    icon={<Clock variant="Bulk" />}
+                    to={smActivityLogPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Platform Info"
                     icon={<InfoCircle variant="Bulk" />}
-                    to="/sm-platform"
+                    to={smPlatformInfoPath.main}
                 />
             </li>
         </>

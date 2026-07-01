@@ -10,3 +10,11 @@ export const SrvLanguageCRUD: SrvWithFeature = objectPathEndPointAPI(
 export const SrvFAQCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/faqs',
 )
+
+export const SrvTLTReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPI + '/tlt-reviews',
+)
+
+export const SrvMediaPartnerCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPI + '/media-partners',
+)

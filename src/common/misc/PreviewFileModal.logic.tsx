@@ -11,12 +11,16 @@ import {
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import { IframeLayoutProps, PreviewFileModalLogicProps } from './type/misc.type'
 
-
 const PreviewFileModalLogic: FC<PreviewFileModalLogicProps> = ({
     dataUrl = '',
     dataBy = 'url',
     dataFile = {},
     classNameWidth = 'w-25',
+    isShowBtnRemove = false,
+
+    actions = {
+        remove: () => {},
+    },
 }) => {
     const [visible, setVisible] = useState<boolean>(false)
 

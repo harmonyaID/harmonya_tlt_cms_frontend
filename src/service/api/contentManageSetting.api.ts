@@ -5,8 +5,16 @@ import {
 import {
     SrvFAQCRUD,
     SrvLanguageCRUD,
-} from '@/service/api/_contentManageSetting.ts'
+    SrvMediaPartnerCRUD,
+    SrvTLTReviewCRUD,
+} from '@/service/api/_contentManageSetting.endPoint'
 
 export const apiLanguage = { ..._shapeObjectMethodCRUD(SrvLanguageCRUD) }
 
 export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }
+
+export const apiTLTReview = { ..._shapeObjectMethodCRUD(SrvTLTReviewCRUD) }
+
+export const apiMediaPartner = {
+    ..._shapeObjectMethodCRUD(SrvMediaPartnerCRUD),
+}

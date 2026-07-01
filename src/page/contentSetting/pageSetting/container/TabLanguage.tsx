@@ -4,23 +4,15 @@ import {
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiFAQ, apiLanguage } from '@/service/api/contentManageSetting.api.ts'
+import { apiLanguage } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
-    MDPSTabFAQAdd,
-    MDPSTabFAQRemove,
     MDPSTabLanguageAdd,
     MDPSTabLanguageRemove,
 } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import {
-    TblLineFirst,
-    TblPointData,
-} from '@/component/general/TablePartial.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
@@ -28,11 +20,9 @@ import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import { isEmpty } from 'lodash'
 import { Loading, NotAvailable } from '@/component/general/TextDefault.tsx'
-import Card from '@/component/card/Card.tsx'
 import CardPreview from '@/component/card/CardPreview.tsx'
 
 const initForm = {
