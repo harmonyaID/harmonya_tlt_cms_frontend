@@ -1,14 +1,14 @@
 import ModalMiddle from '@/component/modal/ModalMiddle.tsx'
-import { MDStaffUpdatePassword } from '@/config/modal.config.ts'
+import { MDUserUpdatePassword } from '@/config/modal.config.ts'
 import { useState } from 'react'
-import _ from 'lodash'
-import { updatePasswordParam } from '@/page/staff/param/staff.param.ts'
-import useNestedFormHook from '@/hook/useNestedForm.hook.ts'
+import { cloneDeep } from 'lodash'
+import { updatePasswordParam } from '@/page/user/param/user.param.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import FormWrap from '@/component/wrapping/Form.wrap'
 import { WrapFormContext } from '@/context/Form.context.tsx'
-import FormInputPassword from '@/component/form/InputPassword.form.tsx'
+import FormInputPassword from '@/component/form/FormInputPassword.tsx'
 import { BtnPrimary } from '@/component/general/Button.tsx'
-import actionModal from '@/helper/actionModal.helper.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
 import { updatePasswordStaff } from '@/service/api/staff.api.ts'
 import { isSuccess } from '@/helper/condition.helper.ts'
 import { AvatarInTable } from '@/component/general/Avatar.tsx'
@@ -21,15 +21,15 @@ const UserModalUpdatePassword: React.FC<staffFormType> = ({
     dataDetail = { id: '', fullName: '', gender: {} },
 }) => {
     const [formRequest, setFormRequest] = useState(
-        _.cloneDeep(updatePasswordParam),
+        cloneDeep(updatePasswordParam),
     )
     const [isLoading, setIsLoading] = useState(false)
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
     const _handleClose = () => {
-        actionModal(MDStaffUpdatePassword, true)
-        setFormRequest(_.cloneDeep(updatePasswordParam))
+        actionModal(MDUserUpdatePassword, true)
+        setFormRequest(cloneDeep(updatePasswordParam))
     }
 
     const _handleSubmit = () => {
@@ -43,7 +43,7 @@ const UserModalUpdatePassword: React.FC<staffFormType> = ({
     }
 
     return (
-        <ModalMiddle id={MDStaffUpdatePassword} title="Update Password">
+        <ModalMiddle id={MDUserUpdatePassword} title="Update Password">
             <FormWrap actions={{ handleSubmit: () => _handleSubmit() }}>
                 <WrapFormContext
                     formRequest={formRequest}

@@ -1,17 +1,17 @@
 import ModalMiddle from '@/component/modal/ModalMiddle.tsx'
-import { MDStaffSettingRole } from '@/config/modal.config.ts'
+import { MDUserSettingRole } from '@/config/modal.config.ts'
 import { useEffect, useState } from 'react'
-import _ from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 import { BtnPrimary } from '@/component/general/Button.tsx'
-import actionModal from '@/helper/actionModal.helper.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
 import { getRoleStaff, updateRoleStaff } from '@/service/api/staff.api.ts'
 import { isSuccess } from '@/helper/condition.helper.ts'
 import { AvatarInTable } from '@/component/general/Avatar.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap'
 import { WrapFormContext } from '@/context/Form.context.tsx'
-import { settingRoleParam } from '@/page/staff/param/staff.param.ts'
-import useNestedFormHook from '@/hook/useNestedForm.hook.ts'
-import useDataListHook from '@/hook/useDataList.hook.ts'
+import { settingRoleParam } from '@/page/user/param/user.param.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 
 interface staffFormType {
@@ -19,10 +19,10 @@ interface staffFormType {
     clearSelected?: () => void
 }
 
-const UserModalSettingRole: React.FC<staffFormType> = ({
+const UserModalSettingRole = ({
     dataDetail = { id: '', fullName: '', gender: {} },
     clearSelected = () => {},
-}) => {
+}: staffFormType) => {
     const { __list, __isLoading, __actionGetData, __actionRemoveAll } =
         useDataListHook({
             urlAPI: (passSearch = { id: '' }) =>
@@ -33,9 +33,7 @@ const UserModalSettingRole: React.FC<staffFormType> = ({
             },
         })
 
-    const [formRequest, setFormRequest] = useState(
-        _.cloneDeep(settingRoleParam),
-    )
+    const [formRequest, setFormRequest] = useState(cloneDeep(settingRoleParam))
     const [isLoading, setIsLoading] = useState(false)
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
@@ -43,8 +41,8 @@ const UserModalSettingRole: React.FC<staffFormType> = ({
     const _handleClose = () => {
         __actionRemoveAll()
         clearSelected()
-        actionModal(MDStaffSettingRole, true)
-        setFormRequest(_.cloneDeep(settingRoleParam))
+        actionModal(MDUserSettingRole, true)
+        setFormRequest(cloneDeep(settingRoleParam))
     }
 
     const _handleSubmit = () => {
@@ -66,16 +64,16 @@ const UserModalSettingRole: React.FC<staffFormType> = ({
     }, [dataDetail.id])
 
     useEffect(() => {
-        if (!_.isEmpty(__list) && dataDetail.id) {
+        if (!isEmpty(__list) && dataDetail.id) {
             const idxActive = __list.findIndex((vm) => vm.assigned === true)
             if (idxActive > -1) {
                 nestedForm._handleChange('roleId', String(__list[idxActive].id))
             }
         }
-    }, [!_.isEmpty(__list), dataDetail.id])
+    }, [!isEmpty(__list), dataDetail.id])
 
     return (
-        <ModalMiddle id={MDStaffSettingRole} title="Setting Role" hideClose>
+        <ModalMiddle id={MDUserSettingRole} title="Setting Role" isHideClose>
             <FormWrap actions={{ handleSubmit: () => _handleSubmit() }}>
                 <WrapFormContext
                     formRequest={formRequest}
@@ -91,7 +89,7 @@ const UserModalSettingRole: React.FC<staffFormType> = ({
                         </div>
                     ) : null}
 
-                    {!__isLoading && !_.isEmpty(__list) ? (
+                    {!__isLoading && !isEmpty(__list) ? (
                         <FormRadioButtonMulti
                             label="Setting Role"
                             name="roleId"
@@ -115,7 +113,7 @@ const UserModalSettingRole: React.FC<staffFormType> = ({
                                 Close
                             </BtnPrimary>
 
-                            {!__isLoading && !_.isEmpty(__list) ? (
+                            {!__isLoading && !isEmpty(__list) ? (
                                 <BtnPrimary
                                     type="submit"
                                     isDisabled={isLoading}

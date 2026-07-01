@@ -63,3 +63,7 @@ export const MDSUserSettingPermission = 'modalUserSettingPermission'
 export const MDSUserSettingRole = 'modalUserSettingRole'
 
 export const MDSUserUpdatePassword = 'modalUserUpdatePassword'
+
+export const MDUserUpdatePassword = 'modalUserUpdatePassword'
+
+export const MDUserSettingRole = 'modalUserSettingRole'
