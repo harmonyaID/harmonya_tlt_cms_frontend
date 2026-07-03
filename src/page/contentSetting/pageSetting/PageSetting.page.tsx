@@ -15,8 +15,6 @@ const PageSettingPage = () => {
     const [isLoadingContactFormType, setIsLoadingListContactFormType] =
         useState<boolean>(false)
 
-    console.log('listContactFormType: ', listContactFormType)
-
     return (
         <>
             <div className="mb-4">
@@ -28,33 +26,33 @@ const PageSettingPage = () => {
                     objectTab('FAQ', 'tabFAQ'),
                     objectTab('Language', 'tabLanguage'),
                     objectTab('TLT Review', 'tabTLTReview'),
-                    objectTab('Media Partner', 'tabMediaPartner'),
-                    objectTab('Website Contact Form', 'tabWebsiteContactForm'),
-                    objectTab('Contact Form Type', 'tabContactFormType'),
+                    // objectTab('Media Partner', 'tabMediaPartner'),
+                    // objectTab('Website Contact Form', 'tabWebsiteContactForm'),
+                    // objectTab('Contact Form Type', 'tabContactFormType'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabFAQ />),
                     objectTabContent('', <TabLanguage />),
                     objectTabContent('', <TabTLTReview />),
-                    objectTabContent('', <TabMediaPartner />),
-                    objectTabContent(
-                        '',
-                        <TabWebContactForm
-                            listContactFormType={listContactFormType}
-                            isLoadingContactFormType={isLoadingContactFormType}
-                        />,
-                    ),
-                    objectTabContent(
-                        '',
-                        <TabContactFormType
-                            action={{
-                                setIsLoadingFormType: (passData) =>
-                                    setIsLoadingListContactFormType(passData),
-                                setListFormType: (passData) =>
-                                    setListContactFormType(passData),
-                            }}
-                        />,
-                    ),
+                    // objectTabContent('', <TabMediaPartner />),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabWebContactForm
+                    //         listContactFormType={listContactFormType}
+                    //         isLoadingContactFormType={isLoadingContactFormType}
+                    //     />,
+                    // ),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabContactFormType
+                    //         action={{
+                    //             setIsLoadingFormType: (passData) =>
+                    //                 setIsLoadingListContactFormType(passData),
+                    //             setListFormType: (passData) =>
+                    //                 setListContactFormType(passData),
+                    //         }}
+                    //     />,
+                    // ),
                 ]}
             />
         </>
