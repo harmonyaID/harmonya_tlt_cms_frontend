@@ -5,6 +5,8 @@ const basic = 'sm-account'
 const userPath = {
     basic: '/' + basic,
     ...objectPathMenu(basic + '/users'),
+
+    roleAndPermission: { ...objectPathMenu(basic + '/role-permission') },
 }
 
 export default userPath

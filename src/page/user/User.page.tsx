@@ -20,6 +20,18 @@ import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import {
+    MDPSTabFAQRemove,
+    MDSUserSettingPermission,
+    MDSUserSettingRole,
+    MDSUserUpdatePassword,
+    MDUserRemove,
+} from '@/config/modal.config.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import { apiFAQ } from '@/service/api/contentManageSetting.api.ts'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 
 const UserPage = () => {
     const {
@@ -43,7 +55,47 @@ const UserPage = () => {
 
     const { __handleToAdd, __handleToEdit } = usePageFlowHandlerHook({
         basePath: userPath,
-        pathFromKey: 'server-main',
+        pathFromKey: 'user-main',
+    })
+
+    const {
+        __data: dataForRemove,
+        __handleChooseAndNextStep: _handleChooseRemove,
+        __setData: _handleSetData,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDUserRemove, false),
+        },
+    })
+
+    const {
+        __data: dataForPermission,
+        __handleChooseAndNextStep: _handleChooseForPermission,
+        __setData: _handleSetDataForPermission,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDSUserSettingPermission, false),
+        },
+    })
+
+    const {
+        __data: dataForRole,
+        __handleChooseAndNextStep: _handleChooseForRole,
+        __setData: _handleSetDataForRole,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDSUserSettingRole, false),
+        },
+    })
+
+    const {
+        __data: dataForUpdatePW,
+        __handleChooseAndNextStep: _handleChooseForUpdatePW,
+        __setData: _handleSetDataForUpdatePW,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDSUserUpdatePassword, false),
+        },
     })
 
     return (
@@ -114,34 +166,64 @@ const UserPage = () => {
                                                 value={vm.isActive}
                                             />
                                         </td>
-                                        {/*<td>*/}
-                                        {/*    <AvatarInTable*/}
-                                        {/*        className="mt-1"*/}
-                                        {/*        {...(vm.createdBy*/}
-                                        {/*            ? {*/}
-                                        {/*                  title: vm.createdBy,*/}
-                                        {/*              }*/}
-                                        {/*            : {})}*/}
-                                        {/*        subTitle={*/}
-                                        {/*            vm.createdAt*/}
-                                        {/*                ? vm.createdAt*/}
-                                        {/*                : '-'*/}
-                                        {/*        }*/}
-                                        {/*        isSmall*/}
-                                        {/*    />*/}
-                                        {/*</td>*/}
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
+                                                <div className="dropdown me-3">
+                                                    <button
+                                                        className="btn btn-outline-neutral-300 dropdown-toggle"
+                                                        type="button"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        Setting
+                                                    </button>
+                                                    <ul className="dropdown-menu">
+                                                        <li>
+                                                            <button
+                                                                className="dropdown-item btn-sm"
+                                                                onClick={() =>
+                                                                    _handleChooseForRole(
+                                                                        vm,
+                                                                    )
+                                                                }>
+                                                                Role
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                className="dropdown-item btn-sm"
+                                                                onClick={() =>
+                                                                    _handleChooseForPermission(
+                                                                        vm,
+                                                                    )
+                                                                }>
+                                                                Permission
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                className="dropdown-item btn-sm"
+                                                                onClick={() =>
+                                                                    _handleChooseForUpdatePW(
+                                                                        vm,
+                                                                    )
+                                                                }>
+                                                                Update Password
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
                                                 <BtnCircleRemove
                                                     actions={{
                                                         remove: (e) => {
                                                             e.stopPropagation()
-                                                            // _handleChooseRemove(
-                                                            //     vm,
-                                                            // )
+                                                            _handleChooseRemove(
+                                                                vm,
+                                                            )
                                                         },
                                                     }}
                                                 />
+
                                                 <BtnCircleEdit
                                                     title="Edit Data"
                                                     actions={{
@@ -173,6 +255,21 @@ const UserPage = () => {
                     />
                 ) : null}
             </CardListData>
+
+            <CreatePortalLayout>
+                <ConfirmRemoveListLogic
+                    id={MDUserRemove}
+                    configHandle={{
+                        urlAPI: () => apiStaff.delete(dataForRemove.id),
+                        callBack: () => {
+                            __actionRemove(dataForRemove.id)
+                        },
+                        emptySelect: () => {
+                            _handleSetData({})
+                        },
+                    }}
+                />
+            </CreatePortalLayout>
         </>
     )
 }

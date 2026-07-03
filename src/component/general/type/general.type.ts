@@ -182,6 +182,7 @@ export interface HorizontalDataPreviewProps {
     subTitle?: string
     classNameTitleColumn?: string
     classNameContentColumn?: string
+    isLast?: boolean
 }
 
 // Icon Button
@@ -189,8 +190,7 @@ interface ActionsIconButton {
     [key: string]: any
 }
 
-export interface IconButtonBaseProps
-    extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonBaseProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     iconSize?: number
     isUseDefaultClassName?: boolean
     actions: ActionsIconButton

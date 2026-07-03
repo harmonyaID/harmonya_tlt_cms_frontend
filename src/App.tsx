@@ -11,6 +11,7 @@ import ContentAllPageRoute from '@/route/ContentAllPages.route.tsx'
 import ContentBlogRoute from '@/route/ContentBlog.route.tsx'
 import ContentHomePageRoute from '@/route/ContentHomePage.route.tsx'
 import ContentSettingRoute from '@/route/ContentSetting.route.tsx'
+import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     {ContentBlogRoute()}
                     {ContentHomePageRoute()}
                     {ContentSettingRoute()}
+                    {SystemManagementRoute()}
 
                     <Route
                         path="/"

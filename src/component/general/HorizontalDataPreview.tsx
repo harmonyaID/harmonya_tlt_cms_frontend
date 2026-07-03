@@ -9,9 +9,10 @@ const HorizontalDataPreview: FC<HorizontalDataPreviewProps> = ({
     subTitle = '',
     classNameTitleColumn = 'col-md-3',
     classNameContentColumn = 'col-md-8',
+    isLast = false,
 }) => {
     return (
-        <div className="row pb-md-3 pb-4">
+        <div className={'row ' + (!isLast ? 'pb-md-3 pb-4' : '')}>
             <div className={'mb-2 mb-md-0 ' + classNameTitleColumn}>
                 {isLayoutTitleDefault ? (
                     <div className="text-neutral-300 fs-14P fs-13">{title}</div>

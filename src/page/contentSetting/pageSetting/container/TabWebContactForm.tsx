@@ -1,21 +1,27 @@
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import { apiWebContactForm } from '@/service/api/contentManageSetting.api.ts'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiTLTReview } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
-    MDPSTabFAQAdd,
-    MDPSTabFAQRemove,
-    MDPSTabLanguageAdd,
-    MDPSTabTLTReviewAdd,
-    MDPSTabTLTReviewRemove,
+    MDPSTabWebContactFormAdd,
+    MDPSTabWebContactFormRemove,
 } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import Pagination from '@/component/general/Pagination.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirst,
@@ -23,39 +29,34 @@ import {
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import { APIResponse } from '@/type/resultAPI.ts'
-import { objectToFormData } from '@/helper/convertFormData.helper.ts'
+import FormSelectOption from '@/component/form/FormSelectOption.tsx'
+import { isEmpty } from 'lodash'
 
 const initForm = {
+    formTypeId: '',
     name: '',
-    position: '',
-    company: '',
-    rating: '',
-    review: '',
-    isActive: '0',
-    photos: [],
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
 }
 
 const initMapForm = (passData) => ({
+    formTypeId: passData?.formType?.id || '',
     name: passData.name || '',
-    position: passData.position || '',
-    company: passData.company || '',
-    rating: passData.rating || '1',
-    review: passData.review || '',
-    isActive: passData.isActive || '0',
-    photos: passData?.photos || [],
+    email: passData.email || '',
+    phone: passData.phone || '',
+    subject: passData.subject || '',
+    message: passData.message || '',
 })
 
-const TabTLTReview = () => {
+const TabWebContactForm = ({
+    listContactFormType = [],
+    isLoadingContactFormType = false,
+}: {
+    listContactFormType: any[]
+    isLoadingContactFormType: boolean
+}) => {
     const {
         __list,
         __isLoading,
@@ -65,7 +66,7 @@ const TabTLTReview = () => {
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiTLTReview.list,
+        urlAPI: apiWebContactForm.list,
     })
 
     const {
@@ -80,8 +81,8 @@ const TabTLTReview = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabTLTReviewAdd,
-        modalRemoveId: MDPSTabTLTReviewRemove,
+        modalId: MDPSTabWebContactFormAdd,
+        modalRemoveId: MDPSTabWebContactFormRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: initMapForm,
     })
@@ -94,7 +95,7 @@ const TabTLTReview = () => {
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDPSTabTLTReviewRemove, false),
+            nextStep: () => actionModal(MDPSTabWebContactFormRemove, false),
         },
     })
 
@@ -102,10 +103,12 @@ const TabTLTReview = () => {
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">TLT Review</h5>
+                    <h5 className="fs-18 fw-500">Website Contact Form</h5>
                 </div>
                 <div className="col-auto">
-                    <BtnPrimary onClick={() => {}}>Add New</BtnPrimary>
+                    <BtnPrimary onClick={() => __actionAddModal()}>
+                        Add New
+                    </BtnPrimary>
                 </div>
             </div>
 
@@ -116,10 +119,13 @@ const TabTLTReview = () => {
                         isNoWrap
                         ths={[
                             'Name',
-                            'Company',
-                            'Review',
-                            'Active',
-                            'Photos',
+                            'Form Type',
+                            'Email',
+                            'Phone',
+                            // 'Contact Info.',
+                            // { content: 'FAQ', className: 'w-75' },
+                            'Subject',
+                            'Read',
                             '',
                         ]}
                         tds={__list}>
@@ -128,30 +134,38 @@ const TabTLTReview = () => {
                             .map((vm, index) => {
                                 return (
                                     <tr key={index}>
-                                        <td>
-                                            <TblLineFirst value={vm.name} />
-                                            <TblLineSecond
-                                                value={vm.position}
+                                        <td scope="row" className="max-w-200px">
+                                            <TblLineFirst
+                                                value={vm.name || '-'}
                                             />
                                         </td>
                                         <td>
-                                            <TblLineSecond value={vm.company} />
+                                            <TblLineFirst
+                                                value={
+                                                    vm?.formType?.name || '-'
+                                                }
+                                            />
                                         </td>
                                         <td>
-                                            <TblPointData title="Rating">
-                                                {vm.rating || '-'}
-                                            </TblPointData>
-
-                                            <TblPointData title="Review">
-                                                {vm.review || '-'}
-                                            </TblPointData>
+                                            <TblLineFirst
+                                                value={vm.email || '-'}
+                                            />
+                                        </td>
+                                        <td>
+                                            <TblLineFirst
+                                                value={vm.phone || '-'}
+                                            />
+                                        </td>
+                                        <td>
+                                            <TblLineFirst
+                                                value={vm.subject || '-'}
+                                            />
                                         </td>
                                         <td>
                                             <TextTrueOrFalse
-                                                value={vm.isActive}
+                                                value={vm.isRead}
                                             />
                                         </td>
-                                        <td></td>
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
                                                 <BtnCircleRemove
@@ -196,9 +210,10 @@ const TabTLTReview = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabFAQRemove}
+                    id={MDPSTabWebContactFormRemove}
                     configHandle={{
-                        urlAPI: () => apiTLTReview.delete(dataForRemove.id),
+                        urlAPI: () =>
+                            apiWebContactForm.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -209,9 +224,9 @@ const TabTLTReview = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabLanguageAdd}
+                    id={MDPSTabWebContactFormAdd}
                     detail={__detailData}
-                    title="TLT Review"
+                    title="Website Contact Form"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -222,58 +237,62 @@ const TabTLTReview = () => {
                     isUseDefaultInput={false}
                     externalForm={
                         <>
+                            {!isEmpty(listContactFormType) ? (
+                                <FormSelectOption
+                                    label="Form Type"
+                                    name="formType">
+                                    <option value="">- Select -</option>
+                                    {listContactFormType.map((vm, index) => (
+                                        <option key={index} value={vm.id}>
+                                            {vm.name}
+                                        </option>
+                                    ))}
+                                </FormSelectOption>
+                            ) : null}
+
                             <FormInput
-                                label="Order"
-                                name="order"
+                                label="Name"
+                                name="name"
                                 required
-                                type="number"
-                                min="1"
-                                placeholder="e.g 1"
+                                placeholder="e.g Uni"
                             />
 
                             <FormInput
-                                label="Question"
-                                name="question"
+                                label="email"
+                                name="email"
+                                type="email"
                                 required
-                                placeholder="e.g Is Lembongan Good For Kids ?"
-                            />
-                            <FormTextArea
-                                label="Answer"
-                                name="answer"
-                                required
-                                placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
+                                placeholder="e.g uni@tlt.com"
                             />
 
-                            <FormRadioButtonMulti
-                                label="Active"
-                                name="isActive"
-                                checkBoxs={[
-                                    {
-                                        defaultValue: 0,
-                                        label: 'No',
-                                    },
-                                    {
-                                        defaultValue: 1,
-                                        label: 'Yes',
-                                    },
-                                ]}
+                            <FormInput
+                                label="phone"
+                                name="phone"
+                                required
+                                placeholder="e.g 08100xxxx"
                             />
+
+                            <FormInput
+                                label="subject"
+                                name="subject"
+                                required
+                                placeholder="e.g Lembongan Good For Kids"
+                            />
+
+                            {/*<FormTextArea*/}
+                            {/*    label="message"*/}
+                            {/*    name="message"*/}
+                            {/*    required*/}
+                            {/*    placeholder="e.g We would like to discuss a potential partnership."*/}
+                            {/*/>*/}
                         </>
                     }
                     configHandle={{
-                        urlAPIAdd: async (): Promise<APIResponse> => {
-                            const dataForm = await objectToFormData({
-                                ...__formRequest,
-                            })
-                            return apiTLTReview.addWithData(dataForm)
-                        },
-                        urlAPIUpdate: async (): Promise<APIResponse> => {
-                            const dataForm = await objectToFormData({
-                                ...__formRequest,
-                            })
-                            return apiTLTReview.updateWithData(
+                        urlAPIAdd: () => apiWebContactForm.add(__formRequest),
+                        urlAPIUpdate: () => {
+                            return apiWebContactForm.update(
                                 __selectedId,
-                                dataForm,
+                                __formRequest,
                             )
                         },
                         initialForm: () =>
@@ -294,4 +313,4 @@ const TabTLTReview = () => {
     )
 }
 
-export default TabTLTReview
+export default TabWebContactForm

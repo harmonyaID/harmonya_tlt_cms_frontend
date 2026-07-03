@@ -2,7 +2,6 @@ import { lazy } from 'react'
 import { Route } from 'react-router'
 import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
-import contentHomePagePath from '@/path/contentHomePage.path.ts'
 import contentSettingPath from '@/path/contentSetting.path.ts'
 
 const mainBlogPath = contentSettingPath.blog

@@ -22,6 +22,7 @@ const HorizontalLoopDataLogic = ({
                             key={index}
                             classNameTitleColumn={titleColumn}
                             classNameContentColumn={contentColumn}
+                            isLast={list.length === index + 1}
                             {...vm}
                         />
                     )

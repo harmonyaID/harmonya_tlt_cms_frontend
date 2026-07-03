@@ -51,3 +51,28 @@ export const MDPSTabLanguageRemove = 'modalSettingPageLanguageRemove'
 
 export const MDPSTabTLTReviewAdd = 'modalSettingPageTLTReviewAdd'
 export const MDPSTabTLTReviewRemove = 'modalSettingPageTLTReviewRemove'
+
+export const MDPSTabMediaPartnerAdd = 'modalSettingPageMediaPartnerAdd'
+export const MDPSTabMediaPartnerRemove = 'modalSettingPageMediaPartnerRemove'
+
+export const MDPSTabWebContactFormAdd = 'modalSettingPageWebContactFormAdd'
+export const MDPSTabWebContactFormRemove =
+    'modalSettingPageWebContactFormRemove'
+
+export const MDPSTabMediaContactFormTypeAdd =
+    'modalSettingPageContactFormTypeAdd'
+export const MDPSTabMediaContactFormTypeRemove =
+    'modalSettingPageContactFormTypeRemove'
+
+// User / Staff
+export const MDUserRemove = 'modalUserRemove'
+
+export const MDSUserSettingPermission = 'modalUserSettingPermission'
+
+export const MDSUserSettingRole = 'modalUserSettingRole'
+
+export const MDSUserUpdatePassword = 'modalUserUpdatePassword'
+
+export const MDUserUpdatePassword = 'modalUserUpdatePassword'
+
+export const MDUserSettingRole = 'modalUserSettingRole'

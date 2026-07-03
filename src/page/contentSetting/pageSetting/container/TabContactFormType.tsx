@@ -1,44 +1,67 @@
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import {
+    apiContactFormType,
+    apiFAQ,
+} from '@/service/api/contentManageSetting.api.ts'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiLanguage } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
-    MDPSTabLanguageAdd,
-    MDPSTabLanguageRemove,
+    MDPSTabFAQAdd,
+    MDPSTabFAQRemove,
+    MDPSTabMediaContactFormTypeAdd,
+    MDPSTabMediaContactFormTypeRemove,
 } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import { isEmpty } from 'lodash'
-import { Loading, NotAvailable } from '@/component/general/TextDefault.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import Pagination from '@/component/general/Pagination.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import {
+    TblLineFirst,
+    TblLineSecond,
+    TblPointData,
+} from '@/component/general/TablePartial.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import CardPreview from '@/component/card/CardPreview.tsx'
+import { useEffect } from 'react'
+import { isEmpty } from 'lodash'
+
+const defaultActive = '1'
 
 const initForm = {
-    code: '',
-    country: '',
-    main: '0',
+    name: '',
 }
 
 const initMapForm = (passData) => ({
-    code: passData.code || '',
-    country: passData.country || '',
-    main: passData.main ? '1' : '0',
+    name: passData.name || '',
 })
 
-const TabLanguage = () => {
+const TabContactFormType = ({
+    // isLoadingFormType = false,
+    action = {
+        setIsLoadingFormType: (isLoadingFormType: boolean) => {},
+        setListFormType: (listFormType: any[]) => {},
+    },
+}: {
+    // isLoadingFormType: boolean
+    action?: {
+        setIsLoadingFormType?: (pass?: any) => void
+        setListFormType?: (pass?: any) => void
+    }
+}) => {
     const {
         __list,
         __isLoading,
@@ -48,7 +71,7 @@ const TabLanguage = () => {
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiLanguage.list,
+        urlAPI: apiContactFormType.list,
     })
 
     const {
@@ -63,8 +86,8 @@ const TabLanguage = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabLanguageAdd,
-        modalRemoveId: MDPSTabLanguageRemove,
+        modalId: MDPSTabMediaContactFormTypeAdd,
+        modalRemoveId: MDPSTabMediaContactFormTypeRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: initMapForm,
     })
@@ -77,15 +100,21 @@ const TabLanguage = () => {
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDPSTabLanguageRemove, false),
+            nextStep: () =>
+                actionModal(MDPSTabMediaContactFormTypeRemove, false),
         },
     })
+
+    useEffect(() => {
+        action.setListFormType(__list)
+        action.setIsLoadingFormType(__isLoading)
+    }, [...__list, __isLoading, __isEdit])
 
     return (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Language</h5>
+                    <h5 className="fs-18 fw-500">Contact Form Type</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -101,13 +130,8 @@ const TabLanguage = () => {
                             <CardPreview className="mb-0 h-100">
                                 <div className="hstack gap-2 justify-content-between flex-wrap mb-3 align-items-start">
                                     <h6 className="fw-500 text-neutral-100 mb-0">
-                                        {vm.country} <b>({vm.code})</b>
+                                        {vm.name}
                                     </h6>
-                                    {vm.main ? (
-                                        <div className="badge rounded-pill text-bg-neutral-200">
-                                            Main
-                                        </div>
-                                    ) : null}
                                 </div>
 
                                 <div className="hstack gap-2 flex-wrap mt-auto">
@@ -149,9 +173,10 @@ const TabLanguage = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabLanguageRemove}
+                    id={MDPSTabMediaContactFormTypeRemove}
                     configHandle={{
-                        urlAPI: () => apiLanguage.delete(dataForRemove.id),
+                        urlAPI: () =>
+                            apiContactFormType.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -162,9 +187,9 @@ const TabLanguage = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabLanguageAdd}
+                    id={MDPSTabMediaContactFormTypeAdd}
                     detail={__detailData}
-                    title="Language"
+                    title="Contact Form Type"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -176,38 +201,17 @@ const TabLanguage = () => {
                     externalForm={
                         <>
                             <FormInput
-                                label="Country"
-                                name="country"
+                                label="Name"
+                                name="name"
                                 required
-                                placeholder="e.g Indonesia"
-                            />
-                            <FormInput
-                                label="Code"
-                                name="code"
-                                required
-                                placeholder="e.g Id"
-                            />
-
-                            <FormRadioButtonMulti
-                                label="Main"
-                                name="main"
-                                checkBoxs={[
-                                    {
-                                        defaultValue: '0',
-                                        label: 'No',
-                                    },
-                                    {
-                                        defaultValue: '1',
-                                        label: 'Yes',
-                                    },
-                                ]}
+                                placeholder="e.g Career"
                             />
                         </>
                     }
                     configHandle={{
-                        urlAPIAdd: () => apiLanguage.add(__formRequest),
+                        urlAPIAdd: () => apiContactFormType.add(__formRequest),
                         urlAPIUpdate: () => {
-                            return apiLanguage.update(
+                            return apiContactFormType.update(
                                 __selectedId,
                                 __formRequest,
                             )
@@ -230,4 +234,4 @@ const TabLanguage = () => {
     )
 }
 
-export default TabLanguage
+export default TabContactFormType
