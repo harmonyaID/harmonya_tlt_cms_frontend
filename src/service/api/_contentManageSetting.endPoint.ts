@@ -18,3 +18,11 @@ export const SrvTLTReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
 export const SrvMediaPartnerCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/media-partners',
 )
+
+export const SrvWebContactFormCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPI + '/website-contact-forms',
+)
+
+// Component
+export const SrvComponentContactFormTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPI + '/components/contact-form-types')

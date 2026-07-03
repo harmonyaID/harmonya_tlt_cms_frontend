@@ -55,6 +55,15 @@ export const MDPSTabTLTReviewRemove = 'modalSettingPageTLTReviewRemove'
 export const MDPSTabMediaPartnerAdd = 'modalSettingPageMediaPartnerAdd'
 export const MDPSTabMediaPartnerRemove = 'modalSettingPageMediaPartnerRemove'
 
+export const MDPSTabWebContactFormAdd = 'modalSettingPageWebContactFormAdd'
+export const MDPSTabWebContactFormRemove =
+    'modalSettingPageWebContactFormRemove'
+
+export const MDPSTabMediaContactFormTypeAdd =
+    'modalSettingPageContactFormTypeAdd'
+export const MDPSTabMediaContactFormTypeRemove =
+    'modalSettingPageContactFormTypeRemove'
+
 // User / Staff
 export const MDUserRemove = 'modalUserRemove'
 

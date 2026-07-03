@@ -105,8 +105,6 @@ const TabMediaPartner = () => {
         return apiMediaPartner.updateWithData(__selectedId, dataForm)
     }
 
-    console.log('__formRequest: ', __formRequest)
-
     return (
         <>
             <div className="row mb-4">
