@@ -12,6 +12,7 @@ import ContentBlogRoute from '@/route/ContentBlog.route.tsx'
 import ContentHomePageRoute from '@/route/ContentHomePage.route.tsx'
 import ContentSettingRoute from '@/route/ContentSetting.route.tsx'
 import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
+import BoatManagementRoute from '@/route/BoatManagement.route.tsx'
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                     {ContentBlogRoute()}
                     {ContentHomePageRoute()}
                     {ContentSettingRoute()}
+                    {BoatManagementRoute()}
                     {SystemManagementRoute()}
 
                     <Route

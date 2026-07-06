@@ -1259,7 +1259,7 @@ pre {
    .data-img {
       width: 100%;
       object-fit: cover;
-      min-height: 300px;
+      //min-height: 300px;
 
       &.data-img-contain {
          object-fit: contain;
@@ -1351,3 +1351,6 @@ pre {
 
 // Flatpickr
 .flatpickr-wrapper {display: block;}
+
+// Max Height
+.max-h-120-px {max-height: 120px;}

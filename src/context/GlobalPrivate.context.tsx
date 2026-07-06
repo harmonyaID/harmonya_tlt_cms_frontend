@@ -62,7 +62,7 @@ export const WrapGlobalPrivateContext = ({
         passTitlePage: string = '',
     ): void => {
         const configTitlePage: string =
-            (passTitlePage || passNavTitle) + ' - Storage Management'
+            (passTitlePage || passNavTitle) + ' - TLT CRM'
 
         setTitleNavbar(passNavTitle)
         setTitlePage(configTitlePage)

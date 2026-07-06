@@ -300,3 +300,14 @@ $offcanvas-backdrop-opacity: 25%;
 $offcanvas-border-color: var(--bs-base-border-mood-theme);
 
 $min-contrast-ratio: 2;
+
+// Component
+$component-active-color: var(--bs-tint-200);
+$component-active-bg: var(--bs-tint-200);
+
+// Badge
+$badge-font-weight:                 500;
+
+// Dropdown
+$dropdown-link-active-color:        $component-active-color;
+$dropdown-link-active-bg:           $component-active-bg;

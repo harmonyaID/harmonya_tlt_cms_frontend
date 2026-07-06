@@ -37,7 +37,7 @@ const useNestedFormHook = (
                 parent
                     ? newPrevState[parent].splice(index, 1)
                     : newPrevState.splice(index, 1)
-            } else if (newDataForm) {
+            } else if (newDataForm !== null) {
                 parent
                     ? newPrevState[parent].push(newDataForm)
                     : newPrevState.push(newDataForm)

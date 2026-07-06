@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useId, FC, ChangeEvent } from 'react'
 import flatpickr from 'flatpickr'
 import _, { isEmpty, isFunction } from 'lodash'
@@ -29,31 +30,38 @@ const FormInputTimePicker: FC<FormInputTimePickerProps> = (props) => {
 
         isTimeRange = false,
         isResetValue = true,
+
+        isHook = true,
     } = props
 
     const idInput = id || 'text-timepicker-' + (props.name || '') + defaultId
 
     const dataValue =
-        (!isEmpty(ctx.__value) && ctx.__value[props.name]) || props.value || ''
+        (isHook && !isEmpty(ctx.__value) && ctx.__value[props.name]) ||
+        props.value ||
+        ''
 
     const _handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = eventChange(event)
 
-        isFunction(ctx.__handleChange) && isEmpty(ctx.__value)
+        isFunction(ctx.__handleChange) && isEmpty(ctx.__value) && isHook
             ? ctx.__handleChange(name, value)
             : actions.onChange(name, value, event)
     }
 
     const _configTimePicker = (element = null) => {
+        const has12HourFormat = /[hHgG]/.test(format) && /K/i.test(format)
+
         return flatpickr(element, {
             enableTime: true,
             altFormat: format,
-            altInput: true,
+            // altInput: true,
             allowInput: true,
             noCalendar: true,
             dateFormat: format,
-            time_24hr: true,
+            // time_24hr: true,
             static: true,
+            time_24hr: !has12HourFormat,
             onReady: _handleClearBtn,
             ...config,
         })
@@ -110,6 +118,10 @@ const FormInputTimePicker: FC<FormInputTimePickerProps> = (props) => {
                     timePicker.clear()
                 })
             })
+        }
+
+        return () => {
+            timePicker.destroy()
         }
     }, [])
 

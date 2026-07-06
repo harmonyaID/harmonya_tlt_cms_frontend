@@ -29,7 +29,7 @@ export const TblLineFirstPrimary: FC<TblLineFirstPrimaryProps> = ({
 }) => (
     <p
         className={joinClassNameHelper('text-primary', className, {
-            'mb-1': isUseDefaultMargin,
+            'mb-2': isUseDefaultMargin,
         })}>
         {value || children}
     </p>
