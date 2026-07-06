@@ -122,7 +122,6 @@ const TabBoatContactForm = () => {
                                         </td>
                                         <td>
                                             <TblPointData title="Status Active">
-                                                {/*{vm.isActive || '-'}*/}
                                                 <TextTrueOrFalse
                                                     value={vm.isActive}
                                                 />
