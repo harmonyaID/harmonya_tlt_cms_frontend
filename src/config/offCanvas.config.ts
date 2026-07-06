@@ -5,3 +5,6 @@ export const OCGeneralPreviewDetail = 'offCanvasPreviewDetail'
 
 export const OCServiceAssetInfoFolder = 'offCanvasServiceAssetFolderInfo'
 export const OCServiceAssetInfoFile = 'offCanvasServiceAssetFileInfo'
+
+// Boat
+export const OSBoatTypeDetail = 'offCanvasOSBoatTypeDetail'

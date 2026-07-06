@@ -93,18 +93,18 @@ const FormUploadFileWithActionPreviewLogic = (
         return isImage
             ? fileUrl
             : isBase64 && fileUrl.includes('application/pdf')
-            ? IconPDF
-            : isBase64 && fileUrl.includes('application/msword')
-            ? IconWORD
-            : isBase64 && fileUrl.includes('application/vnd.ms-excel')
-            ? IconEXCEL
-            : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_PDF)
-            ? IconPDF
-            : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_WORD)
-            ? IconWORD
-            : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_EXCEL)
-            ? IconEXCEL
-            : null
+              ? IconPDF
+              : isBase64 && fileUrl.includes('application/msword')
+                ? IconWORD
+                : isBase64 && fileUrl.includes('application/vnd.ms-excel')
+                  ? IconEXCEL
+                  : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_PDF)
+                    ? IconPDF
+                    : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_WORD)
+                      ? IconWORD
+                      : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_EXCEL)
+                        ? IconEXCEL
+                        : null
     }
 
     const IframeLayout = ({ detail }) => (
@@ -198,47 +198,47 @@ const FormUploadFileWithActionPreviewLogic = (
                                   )
                               }
                             : IS_FILE_WORD_OR_EXCEL(
-                                  !dataFiles[current]?.[dataBy]?.startsWith(
-                                      'data:',
-                                  )
-                                      ? dataFiles[current]?.[dataTypeBy]
-                                      : dataFiles[current]?.type,
-                              )
-                            ? () => {
-                                  return (
-                                      <>
-                                          <img
-                                              className="rc-image-preview-img"
-                                              src={
-                                                  IS_TYPE_FILE_WORD(
-                                                      !dataFiles[current]?.[
-                                                          dataBy
-                                                      ]?.startsWith('data:')
-                                                          ? dataFiles[
-                                                                current
-                                                            ]?.[dataTypeBy]
-                                                          : dataFiles[current]
-                                                                ?.type,
-                                                  )
-                                                      ? IconWORD
-                                                      : IconEXCEL
-                                              }
-                                              alt="Preview File"
-                                          />
+                                    !dataFiles[current]?.[dataBy]?.startsWith(
+                                        'data:',
+                                    )
+                                        ? dataFiles[current]?.[dataTypeBy]
+                                        : dataFiles[current]?.type,
+                                )
+                              ? () => {
+                                    return (
+                                        <>
+                                            <img
+                                                className="rc-image-preview-img"
+                                                src={
+                                                    IS_TYPE_FILE_WORD(
+                                                        !dataFiles[current]?.[
+                                                            dataBy
+                                                        ]?.startsWith('data:')
+                                                            ? dataFiles[
+                                                                  current
+                                                              ]?.[dataTypeBy]
+                                                            : dataFiles[current]
+                                                                  ?.type,
+                                                    )
+                                                        ? IconWORD
+                                                        : IconEXCEL
+                                                }
+                                                alt="Preview File"
+                                            />
 
-                                          <a
-                                              className="btn btn-gray-700 text-white-full mt-3 mb-0"
-                                              target="_blank"
-                                              rel="noopener noreferrer"
-                                              href={
-                                                  dataFiles[current]?.[dataBy]
-                                              }>
-                                              Download File
-                                          </a>
-                                      </>
-                                  )
-                              }
-                            : null,
+                                            <a
+                                                className="btn btn-gray-700 text-white-full mt-3 mb-0"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href={
+                                                    dataFiles[current]?.[dataBy]
+                                                }>
+                                                Download File
+                                            </a>
+                                        </>
+                                    )
+                                }
+                              : null,
                     }}
                     fallback={ImgGeneralDefaultBig}>
                     <div className={'row ' + classNameRowImg}>
@@ -273,7 +273,7 @@ const FormUploadFileWithActionPreviewLogic = (
 
                                                 <BtnCircleRemove
                                                     className="btn-icon-remove-top-right z-index-999"
-                                                    action={{
+                                                    actions={{
                                                         remove: (e) => {
                                                             e.stopPropagation()
                                                             __actions.handleRemoveDataFile(

@@ -20,6 +20,9 @@ import {
     Profile2User,
     Clock,
     InfoCircle,
+
+    // Boat Management
+    Ship,
 } from 'iconsax-react'
 import { isEmpty, isNull } from 'lodash'
 import {
@@ -47,6 +50,8 @@ import {
     smPlatformInfoPath,
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
+import boatPath from '@/path/boat.path.ts'
+import boatSettingPath from '@/path/boatSetting.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -223,7 +228,7 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
-                    name="Setting CM"
+                    name="Content Setting"
                     to={contentSettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="cm-setting"
@@ -233,6 +238,22 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     ]}
                 />
             </li>
+
+            <MenuSection name="Boat Management" />
+            <li className="">
+                <LinkMenu
+                    name="Boat"
+                    icon={<Ship variant="Bulk" />}
+                    to={boatPath.main}
+                />
+            </li>
+            {/*<li className="">*/}
+            {/*    <LinkMenu*/}
+            {/*        name="Boat Setting"*/}
+            {/*        icon={<Setting variant="Bulk" />}*/}
+            {/*        to={boatSettingPath.main}*/}
+            {/*    />*/}
+            {/*</li>*/}
 
             <MenuSection name="Property Management" />
             <li className="">
@@ -251,7 +272,7 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
-                    name="Setting Property"
+                    name="Property Setting "
                     to={propertySettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="property-setting"

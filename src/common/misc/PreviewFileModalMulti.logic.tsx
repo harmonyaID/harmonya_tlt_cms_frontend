@@ -25,15 +25,16 @@ import {
     PreviewFileModalMultiLogicProps,
 } from './type/misc.type'
 
-
-const PreviewFileModalMultiLogic: FC<PreviewFileModalMultiLogicProps> = ({
+const PreviewFileModalMultiLogic = ({
     dataFiles = [],
     dataBy = 'file',
     className = '',
     classNameColumnPreview = 'col-md-4',
     classNameImagePreview = '',
+    classNameWrapImg = '',
     children = null,
-}) => {
+    isDescription = true,
+}: PreviewFileModalMultiLogicProps) => {
     const [visible, setVisible] = useState<boolean>(false)
     const [current, setCurrent] = useState<number>(0)
 
@@ -145,7 +146,10 @@ const PreviewFileModalMultiLogic: FC<PreviewFileModalMultiLogicProps> = ({
                                           key={index}>
                                           <div className="card overflow-hidden border-neutral-400 mb-0">
                                               <div
-                                                  className="wrap-img-document use-h-120"
+                                                  className={
+                                                      'wrap-img-document use-h-120 ' +
+                                                      classNameWrapImg
+                                                  }
                                                   onClick={() =>
                                                       _handlePreviewDetailImage(
                                                           true,
@@ -164,20 +168,22 @@ const PreviewFileModalMultiLogic: FC<PreviewFileModalMultiLogicProps> = ({
                                                       fallback={
                                                           ImgGeneralDefault
                                                       }
-                                                      className="data-img data-img-min-h-200"
+                                                      className="data-img data-img-min-h-200P"
                                                   />
                                               </div>
 
-                                              <VerticalDataPreview
-                                                  className="p-3"
-                                                  {...objectListDetail(
-                                                      'Description',
-                                                      <TextMoreLess>
-                                                          {vm.description ||
-                                                              '-'}
-                                                      </TextMoreLess>,
-                                                  )}
-                                              />
+                                              {isDescription ? (
+                                                  <VerticalDataPreview
+                                                      className="p-3"
+                                                      {...objectListDetail(
+                                                          'Description',
+                                                          <TextMoreLess>
+                                                              {vm.description ||
+                                                                  '-'}
+                                                          </TextMoreLess>,
+                                                      )}
+                                                  />
+                                              ) : null}
                                           </div>
                                       </div>
                                   )

@@ -178,7 +178,9 @@ export interface PreviewFileModalMultiLogicProps {
     className?: string
     classNameColumnPreview?: string
     classNameImagePreview?: string
+    classNameWrapImg?: string
     children?: ReactNode
+    isDescription?: boolean
 }
 
 export interface IframeLayoutProps {
