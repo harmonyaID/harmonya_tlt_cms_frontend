@@ -1,7 +1,7 @@
 import ModalMiddle from '@/component/modal/ModalMiddle.tsx'
 import { MDSUserSettingPermission } from '@/config/modal.config.ts'
 import { useEffect, useState } from 'react'
-import _ from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 import { BtnPrimary } from '@/component/general/Button.tsx'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import {
@@ -24,12 +24,18 @@ import FormCheckbox from '@/component/form/FormCheckbox.tsx'
 
 interface UserSettingPermissionFormType {
     dataDetail?: { [key: string | number]: any }
-    clearSelected?: () => void
+    keyLabel?: string
+    actions?: {
+        clearSelected?: () => void
+    }
 }
 
 const UserModalSettingPermission = ({
     dataDetail = { id: '', fullName: '', gender: {} },
-    clearSelected = () => {},
+    keyLabel = 'name',
+    actions = {
+        clearSelected: () => {},
+    },
 }: UserSettingPermissionFormType) => {
     const {
         __list,
@@ -45,9 +51,7 @@ const UserModalSettingPermission = ({
         },
     })
 
-    const [formRequest, setFormRequest] = useState(
-        _.cloneDeep(settingPermission),
-    )
+    const [formRequest, setFormRequest] = useState(cloneDeep(settingPermission))
     const [isLoading, setIsLoading] = useState(false)
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
@@ -102,9 +106,9 @@ const UserModalSettingPermission = ({
 
     const _handleClose = () => {
         __actionRemoveAll()
-        clearSelected()
+        actions.clearSelected()
         actionModal(MDSUserSettingPermission, true)
-        setFormRequest(_.cloneDeep(settingPermission))
+        setFormRequest(cloneDeep(settingPermission))
     }
 
     const _handleSubmit = () => {
@@ -126,15 +130,15 @@ const UserModalSettingPermission = ({
     }, [dataDetail.id])
 
     useEffect(() => {
-        if (!_.isEmpty(__list) && dataDetail.id) {
+        if (!isEmpty(__list) && dataDetail.id) {
             const ids =
                 __list.filter((e) => e.assigned).map((e) => String(e.id)) || []
 
-            if (!_.isEmpty(ids)) {
+            if (!isEmpty(ids)) {
                 nestedForm._handleChange('permissionIds', ids)
             }
         }
-    }, [!_.isEmpty(__list), dataDetail.id])
+    }, [!isEmpty(__list), dataDetail.id])
 
     return (
         <ModalMiddle
@@ -163,7 +167,7 @@ const UserModalSettingPermission = ({
                                     <CardPreview className="h-100 mb-0">
                                         <FormCheckbox
                                             id={vm.name + index}
-                                            label={vm.name}
+                                            label={vm[keyLabel]}
                                             defaultChecked={vm.assigned}
                                             name={vm.name + index}
                                             change={() => _handleChange(index)}
@@ -200,7 +204,7 @@ const UserModalSettingPermission = ({
                                 Close
                             </BtnPrimary>
 
-                            {!__isLoading && !_.isEmpty(__list) ? (
+                            {!__isLoading && !isEmpty(__list) ? (
                                 <BtnPrimary
                                     type="submit"
                                     isDisabled={isLoading}

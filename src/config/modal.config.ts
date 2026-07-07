@@ -77,6 +77,10 @@ export const MDUserUpdatePassword = 'modalUserUpdatePassword'
 
 export const MDUserSettingRole = 'modalUserSettingRole'
 
+export const MDUserUpdateActivation = 'modalUserUpdateActivation'
+
+export const MDUserUpdateSuperAdmin = 'modalUserUpdateSuperAdmin'
+
 // Boat
 export const MDBoatTypeAdd = 'modalBoatTypeAdd'
 export const MDBoatTypeRemove = 'modalBoatTypeRemove'

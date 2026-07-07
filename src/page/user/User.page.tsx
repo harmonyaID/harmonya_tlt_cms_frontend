@@ -13,25 +13,29 @@ import {
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
-import CardNotes from '@/component/card/CardNotes.tsx'
-import { AvatarInTable } from '@/component/general/Avatar.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import {
-    MDPSTabFAQRemove,
     MDSUserSettingPermission,
     MDSUserSettingRole,
     MDSUserUpdatePassword,
     MDUserRemove,
+    MDUserUpdateActivation,
+    MDUserUpdateSuperAdmin,
 } from '@/config/modal.config.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { apiFAQ } from '@/service/api/contentManageSetting.api.ts'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import UserModalSettingPermission from '@/page/user/container/UserModalSettingPermission.tsx'
+import UserModalSettingRole from '@/page/user/container/UserModalSettingRole.tsx'
+import UserModalUpdatePassword from '@/page/user/container/UserModalUpdatePassword.tsx'
+import UserModalUpdateActivation from '@/page/user/container/UserModalUpdateActivation.tsx'
+import UserModalUpdateSuperAdmin from '@/page/user/container/UserModalUpdateSuperAdmin.tsx'
 
 const UserPage = () => {
     const {
@@ -41,6 +45,7 @@ const UserPage = () => {
         __search,
         __actionPagination,
         __actionRemove,
+        __actionUpdate,
         __actionChange,
         __actionClear,
     } = useDataListHook({
@@ -98,6 +103,26 @@ const UserPage = () => {
         },
     })
 
+    const {
+        __data: dataForUpdateActivation,
+        __handleChooseAndNextStep: _handleChooseForUpdateActivation,
+        __setData: _handleSetDataForUpdateActivation,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDUserUpdateActivation, false),
+        },
+    })
+
+    const {
+        __data: dataForUpdateSuperAdmin,
+        __handleChooseAndNextStep: _handleChooseForUpdateSuperAdmin,
+        __setData: _handleSetDataForUpdateSuperAdmin,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDUserUpdateSuperAdmin, false),
+        },
+    })
+
     return (
         <>
             <CardListData
@@ -107,6 +132,16 @@ const UserPage = () => {
                         Add New
                     </BtnPrimary>
                 }>
+                <FilterBarBasic
+                    formRequest={__search}
+                    searchTextPlaceholder="e.g Arbi TLT"
+                    isDateRange={false}
+                    actions={{
+                        change: __actionChange,
+                        pagination: __actionPagination,
+                        clear: __actionClear,
+                    }}
+                />
                 <div className="row overflow-y position-relative">
                     <div className="col-md-12 table-responsive-md">
                         <TableThemeLogic
@@ -115,22 +150,16 @@ const UserPage = () => {
                             ths={[
                                 'Full Name',
                                 'Address',
-                                'Info',
+                                'Contact',
                                 'Country',
+                                'Super Admin',
                                 'Status',
-                                // 'Created',
                                 '',
                             ]}
                             tds={__list}>
                             {__list.map((vm, index) => {
                                 return (
-                                    <tr
-                                        key={index}
-                                        title="Preview Detail"
-                                        className="cursor-pointer"
-                                        onClick={() => {
-                                            // __handleChooseAndNextStep(vm)
-                                        }}>
+                                    <tr key={index}>
                                         <td>
                                             <TblLineFirstPrimary
                                                 value={vm.fullName}
@@ -163,20 +192,25 @@ const UserPage = () => {
                                         </td>
                                         <td>
                                             <TextTrueOrFalse
+                                                value={vm.isSuperAdmin}
+                                            />
+                                        </td>
+                                        <td>
+                                            <TextTrueOrFalse
                                                 value={vm.isActive}
                                             />
                                         </td>
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
-                                                <div className="dropdown me-3">
+                                                <div className="dropdown me-1">
                                                     <button
-                                                        className="btn btn-outline-neutral-300 dropdown-toggle"
+                                                        className="btn btn-outline-neutral-300 btn-sm dropdown-toggle"
                                                         type="button"
                                                         data-bs-toggle="dropdown"
                                                         aria-expanded="false">
                                                         Setting
                                                     </button>
-                                                    <ul className="dropdown-menu">
+                                                    <ul className="dropdown-menu p-2">
                                                         <li>
                                                             <button
                                                                 className="dropdown-item btn-sm"
@@ -208,6 +242,30 @@ const UserPage = () => {
                                                                     )
                                                                 }>
                                                                 Update Password
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                className="dropdown-item btn-sm"
+                                                                onClick={() =>
+                                                                    _handleChooseForUpdateActivation(
+                                                                        vm,
+                                                                    )
+                                                                }>
+                                                                Change
+                                                                Activation
+                                                            </button>
+                                                        </li>
+                                                        <li>
+                                                            <button
+                                                                className="dropdown-item btn-sm"
+                                                                onClick={() =>
+                                                                    _handleChooseForUpdateSuperAdmin(
+                                                                        vm,
+                                                                    )
+                                                                }>
+                                                                Change Super
+                                                                Admin
                                                             </button>
                                                         </li>
                                                     </ul>
@@ -267,6 +325,46 @@ const UserPage = () => {
                         emptySelect: () => {
                             _handleSetData({})
                         },
+                    }}
+                />
+
+                <UserModalUpdateActivation
+                    dataDetail={dataForUpdateActivation}
+                    actions={{
+                        callBack: (passNewData) => __actionUpdate(passNewData),
+                        clearSelected: () =>
+                            _handleSetDataForUpdateActivation({}),
+                    }}
+                />
+
+                <UserModalUpdateSuperAdmin
+                    dataDetail={dataForUpdateSuperAdmin}
+                    actions={{
+                        callBack: (passNewData) => __actionUpdate(passNewData),
+                        clearSelected: () =>
+                            _handleSetDataForUpdateSuperAdmin({}),
+                    }}
+                />
+
+                <UserModalSettingPermission
+                    dataDetail={dataForPermission}
+                    keyLabel="display"
+                    actions={{
+                        clearSelected: () => _handleSetDataForPermission({}),
+                    }}
+                />
+
+                <UserModalSettingRole
+                    dataDetail={dataForRole}
+                    actions={{
+                        clearSelected: () => _handleSetDataForRole({}),
+                    }}
+                />
+
+                <UserModalUpdatePassword
+                    dataDetail={dataForUpdatePW}
+                    actions={{
+                        clearSelected: () => _handleSetDataForUpdatePW({}),
                     }}
                 />
             </CreatePortalLayout>

@@ -13,13 +13,19 @@ import { updatePasswordStaff } from '@/service/api/staff.api.ts'
 import { isSuccess } from '@/helper/condition.helper.ts'
 import { AvatarInTable } from '@/component/general/Avatar.tsx'
 
-interface staffFormType {
+interface StaffFormType {
     dataDetail?: { [key: string | number]: any }
+    actions?: {
+        clearSelected?: () => void
+    }
 }
 
-const UserModalUpdatePassword: React.FC<staffFormType> = ({
+const UserModalUpdatePassword = ({
     dataDetail = { id: '', fullName: '', gender: {} },
-}) => {
+    actions = {
+        clearSelected: () => {},
+    },
+}: StaffFormType) => {
     const [formRequest, setFormRequest] = useState(
         cloneDeep(updatePasswordParam),
     )
@@ -30,6 +36,7 @@ const UserModalUpdatePassword: React.FC<staffFormType> = ({
     const _handleClose = () => {
         actionModal(MDUserUpdatePassword, true)
         setFormRequest(cloneDeep(updatePasswordParam))
+        actions.clearSelected()
     }
 
     const _handleSubmit = () => {

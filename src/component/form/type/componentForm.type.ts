@@ -169,6 +169,7 @@ export interface FormRadioButtonProps extends InputHTMLAttributes<HTMLInputEleme
     value?: any
     defaultValue?: any
     aliasName?: string
+    isGetDefaultValue?: boolean
 }
 
 export interface FormRadioButtonMultiProps {

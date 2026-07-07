@@ -291,18 +291,24 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
 
             <MenuSection name="System Management" />
             <li className="submenu-dropdown">
-                <LinkMenuDropdown
-                    name="Account"
-                    to={userPath.basic}
+                {/*<LinkMenuDropdown*/}
+                {/*    name="Account"*/}
+                {/*    to={userPath.basic}*/}
+                {/*    icon={<Profile2User variant="Bulk" />}*/}
+                {/*    idControl="sm-staff"*/}
+                {/*    subMenus={[*/}
+                {/*        _configParamSubMenu('Staff', userPath.main),*/}
+                {/*        _configParamSubMenu(*/}
+                {/*            'Role & Permission',*/}
+                {/*            userPath.roleAndPermission.main,*/}
+                {/*        ),*/}
+                {/*    ]}*/}
+                {/*/>*/}
+
+                <LinkMenu
+                    name="Staff"
                     icon={<Profile2User variant="Bulk" />}
-                    idControl="sm-user"
-                    subMenus={[
-                        _configParamSubMenu('Users', userPath.main),
-                        _configParamSubMenu(
-                            'Role & Permission',
-                            userPath.roleAndPermission.main,
-                        ),
-                    ]}
+                    to={userPath.main}
                 />
             </li>
             <li className="">

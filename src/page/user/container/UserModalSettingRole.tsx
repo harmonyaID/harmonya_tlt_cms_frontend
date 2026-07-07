@@ -16,12 +16,16 @@ import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 
 interface staffFormType {
     dataDetail?: { [key: string | number]: any }
-    clearSelected?: () => void
+    actions?: {
+        clearSelected?: () => void
+    }
 }
 
 const UserModalSettingRole = ({
     dataDetail = { id: '', fullName: '', gender: {} },
-    clearSelected = () => {},
+    actions = {
+        clearSelected: () => {},
+    },
 }: staffFormType) => {
     const { __list, __isLoading, __actionGetData, __actionRemoveAll } =
         useDataListHook({
@@ -40,7 +44,7 @@ const UserModalSettingRole = ({
 
     const _handleClose = () => {
         __actionRemoveAll()
-        clearSelected()
+        actions.clearSelected()
         actionModal(MDUserSettingRole, true)
         setFormRequest(cloneDeep(settingRoleParam))
     }

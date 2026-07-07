@@ -3,8 +3,6 @@ import _ from 'lodash'
 import { eventChange } from '@/helper/base/actionEvent.helper.ts'
 import { ChangeEventCallbackInput, ContextInput } from '../type/hook.type'
 
-
-
 const useComponentInputConfigHook = (
     ctx: ContextInput,
     onChange: ChangeEventCallbackInput | null,
@@ -24,8 +22,8 @@ const useComponentInputConfigHook = (
         _.isNull(onChange)
             ? ctx.__handleChange(name, value, event)
             : !_.isNull(onChange)
-            ? onChange(name, value, event)
-            : null
+              ? onChange(name, value, event)
+              : null
     }
 
     return {

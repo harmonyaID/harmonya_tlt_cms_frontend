@@ -4,7 +4,7 @@ const basic = 'sm-account'
 
 const userPath = {
     basic: '/' + basic,
-    ...objectPathMenu(basic + '/users'),
+    ...objectPathMenu(basic + '/staff'),
 
     roleAndPermission: { ...objectPathMenu(basic + '/role-permission') },
 }
