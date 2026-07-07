@@ -5,7 +5,7 @@ const baseAPI: any = String(import.meta.env.VITE_BASE_API)
 
 const baseComponentAPI = baseAPI + '/component'
 
-export const SrvCountries = baseAPI + '/component/countries'
+export const SrvCountries = baseAPI + '/components/countries'
 
 // Info Website
 export const SrvInfoWebsite = baseAPI + '/configurations/website'

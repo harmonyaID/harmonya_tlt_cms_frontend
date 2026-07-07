@@ -23,6 +23,7 @@ const FormRadioButton: FC<FormRadioButtonProps> = (props) => {
         },
         nameOfChange = '',
         isUseHook = true,
+        isGetDefaultValue = true,
     } = props
 
     const { dataValue } = useComponentInputConfigHook(
@@ -35,19 +36,30 @@ const FormRadioButton: FC<FormRadioButtonProps> = (props) => {
     const dataId = id || 'form-radio-btn-' + props.name + uniqueId
 
     const _handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value, isChecked } = eventChange(e)
+        const exactValue = isGetDefaultValue ? props.defaultValue : value
+
         if (!_.isEmpty(ctx.__value) && isUseHook) {
-            const { name, value, isChecked } = eventChange(e)
             if (nameOfChange && _.isFunction(ctx.__actions[nameOfChange])) {
-                ctx.__actions[nameOfChange](name, value, isChecked)
+                ctx.__actions[nameOfChange](name, exactValue, isChecked)
             } else {
-                ctx.__handleChange(name, value, isChecked)
+                ctx.__handleChange(name, exactValue, isChecked)
             }
         } else {
-            actions.onChange(props.name, props.value, e)
+            actions.onChange(name, exactValue, e)
         }
     }
 
-    const isChecked = props.defaultValue == dataValue
+    const _handleNormalizeBool = (val) => {
+        if (val === null || val === undefined) return false
+        if (typeof val === 'boolean') return val
+        const str = String(val).trim().toLowerCase()
+        return str === 'true' || str === '1'
+    }
+
+    const isChecked =
+        _handleNormalizeBool(props.defaultValue) ===
+        _handleNormalizeBool(dataValue)
 
     return (
         <div

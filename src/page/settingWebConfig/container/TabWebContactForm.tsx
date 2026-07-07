@@ -258,7 +258,7 @@ const TabWebContactForm = ({
                             />
 
                             <FormInput
-                                label="email"
+                                label="Email"
                                 name="email"
                                 type="email"
                                 required
@@ -266,14 +266,15 @@ const TabWebContactForm = ({
                             />
 
                             <FormInput
-                                label="phone"
+                                label="Phone"
                                 name="phone"
                                 required
                                 placeholder="e.g 08100xxxx"
+                                isNumberOnly
                             />
 
                             <FormInput
-                                label="subject"
+                                label="Subject"
                                 name="subject"
                                 required
                                 placeholder="e.g Lembongan Good For Kids"

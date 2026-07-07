@@ -6,13 +6,16 @@ const baseAPI: any = String(import.meta.env.VITE_BASE_API) + '/staffs'
 export const SrvStaffCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPI)
 
 export const SrvStaffUpdatePassword = (id: string | number = ''): string =>
-    baseAPI + '/staffs/' + id + '/password'
+    baseAPI + '/' + id + '/password'
 
 export const SrvStaffAccessRoles = (id: string | number = ''): string =>
-    baseAPI + '/staffs/' + id + '/accesses/roles'
+    baseAPI + '/' + id + '/accesses/roles'
 
 export const SrvStaffAccessPermissions = (id: string | number = ''): string =>
-    baseAPI + '/staffs/' + id + '/accesses/permissions'
+    baseAPI + '/' + id + '/accesses/permissions'
 
 export const SrvStaffUpdateActivation = (id: string | number = '') =>
-    baseAPI + '/staffs/' + id + '/activation'
+    baseAPI + '/' + id + '/activation'
+
+export const SrvStaffUpdateSuperAdmin = (id: string | number = '') =>
+    baseAPI + '/' + id + '/superadmin'

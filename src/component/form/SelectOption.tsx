@@ -1,9 +1,8 @@
-import { FC } from 'react'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 import { SelectOptionProps } from '@/type/form.type'
 
-const SelectOption: FC<SelectOptionProps> = (props) => {
+const SelectOption = (props: SelectOptionProps) => {
     const {
         id = '',
         name = '',

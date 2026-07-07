@@ -9,6 +9,8 @@ import {
     SrvStaffAccessRoles,
     SrvStaffAccessPermissions,
     SrvStaffUpdatePassword,
+    SrvStaffUpdateActivation,
+    SrvStaffUpdateSuperAdmin,
 } from '@/service/api/_staff.endPoint.ts'
 
 export const apiStaff = { ..._shapeObjectMethodCRUD(SrvStaffCRUD) }
@@ -32,3 +34,9 @@ export const getRoleStaff = (
 
 export const updateRoleStaff = (id: any, formRequest: any) =>
     _shapeMethodPatch(SrvStaffUpdatePassword(id), formRequest)
+
+export const updateActivationStaff = (id: any, formRequest: any) =>
+    _shapeMethodPatch(SrvStaffUpdateActivation(id), formRequest)
+
+export const updateSuperAdminStaff = (id: any, formRequest: any) =>
+    _shapeMethodPatch(SrvStaffUpdateSuperAdmin(id), formRequest)
