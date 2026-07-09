@@ -26,3 +26,23 @@ export const SrvWebContactFormCRUD: SrvWithFeature = objectPathEndPointAPI(
 // Component
 export const SrvComponentContactFormTypeCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPI + '/components/contact-form-types')
+
+// Contain Blog Setting
+export const SrvBlogCategoryCRUD = objectPathEndPointAPI(
+    baseAPI + '/blogs/categories',
+)
+
+export const SrvBlogTagCRUD = objectPathEndPointAPI(baseAPI + '/blogs/tags')
+
+// Contain Experiences Setting
+export const SrvExperienceTypeCRUD = objectPathEndPointAPI(
+    baseAPI + '/experiences/types',
+)
+
+export const SrvExperienceCategoryCRUD = objectPathEndPointAPI(
+    baseAPI + '/experiences/categories',
+)
+
+export const SrvExperienceInquiryFormsCRUD = objectPathEndPointAPI(
+    baseAPI + '/experiences/inquiry-forms',
+)

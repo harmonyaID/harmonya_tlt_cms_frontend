@@ -3,7 +3,12 @@ import {
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
+    SrvBlogCategoryCRUD,
+    SrvBlogTagCRUD,
     SrvComponentContactFormTypeCRUD,
+    SrvExperienceCategoryCRUD,
+    SrvExperienceInquiryFormsCRUD,
+    SrvExperienceTypeCRUD,
     SrvFAQCRUD,
     SrvLanguageCRUD,
     SrvMediaPartnerCRUD,
@@ -27,4 +32,24 @@ export const apiWebContactForm = {
 
 export const apiContactFormType = {
     ..._shapeObjectMethodCRUD(SrvComponentContactFormTypeCRUD),
+}
+
+// Blog Setting
+export const apiBlogCategory = {
+    ..._shapeObjectMethodCRUD(SrvBlogCategoryCRUD),
+}
+
+export const apiBlogTag = { ..._shapeObjectMethodCRUD(SrvBlogTagCRUD) }
+
+// Experience Setting
+export const apiExperienceType = {
+    ..._shapeObjectMethodCRUD(SrvExperienceTypeCRUD),
+}
+
+export const apiExperienceCategory = {
+    ..._shapeObjectMethodCRUD(SrvExperienceCategoryCRUD),
+}
+
+export const apiExperienceInquiryForm = {
+    ..._shapeObjectMethodCRUD(SrvExperienceInquiryFormsCRUD),
 }

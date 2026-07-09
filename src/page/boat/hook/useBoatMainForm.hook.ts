@@ -9,35 +9,38 @@ import boatPath from '@/path/boat.path.ts'
 
 const defaultActive = '1'
 
+const formCustomInformation = (name, value, order) => ({ name, value, order })
+
 const initForm = {
-    name: '',
+    boatComponentTypeId: '',
     description: '',
-    routeFrom: '',
-    routeTo: '',
-    departureTimesFromBali: [''],
-    departureTimesFromLembongan: [''],
-    notes: '',
-    discountPercentage: '',
     isActive: defaultActive,
+    priceFile: '',
+    promoPhotos: [],
     photos: [],
+    customInformations: [],
 }
 
 const initMapForm = (passData) => ({
-    name: passData.name || '',
+    // name: passData.name || '',
+    // description: passData.description || '',
+    // routeFrom: passData.routeFrom || '',
+    // routeTo: passData.routeTo || '',
+    // notes: passData.notes || '',
+    // discountPercentage: passData.discountPercentage || '',
+
+    boatComponentTypeId: passData?.boatComponentType?.id || '',
     description: passData.description || '',
-    routeFrom: passData.routeFrom || '',
-    routeTo: passData.routeTo || '',
-    departureTimesFromBali: passData?.departureTimesFromBali?.length
-        ? passData.departureTimesFromBali
+    customInformations: passData?.customInformations?.length
+        ? passData.customInformations
         : [],
-    departureTimesFromLembongan: passData?.departureTimesFromLembongan?.length
-        ? passData.departureTimesFromLembongan
-        : [],
-    notes: passData.notes || '',
-    discountPercentage: passData.discountPercentage || '',
+    priceFile: passData?.priceFile || '',
     isActive: passData.isActive ? defaultActive : '0',
     photos: [],
     deletePhotoIds: [],
+    // promoPhotos: passData?.promoPhotos.length ? passData.promoPhotos : [],
+    promoPhotos: [],
+    // deletePromoPhotoIds: [],
 })
 
 const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
@@ -66,6 +69,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         isManualSetFormRequest: true,
         handleSetFormRequest: (res) => {
             if (isEdit) {
+                //@ts-ignore
                 setFormRequest(initMapForm(res))
                 // __setList(res?.employees || [])
                 if (res?.photos?.length > 0) {
@@ -127,6 +131,32 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
     }
 
+    // Start Handle Custom Info
+    const _handleCustomInfoAdd = () => {
+        nestedForm._handleArrToggle(-1, 'customInformations', {
+            name: '',
+            value: '',
+            order: formRequest.customInformations.length + 1,
+        })
+    }
+
+    const _handleCustomInfoRemove = (indexToRemove) => {
+        setFormRequest((prev) => {
+            const updated = prev.customInformations
+                .filter((_, index) => index !== indexToRemove)
+                .map((item, index) => ({
+                    ...item,
+                    order: index + 1,
+                }))
+
+            return {
+                ...prev,
+                customInformations: updated,
+            }
+        })
+    }
+    // End Handle Custom Info
+
     const _handleSubmit = () => {
         return __handleSubmit({
             apiCall: () =>
@@ -157,6 +187,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleArrToggle: nestedForm._handleArrToggle,
         __handleArrChange: nestedForm._handleArrChange,
         __handleChangeTime: _handleChangeTime,
+        __handleCustomInfoAdd: _handleCustomInfoAdd,
+        __handleCustomInfoRemove: _handleCustomInfoRemove,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,

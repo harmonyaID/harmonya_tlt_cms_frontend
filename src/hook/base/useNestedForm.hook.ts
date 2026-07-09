@@ -1,4 +1,4 @@
-import _, { cloneDeep, isEmpty } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 import { FormRequest, SetFormRequest } from '@/type/form.type'
 
 const useNestedFormHook = (
@@ -60,9 +60,6 @@ const useNestedFormHook = (
                     : newFormRequest.push(newDataForm)
             })
         }
-
-        console.log('newFormRequest: ', newFormRequest)
-
         setFormRequest(newFormRequest)
     }
 

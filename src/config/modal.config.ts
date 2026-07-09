@@ -64,6 +64,18 @@ export const MDPSTabMediaContactFormTypeAdd =
 export const MDPSTabMediaContactFormTypeRemove =
     'modalSettingPageContactFormTypeRemove'
 
+export const MDBlogTagAdd = 'modalSettingPageBlogTagAdd'
+export const MDBlogTagRemove = 'modalSettingPageBlogTagRemove'
+
+export const MDBlogCategoryAdd = 'modalSettingPageBlogCategoryAdd'
+export const MDBlogCategoryRemove = 'modalSettingPageBlogCategoryRemove'
+
+export const MDExTypeAdd = 'modalExTypeSettingAdd'
+export const MDExTypeRemove = 'modalExTypeSettingRemove'
+
+export const MDExCategoryAdd = 'modalExCategoryTypeAdd'
+export const MDExCategoryRemove = 'modalExCategoryTypeRemove'
+
 // User / Staff
 export const MDUserRemove = 'modalUserRemove'
 

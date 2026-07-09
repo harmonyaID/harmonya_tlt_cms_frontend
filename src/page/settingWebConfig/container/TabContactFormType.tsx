@@ -39,8 +39,6 @@ import CardPreview from '@/component/card/CardPreview.tsx'
 import { useEffect } from 'react'
 import { isEmpty } from 'lodash'
 
-const defaultActive = '1'
-
 const initForm = {
     name: '',
 }
@@ -50,13 +48,11 @@ const initMapForm = (passData) => ({
 })
 
 const TabContactFormType = ({
-    // isLoadingFormType = false,
     action = {
         setIsLoadingFormType: (isLoadingFormType: boolean) => {},
         setListFormType: (listFormType: any[]) => {},
     },
 }: {
-    // isLoadingFormType: boolean
     action?: {
         setIsLoadingFormType?: (pass?: any) => void
         setListFormType?: (pass?: any) => void

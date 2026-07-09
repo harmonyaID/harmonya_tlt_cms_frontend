@@ -66,24 +66,24 @@ const BoatManagementRoute = () => (
             <Route path="*" element={<Page404Layout to={boatMainPath} />} />
         </Route>
 
-        {/*<Route path={boatSettingMainPath}>*/}
-        {/*    <Route*/}
-        {/*        index*/}
-        {/*        path={boatSettingMainPath}*/}
-        {/*        element={*/}
-        {/*            <SuspenseLayout*/}
-        {/*                titleNavbar="Boat Setting"*/}
-        {/*                isCheckPermission={false}>*/}
-        {/*                <BoatSettingPage />*/}
-        {/*            </SuspenseLayout>*/}
-        {/*        }*/}
-        {/*    />*/}
+        <Route path={boatSettingMainPath}>
+            <Route
+                index
+                path={boatSettingMainPath}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Boat Setting"
+                        isCheckPermission={false}>
+                        <BoatSettingPage />
+                    </SuspenseLayout>
+                }
+            />
 
-        {/*    <Route*/}
-        {/*        path="*"*/}
-        {/*        element={<Page404Layout to={boatSettingMainPath} />}*/}
-        {/*    />*/}
-        {/*</Route>*/}
+            <Route
+                path="*"
+                element={<Page404Layout to={boatSettingMainPath} />}
+            />
+        </Route>
     </>
 )
 

@@ -36,7 +36,7 @@ const initMapForm = (passData) => ({
     isActive: passData.isActive || '0',
 })
 
-const TabBoatContactForm = () => {
+const TabBoatContactForm = ({ boatId = '' }: { boatId?: number | string }) => {
     const {
         __list,
         __isLoading,
@@ -47,6 +47,9 @@ const TabBoatContactForm = () => {
         __actionPagination,
     } = useDataListHook({
         urlAPI: apiBoatContactForm.list,
+        advancedSearch: {
+            bootId: boatId,
+        },
     })
 
     const {
@@ -81,14 +84,14 @@ const TabBoatContactForm = () => {
 
     return (
         <>
-            <div className="row mb-4">
+            <div className="row mb-2">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Boat Contact Form</h5>
+                    <h5 className="fs-16 fw-500 mb-2">Boat Contact Form</h5>
                 </div>
                 <div className="col-auto">
-                    <BtnPrimary onClick={() => __actionAddModal()}>
-                        Add New
-                    </BtnPrimary>
+                    {/*<BtnPrimary onClick={() => __actionAddModal()}>*/}
+                    {/*    Add New*/}
+                    {/*</BtnPrimary>*/}
                 </div>
             </div>
 
@@ -97,12 +100,7 @@ const TabBoatContactForm = () => {
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={[
-                            'Order',
-                            { content: 'FAQ', className: 'w-75' },
-                            'Info',
-                            '',
-                        ]}
+                        ths={['Booking Ref', 'Contact', 'Info', '']}
                         tds={__list}>
                         {__list
                             .sort((a, b) => Number(a.order) - Number(b.order))
@@ -110,24 +108,25 @@ const TabBoatContactForm = () => {
                                 return (
                                     <tr key={index}>
                                         <td>
-                                            <TblLineFirst value={vm.order} />
-                                        </td>
-                                        <td>
-                                            <TblPointData title="Question">
-                                                {vm.question || '-'}
-                                            </TblPointData>
-                                            <TblPointData title="Answer">
-                                                {vm.answer || '-'}
+                                            <TblLineFirst
+                                                value={vm.tltBookingRefName}
+                                            />
+
+                                            <TblPointData title="Name">
+                                                {vm.name || '-'}
                                             </TblPointData>
                                         </td>
                                         <td>
-                                            <TblPointData title="Status Active">
-                                                <TextTrueOrFalse
-                                                    value={vm.isActive}
-                                                />
+                                            <TblPointData title="Email">
+                                                {vm.email || '-'}
                                             </TblPointData>
-                                            <TblPointData title="Created At">
-                                                {vm.createdAt || '-'}
+                                            <TblPointData title="Phone">
+                                                {vm.phone || '-'}
+                                            </TblPointData>
+                                        </td>
+                                        <td>
+                                            <TblPointData title="Passenger Names">
+                                                {vm.passengerNames || '-'}
                                             </TblPointData>
                                         </td>
                                         <td>

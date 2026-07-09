@@ -34,25 +34,34 @@ import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import { APIResponse } from '@/type/resultAPI.ts'
 import { objectToFormData } from '@/helper/convertFormData.helper.ts'
+import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
+import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
+import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
+import { WrapFormContext } from '@/context/Form.context.tsx'
+import { useState } from 'react'
+import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
+
+const defaultIsActive = 1
 
 const initForm = {
     name: '',
     position: '',
     company: '',
-    rating: '',
+    rating: '1',
     review: '',
-    isActive: '0',
+    isActive: defaultIsActive,
     photos: [],
 }
 
 const initMapForm = (passData) => ({
-    name: passData.name || '',
-    position: passData.position || '',
-    company: passData.company || '',
-    rating: passData.rating || '1',
-    review: passData.review || '',
-    isActive: passData.isActive || '0',
-    photos: passData?.photos || [],
+    name: passData?.name || '',
+    position: passData?.position || '',
+    company: passData?.company || '',
+    rating: passData?.rating || '1',
+    review: passData?.review || '',
+    isActive: passData?.isActive ? 1 : 0,
+    deletePhotoIds: [],
+    photos: [],
 })
 
 const TabTLTReview = () => {
@@ -68,6 +77,8 @@ const TabTLTReview = () => {
         urlAPI: apiTLTReview.list,
     })
 
+    const [lisPreviousPhotos, setLisPreviousPhotos] = useState([])
+
     const {
         __formRequest,
         __detailData,
@@ -82,11 +93,71 @@ const TabTLTReview = () => {
     } = useCRUDModalRequestHook({
         modalId: MDPSTabTLTReviewAdd,
         modalRemoveId: MDPSTabTLTReviewRemove,
+        //@ts-ignore
         emptyParam: { ...initForm },
-        mapDetailToFormRequest: initMapForm,
+        mapDetailToFormRequest: (passData) => {
+            const configParam = {
+                ...passData,
+                isActive: passData.isActive ? 1 : 0,
+            }
+
+            return initMapForm(configParam)
+        },
     })
 
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
+
+    // Start Edit Photos
+    const _handleListPreviousPhotos = (passData) => {
+        if (passData?.photos?.length > 0) {
+            setLisPreviousPhotos(
+                passData.photos.map((photo) => ({
+                    ...photo,
+                    isDeleted: false,
+                })),
+            )
+        }
+    }
+
+    const _handleToggleDeletePrevPhotos = (passId: string | number) => {
+        __setFormRequest((prevState) => {
+            const newState = { ...prevState }
+
+            const photoIndex = newState['deletePhotoIds'].findIndex(
+                (id) => id === passId,
+            )
+
+            if (photoIndex > -1) {
+                newState['deletePhotoIds'].splice(photoIndex, 1)
+            } else {
+                newState['deletePhotoIds'].push(passId)
+            }
+
+            return newState
+        })
+
+        setLisPreviousPhotos((prevState) => {
+            const newState = [...prevState]
+
+            const index = newState.findIndex((vm) => vm.id === passId)
+            if (index > -1) {
+                newState[index].isDeleted = !newState[index].isDeleted
+            }
+
+            return newState
+        })
+    }
+    // End Edit Photos
+
+    // Start New Photos
+    const {
+        __dataFiles,
+        __setDataFiles,
+        __actionAddFiles,
+        __actionSetDataFiles,
+        __actionRemoveDataFile,
+    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'photos')
+    // End New Photos
 
     const {
         __data: dataForRemove,
@@ -105,7 +176,9 @@ const TabTLTReview = () => {
                     <h5 className="fs-18 fw-500">TLT Review</h5>
                 </div>
                 <div className="col-auto">
-                    <BtnPrimary onClick={() => {}}>Add New</BtnPrimary>
+                    <BtnPrimary onClick={() => __actionAddModal()}>
+                        Add New
+                    </BtnPrimary>
                 </div>
             </div>
 
@@ -168,6 +241,9 @@ const TabTLTReview = () => {
                                                     actions={{
                                                         edit: (e) => {
                                                             e.stopPropagation()
+                                                            _handleListPreviousPhotos(
+                                                                vm,
+                                                            )
                                                             __actionUpdateModal(
                                                                 vm,
                                                             )
@@ -196,7 +272,7 @@ const TabTLTReview = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabFAQRemove}
+                    id={MDPSTabTLTReviewRemove}
                     configHandle={{
                         urlAPI: () => apiTLTReview.delete(dataForRemove.id),
                         callBack: () => {
@@ -209,7 +285,7 @@ const TabTLTReview = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabLanguageAdd}
+                    id={MDPSTabTLTReviewAdd}
                     detail={__detailData}
                     title="TLT Review"
                     isEdit={__isEdit}
@@ -223,23 +299,40 @@ const TabTLTReview = () => {
                     externalForm={
                         <>
                             <FormInput
-                                label="Order"
-                                name="order"
+                                label="Name"
+                                name="name"
                                 required
-                                type="number"
-                                min="1"
-                                placeholder="e.g 1"
+                                placeholder="e.g Jane Smith"
                             />
 
                             <FormInput
-                                label="Question"
-                                name="question"
+                                label="Position"
+                                name="position"
                                 required
-                                placeholder="e.g Is Lembongan Good For Kids ?"
+                                placeholder="e.g Marketing"
                             />
+
+                            <FormInput
+                                label="Company"
+                                name="company"
+                                required
+                                placeholder="e.g XYW Ltd"
+                            />
+
+                            <FormInput
+                                label="Rating"
+                                name="rating"
+                                required
+                                placeholder="e.g XYW Ltd"
+                                type="number"
+                                min="0"
+                                max="5"
+                                isNumberOnly
+                            />
+
                             <FormTextArea
-                                label="Answer"
-                                name="answer"
+                                label="Review"
+                                name="review"
                                 required
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
                             />
@@ -258,6 +351,44 @@ const TabTLTReview = () => {
                                     },
                                 ]}
                             />
+
+                            {__isEdit && lisPreviousPhotos?.length ? (
+                                <FormEditFileLogic
+                                    dataFiles={lisPreviousPhotos.filter(
+                                        (vm) => !vm.isDeleted,
+                                    )}
+                                    dataBy="photo"
+                                    actions={{
+                                        remove: (data) =>
+                                            _handleToggleDeletePrevPhotos(
+                                                data.id,
+                                            ),
+                                        restore: () => {},
+                                    }}
+                                />
+                            ) : null}
+
+                            <WrapFormContext
+                                formRequest={__formRequest}
+                                actions={{
+                                    // change: __handleChange,
+                                    handleAddFiles: __actionAddFiles,
+                                    handleSetDataFiles: __actionSetDataFiles,
+                                    handleRemoveDataFile:
+                                        __actionRemoveDataFile,
+                                    // handleArrChange: __handleArrChange,
+                                }}>
+                                <FormUploadFileWithActionPreviewLogic
+                                    label="New Photos"
+                                    required
+                                    isUseInputDesc={false}
+                                    isUseDefaultLabel={false}
+                                    formName="photos"
+                                    // isEdit={isEdit}
+                                    dataFiles={__dataFiles}
+                                    formRequest={__formRequest}
+                                />
+                            </WrapFormContext>
                         </>
                     }
                     configHandle={{
@@ -265,7 +396,7 @@ const TabTLTReview = () => {
                             const dataForm = await objectToFormData({
                                 ...__formRequest,
                             })
-                            return apiTLTReview.addWithData(dataForm)
+                            return apiTLTReview.addWithData(__formRequest)
                         },
                         urlAPIUpdate: async (): Promise<APIResponse> => {
                             const dataForm = await objectToFormData({
@@ -273,7 +404,7 @@ const TabTLTReview = () => {
                             })
                             return apiTLTReview.updateWithData(
                                 __selectedId,
-                                dataForm,
+                                __formRequest,
                             )
                         },
                         initialForm: () =>
@@ -282,11 +413,16 @@ const TabTLTReview = () => {
                             __isEdit
                                 ? __actionUpdate(newData)
                                 : __actionAdd(newData, 'id', true)
+                            __setDataFiles([])
+                            setLisPreviousPhotos([])
                         },
-                        emptySelect: () =>
-                            __setFormRequest(() => ({
+                        emptySelect: () => {
+                            __setFormRequest({
                                 ...initForm,
-                            })),
+                            })
+                            __setDataFiles([])
+                            setLisPreviousPhotos([])
+                        },
                     }}
                 />
             </CreatePortalLayout>

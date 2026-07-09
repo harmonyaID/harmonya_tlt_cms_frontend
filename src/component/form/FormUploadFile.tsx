@@ -139,18 +139,18 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
         return isImage
             ? fileUrl
             : isBase64 && fileUrl.includes('application/pdf')
-            ? IconPDF
-            : isBase64 && fileUrl.includes('application/msword')
-            ? IconWORD
-            : isBase64 && fileUrl.includes('application/vnd.ms-excel')
-            ? IconEXCEL
-            : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_PDF)
-            ? IconPDF
-            : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_WORD)
-            ? IconWORD
-            : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_EXCEL)
-            ? IconEXCEL
-            : null
+              ? IconPDF
+              : isBase64 && fileUrl.includes('application/msword')
+                ? IconWORD
+                : isBase64 && fileUrl.includes('application/vnd.ms-excel')
+                  ? IconEXCEL
+                  : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_PDF)
+                    ? IconPDF
+                    : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_WORD)
+                      ? IconWORD
+                      : checkFileTypeFromUrl(fileUrl, IS_TYPE_FILE_EXCEL)
+                        ? IconEXCEL
+                        : null
     }
     // Handle Preview in Modal End
 
@@ -336,15 +336,15 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
                       return { [dataPreviewBy]: vm, name: '' }
                   })
                 : isObject(dataValue)
-                ? [{ ...dataValue }]
-                : [
-                      {
-                          [dataPreviewBy]: dataValue,
-                          name: nameFileDefault || '',
-                          size: '',
-                          type: '',
-                      },
-                  ]
+                  ? [{ ...dataValue }]
+                  : [
+                        {
+                            [dataPreviewBy]: dataValue,
+                            name: nameFileDefault || '',
+                            size: '',
+                            type: '',
+                        },
+                    ]
 
             setPreviewFiles(dataFiles)
         }
@@ -420,13 +420,15 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
                             className="btn btn-sm text-blue-300 p-0 mt-0 me-3"
                             onClick={() =>
                                 _handlePreviewDetailImage(true, passIndex)
-                            }>
+                            }
+                            type="button">
                             <Eye variant="Bold" size="18" />
                         </button>
 
                         <button
                             className="btn btn-sm text-danger-200 p-0 mt-0"
-                            onClick={() => _handleRemove(passIndex)}>
+                            onClick={() => _handleRemove(passIndex)}
+                            type="button">
                             <Trash variant="Bold" size="16" />
                         </button>
                     </div>

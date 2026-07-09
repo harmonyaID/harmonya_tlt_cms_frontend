@@ -1,31 +1,24 @@
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
-// import CardNavTab from '@/component/card/CardNavTab.tsx'
-// import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
-// import TabFAQ from '@/page/contentSetting/blogSetting/container/TabFAQ.tsx'
-// import TabLanguage from '@/page/contentSetting/blogSetting/container/TabLanguage.tsx'
-// import TabTLTReview from '@/page/contentSetting/blogSetting/container/TabTLTReview.tsx'
+import CardNavTab from '@/component/card/CardNavTab.tsx'
+import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import TabBlogTag from '@/page/contentSetting/blogSetting/container/TabBlogTag.tsx'
+import TabBlogCategory from '@/page/contentSetting/blogSetting/container/TabBlogCategory.tsx'
 
-const BlogSettingPage = () => {
-    return (
-        <>
-            <div className="mb-4">
-                <PageTitle title="Blog Setting" />
-            </div>
+const BlogSettingPage = () => (
+    <>
+        <PageTitle title="Blog Setting" className="pb-4" />
 
-            {/*<CardNavTab*/}
-            {/*    tabs={[*/}
-            {/*        objectTab('FAQ', 'tabFAQ'),*/}
-            {/*        objectTab('Language', 'tabLanguage'),*/}
-            {/*        objectTab('TLT Review', 'tabTLTReview'),*/}
-            {/*    ]}*/}
-            {/*    tabContents={[*/}
-            {/*        objectTabContent('', <TabFAQ />),*/}
-            {/*        objectTabContent('', <TabLanguage />),*/}
-            {/*        objectTabContent('', <TabTLTReview />),*/}
-            {/*    ]}*/}
-            {/*/>*/}
-        </>
-    )
-}
+        <CardNavTab
+            tabs={[
+                objectTab('Tag', 'tabTag'),
+                objectTab('Category', 'tabCategory'),
+            ]}
+            tabContents={[
+                objectTabContent('', <TabBlogTag />),
+                objectTabContent('', <TabBlogCategory />),
+            ]}
+        />
+    </>
+)
 
 export default BlogSettingPage

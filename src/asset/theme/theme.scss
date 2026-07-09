@@ -36,3 +36,43 @@ body {
 @import "config.support.scss";
 @import "custom/_config-svg.custom.scss";
 @import "custom/_image-thubmnail.scss";
+
+// Plugins
+@import 'quill/dist/quill.snow.css';
+.quill-editor {
+    border: 1px solid var(--bs-neutral-400);
+    border-radius: 12px;
+    background-color: var(--bs-body);
+
+    .ql-toolbar {
+        border: none;
+        border-bottom: 1px solid var(--bs-neutral-400);
+        background: var(--bs-body);
+
+        .ql-formats {
+            color: red !important;
+        }
+    }
+
+    .ql-container {
+        border: none;
+        border-radius: 0 0 12px 12px;
+        min-height: 200px;
+    }
+
+    .ql-editor {
+        font-size: 16px;
+        color: var(--bs-neutral-200);
+
+        &.ql-blank::before {
+            font-size: 16px;
+            color: var(--bs-neutral-400);
+            content: attr(data-placeholder);
+        }
+
+        p {
+            font-size: 16px;
+            color: var(--bs-neutral-200);
+        }
+    }
+}

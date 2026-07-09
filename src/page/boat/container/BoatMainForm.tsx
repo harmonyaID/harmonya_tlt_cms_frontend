@@ -12,11 +12,13 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
-import FormInputTimePicker from '@/component/form/FormInputTimePicker.tsx'
 import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
 import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
+import SelectOptionBoatType from '@/common/dataForm/SelectOptionBoatType.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
+import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -28,7 +30,8 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChange,
         __handleArrToggle,
         __handleArrChange,
-        __handleChangeTime,
+        __handleCustomInfoAdd,
+        __handleCustomInfoRemove,
         __handleSubmit,
         __handleCancel,
 
@@ -37,12 +40,29 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __lisPreviousPhotos,
     } = useBoatMainFormHook({ isEdit })
 
+    // Photos
     const {
         __dataFiles,
         __actionAddFiles,
         __actionSetDataFiles,
         __actionRemoveDataFile,
     } = useFormDataFilesHook(__formRequest, __setFormRequest, 'photos')
+
+    // Promo Photos
+    const {
+        __dataFiles: __dataFilesPromo,
+        __actionAddFiles: __actionAddFilesPromo,
+        __actionSetDataFiles: __actionSetDataFilesPromo,
+        __actionRemoveDataFile: __actionRemoveDataFilePromo,
+    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'promoPhotos')
+
+    // Price File
+    const {
+        __dataFiles: __dataFilePriceFile,
+        __actionAddFiles: __actionAddFilePriceFile,
+        __actionSetDataFiles: __actionSetDataFilePriceFile,
+        __actionRemoveDataFile: __actionRemoveDataFilePriceFile,
+    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'promoPhotos')
 
     return (
         <>
@@ -73,232 +93,127 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         actions={{
                                             change: __handleChange,
                                         }}>
-                                        <GeneralRowForm label="Name" isRequired>
-                                            <FormInput
-                                                name="name"
-                                                placeholder="e.g D'Stars Fast Ferry"
+                                        <GeneralRowForm
+                                            label="Boat Type"
+                                            isRequired>
+                                            <SelectOptionBoatType
+                                                name="boatComponentTypeId"
+                                                isUseHook
                                                 required
+                                                ids={[
+                                                    ...(__formRequest.boatComponentTypeId
+                                                        ? [
+                                                              __formRequest.boatComponentTypeId,
+                                                          ]
+                                                        : []),
+                                                ]}
                                             />
                                         </GeneralRowForm>
+
+                                        <GeneralRowForm
+                                            label="Custom Informations"
+                                            isRequired>
+                                            {__formRequest.customInformations.map(
+                                                (vm, index) => {
+                                                    const order = index + 1
+                                                    const uniqId =
+                                                        'customInformations' +
+                                                        order
+
+                                                    return (
+                                                        <div
+                                                            className="row align-items-end"
+                                                            key={index}>
+                                                            <div className="col-md">
+                                                                <FormInput
+                                                                    label="Name"
+                                                                    name="name"
+                                                                    value={
+                                                                        vm.name
+                                                                    }
+                                                                    placeholder="e.g Capacity"
+                                                                    required
+                                                                    id={uniqId}
+                                                                    actions={{
+                                                                        onChange:
+                                                                            (
+                                                                                name,
+                                                                                value,
+                                                                            ) =>
+                                                                                __handleArrChange(
+                                                                                    index,
+                                                                                    name,
+                                                                                    value,
+                                                                                    'customInformations',
+                                                                                ),
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <div className="col-md">
+                                                                <FormInput
+                                                                    label="Value"
+                                                                    name="value"
+                                                                    value={
+                                                                        vm.value
+                                                                    }
+                                                                    placeholder="e.g 20 People"
+                                                                    required
+                                                                    id={uniqId}
+                                                                    actions={{
+                                                                        onChange:
+                                                                            (
+                                                                                name,
+                                                                                value,
+                                                                            ) =>
+                                                                                __handleArrChange(
+                                                                                    index,
+                                                                                    name,
+                                                                                    value,
+                                                                                    'customInformations',
+                                                                                ),
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                            <div className="col-auto pb-4">
+                                                                <BtnCircleRemove
+                                                                    actions={{
+                                                                        remove: () =>
+                                                                            __handleCustomInfoRemove(
+                                                                                index,
+                                                                            ),
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                },
+                                            )}
+
+                                            <BtnPrimary
+                                                type="button"
+                                                isOutline
+                                                className="w-100 mb-3"
+                                                handle={() =>
+                                                    __handleCustomInfoAdd()
+                                                }>
+                                                Add New Information
+                                            </BtnPrimary>
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm
                                             label="Description"
                                             isRequired>
-                                            <FormTextArea
-                                                name="description"
-                                                placeholder="e.g Fast ferry from Sanur to Nusa Lembongan"
-                                                required
-                                            />
-                                        </GeneralRowForm>
-
-                                        <GeneralRowForm
-                                            label="Route"
-                                            isRequired>
-                                            <FormInput
-                                                label="Route From"
-                                                name="routeFrom"
-                                                placeholder="e.g Sanur, Bali"
-                                                required
-                                            />
-                                            <FormInput
-                                                label="Route To"
-                                                name="routeTo"
-                                                placeholder="e.g Jungutbatu Bay, Nusa Lembongan"
-                                                required
-                                            />
-                                        </GeneralRowForm>
-
-                                        <GeneralRowForm
-                                            label="Departure Times From Bali"
-                                            isRequired>
-                                            {__formRequest.departureTimesFromBali.map(
-                                                (vm, index) => {
-                                                    const order = index + 1
-                                                    const uniqName =
-                                                        'departureTimesFromBali' +
-                                                        order
-
-                                                    return (
-                                                        <div
-                                                            className="row align-items-end"
-                                                            key={index}>
-                                                            <div className="col-md">
-                                                                <FormInputTimePicker
-                                                                    label={
-                                                                        'Time ' +
-                                                                        order
-                                                                    }
-                                                                    required
-                                                                    id={
-                                                                        uniqName
-                                                                    }
-                                                                    name={
-                                                                        uniqName
-                                                                    }
-                                                                    format="h.i K"
-                                                                    config={{
-                                                                        enableTime: true,
-                                                                        noCalendar: true,
-                                                                    }}
-                                                                    defaultValue={
-                                                                        vm
-                                                                    }
-                                                                    value={vm}
-                                                                    isHook={
-                                                                        false
-                                                                    }
-                                                                    actions={{
-                                                                        onChange:
-                                                                            (
-                                                                                name,
-                                                                                value,
-                                                                            ) =>
-                                                                                __handleChangeTime(
-                                                                                    index,
-                                                                                    'departureTimesFromBali',
-                                                                                    value,
-                                                                                ),
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            {index ? (
-                                                                <div className="col-auto pb-4">
-                                                                    <BtnCircleRemove
-                                                                        actions={{
-                                                                            remove: () =>
-                                                                                __handleArrToggle(
-                                                                                    index,
-                                                                                    'departureTimesFromBali',
-                                                                                ),
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                            ) : null}
-                                                        </div>
-                                                    )
-                                                },
-                                            )}
-
-                                            <BtnPrimary
-                                                type="button"
-                                                isOutline
-                                                className="w-100 mb-3"
-                                                handle={() =>
-                                                    __handleArrToggle(
-                                                        -1,
-                                                        'departureTimesFromBali',
-                                                        '',
-                                                    )
-                                                }>
-                                                Add New Time
-                                            </BtnPrimary>
-                                        </GeneralRowForm>
-
-                                        <GeneralRowForm
-                                            label="Departure Times From Lembongan"
-                                            isRequired>
-                                            {__formRequest.departureTimesFromLembongan.map(
-                                                (vm, index) => {
-                                                    const order = index + 1
-                                                    const uniqName =
-                                                        'departureTimesFromLembongan' +
-                                                        order
-
-                                                    return (
-                                                        <div
-                                                            className="row align-items-end"
-                                                            key={index}>
-                                                            <div className="col-md">
-                                                                <FormInputTimePicker
-                                                                    label={
-                                                                        'Time ' +
-                                                                        order
-                                                                    }
-                                                                    required
-                                                                    id={
-                                                                        uniqName
-                                                                    }
-                                                                    name={
-                                                                        uniqName
-                                                                    }
-                                                                    format="h.i K"
-                                                                    config={{
-                                                                        enableTime: true,
-                                                                        noCalendar: true,
-                                                                    }}
-                                                                    defaultValue={
-                                                                        vm
-                                                                    }
-                                                                    value={vm}
-                                                                    isHook={
-                                                                        false
-                                                                    }
-                                                                    actions={{
-                                                                        onChange:
-                                                                            (
-                                                                                name,
-                                                                                value,
-                                                                            ) =>
-                                                                                __handleChangeTime(
-                                                                                    index,
-                                                                                    'departureTimesFromLembongan',
-                                                                                    value,
-                                                                                ),
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            {index ? (
-                                                                <div className="col-auto pb-4">
-                                                                    <BtnCircleRemove
-                                                                        actions={{
-                                                                            remove: () =>
-                                                                                __handleArrToggle(
-                                                                                    index,
-                                                                                    'departureTimesFromLembongan',
-                                                                                ),
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                            ) : null}
-                                                        </div>
-                                                    )
-                                                },
-                                            )}
-
-                                            <BtnPrimary
-                                                type="button"
-                                                isOutline
-                                                className="w-100 mb-3"
-                                                handle={() =>
-                                                    __handleArrToggle(
-                                                        -1,
-                                                        'departureTimesFromLembongan',
-                                                        '',
-                                                    )
-                                                }>
-                                                Add New Time
-                                            </BtnPrimary>
-                                        </GeneralRowForm>
-
-                                        <GeneralRowForm
-                                            label="DiscountPercentage (%)"
-                                            isRequired>
-                                            <FormInput
-                                                name="discountPercentage"
-                                                placeholder="e.g 20"
-                                                type="number"
-                                                min="0"
-                                                max="100"
-                                                isCheckMinInput
-                                                required
-                                            />
-                                        </GeneralRowForm>
-
-                                        <GeneralRowForm
-                                            label="Notes"
-                                            isRequired>
-                                            <FormTextArea
-                                                name="notes"
-                                                placeholder="e.g Fast ferry from Sanur to Nusa Lembongan"
+                                            <FormTextEditor
+                                                value={
+                                                    __formRequest.description
+                                                }
+                                                actions={{
+                                                    onChange: (value) =>
+                                                        __handleChange(
+                                                            'description',
+                                                            value,
+                                                        ),
+                                                }}
                                                 required
                                             />
                                         </GeneralRowForm>
@@ -307,7 +222,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             label="Status Active"
                                             isRequired>
                                             <FormRadioButtonMulti
-                                                // label="Active"
                                                 name="isActive"
                                                 checkBoxs={[
                                                     {
@@ -321,9 +235,46 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 ]}
                                             />
                                         </GeneralRowForm>
+
+                                        <GeneralRowForm
+                                            label="Price File"
+                                            isRequired>
+                                            <FormUploadFile
+                                                name="priceFile"
+                                                nameFileDefault="Document NPWP"
+                                                subTitle="Webp, JPG, PNG, JPEG & PDF"
+                                                accept=".pdf"
+                                                isGeneralFile
+                                            />
+                                        </GeneralRowForm>
                                     </WrapFormContext>
 
-                                    {isEdit ? (
+                                    {/*<WrapFormContext*/}
+                                    {/*    formRequest={__formRequest}*/}
+                                    {/*    actions={{*/}
+                                    {/*        change: __handleChange,*/}
+                                    {/*        handleAddFiles: __dataFilePriceFile,*/}
+                                    {/*        handleSetDataFiles:*/}
+                                    {/*            __actionAddFilePriceFile,*/}
+                                    {/*        handleRemoveDataFile:*/}
+                                    {/*            __actionSetDataFilePriceFile,*/}
+                                    {/*        handleArrChange: __handleArrChange,*/}
+                                    {/*    }}>*/}
+                                    {/*    <GeneralRowForm*/}
+                                    {/*        label="Price File"*/}
+                                    {/*        isRequired>*/}
+                                    {/*        <FormUploadFileWithActionPreviewLogic*/}
+                                    {/*            isUseInputDesc={false}*/}
+                                    {/*            formName="priceFile"*/}
+                                    {/*            dataFiles={__dataFilePriceFile}*/}
+                                    {/*            formRequest={__formRequest}*/}
+                                    {/*            isMulti={false}*/}
+                                    {/*        />*/}
+                                    {/*    </GeneralRowForm>*/}
+                                    {/*</WrapFormContext>*/}
+
+                                    {/*New Photos*/}
+                                    {isEdit && __lisPreviousPhotos?.length ? (
                                         <GeneralRowForm label="Previous Photos">
                                             <FormEditFileLogic
                                                 dataFiles={__lisPreviousPhotos.filter(
@@ -360,6 +311,31 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 formName="photos"
                                                 // isEdit={isEdit}
                                                 dataFiles={__dataFiles}
+                                                formRequest={__formRequest}
+                                            />
+                                        </GeneralRowForm>
+                                    </WrapFormContext>
+
+                                    {/*Promo Photos*/}
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                            handleAddFiles:
+                                                __actionAddFilesPromo,
+                                            handleSetDataFiles:
+                                                __actionSetDataFilesPromo,
+                                            handleRemoveDataFile:
+                                                __actionRemoveDataFilePromo,
+                                            handleArrChange: __handleArrChange,
+                                        }}>
+                                        <GeneralRowForm
+                                            label="Promo Photos"
+                                            isRequired>
+                                            <FormUploadFileWithActionPreviewLogic
+                                                isUseInputDesc={false}
+                                                formName="promoPhotos"
+                                                dataFiles={__dataFilesPromo}
                                                 formRequest={__formRequest}
                                             />
                                         </GeneralRowForm>

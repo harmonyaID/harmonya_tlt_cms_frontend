@@ -76,13 +76,10 @@ const BoatPage = () => {
                             isLoading={__isLoading}
                             isNoWrap
                             ths={[
-                                'Name',
-                                'Route (From & To)',
-                                {
-                                    content: 'Info. Total Departure Times',
-                                    className: 'max-w-200px',
-                                },
-                                'Info. General',
+                                'Boat Type',
+                                'Total Photos',
+                                'Total Promo Photos',
+                                'Status Active',
                                 'Created At',
                                 '',
                             ]}
@@ -98,66 +95,26 @@ const BoatPage = () => {
                                         }}>
                                         <td>
                                             <TblLineFirstPrimary
-                                                value={vm.name}
-                                            />
-
-                                            <TblPointData
-                                                title="Discount Percentage"
                                                 value={
-                                                    vm?.discountPercentage +
-                                                        '%' || '-'
+                                                    vm?.boatComponentTypeName
                                                 }
                                             />
                                         </td>
                                         <td>
-                                            <TblPointData
-                                                title="Route From"
-                                                value={vm?.routeFrom || '-'}
-                                            />
-
-                                            <TblPointData
-                                                title="Route To"
-                                                value={vm?.routeTo || '-'}
-                                            />
+                                            <TblLineSecond>
+                                                {vm?.photos.length || '-'}
+                                            </TblLineSecond>
                                         </td>
                                         <td>
-                                            <TblPointData title="Total Departure Time From Bali">
-                                                {vm?.departureTimesFromBali?.map(
-                                                    (dp, idx) => (
-                                                        <span
-                                                            className="badge text-bg-neutral-300 me-1"
-                                                            key={idx}>
-                                                            {dp}
-                                                        </span>
-                                                    ),
-                                                ) || '-'}
-                                            </TblPointData>
-
-                                            <TblPointData title="Total Departure Time From Lembongan">
-                                                {vm?.departureTimesFromLembongan?.map(
-                                                    (dp, idx) => (
-                                                        <span
-                                                            className="badge text-bg-neutral-300 me-1"
-                                                            key={idx}>
-                                                            {dp}
-                                                        </span>
-                                                    ),
-                                                ) || '-'}
-                                            </TblPointData>
+                                            <TblLineSecond>
+                                                {vm?.promoPhotos.length || '-'}
+                                            </TblLineSecond>
                                         </td>
-                                        <td>
-                                            <TblPointData
-                                                title="Total Photos"
-                                                value={
-                                                    vm?.photos?.length || '-'
-                                                }
-                                            />
 
-                                            <TblPointData title="Status Active">
-                                                <TextTrueOrFalse
-                                                    value={vm.isActive}
-                                                />
-                                            </TblPointData>
+                                        <td>
+                                            <TextTrueOrFalse
+                                                value={vm.isActive}
+                                            />
                                         </td>
                                         <td>
                                             <TblLineSecond>

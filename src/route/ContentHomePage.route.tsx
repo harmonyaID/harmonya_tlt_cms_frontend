@@ -16,7 +16,9 @@ const ContentHomePageRoute = () => (
             index
             path={mainPath}
             element={
-                <SuspenseLayout titleNavbar="Blog" isCheckPermission={false}>
+                <SuspenseLayout
+                    titleNavbar="Home Page"
+                    isCheckPermission={false}>
                     <ContentHomePage />
                 </SuspenseLayout>
             }
