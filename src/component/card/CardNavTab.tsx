@@ -5,7 +5,6 @@ import { isFirstOfList } from '@/helper/base/condition.helper.js'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import { CardNavTabProps } from './type/card.type'
 
-
 const CardNavTab: FC<CardNavTabProps> = ({
     tabs = [],
     tabContents = [],
@@ -74,10 +73,7 @@ const CardNavTab: FC<CardNavTabProps> = ({
                 </ul>
 
                 <div
-                    className={
-                        'tab-content' +
-                        (classNameTabContent ? ` ${classNameTabContent}` : '')
-                    }
+                    className={'tab-content' + classNameTabContent}
                     style={{ ...config.style }}>
                     {tabContents.map((vm, index) => {
                         return !_.isEmpty(vm) ? (

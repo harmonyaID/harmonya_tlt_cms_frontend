@@ -19,12 +19,10 @@ import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import { isEmpty } from 'lodash'
-import { Loading, NotAvailable } from '@/component/general/TextDefault.tsx'
 import CardPreview from '@/component/card/CardPreview.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
 
 const initForm = {
     code: '',
@@ -170,23 +168,48 @@ const TabLanguage = () => {
                     actions={{
                         change: _handleChange,
                         toggleModal: __actionCloseModal,
+                        other: {
+                            changeCountry: (name, value, data) => {
+                                __setFormRequest((prevState) => {
+                                    const newState = { ...prevState }
+                                    newState.code = data?.cca2 || ''
+                                    newState.country = data?.name || ''
+
+                                    return newState
+                                })
+                            },
+                        },
                     }}
                     placeholder="e.g Customer Staging"
                     isUseDefaultInput={false}
                     externalForm={
                         <>
-                            <FormInput
-                                label="Country"
-                                name="country"
-                                required
-                                placeholder="e.g Indonesia"
-                            />
-                            <FormInput
-                                label="Code"
+                            <SelectOptionCountry
+                                label="Select Country"
                                 name="code"
                                 required
-                                placeholder="e.g Id"
+                                isUseHook
+                                nameOfChange="changeCountry"
+                                ids={
+                                    __detailData?.code
+                                        ? [__detailData.code]
+                                        : []
+                                }
+                                valueKey="cca2"
                             />
+
+                            {/*<FormInput*/}
+                            {/*    label="Country"*/}
+                            {/*    name="country"*/}
+                            {/*    required*/}
+                            {/*    placeholder="e.g Indonesia"*/}
+                            {/*/>*/}
+                            {/*<FormInput*/}
+                            {/*    label="Code"*/}
+                            {/*    name="code"*/}
+                            {/*    required*/}
+                            {/*    placeholder="e.g Id"*/}
+                            {/*/>*/}
 
                             <FormRadioButtonMulti
                                 label="Main"

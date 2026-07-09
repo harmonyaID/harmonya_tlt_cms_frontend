@@ -54,6 +54,7 @@ const useFormDataFilesHook = (
 
     return {
         __dataFiles: dataFiles,
+        __setDataFiles: setDataFiles,
         __actionAddFiles: _handleAddFiles,
         __actionSetDataFiles: _handleSetDataFiles,
         __actionRemoveDataFile: _handleRemoveDataFile,

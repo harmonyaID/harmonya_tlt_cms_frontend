@@ -30,7 +30,6 @@ import {
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
-import { isEmpty } from 'lodash'
 
 const initForm = {
     formTypeId: '',
@@ -237,18 +236,19 @@ const TabWebContactForm = ({
                     isUseDefaultInput={false}
                     externalForm={
                         <>
-                            {!isEmpty(listContactFormType) ? (
-                                <FormSelectOption
-                                    label="Form Type"
-                                    name="formType">
-                                    <option value="">- Select -</option>
-                                    {listContactFormType.map((vm, index) => (
-                                        <option key={index} value={vm.id}>
-                                            {vm.name}
-                                        </option>
-                                    ))}
-                                </FormSelectOption>
-                            ) : null}
+                            {/*{!isEmpty(listContactFormType) ? (*/}
+                            <FormSelectOption
+                                label="Form Type"
+                                name="formType"
+                                required>
+                                <option value="">- Select Form Type -</option>
+                                {listContactFormType.map((vm, index) => (
+                                    <option key={index} value={vm.id}>
+                                        {vm.name}
+                                    </option>
+                                ))}
+                            </FormSelectOption>
+                            {/*) : null}*/}
 
                             <FormInput
                                 label="Name"

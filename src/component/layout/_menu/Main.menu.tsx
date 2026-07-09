@@ -10,6 +10,7 @@ import {
     Home3,
     TaskSquare,
     Blogger,
+    MedalStar,
 
     // Property Management
     Building,
@@ -52,6 +53,7 @@ import {
 } from '@/path/systemManagement.path.ts'
 import boatPath from '@/path/boat.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
+import contentExperiencePath from '@/path/contentExperience.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -195,17 +197,6 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
 
             <MenuSection name="Content Management" />
             <li className="submenu-dropdown">
-                {/*<LinkMenuDropdown*/}
-                {/*    name="Home"*/}
-                {/*    to={homePath.main}*/}
-                {/*    icon={<MenuBoard variant="Bulk" />}*/}
-                {/*    idControl="cm-home"*/}
-                {/*    subMenus={[*/}
-                {/*        _configParamSubMenu('Page', homePath.page),*/}
-                {/*        _configParamSubMenu('Banner', homePath.banner),*/}
-                {/*    ]}*/}
-                {/*/>*/}
-
                 <LinkMenu
                     name="Home Page"
                     icon={<Home3 variant="Bulk" />}
@@ -226,6 +217,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     to={contentBlogPath.main}
                 />
             </li>
+            <li className="">
+                <LinkMenu
+                    name="Experience"
+                    icon={<MedalStar variant="Bulk" />}
+                    to={contentExperiencePath.main}
+                />
+            </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Content Setting"
@@ -235,6 +233,10 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     subMenus={[
                         _configParamSubMenu('Page', contentSettingPath.page),
                         _configParamSubMenu('Blog', contentSettingPath.blog),
+                        _configParamSubMenu(
+                            'Experience',
+                            contentSettingPath.experience,
+                        ),
                     ]}
                 />
             </li>
@@ -247,13 +249,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     to={boatPath.main}
                 />
             </li>
-            {/*<li className="">*/}
-            {/*    <LinkMenu*/}
-            {/*        name="Boat Setting"*/}
-            {/*        icon={<Setting variant="Bulk" />}*/}
-            {/*        to={boatSettingPath.main}*/}
-            {/*    />*/}
-            {/*</li>*/}
+            <li className="">
+                <LinkMenu
+                    name="Boat Setting"
+                    icon={<Setting variant="Bulk" />}
+                    to={boatSettingPath.main}
+                />
+            </li>
 
             <MenuSection name="Property Management" />
             <li className="">

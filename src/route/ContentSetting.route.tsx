@@ -6,12 +6,17 @@ import contentSettingPath from '@/path/contentSetting.path.ts'
 
 const mainBlogPath = contentSettingPath.blog
 const mainPagePath = contentSettingPath.page
+const mainExperiencePath = contentSettingPath.experience
 
 const ContentBlogSettingPage = lazy(
     () => import('@/page/contentSetting/blogSetting/BlogSetting.page.tsx'),
 )
 const ContentPageSettingPage = lazy(
     () => import('@/page/contentSetting/pageSetting/PageSetting.page.tsx'),
+)
+const ContentExperienceSettingPage = lazy(
+    () =>
+        import('@/page/contentSetting/experienceSetting/ExperienceSetting.page.tsx'),
 )
 
 const ContentSettingRoute = () => (
@@ -46,6 +51,25 @@ const ContentSettingRoute = () => (
             />
 
             <Route path="*" element={<Page404Layout to={mainBlogPath} />} />
+        </Route>
+
+        <Route path={mainExperiencePath}>
+            <Route
+                index
+                path={mainExperiencePath}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience Setting"
+                        isCheckPermission={false}>
+                        <ContentExperienceSettingPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path="*"
+                element={<Page404Layout to={mainExperiencePath} />}
+            />
         </Route>
     </>
 )

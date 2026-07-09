@@ -60,56 +60,6 @@ const SettingWebConfigPage = () => {
                     ),
                 ]}
             />
-
-            {/*<CardListData title="Website Configuration">*/}
-            {/*    <div className="row g-4 pt-2">*/}
-            {/*        <div className="col-md-6">*/}
-            {/*            <div className="card card-body mb-0">*/}
-            {/*                <HorizontalLoopDataLogic*/}
-            {/*                    list={[*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Title',*/}
-            {/*                            __detail.title || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Address',*/}
-            {/*                            __detail.address || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Postal Code',*/}
-            {/*                            __detail.postalCode || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Country',*/}
-            {/*                            __detail?.country?.name || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Email',*/}
-            {/*                            __detail.email || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Fax',*/}
-            {/*                            __detail.fax || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Map Embed',*/}
-            {/*                            __detail.mapEmbed || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Phone',*/}
-            {/*                            __detail.phone || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail(*/}
-            {/*                            'Whatsapp',*/}
-            {/*                            __detail.whatsapp || '-',*/}
-            {/*                        ),*/}
-            {/*                        objectListDetail('Social Media', '-'),*/}
-            {/*                    ]}*/}
-            {/*                />*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</CardListData>*/}
         </>
     )
 }

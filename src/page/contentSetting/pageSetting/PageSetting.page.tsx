@@ -8,9 +8,7 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 const PageSettingPage = () => {
     return (
         <>
-            <div className="mb-4">
-                <PageTitle title="Page Setting" />
-            </div>
+            <PageTitle title="Page Setting" className="pb-4" />
 
             <CardNavTab
                 tabs={[

@@ -1,7 +1,6 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import userPath from '@/path/user.path.ts'
 import boatPath from '@/path/boat.path.ts'
 
 const useBoatMain = () => {
@@ -16,7 +15,7 @@ const useBoatMain = () => {
         __actionClear,
     } = useDataListHook({
         urlAPI: apiBoat.list,
-        isHideSidebar: true,
+        // isHideSidebar: true,
         advancedSearch: {
             page: 1,
             // limit: 10,

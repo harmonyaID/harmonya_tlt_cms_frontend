@@ -13,6 +13,7 @@ import ContentHomePageRoute from '@/route/ContentHomePage.route.tsx'
 import ContentSettingRoute from '@/route/ContentSetting.route.tsx'
 import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
 import BoatManagementRoute from '@/route/BoatManagement.route.tsx'
+import ContentExperienceRoute from '@/route/ContentExperience.route.tsx'
 
 const App = () => {
     return (
@@ -23,6 +24,7 @@ const App = () => {
                     {UserRoute()}
                     {ContentAllPageRoute()}
                     {ContentBlogRoute()}
+                    {ContentExperienceRoute()}
                     {ContentHomePageRoute()}
                     {ContentSettingRoute()}
                     {BoatManagementRoute()}

@@ -20,6 +20,7 @@ import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabBoatType from '@/page/boat/container/TabBoatType.tsx'
 import TabBoatContactForm from '@/page/boat/container/TabBoatContactForm.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
+import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 
 const BoatDetailPage = () => {
     const {
@@ -78,84 +79,86 @@ const BoatDetailPage = () => {
             </div>
 
             <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
-                <div className="vstack gap-4">
-                    <Card>
-                        <h5 className="fs-18 fw-500 text-capitalize">
-                            {__detail.name}
-                        </h5>
+                {/*<div className="vstack gap-4"></div>*/}
 
-                        <div className="row pt-3">
-                            <div className="col-md-8">
-                                <HorizontalLoopDataLogic
-                                    list={[
-                                        objectListDetail(
-                                            'Description',
-                                            __detail.description ? (
-                                                <PreElement>
-                                                    {__detail.description}
-                                                </PreElement>
-                                            ) : (
-                                                '-'
-                                            ),
-                                        ),
-                                        objectListDetail(
-                                            'Discount Percentage',
-                                            __detail?.discountPercentage +
-                                                '%' || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Route From',
-                                            __detail.routeFrom || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Route To',
-                                            __detail.routeTo || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Departure Time From Bali',
-                                            __detail?.departureTimesFromBali?.map(
-                                                (dp, idx) => (
-                                                    <span
-                                                        className="badge text-bg-neutral-300 me-1"
-                                                        key={idx}>
-                                                        {dp}
-                                                    </span>
-                                                ),
-                                            ) || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Departure Time From Lembongan',
-                                            __detail?.departureTimesFromLembongan?.map(
-                                                (dp, idx) => (
-                                                    <span
-                                                        className="badge text-bg-neutral-300 me-1"
-                                                        key={idx}>
-                                                        {dp}
-                                                    </span>
-                                                ),
-                                            ) || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Status Active',
-                                            <TextTrueOrFalse
-                                                value={__detail.isActive}
-                                            />,
-                                        ),
+                <div className="row g-3">
+                    <div className="col-lg-4">
+                        <Card title="Boat Information">
+                            <VerticalLoopDataLogic
+                                list={[
+                                    objectListDetail(
+                                        'Boat Type',
+                                        __detail?.boatComponentType?.name ||
+                                            '-',
+                                    ),
+                                    objectListDetail(
+                                        'Status Active',
+                                        <TextTrueOrFalse
+                                            value={__detail.isActive}
+                                        />,
+                                    ),
+                                    objectListDetail(
+                                        'Price File',
+                                        <>
+                                            <a
+                                                className="link text-underline"
+                                                href={__detail.priceFile}
+                                                target="_blank">
+                                                Preview
+                                            </a>
+                                        </>,
+                                    ),
+                                    objectListDetail(
+                                        'Created At',
+                                        __detail.createdAt || '-',
+                                    ),
+                                ]}
+                            />
 
-                                        objectListDetail(
-                                            'Notes',
-                                            __detail.notes ? (
-                                                <PreElement>
-                                                    {__detail.notes}
-                                                </PreElement>
-                                            ) : (
-                                                '-'
-                                            ),
-                                        ),
+                            {__detail?.customInformations?.length ? (
+                                <div className="pb-3">
+                                    <h5 className="fs-16 fw-500">
+                                        Custom Information
+                                    </h5>
 
-                                        objectListDetail(
-                                            'Photos',
-                                            !isEmpty(__detail.photos) ? (
+                                    {__detail.customInformations.map(
+                                        (vm, index) => {
+                                            return (
+                                                <div
+                                                    className="hstack gap-3 align-items-start pb-3 border-bottom border-neutral-500"
+                                                    key={index}>
+                                                    <div className="fs-13">
+                                                        {vm.order}.
+                                                    </div>
+                                                    <div className="w-100">
+                                                        <label className="fs-12 text-neutral-300 pb-2">
+                                                            {vm.name}
+                                                        </label>
+                                                        <p className="fs-14 text-neutral-100 fw-semibold mb-0">
+                                                            {vm.value}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            )
+                                        },
+                                    )}
+                                </div>
+                            ) : null}
+
+                            <CardNavTab
+                                classNameTabPane="px-0"
+                                tabs={[
+                                    objectTab('Photos', 'tabPhotos'),
+                                    objectTab(
+                                        'Photos Promotion',
+                                        'tabPhotoPromotion',
+                                    ),
+                                ]}
+                                tabContents={[
+                                    objectTabContent(
+                                        'Photos',
+                                        <>
+                                            {!isEmpty(__detail.photos) ? (
                                                 <>
                                                     <PreviewFileModalMultiLogic
                                                         dataFiles={
@@ -168,30 +171,64 @@ const BoatDetailPage = () => {
                                                 </>
                                             ) : (
                                                 <NotAvailable />
-                                            ),
-                                        ),
-                                    ]}
-                                />
-                            </div>
-                        </div>
-                    </Card>
-
-                    <CardNavTab
-                        tabs={[
-                            objectTab('Boat Type', 'tabBoatType'),
-                            objectTab(
-                                'Boat Contact Form',
-                                'tabBoatContactForm',
-                            ),
-                        ]}
-                        tabContents={[
-                            objectTabContent(
-                                '',
-                                <TabBoatType boatId={__detail.id} />,
-                            ),
-                            objectTabContent('', <TabBoatContactForm />),
-                        ]}
-                    />
+                                            )}
+                                        </>,
+                                    ),
+                                    objectTabContent(
+                                        'Photos Promotion',
+                                        <>
+                                            {!isEmpty(__detail.promoPhotos) ? (
+                                                <>
+                                                    <PreviewFileModalMultiLogic
+                                                        dataFiles={__detail.promoPhotos.map(
+                                                            (vm) => ({
+                                                                photo: vm,
+                                                            }),
+                                                        )}
+                                                        dataBy="photo"
+                                                        isDescription={false}
+                                                        classNameWrapImg="max-h-120-px"
+                                                    />
+                                                </>
+                                            ) : (
+                                                <NotAvailable />
+                                            )}
+                                        </>,
+                                    ),
+                                ]}
+                            />
+                        </Card>
+                    </div>
+                    <div className="col-lg-8">
+                        <CardNavTab
+                            tabs={[
+                                objectTab('Description', 'tabDescription'),
+                                objectTab(
+                                    'Boat Contact Form',
+                                    'tabBoatContactForm',
+                                ),
+                            ]}
+                            tabContents={[
+                                objectTabContent(
+                                    'Description / Content',
+                                    <>
+                                        <div
+                                            className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
+                                            dangerouslySetInnerHTML={{
+                                                __html:
+                                                    __detail?.description ||
+                                                    '-',
+                                            }}
+                                        />
+                                    </>,
+                                ),
+                                objectTabContent(
+                                    '',
+                                    <TabBoatContactForm boatId={__detail.id} />,
+                                ),
+                            ]}
+                        />
+                    </div>
                 </div>
             </LoadingStatePreviewData>
         </>

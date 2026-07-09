@@ -7,7 +7,9 @@ const baseAPI: any = String(import.meta.env.VITE_BASE_API)
 export const SrvBoatCRUD = objectPathEndPointAPI(baseAPI + '/boats')
 
 // Boat Type
-export const SrvBoatTypeCRUD = objectPathEndPointAPI(baseAPI + '/boat-types')
+export const SrvBoatTypeCRUD = objectPathEndPointAPI(
+    SrvBoatCRUD.main + '/components/types',
+)
 
 // Boat Contact Forms
 export const SrvBoatContactFormCRUD = objectPathEndPointAPI(
