@@ -88,7 +88,7 @@ const UserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
                                         <GeneralRowForm
-                                            label="Gender"
+                                            label="Country"
                                             isRequired>
                                             <SelectOptionCountry
                                                 name="countryId"
