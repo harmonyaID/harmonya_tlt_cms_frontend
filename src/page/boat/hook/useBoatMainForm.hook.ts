@@ -50,6 +50,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
             pathFromKey: restored.from,
         })
 
+    const [previewPriceFile, setPreviewPriceFile] = useState('')
+
     const [formRequest, setFormRequest] = useState({ ...initForm })
 
     const [isLoading, setIsLoading] = useState(false)
@@ -87,6 +89,10 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                             isDeleted: false,
                         })),
                     )
+                }
+
+                if (res?.priceFile) {
+                    setPreviewPriceFile(res?.priceFile)
                 }
             }
         },
@@ -155,6 +161,11 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
     }
 
+    const _handlePriceFileRemove = () => {
+        setPreviewPriceFile('')
+        nestedForm.__handleChange('priceFile', '')
+    }
+
     // Start Handle Custom Info
     const _handleCustomInfoAdd = () => {
         nestedForm._handleArrToggle(-1, 'customInformations', {
@@ -218,6 +229,11 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleArrChange: nestedForm._handleArrChange,
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
+
+        // Price File
+        __previewPriceFile: previewPriceFile,
+        __setPreviewPriceFile: setPreviewPriceFile,
+        __handlePriceFileRemove: _handlePriceFileRemove,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,

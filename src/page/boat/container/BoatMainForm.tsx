@@ -19,6 +19,7 @@ import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
 import SelectOptionBoatType from '@/common/dataForm/SelectOptionBoatType.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import FormTextEditor from '@/component/form/FormTextEditor.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -248,9 +249,10 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             isRequired>
                                             <FormUploadFile
                                                 name="priceFile"
-                                                nameFileDefault="Document NPWP"
-                                                subTitle="Webp, JPG, PNG, JPEG & PDF"
+                                                nameFileDefault="Price"
+                                                subTitle="PDF"
                                                 accept=".pdf"
+                                                required
                                                 isGeneralFile
                                             />
                                         </GeneralRowForm>

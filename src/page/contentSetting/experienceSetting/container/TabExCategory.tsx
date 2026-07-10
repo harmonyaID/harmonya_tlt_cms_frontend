@@ -32,7 +32,7 @@ const initForm = {
 }
 
 const initMapForm = (passData) => ({
-    experienceTypeId: passData?.experienceType?.id || '',
+    experienceTypeId: passData?.type?.id || '',
     name: passData.name || '',
 })
 
@@ -192,7 +192,7 @@ const TabExCategory = ({
                 <ModalWithActionFormCRUDLogic
                     id={MDExCategoryAdd}
                     detail={__detailData}
-                    title="Website Contact Form"
+                    title="Category"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
