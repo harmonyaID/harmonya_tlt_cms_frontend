@@ -35,12 +35,13 @@ import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import { objectToFormData } from '@/helper/convertFormData.helper.ts'
 import { APIResponse } from '@/type/resultAPI'
 import { ImgInTable } from '@/component/general/Image.tsx'
+import { useState } from 'react'
 
 const initForm = {
     name: '',
     description: '',
     url: '',
-    isPublish: '1',
+    isPublish: 1,
     image: '',
 }
 
@@ -48,8 +49,8 @@ const initMapForm = (passData) => ({
     name: passData.name || '',
     description: passData.description || '',
     url: passData.url || '',
-    isPublish: passData.isPublish || '0',
-    image: passData.image || '',
+    isPublish: passData.isPublish ? 1 : 0,
+    image: '',
 })
 
 const TabMediaPartner = () => {
@@ -64,6 +65,8 @@ const TabMediaPartner = () => {
     } = useDataListHook({
         urlAPI: apiMediaPartner.list,
     })
+
+    const [previewImage, setPreviewImage] = useState('')
 
     const {
         __formRequest,
@@ -80,10 +83,21 @@ const TabMediaPartner = () => {
         modalId: MDPSTabMediaPartnerAdd,
         modalRemoveId: MDPSTabMediaPartnerRemove,
         emptyParam: { ...initForm },
-        mapDetailToFormRequest: initMapForm,
+        mapDetailToFormRequest: (res) => {
+            if (res?.image) {
+                setPreviewImage(res.image)
+            }
+
+            return initMapForm(res)
+        },
     })
 
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
+
+    const _handleRemoveImage = () => {
+        setPreviewImage('')
+        _handleChange('image', '')
+    }
 
     const {
         __data: dataForRemove,
@@ -153,14 +167,9 @@ const TabMediaPartner = () => {
                                         </TblLineSecond>
                                     </td>
                                     <td>
-                                        <TextTrueOrFalse value={vm.isActive} />
+                                        <TextTrueOrFalse value={vm.isPublish} />
                                     </td>
                                     <td>
-                                        {/*<TblPointData title="Publish">*/}
-                                        {/*    <TextTrueOrFalse*/}
-                                        {/*        value={vm.isActive}*/}
-                                        {/*    />*/}
-                                        {/*</TblPointData>*/}
                                         <TblLineSecond>
                                             {vm.url ? (
                                                 <Link
@@ -265,41 +274,29 @@ const TabMediaPartner = () => {
                                 required
                                 checkBoxs={[
                                     {
-                                        defaultValue: '0',
+                                        defaultValue: 0,
                                         label: 'No',
                                     },
                                     {
-                                        defaultValue: '1',
+                                        defaultValue: 1,
                                         label: 'Yes',
                                     },
                                 ]}
                             />
 
-                            {__formRequest?.image ? (
+                            {previewImage ? (
                                 <div className="my-3">
                                     <p className="mb-2 text-neutral-100">
                                         Logo
                                     </p>
 
                                     <PreviewFileModalLogic
-                                        dataUrl={
-                                            __formRequest?.image
-                                                ? URL.createObjectURL(
-                                                      __formRequest?.image as File,
-                                                  )
-                                                : '' //__formRequest?.url
-                                        }
-                                        dataBy="iconUrl"
-                                        dataFile={__formRequest?.image}
+                                        dataUrl={previewImage?.toString()}
+                                        dataBy="file"
+                                        dataFile={previewImage}
                                         isShowBtnRemove
                                         actions={{
-                                            remove: () => {
-                                                // actions.handleChange(
-                                                //     'iconUrl',
-                                                //     '',
-                                                // )
-                                                _handleChange('image', '')
-                                            },
+                                            remove: _handleRemoveImage,
                                         }}
                                     />
                                 </div>
@@ -308,10 +305,10 @@ const TabMediaPartner = () => {
                                     <FormUploadFile
                                         label="Logo"
                                         name="image"
-                                        dataPreviewBy="file"
-                                        isResetList
+                                        required
                                         isUseHook={false}
                                         isPreview={false}
+                                        accept="image/*"
                                         actions={{
                                             onChange: (name, newFiles) => {
                                                 const img = new Image()
@@ -321,53 +318,21 @@ const TabMediaPartner = () => {
                                                     )
 
                                                 img.onload = () => {
-                                                    if (
-                                                        img.width > 400 ||
-                                                        img.height > 400
-                                                    ) {
-                                                        URL.revokeObjectURL(
-                                                            objectUrl,
-                                                        )
-                                                        return
-                                                    }
-
-                                                    // actions.handleChange(name, newFiles),
-                                                    URL.revokeObjectURL(
-                                                        objectUrl,
+                                                    _handleChange(
+                                                        'image',
+                                                        newFiles,
                                                     )
                                                 }
 
                                                 img.src = objectUrl
                                             },
 
-                                            handleDataFiles: (newDataFiles) => {
-                                                const typedFile =
-                                                    newDataFiles as {
-                                                        file: string
-                                                        mimeType: string
-                                                    }
-
-                                                const img = new Image()
-
-                                                img.onload = () => {
-                                                    // if (img.width <= 400 && img.height <= 400) {
-                                                    //     setErrorIcon(false)
-                                                    // } else {
-                                                    //     setErrorIcon(true)
-                                                    // }
-                                                }
-
-                                                img.src = typedFile.file
-                                            },
+                                            handleDataFiles: (newDataFiles) =>
+                                                setPreviewImage(
+                                                    newDataFiles.url,
+                                                ),
                                         }}
                                     />
-
-                                    {/*{errorIcon ? (*/}
-                                    {/*    <p className="text-danger-200 p-0">*/}
-                                    {/*        Please upload an image that is 400×400 pixels, or*/}
-                                    {/*        leave it empty.*/}
-                                    {/*    </p>*/}
-                                    {/*) : null}*/}
                                 </>
                             )}
                         </>

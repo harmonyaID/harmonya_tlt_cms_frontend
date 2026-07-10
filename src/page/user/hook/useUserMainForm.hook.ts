@@ -32,11 +32,11 @@ const initMapForm = (passData) => ({
     fullName: passData?.fullName || '',
     email: passData?.email || '',
     phone: passData?.phone || '',
-    genderId: passData?.genderId || genderDefault,
-    countryId: passData?.countryId || '',
+    genderId: passData?.gender?.id || genderDefault,
+    countryId: passData?.country?.id || '',
     address: passData?.address || '',
-    isActive: passData?.isActive || isActiveDefault,
-    isSuperadmin: passData?.isSuperadmin || isSuperadminDefault,
+    isActive: passData?.isActive ? true : false,
+    isSuperadmin: passData?.isSuperadmin ? true : isSuperadminDefault,
     // password: passData?.password || '',
     // confirmPassword: passData?.confirmPassword || '',
 })
@@ -94,7 +94,7 @@ const useUserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     ? apiStaff.update(id, formRequest)
                     : apiStaff.add(formRequest),
             setIsLoading,
-            isDirectToDetail: true,
+            // isDirectToDetail: true,
             callBack: () => {
                 __handleToMain()
             },
