@@ -84,7 +84,10 @@ const BoatDetailPage = () => {
                 <div className="row g-3">
                     <div className="col-lg-4">
                         <Card title="Boat Information">
-                            <VerticalLoopDataLogic
+                            <HorizontalLoopDataLogic
+                                config={{
+                                    titleColumn: 'col-md-4',
+                                }}
                                 list={[
                                     objectListDetail(
                                         'Boat Type',
@@ -116,7 +119,7 @@ const BoatDetailPage = () => {
                             />
 
                             {__detail?.customInformations?.length ? (
-                                <div className="pb-3">
+                                <div className="pb-3 pt-4">
                                     <h5 className="fs-16 fw-500">
                                         Custom Information
                                     </h5>
@@ -180,12 +183,10 @@ const BoatDetailPage = () => {
                                             {!isEmpty(__detail.promoPhotos) ? (
                                                 <>
                                                     <PreviewFileModalMultiLogic
-                                                        dataFiles={__detail.promoPhotos.map(
-                                                            (vm) => ({
-                                                                photo: vm,
-                                                            }),
-                                                        )}
-                                                        dataBy="photo"
+                                                        dataFiles={
+                                                            __detail.promoPhotos
+                                                        }
+                                                        dataBy="file"
                                                         isDescription={false}
                                                         classNameWrapImg="max-h-120-px"
                                                     />

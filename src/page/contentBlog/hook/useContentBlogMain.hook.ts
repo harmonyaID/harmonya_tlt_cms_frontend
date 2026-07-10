@@ -26,7 +26,7 @@ const useContentBlogMainHook = () => {
     const { __handleToAdd, __handleToEdit, __handleToDetail } =
         usePageFlowHandlerHook({
             basePath: contentBlogPath,
-            pathFromKey: 'boat-main',
+            pathFromKey: 'blog-main',
         })
 
     return {

@@ -10,6 +10,7 @@ import {
 } from '@/config/objectList.config'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import { IframeLayoutProps, PreviewFileModalLogicProps } from './type/misc.type'
+import { BtnCircleRemove } from '@/component/general/Button.tsx'
 
 const PreviewFileModalLogic: FC<PreviewFileModalLogicProps> = ({
     dataUrl = '',
@@ -92,6 +93,15 @@ const PreviewFileModalLogic: FC<PreviewFileModalLogicProps> = ({
                         className="data-img data-img-contain"
                     />
                 </div>
+
+                {isShowBtnRemove ? (
+                    <BtnCircleRemove
+                        className="btn-icon-remove-top-right z-index-999"
+                        actions={{
+                            remove: actions.remove,
+                        }}
+                    />
+                ) : null}
             </div>
         </Image.PreviewGroup>
     )

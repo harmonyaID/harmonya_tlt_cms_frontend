@@ -35,6 +35,9 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
 
+        __handleToggleDeletePrevPhotoPromotion,
+        __lisPreviousPhotosPromotion,
+
         // used during editing
         __handleToggleDeletePrevPhotos,
         __lisPreviousPhotos,
@@ -58,11 +61,15 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     // Price File
     const {
-        __dataFiles: __dataFilePriceFile,
-        __actionAddFiles: __actionAddFilePriceFile,
-        __actionSetDataFiles: __actionSetDataFilePriceFile,
-        __actionRemoveDataFile: __actionRemoveDataFilePriceFile,
-    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'promoPhotos')
+        __dataFiles: __dataFilePriceFiles,
+        __actionAddFiles: __actionAddFilePriceFiles,
+        __actionSetDataFiles: __actionSetDataFilePriceFiles,
+        __actionRemoveDataFile: __actionRemoveDataFilePriceFiles,
+    } = useFormDataFilesHook(
+        __formRequest,
+        __setFormRequest,
+        'deletePromoPhotoIds',
+    )
 
     return (
         <>
@@ -249,30 +256,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
                                     </WrapFormContext>
 
-                                    {/*<WrapFormContext*/}
-                                    {/*    formRequest={__formRequest}*/}
-                                    {/*    actions={{*/}
-                                    {/*        change: __handleChange,*/}
-                                    {/*        handleAddFiles: __dataFilePriceFile,*/}
-                                    {/*        handleSetDataFiles:*/}
-                                    {/*            __actionAddFilePriceFile,*/}
-                                    {/*        handleRemoveDataFile:*/}
-                                    {/*            __actionSetDataFilePriceFile,*/}
-                                    {/*        handleArrChange: __handleArrChange,*/}
-                                    {/*    }}>*/}
-                                    {/*    <GeneralRowForm*/}
-                                    {/*        label="Price File"*/}
-                                    {/*        isRequired>*/}
-                                    {/*        <FormUploadFileWithActionPreviewLogic*/}
-                                    {/*            isUseInputDesc={false}*/}
-                                    {/*            formName="priceFile"*/}
-                                    {/*            dataFiles={__dataFilePriceFile}*/}
-                                    {/*            formRequest={__formRequest}*/}
-                                    {/*            isMulti={false}*/}
-                                    {/*        />*/}
-                                    {/*    </GeneralRowForm>*/}
-                                    {/*</WrapFormContext>*/}
-
                                     {/*New Photos*/}
                                     {isEdit && __lisPreviousPhotos?.length ? (
                                         <GeneralRowForm label="Previous Photos">
@@ -309,7 +292,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}
                                                 formName="photos"
-                                                // isEdit={isEdit}
                                                 dataFiles={__dataFiles}
                                                 formRequest={__formRequest}
                                             />

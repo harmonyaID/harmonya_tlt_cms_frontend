@@ -22,25 +22,21 @@ const initForm = {
 }
 
 const initMapForm = (passData) => ({
-    // name: passData.name || '',
-    // description: passData.description || '',
-    // routeFrom: passData.routeFrom || '',
-    // routeTo: passData.routeTo || '',
-    // notes: passData.notes || '',
-    // discountPercentage: passData.discountPercentage || '',
-
     boatComponentTypeId: passData?.boatComponentType?.id || '',
     description: passData.description || '',
     customInformations: passData?.customInformations?.length
         ? passData.customInformations
         : [],
-    priceFile: passData?.priceFile || '',
     isActive: passData.isActive ? defaultActive : '0',
+
+    priceFile: '',
+    deletePriceFile: '',
+
     photos: [],
     deletePhotoIds: [],
-    // promoPhotos: passData?.promoPhotos.length ? passData.promoPhotos : [],
+
     promoPhotos: [],
-    // deletePromoPhotoIds: [],
+    deletePromoPhotoIds: [],
 })
 
 const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
@@ -60,6 +56,9 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [lisPreviousPhotos, setLisPreviousPhotos] = useState([])
 
+    const [lisPreviousPhotosPromotion, setLisPreviousPhotosPromotion] =
+        useState([])
+
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
     const dataDetail = useDetailFormRequestHook({
@@ -71,11 +70,20 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
             if (isEdit) {
                 //@ts-ignore
                 setFormRequest(initMapForm(res))
-                // __setList(res?.employees || [])
+
                 if (res?.photos?.length > 0) {
                     setLisPreviousPhotos(
                         res.photos.map((photo) => ({
                             ...photo,
+                            isDeleted: false,
+                        })),
+                    )
+                }
+
+                if (res?.promoPhotos?.length > 0) {
+                    setLisPreviousPhotosPromotion(
+                        res.promoPhotos.map((promo) => ({
+                            ...promo,
                             isDeleted: false,
                         })),
                     )
@@ -89,19 +97,6 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         ? dataDetail.__isLoadingDetailFormRequest
         : false
 
-    const _handleChangeTime = (
-        index: number,
-        name: string,
-        value: string | number,
-    ) => {
-        setFormRequest((prevState) => {
-            const newState = { ...prevState }
-            newState[name][index] = value
-
-            return newState
-        })
-    }
-
     const _handleToggleDeletePrevPhotos = (passId: string | number) => {
         setFormRequest((prevState) => {
             const newState = { ...prevState }
@@ -114,6 +109,35 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                 newState['deletePhotoIds'].splice(photoIndex, 1)
             } else {
                 newState['deletePhotoIds'].push(passId)
+            }
+
+            return newState
+        })
+
+        setLisPreviousPhotos((prevState) => {
+            const newState = [...prevState]
+
+            const index = newState.findIndex((vm) => vm.id === passId)
+            if (index > -1) {
+                newState[index].isDeleted = !newState[index].isDeleted
+            }
+
+            return newState
+        })
+    }
+
+    const _handleToggleDeletePrevPhotoPromotion = (passId: string | number) => {
+        setFormRequest((prevState) => {
+            const newState = { ...prevState }
+
+            const photoIndex = newState['deletePromoPhotoIds'].findIndex(
+                (id) => id === passId,
+            )
+
+            if (photoIndex > -1) {
+                newState['deletePromoPhotoIds'].splice(photoIndex, 1)
+            } else {
+                newState['deletePromoPhotoIds'].push(passId)
             }
 
             return newState
@@ -181,12 +205,17 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleToggleDeletePrevPhotos: _handleToggleDeletePrevPhotos,
         __lisPreviousPhotos: lisPreviousPhotos,
 
+        // Prev Photos Promotion
+        __handleToggleDeletePrevPhotoPromotion:
+            _handleToggleDeletePrevPhotoPromotion,
+        __lisPreviousPhotosPromotion: lisPreviousPhotosPromotion,
+        __setLisPreviousPhotosPromotion: setLisPreviousPhotosPromotion,
+
         // Chang Form
         __setFormRequest: setFormRequest,
         __handleChange: nestedForm._handleChange,
         __handleArrToggle: nestedForm._handleArrToggle,
         __handleArrChange: nestedForm._handleArrChange,
-        __handleChangeTime: _handleChangeTime,
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
 

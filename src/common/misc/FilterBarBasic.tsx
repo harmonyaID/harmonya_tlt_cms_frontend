@@ -33,6 +33,9 @@ export type FilterBarBasicProps = {
     // Date Range
     isDateRange?: boolean
 
+    // Classname row
+    classNameWrap?: string
+
     // Actions
     actions?: {
         setFormRequest?: ([key]: any) => void
@@ -83,6 +86,9 @@ const FilterBarBasic = (props: FilterBarBasicProps) => {
         // Date Range
         isDateRange = true,
 
+        // Classname row
+        classNameWrap = '',
+
         // Actions
         actions = {
             setFormRequest: () => {},
@@ -103,7 +109,11 @@ const FilterBarBasic = (props: FilterBarBasicProps) => {
                     actions={{
                         change: (name, value) => actions.change(name, value),
                     }}>
-                    <div className="row wrap-advance-search align-items-end">
+                    <div
+                        className={joinClassNameHelper(
+                            'row wrap-advance-search align-items-end',
+                            classNameWrap,
+                        )}>
                         {isSearchText ? (
                             <div
                                 className={joinClassNameHelper(

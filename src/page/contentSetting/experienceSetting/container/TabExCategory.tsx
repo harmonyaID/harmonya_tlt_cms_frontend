@@ -1,19 +1,15 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import {
-    apiExperienceCategory,
-    apiWebContactForm,
-} from '@/service/api/contentManageSetting.api.ts'
+import { apiExperienceCategory } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import {
-    MDExCategoryAdd,
-    MDExCategoryRemove,
-    MDPSTabWebContactFormAdd,
-    MDPSTabWebContactFormRemove,
-} from '@/config/modal.config.ts'
+import { MDExCategoryAdd, MDExCategoryRemove } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import { BtnPrimary } from '@/component/general/Button.tsx'
+import {
+    BtnCircleEdit,
+    BtnCircleRemove,
+    BtnPrimary,
+} from '@/component/general/Button.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
@@ -22,6 +18,13 @@ import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import {
+    TblLineFirstPrimary,
+    TblLineSecond,
+} from '@/component/general/TablePartial.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 
 const initForm = {
     experienceTypeId: '',
@@ -42,14 +45,17 @@ const TabExCategory = ({
 }) => {
     const {
         __list,
+        __search,
         __isLoading,
         __actionRemove,
         __actionAdd,
         __actionUpdate,
         __pagination,
         __actionPagination,
+        __actionChange,
+        __actionClear,
     } = useDataListHook({
-        urlAPI: apiWebContactForm.list,
+        urlAPI: apiExperienceCategory.list,
     })
 
     const {
@@ -94,6 +100,68 @@ const TabExCategory = ({
                     </BtnPrimary>
                 </div>
             </div>
+            <FilterBarBasic
+                formRequest={__search}
+                searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                isDateRange={false}
+                classNameWrap="pb-4"
+                actions={{
+                    change: __actionChange,
+                    pagination: __actionPagination,
+                    clear: __actionClear,
+                }}
+            />
+            <div className="row overflow-y position-relative">
+                <div className="col-md-12">
+                    <TableThemeLogic
+                        isLoading={__isLoading}
+                        isNoWrap
+                        ths={['Category', 'Type', '']}
+                        tds={__list}>
+                        {__list.map((vm, index) => {
+                            return (
+                                <tr
+                                    key={index}
+                                    title="Preview Detail"
+                                    className="cursor-pointer">
+                                    <td>
+                                        <TblLineFirstPrimary
+                                            value={vm?.name || ''}
+                                        />
+                                    </td>
+                                    <td>
+                                        <TblLineSecond>
+                                            {vm?.type?.name || '-'}
+                                        </TblLineSecond>
+                                    </td>
+                                    <td>
+                                        <div className="hstack gap-2 justify-content-end">
+                                            <BtnCircleRemove
+                                                actions={{
+                                                    remove: (e) => {
+                                                        e.stopPropagation()
+                                                        _handleChooseRemove(vm)
+                                                    },
+                                                }}
+                                            />
+
+                                            <BtnCircleEdit
+                                                title="Edit Data"
+                                                actions={{
+                                                    edit: (e) => {
+                                                        e.stopPropagation()
+                                                        __actionUpdateModal(vm)
+                                                    },
+                                                }}
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+                        })}
+                    </TableThemeLogic>
+                </div>
+            </div>
 
             {isShowPagination(__isLoading, __list, __pagination) ? (
                 <Pagination
@@ -131,12 +199,13 @@ const TabExCategory = ({
                         change: _handleChange,
                         toggleModal: __actionCloseModal,
                     }}
+                    isUseDefaultInput={false}
                     externalForm={
                         <>
                             {/*{!isEmpty(listContactFormType) ? (*/}
                             <FormSelectOption
                                 label="Form Type"
-                                name="formType"
+                                name="experienceTypeId"
                                 required>
                                 <option value="">- Select Form Type -</option>
                                 {listType.map((vm, index) => (
