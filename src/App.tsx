@@ -14,6 +14,9 @@ import ContentSettingRoute from '@/route/ContentSetting.route.tsx'
 import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
 import BoatManagementRoute from '@/route/BoatManagement.route.tsx'
 import ContentExperienceRoute from '@/route/ContentExperience.route.tsx'
+import PropertyBookingSystemRoute from '@/route/PropertyBookingSystem.route.tsx'
+import PropertyRoute from '@/route/Property.route.tsx'
+import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
 
 const App = () => {
     return (
@@ -28,6 +31,9 @@ const App = () => {
                     {ContentHomePageRoute()}
                     {ContentSettingRoute()}
                     {BoatManagementRoute()}
+                    {PropertyRoute()}
+                    {PropertyBookingSystemRoute()}
+                    {PropertySettingRoute()}
                     {SystemManagementRoute()}
 
                     <Route

@@ -19,6 +19,7 @@ import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
 import SelectOptionBoatType from '@/common/dataForm/SelectOptionBoatType.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import FormTextEditor from '@/component/form/FormTextEditor.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -34,6 +35,9 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleCustomInfoRemove,
         __handleSubmit,
         __handleCancel,
+
+        __handleToggleDeletePrevPhotoPromotion,
+        __lisPreviousPhotosPromotion,
 
         // used during editing
         __handleToggleDeletePrevPhotos,
@@ -58,11 +62,15 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     // Price File
     const {
-        __dataFiles: __dataFilePriceFile,
-        __actionAddFiles: __actionAddFilePriceFile,
-        __actionSetDataFiles: __actionSetDataFilePriceFile,
-        __actionRemoveDataFile: __actionRemoveDataFilePriceFile,
-    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'promoPhotos')
+        __dataFiles: __dataFilePriceFiles,
+        __actionAddFiles: __actionAddFilePriceFiles,
+        __actionSetDataFiles: __actionSetDataFilePriceFiles,
+        __actionRemoveDataFile: __actionRemoveDataFilePriceFiles,
+    } = useFormDataFilesHook(
+        __formRequest,
+        __setFormRequest,
+        'deletePromoPhotoIds',
+    )
 
     return (
         <>
@@ -241,37 +249,14 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             isRequired>
                                             <FormUploadFile
                                                 name="priceFile"
-                                                nameFileDefault="Document NPWP"
-                                                subTitle="Webp, JPG, PNG, JPEG & PDF"
+                                                nameFileDefault="Price"
+                                                subTitle="PDF"
                                                 accept=".pdf"
+                                                required
                                                 isGeneralFile
                                             />
                                         </GeneralRowForm>
                                     </WrapFormContext>
-
-                                    {/*<WrapFormContext*/}
-                                    {/*    formRequest={__formRequest}*/}
-                                    {/*    actions={{*/}
-                                    {/*        change: __handleChange,*/}
-                                    {/*        handleAddFiles: __dataFilePriceFile,*/}
-                                    {/*        handleSetDataFiles:*/}
-                                    {/*            __actionAddFilePriceFile,*/}
-                                    {/*        handleRemoveDataFile:*/}
-                                    {/*            __actionSetDataFilePriceFile,*/}
-                                    {/*        handleArrChange: __handleArrChange,*/}
-                                    {/*    }}>*/}
-                                    {/*    <GeneralRowForm*/}
-                                    {/*        label="Price File"*/}
-                                    {/*        isRequired>*/}
-                                    {/*        <FormUploadFileWithActionPreviewLogic*/}
-                                    {/*            isUseInputDesc={false}*/}
-                                    {/*            formName="priceFile"*/}
-                                    {/*            dataFiles={__dataFilePriceFile}*/}
-                                    {/*            formRequest={__formRequest}*/}
-                                    {/*            isMulti={false}*/}
-                                    {/*        />*/}
-                                    {/*    </GeneralRowForm>*/}
-                                    {/*</WrapFormContext>*/}
 
                                     {/*New Photos*/}
                                     {isEdit && __lisPreviousPhotos?.length ? (
@@ -309,7 +294,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}
                                                 formName="photos"
-                                                // isEdit={isEdit}
                                                 dataFiles={__dataFiles}
                                                 formRequest={__formRequest}
                                             />

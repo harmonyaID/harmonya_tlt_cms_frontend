@@ -255,12 +255,12 @@ export interface FormUploadFileProps extends InputHTMLAttributes<HTMLInputElemen
     classNameLayoutImage?: string
     subTitle?: string
     actions?: {
-        onChange: (
+        onChange?: (
             name: string,
             value: any,
             event?: ChangeEvent<HTMLInputElement>,
         ) => void
-        handleDataFiles: (files: any[] | any) => void
+        handleDataFiles?: (files: any[] | any) => void
     }
     isMulti?: boolean
     isGeneralFile?: boolean

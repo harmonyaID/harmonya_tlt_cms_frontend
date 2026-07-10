@@ -445,8 +445,8 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
         <>
             <div
                 className={
-                    'form-group form-upload-file-area' +
-                    (props.className ? ` ${props.className}` : '')
+                    'form-group form-upload-file-area ' +
+                    (props?.className || '')
                 }>
                 {label ? (
                     <label htmlFor={idInput} className="form-label">
