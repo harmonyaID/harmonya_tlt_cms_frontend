@@ -18,3 +18,6 @@ export const SrvBlogContentCRUD = objectPathEndPointAPI(baseAPI + '/blogs')
 export const SrvExperiencesContentCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences',
 )
+
+// Menus
+export const SrvMenuContentCRUD = objectPathEndPointAPI(baseAPI + '/menus')

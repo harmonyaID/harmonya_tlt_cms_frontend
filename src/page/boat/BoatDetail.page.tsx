@@ -204,10 +204,10 @@ const BoatDetailPage = () => {
                         <CardNavTab
                             tabs={[
                                 objectTab('Description', 'tabDescription'),
-                                objectTab(
-                                    'Boat Contact Form',
-                                    'tabBoatContactForm',
-                                ),
+                                // objectTab(
+                                //     'Boat Contact Form',
+                                //     'tabBoatContactForm',
+                                // ),
                             ]}
                             tabContents={[
                                 objectTabContent(
@@ -223,10 +223,10 @@ const BoatDetailPage = () => {
                                         />
                                     </>,
                                 ),
-                                objectTabContent(
-                                    '',
-                                    <TabBoatContactForm boatId={__detail.id} />,
-                                ),
+                                // objectTabContent(
+                                //     '',
+                                //     <TabBoatContactForm boatId={__detail.id} />,
+                                // ),
                             ]}
                         />
                     </div>

@@ -99,3 +99,6 @@ export const MDBoatTypeRemove = 'modalBoatTypeRemove'
 
 export const MDBoatContactFormAdd = 'modalBoatContactFormAdd'
 export const MDBoatContactFormRemove = 'modalBoatContactFormRemove'
+
+// Content Menu
+export const MDContentMenuAddMenuItem = 'modalContentMenuAddMenuItem'

@@ -142,18 +142,18 @@ const UserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             </GeneralRowForm>
                                         ) : null}
                                         <GeneralRowForm
-                                            label="Status Active"
+                                            label="Status"
                                             isRequired>
                                             <FormRadioButtonMulti
                                                 name="isActive"
                                                 checkBoxs={[
                                                     {
                                                         defaultValue: false,
-                                                        label: 'No',
+                                                        label: 'Not Active',
                                                     },
                                                     {
                                                         defaultValue: true,
-                                                        label: 'Yes',
+                                                        label: 'Active',
                                                     },
                                                 ]}
                                             />

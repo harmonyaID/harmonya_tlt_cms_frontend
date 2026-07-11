@@ -73,7 +73,7 @@ const ContentBlogDetailPage = () => {
             <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
                 <div className="row">
                     <div className="col-lg-8">
-                        <Card title="Blog">
+                        <Card title="Blog Information">
                             <HorizontalLoopDataLogic
                                 list={[
                                     objectListDetail(
@@ -121,64 +121,123 @@ const ContentBlogDetailPage = () => {
                         </Card>
                     </div>
                     <div className="col-lg-4">
-                        <Card title="Other Information">
-                            <div className="pb-3">
-                                <p className="mb-2 text-neutral-100">
-                                    Thumbnail
-                                </p>
+                        <div className="vstack gap-4">
+                            <Card title="Other Information">
+                                <div className="pb-3">
+                                    <p className="mb-2 text-neutral-100">
+                                        Thumbnail
+                                    </p>
 
-                                <PreviewFileModalLogic
-                                    dataUrl={__detail?.thumbnail?.toString()}
-                                    dataBy="file"
-                                    dataFile={__detail.thumbnail}
-                                    classNameWidth="w-100 max-h-148px"
-                                />
-                            </div>
+                                    <PreviewFileModalLogic
+                                        dataUrl={__detail?.thumbnail?.toString()}
+                                        dataBy="file"
+                                        dataFile={__detail.thumbnail}
+                                        classNameWidth="w-100 max-h-148px"
+                                    />
+                                </div>
 
-                            <VerticalLoopDataLogic
-                                list={[
-                                    objectListDetail(
-                                        'Status Active',
-                                        <TextTrueOrFalse
-                                            value={__detail.isActive}
-                                        />,
-                                    ),
-                                    objectListDetail(
-                                        'Category',
-                                        __detail?.category?.name || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Tags',
-                                        __detail?.tags &&
-                                            __detail?.tags.length ? (
-                                            <div className="d-inline-flex gap-2">
-                                                {__detail?.tags?.map(
-                                                    (tag, index) => (
-                                                        <BadgeStatusGeneral
-                                                            value={
-                                                                tag?.name || '-'
-                                                            }
-                                                            className="text-bg-neutral-400 fw-normal"
-                                                            key={index}
-                                                        />
-                                                    ),
-                                                ) || '-'}
-                                            </div>
-                                        ) : (
-                                            '-'
+                                <VerticalLoopDataLogic
+                                    list={[
+                                        objectListDetail(
+                                            'Status Active',
+                                            <TextTrueOrFalse
+                                                value={__detail.isActive}
+                                            />,
                                         ),
-                                    ),
-                                    objectListDetail(
-                                        'Author',
-                                        __detail?.author || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Created At',
-                                        __detail?.createdAt || '-',
-                                    ),
-                                ]}
-                            />
-                        </Card>
+                                        objectListDetail(
+                                            'Category',
+                                            __detail?.category?.name || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Tags',
+                                            __detail?.tags &&
+                                                __detail?.tags.length ? (
+                                                <div className="d-inline-flex gap-2">
+                                                    {__detail?.tags?.map(
+                                                        (tag, index) => (
+                                                            <BadgeStatusGeneral
+                                                                value={
+                                                                    tag?.name ||
+                                                                    '-'
+                                                                }
+                                                                className="text-bg-neutral-300 fw-normal"
+                                                                key={index}
+                                                            />
+                                                        ),
+                                                    ) || '-'}
+                                                </div>
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
+                                        objectListDetail(
+                                            'Author',
+                                            __detail?.author || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Created At',
+                                            __detail?.createdAt || '-',
+                                        ),
+                                    ]}
+                                />
+                            </Card>
+
+                            <Card title="SEO Information">
+                                <div className="pb-3">
+                                    <p className="mb-2 text-neutral-100">
+                                        Thumbnail
+                                    </p>
+
+                                    <PreviewFileModalLogic
+                                        dataUrl={__detail?.seo?.thumbnail?.toString()}
+                                        dataBy="file"
+                                        dataFile={__detail.seo?.thumbnail}
+                                        classNameWidth="w-100 max-h-148px"
+                                    />
+                                </div>
+
+                                <VerticalLoopDataLogic
+                                    list={[
+                                        objectListDetail(
+                                            'Title',
+                                            __detail?.seo?.title || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Slug',
+                                            __detail?.seo?.slug || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Canonical Url',
+                                            __detail?.seo?.canonicalUrl || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Description',
+                                            __detail?.seo?.description || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Meta Keyword',
+                                            __detail?.seo?.metaKeyword || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Robot Follow',
+                                            <TextTrueOrFalse
+                                                value={
+                                                    __detail?.seo?.robotFollow
+                                                }
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Robot Index',
+                                            <TextTrueOrFalse
+                                                value={
+                                                    __detail?.seo?.robotIndex
+                                                }
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </Card>
+                        </div>
                     </div>
                 </div>
             </LoadingStatePreviewData>

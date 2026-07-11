@@ -101,6 +101,14 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         actions={{
                                             change: __handleChange,
                                         }}>
+                                        <GeneralRowForm label="Name" isRequired>
+                                            <FormInput
+                                                name="name"
+                                                placeholder="e.g D’STARS FAST FERRY"
+                                                required
+                                            />
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm
                                             label="Boat Type"
                                             isRequired>

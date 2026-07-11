@@ -107,7 +107,7 @@ const ContentBlogPage = () => {
                                                         vm?.category?.name ||
                                                         '-'
                                                     }
-                                                    className="text-bg-neutral-400 fw-normal"
+                                                    className="text-bg-neutral-300 fw-normal"
                                                 />
                                             </TblPointData>
                                         </td>
@@ -116,7 +116,7 @@ const ContentBlogPage = () => {
                                                 {vm?.tags?.map((tag, index) => (
                                                     <BadgeStatusGeneral
                                                         value={tag?.name || '-'}
-                                                        className="text-bg-neutral-400 fw-normal"
+                                                        className="text-bg-neutral-300 fw-normal"
                                                         key={index}
                                                     />
                                                 )) || '-'}

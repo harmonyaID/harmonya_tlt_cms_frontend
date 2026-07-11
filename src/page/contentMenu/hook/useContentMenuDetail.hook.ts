@@ -1,25 +1,25 @@
 import { useParams } from 'react-router'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
-import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
+import { apiMenu } from '@/service/api/contentManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import contentExperiencePath from '@/path/contentExperience.path.ts'
+import contentMenuPath from '@/path/contentMenu.path.ts'
 
-const useContentExDetail = () => {
+const useContentMenuDetailHook = () => {
     const { id } = useParams()
 
     const restored = useLocationStateHook()
 
     const { __detail, __isLoading } = useDataDetailHook({
-        urlAPI: () => apiExperienceContent.detail(id),
+        urlAPI: () => apiMenu.detail(id),
         isCallAPI: true,
         triggerBy: id,
     })
 
     const { __handleToAdd, __handleToEdit, __handleToMain } =
         usePageFlowHandlerHook({
-            basePath: contentExperiencePath,
-            pathFromKey: 'experience-detail',
+            basePath: contentMenuPath,
+            pathFromKey: 'menu-detail',
             search: restored.dataSearch,
         })
 
@@ -36,4 +36,4 @@ const useContentExDetail = () => {
     }
 }
 
-export default useContentExDetail
+export default useContentMenuDetailHook

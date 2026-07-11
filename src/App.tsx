@@ -17,6 +17,7 @@ import ContentExperienceRoute from '@/route/ContentExperience.route.tsx'
 import PropertyBookingSystemRoute from '@/route/PropertyBookingSystem.route.tsx'
 import PropertyRoute from '@/route/Property.route.tsx'
 import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
+import ContentMenuRoute from '@/route/ContentMenu.route.tsx'
 
 const App = () => {
     return (
@@ -29,6 +30,7 @@ const App = () => {
                     {ContentBlogRoute()}
                     {ContentExperienceRoute()}
                     {ContentHomePageRoute()}
+                    {ContentMenuRoute()}
                     {ContentSettingRoute()}
                     {BoatManagementRoute()}
                     {PropertyRoute()}

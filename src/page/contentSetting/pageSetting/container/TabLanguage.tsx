@@ -198,19 +198,6 @@ const TabLanguage = () => {
                                 valueKey="cca2"
                             />
 
-                            {/*<FormInput*/}
-                            {/*    label="Country"*/}
-                            {/*    name="country"*/}
-                            {/*    required*/}
-                            {/*    placeholder="e.g Indonesia"*/}
-                            {/*/>*/}
-                            {/*<FormInput*/}
-                            {/*    label="Code"*/}
-                            {/*    name="code"*/}
-                            {/*    required*/}
-                            {/*    placeholder="e.g Id"*/}
-                            {/*/>*/}
-
                             <FormRadioButtonMulti
                                 label="Main"
                                 name="main"

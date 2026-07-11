@@ -45,12 +45,12 @@ $gray-700: #5e6278;
 $gray-800: #3f4254;
 $gray-900: #181c32;
 
-$tint-100: #322800;
-$tint-200: #ae8d00;
-$tint-300: #30BEB3;
-$tint-400: #fbd94d;
-$tint-500: #fde999;
-$tint-600: #fefae6;
+$tint-100: shade-color($primary, 80%);
+$tint-200: shade-color($primary, 40%);
+$tint-300: $primary;
+$tint-400: tint-color($primary, 50%);
+$tint-500: tint-color($primary, 70%);
+$tint-600: tint-color($primary, 90%);
 
 $blue-100: #18255c;
 $blue-200: #2b40a1;

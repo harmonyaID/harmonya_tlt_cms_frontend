@@ -198,6 +198,8 @@ const UserPage = () => {
                                         <td>
                                             <TextTrueOrFalse
                                                 value={vm.isActive}
+                                                textTrue="Active"
+                                                textFalse="Not Active"
                                             />
                                         </td>
                                         <td>
