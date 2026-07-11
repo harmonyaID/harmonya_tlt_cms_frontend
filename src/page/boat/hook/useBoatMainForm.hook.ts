@@ -12,6 +12,7 @@ const defaultActive = '1'
 const formCustomInformation = (name, value, order) => ({ name, value, order })
 
 const initForm = {
+    name: '',
     boatComponentTypeId: '',
     description: '',
     isActive: defaultActive,
@@ -22,6 +23,7 @@ const initForm = {
 }
 
 const initMapForm = (passData) => ({
+    name: passData?.name || '',
     boatComponentTypeId: passData?.boatComponentType?.id || '',
     description: passData.description || '',
     customInformations: passData?.customInformations?.length

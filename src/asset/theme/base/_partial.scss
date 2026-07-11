@@ -1114,6 +1114,22 @@ ul.long-tab {
    width: 24px;
 }
 
+// Box
+.flex-center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.box-80 {
+   height: 80px;
+   width: 80px;
+
+   &.center {
+      @extend .flex-center
+   }
+}
+
 .wrap-advance-search {
    // Custom Form
    .form-label {

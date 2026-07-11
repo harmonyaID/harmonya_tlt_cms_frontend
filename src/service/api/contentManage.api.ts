@@ -6,6 +6,7 @@ import {
     SrvBlogContentCRUD,
     SrvExperiencesContentCRUD,
     SrvHomePageContentCRUD,
+    SrvMenuContentCRUD,
     SrvPageContentCRUD,
 } from '@/service/api/_contentManage.endPoint.ts'
 
@@ -22,7 +23,13 @@ export const apiPageContent = {
 export const apiBlogContent = {
     ..._shapeObjectMethodCRUD(SrvBlogContentCRUD),
 }
+
 // Blog
 export const apiExperienceContent = {
     ..._shapeObjectMethodCRUD(SrvExperiencesContentCRUD),
+}
+
+// Menu
+export const apiMenu = {
+    ..._shapeObjectMethodCRUD(SrvMenuContentCRUD),
 }

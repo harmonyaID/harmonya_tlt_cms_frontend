@@ -19,6 +19,8 @@ import { BtnCircleRemove } from '@/component/general/Button.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import { textSlug } from '@/helper/convertText.helper.ts'
 
 const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -27,6 +29,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __isLoadingDetail,
         __pageStateDataSearch,
         __handleChange,
+        __handleChangeWithParent,
         __handleArrAddMulti,
         __handleChangeTitle,
         __handleTagChoose,
@@ -39,6 +42,11 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __previewThumbnail,
         __setPreviewThumbnail,
         __handleThumbnailRemove,
+
+        // SEO Thumbnail
+        __seoThumbnail,
+        __setSetSEOThumbnail,
+        __handleSEOThumbnailRemove,
 
         // Form
         __handleSubmit,
@@ -128,6 +136,192 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                             ),
                                                     }}
                                                     required
+                                                />
+                                            </GeneralRowForm>
+                                        </WrapFormContext>
+
+                                        <WrapFormContext
+                                            formRequest={__formRequest.seo}
+                                            actions={{
+                                                change: (name, value) =>
+                                                    __handleChangeWithParent(
+                                                        name,
+                                                        value,
+                                                        'seo',
+                                                    ),
+                                            }}>
+                                            <h5 className="fs-18 pb-3">
+                                                SEO Information
+                                            </h5>
+                                            <GeneralRowForm
+                                                label="Meta Title"
+                                                isRequired>
+                                                <FormInput
+                                                    name="title"
+                                                    required
+                                                    value={
+                                                        __formRequest.seo.title
+                                                    }
+                                                    placeholder="e.g Best Beach Clubs in Nusa Lembongan"
+                                                    actions={{
+                                                        onChange: (
+                                                            name,
+                                                            value,
+                                                        ) => {
+                                                            __handleChangeWithParent(
+                                                                name,
+                                                                value,
+                                                                'seo',
+                                                            )
+                                                            __handleChangeWithParent(
+                                                                'info',
+                                                                value,
+                                                                'seo',
+                                                            )
+                                                            // __handleChangeWithParent(
+                                                            //     'slug',
+                                                            //     textSlug(value),
+                                                            //     'seo',
+                                                            // )
+                                                        },
+                                                    }}
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Slug"
+                                                isRequired>
+                                                <FormInput
+                                                    name="slug"
+                                                    required
+                                                    placeholder="e.g best-beach-clubs-in-nusa-lembongan"
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Canonical Url"
+                                                isRequired>
+                                                <FormInput
+                                                    name="canonicalUrl"
+                                                    required
+                                                    placeholder="e.g https://www.thelembongantraveller.com/nusa-lembongan/"
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Description"
+                                                isRequired>
+                                                <FormTextArea
+                                                    name="description"
+                                                    required
+                                                    placeholder="e.g Best Beach Clubs in Nusa Lembongan"
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Meta Keyword"
+                                                isRequired>
+                                                <FormTextArea
+                                                    name="metaKeyword"
+                                                    required
+                                                    placeholder="e.g the lembongan traveller, explore bali, lembongan bali"
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Thumbnail"
+                                                isRequired>
+                                                {__seoThumbnail ? (
+                                                    <>
+                                                        <div className="pb-3P">
+                                                            <PreviewFileModalLogic
+                                                                dataUrl={__seoThumbnail?.toString()}
+                                                                dataBy="file"
+                                                                dataFile={
+                                                                    __seoThumbnail
+                                                                }
+                                                                isShowBtnRemove
+                                                                actions={{
+                                                                    remove: __handleSEOThumbnailRemove,
+                                                                }}
+                                                                classNameWidth="w-100 max-h-148px"
+                                                            />
+                                                        </div>
+                                                    </>
+                                                ) : (
+                                                    <FormUploadFile
+                                                        // label="Thumbnail"
+                                                        name="thumbnail"
+                                                        required
+                                                        isUseHook={false}
+                                                        isPreview={false}
+                                                        accept="image/*"
+                                                        actions={{
+                                                            onChange: (
+                                                                _,
+                                                                newFiles,
+                                                            ) => {
+                                                                const img =
+                                                                    new Image()
+                                                                const objectUrl =
+                                                                    URL.createObjectURL(
+                                                                        newFiles,
+                                                                    )
+
+                                                                img.onload =
+                                                                    () => {
+                                                                        __handleChangeWithParent(
+                                                                            'thumbnail',
+                                                                            newFiles,
+                                                                            'seo',
+                                                                        )
+                                                                    }
+
+                                                                img.src =
+                                                                    objectUrl
+                                                            },
+                                                            handleDataFiles: (
+                                                                newDataFiles,
+                                                            ) => {
+                                                                __setSetSEOThumbnail(
+                                                                    newDataFiles.url,
+                                                                )
+                                                            },
+                                                        }}
+                                                    />
+                                                )}
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Robot Index"
+                                                isRequired>
+                                                <FormRadioButtonMulti
+                                                    name="robotIndex"
+                                                    className="mb-0"
+                                                    required
+                                                    checkBoxs={[
+                                                        {
+                                                            defaultValue: 0,
+                                                            label: 'No',
+                                                        },
+                                                        {
+                                                            defaultValue: 1,
+                                                            label: 'Yes',
+                                                        },
+                                                    ]}
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Robot Follow"
+                                                isRequired>
+                                                <FormRadioButtonMulti
+                                                    name="robotFollow"
+                                                    className="mb-0"
+                                                    required
+                                                    checkBoxs={[
+                                                        {
+                                                            defaultValue: 0,
+                                                            label: 'No',
+                                                        },
+                                                        {
+                                                            defaultValue: 1,
+                                                            label: 'Yes',
+                                                        },
+                                                    ]}
                                                 />
                                             </GeneralRowForm>
                                         </WrapFormContext>

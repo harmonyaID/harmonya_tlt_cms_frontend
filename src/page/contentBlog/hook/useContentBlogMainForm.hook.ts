@@ -13,6 +13,19 @@ import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
 
 const defaultActive = '1'
 
+const mapSEOForm = (passSEO) => ({
+    info: passSEO?.info || '',
+    title: passSEO?.title || '',
+    slug: passSEO?.slug || '',
+    description: passSEO?.description || '',
+    metaKeyword: passSEO?.metaKeyword || '',
+    canonicalUrl: passSEO?.canonicalUrl || '',
+    robotIndex: passSEO.robotIndex ? 1 : 0,
+    robotFollow: passSEO.robotFollow ? 1 : 0,
+    thumbnail: '',
+    deleteThumbnail: '',
+})
+
 const initForm = {
     categoryId: '',
     title: '',
@@ -24,6 +37,17 @@ const initForm = {
     isActive: defaultActive,
     tagIds: [],
     thumbnail: '',
+    seo: {
+        info: '',
+        title: '',
+        slug: '',
+        description: '',
+        metaKeyword: '',
+        canonicalUrl: '',
+        robotIndex: 1,
+        robotFollow: 1,
+        thumbnail: '',
+    },
 }
 
 const initMapForm = (passData) => ({
@@ -37,6 +61,7 @@ const initMapForm = (passData) => ({
     isActive: passData?.isActive ? defaultActive : '0',
     tagIds: [],
     thumbnail: '',
+    seo: mapSEOForm(passData?.seo || {}),
 })
 
 const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
@@ -53,6 +78,8 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
 
     const [previewThumbnail, setPreviewThumbnail] = useState('')
+
+    const [seoThumbnail, setSetSEOThumbnail] = useState('')
 
     const [formRequest, setFormRequest] = useState({
         ...initForm,
@@ -109,6 +136,11 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // }
     }
 
+    const _handleSEOThumbnailRemove = () => {
+        setSetSEOThumbnail('')
+        nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
+    }
+
     const dataDetail = useDetailFormRequestHook({
         urlAPI: () => apiBlogContent.detail(id),
         formRequest,
@@ -129,6 +161,10 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                 if (res?.thumbnail) {
                     setPreviewThumbnail(res.thumbnail)
+                }
+
+                if (res?.seo?.thumbnail) {
+                    setSetSEOThumbnail(res.seo.thumbnail)
                 }
             }
         },
@@ -159,6 +195,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChange: nestedForm._handleChange,
         __handleChangeArr: nestedForm.__handleArrChange,
         __handleArrAddMulti: nestedForm._handleArrAddMulti,
+        __handleChangeWithParent: nestedForm._handleChangeWithParent,
         __handleChangeTitle: _handleChangeTitle,
 
         __handleTagChoose: _handleTagChoose,
@@ -170,6 +207,11 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __previewThumbnail: previewThumbnail,
         __setPreviewThumbnail: setPreviewThumbnail,
         __handleThumbnailRemove: _handleThumbnailRemove,
+
+        // SEO
+        __seoThumbnail: seoThumbnail,
+        __setSetSEOThumbnail: setSetSEOThumbnail,
+        __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,

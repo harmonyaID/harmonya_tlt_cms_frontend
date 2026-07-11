@@ -11,6 +11,7 @@ import {
     TaskSquare,
     Blogger,
     MedalStar,
+    HambergerMenu,
 
     // Property Management
     Building,
@@ -54,6 +55,7 @@ import {
 import boatPath from '@/path/boat.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
+import contentMenuPath from '@/path/contentMenu.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -224,9 +226,16 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     to={contentExperiencePath.main}
                 />
             </li>
+            <li className="">
+                <LinkMenu
+                    name="Menu"
+                    icon={<HambergerMenu variant="Bulk" />}
+                    to={contentMenuPath.main}
+                />
+            </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
-                    name="Content Setting"
+                    name="Setting"
                     to={contentSettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="cm-setting"

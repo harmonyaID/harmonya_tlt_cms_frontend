@@ -1,30 +1,30 @@
-import useBoatMain from '@/page/boat/hook/useBoatMain.hook.ts'
 import CardListData from '@/component/card/CardListData.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import useContentMenuHook from '@/page/contentMenu/hook/useContentMenu.hook.ts'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
-    TblLineFirst,
     TblLineFirstPrimary,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import { MDGeneralRemove } from '@/config/modal.config.ts'
+import { apiBlogContent, apiMenu } from '@/service/api/contentManage.api.ts'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { apiBoat } from '@/service/api/boatManage.api.ts'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 
-const BoatPage = () => {
+const ContentMenuPage = () => {
     const {
         // ---- List Data ----
         __list,
@@ -40,7 +40,7 @@ const BoatPage = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
-    } = useBoatMain()
+    } = useContentMenuHook()
 
     const {
         __data: dataForRemove,
@@ -55,7 +55,7 @@ const BoatPage = () => {
     return (
         <>
             <CardListData
-                title="Boat"
+                title="Menu"
                 componentAction={
                     <BtnPrimary onClick={() => __handleToAdd()}>
                         Add New
@@ -71,18 +71,17 @@ const BoatPage = () => {
                         clear: __actionClear,
                     }}
                 />
+
                 <div className="row overflow-y position-relative">
                     <div className="col-md-12 table-responsive-md">
                         <TableThemeLogic
                             isLoading={__isLoading}
                             isNoWrap
                             ths={[
-                                'Name',
-                                'Boat Type',
-                                'Total Photos',
-                                'Total Promo Photos',
-                                'Status Active',
-                                'Created At',
+                                'Title',
+                                'Locale',
+                                // 'Menu Item',
+                                'Created',
                                 '',
                             ]}
                             tds={__list}>
@@ -97,32 +96,25 @@ const BoatPage = () => {
                                         }}>
                                         <td>
                                             <TblLineFirstPrimary
-                                                value={vm?.name}
-                                            />
-                                        </td>
-                                        <td>
-                                            <TblLineFirst
-                                                value={
-                                                    vm?.boatComponentTypeName
-                                                }
+                                                value={vm?.title || '-'}
                                             />
                                         </td>
                                         <td>
                                             <TblLineSecond>
-                                                {vm?.photos.length || '-'}
+                                                {vm.locale || '-'}
                                             </TblLineSecond>
                                         </td>
-                                        <td>
-                                            <TblLineSecond>
-                                                {vm?.promoPhotos.length || '-'}
-                                            </TblLineSecond>
-                                        </td>
-
-                                        <td>
-                                            <TextTrueOrFalse
-                                                value={vm.isActive}
-                                            />
-                                        </td>
+                                        {/*<td>*/}
+                                        {/*    <div className="d-inline-flex gap-2">*/}
+                                        {/*        {vm?.tags?.map((tag, index) => (*/}
+                                        {/*            <BadgeStatusGeneral*/}
+                                        {/*                value={tag?.name || '-'}*/}
+                                        {/*                className="text-bg-neutral-400 fw-normal"*/}
+                                        {/*                key={index}*/}
+                                        {/*            />*/}
+                                        {/*        )) || '-'}*/}
+                                        {/*    </div>*/}
+                                        {/*</td>*/}
                                         <td>
                                             <TblLineSecond>
                                                 {vm?.createdAt || '-'}
@@ -177,7 +169,7 @@ const BoatPage = () => {
                 <ConfirmRemoveListLogic
                     id={MDGeneralRemove}
                     configHandle={{
-                        urlAPI: () => apiBoat.delete(dataForRemove.id),
+                        urlAPI: () => apiMenu.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -191,4 +183,4 @@ const BoatPage = () => {
     )
 }
 
-export default BoatPage
+export default ContentMenuPage
