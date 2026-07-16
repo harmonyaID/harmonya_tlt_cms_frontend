@@ -18,47 +18,52 @@ import PropertyBookingSystemRoute from '@/route/PropertyBookingSystem.route.tsx'
 import PropertyRoute from '@/route/Property.route.tsx'
 import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
 import ContentMenuRoute from '@/route/ContentMenu.route.tsx'
+import ErrorBoundary from '@/component/wrapping/ErrorBoundary.tsx'
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<MainLayoutWrap />}>
-                    {PrivateSingleRoute()}
-                    {UserRoute()}
-                    {ContentAllPageRoute()}
-                    {ContentBlogRoute()}
-                    {ContentExperienceRoute()}
-                    {ContentHomePageRoute()}
-                    {ContentMenuRoute()}
-                    {ContentSettingRoute()}
-                    {BoatManagementRoute()}
-                    {PropertyRoute()}
-                    {PropertyBookingSystemRoute()}
-                    {PropertySettingRoute()}
-                    {SystemManagementRoute()}
+        <ErrorBoundary>
+            <BrowserRouter>
+                <Routes>
+                    <Route element={<MainLayoutWrap />}>
+                        {PrivateSingleRoute()}
+                        {UserRoute()}
+                        {ContentAllPageRoute()}
+                        {ContentBlogRoute()}
+                        {ContentExperienceRoute()}
+                        {ContentHomePageRoute()}
+                        {ContentMenuRoute()}
+                        {ContentSettingRoute()}
+                        {BoatManagementRoute()}
+                        {PropertyRoute()}
+                        {PropertyBookingSystemRoute()}
+                        {PropertySettingRoute()}
+                        {SystemManagementRoute()}
 
-                    <Route
-                        path="/"
-                        element={<Navigate to={dashboardPath.main} replace />}
-                    />
-                    <Route
-                        path="*"
-                        element={
-                            <SuspenseLayout
-                                titlePage="Page Not Fount - 404"
-                                isCheckPermission={false}>
-                                <Page404Layout to={dashboardPath.main} />
-                            </SuspenseLayout>
-                        }
-                    />
-                </Route>
+                        <Route
+                            path="/"
+                            element={
+                                <Navigate to={dashboardPath.main} replace />
+                            }
+                        />
+                        <Route
+                            path="*"
+                            element={
+                                <SuspenseLayout
+                                    titlePage="Page Not Fount - 404"
+                                    isCheckPermission={false}>
+                                    <Page404Layout to={dashboardPath.main} />
+                                </SuspenseLayout>
+                            }
+                        />
+                    </Route>
 
-                {AuthRoute()}
+                    {AuthRoute()}
 
-                <Route path="/*" element={<Page404Layout />} />
-            </Routes>
-        </BrowserRouter>
+                    <Route path="/*" element={<Page404Layout />} />
+                </Routes>
+            </BrowserRouter>
+        </ErrorBoundary>
     )
 }
 

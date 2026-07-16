@@ -66,6 +66,13 @@
     }
 }
 
+@include media-breakpoint-between(0, md) {
+    .navbar-main,
+    .wp-bottom-footer {
+        left: 0;
+    }
+}
+
 @include media-breakpoint-between(0, sm) {
     .navbar-main {
         left: 0;

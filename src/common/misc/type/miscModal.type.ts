@@ -43,4 +43,5 @@ export interface ModalWithActionFormCRUDLogicProps {
         other?: object
     }
     configHandle: ModalActionCRUDConfig
+    width?: string | number
 }

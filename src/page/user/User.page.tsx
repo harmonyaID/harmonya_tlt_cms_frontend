@@ -192,7 +192,7 @@ const UserPage = () => {
                                         </td>
                                         <td>
                                             <TextTrueOrFalse
-                                                value={vm.isSuperAdmin}
+                                                value={vm.isSuperadmin}
                                             />
                                         </td>
                                         <td>

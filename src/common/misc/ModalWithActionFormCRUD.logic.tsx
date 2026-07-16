@@ -56,6 +56,7 @@ const ModalWithActionFormCRUDLogic = (
         configHandle = {
             ...dataConfig,
         },
+        width,
     } = props
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -117,7 +118,7 @@ const ModalWithActionFormCRUDLogic = (
             isHideClose={isHideClose}
             isCentered={isCentered}
             isScrollable={isScrollable}
-
+            width={width}
             classNameModalDialog={classNameModalDialog}
 
             closeAction={_handleCancel}>
