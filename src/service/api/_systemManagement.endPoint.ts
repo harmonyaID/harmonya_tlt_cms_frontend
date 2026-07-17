@@ -6,4 +6,4 @@ const baseAPI: any = String(import.meta.env.VITE_BASE_API)
 // Web Config
 export const SrvWebConfig = baseAPI + '/configurations/website'
 
-export const SrvWebConfigUpdate = (id) => baseAPI + '/' + id + '/update'
+export const SrvWebConfigUpdate = (id) => SrvWebConfig + '/' + id + '/update'

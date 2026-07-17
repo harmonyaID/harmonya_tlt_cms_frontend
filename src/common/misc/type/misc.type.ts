@@ -117,6 +117,8 @@ export interface FormUploadFileWithActionPreviewLogicProps {
 
     classNameRowImg?: string
     columnSizeImg?: string
+
+    nameInput?: string
 }
 
 // Modal With Action Form CRUD

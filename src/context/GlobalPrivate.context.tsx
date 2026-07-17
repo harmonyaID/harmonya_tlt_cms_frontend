@@ -172,7 +172,7 @@ export const WrapGlobalPrivateContext = ({
 
     useLayoutEffect(() => {
         settingBodyLayout()
-        settingThemeMode(getPreferredTheme())
+        // settingThemeMode(getPreferredTheme())
     }, [])
 
     return (

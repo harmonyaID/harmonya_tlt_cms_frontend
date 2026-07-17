@@ -55,7 +55,8 @@ const TabExCategory = ({
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiExperienceCategory.list,
+        urlAPI: (passData) =>
+            apiExperienceCategory.list({ ...passData, page: 0 }),
     })
 
     const {

@@ -1,26 +1,18 @@
-import BoatMainForm from '@/page/boat/container/BoatMainForm.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import boatPath from '@/path/boat.path.ts'
 import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
 import PageTitle from '@/component/general/PageTitle.tsx'
 import { BtnPrimary } from '@/component/general/Button.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
 import Card from '@/component/card/Card.tsx'
-import CardListData from '@/component/card/CardListData.tsx'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
-import PreElement from '@/component/general/PreElement.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { isEmpty } from 'lodash'
 import { NotAvailable } from '@/component/general/TextDefault.tsx'
-import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import PreviewFileModalMultiLogic from '@/common/misc/PreviewFileModalMulti.logic.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
-import TabBoatType from '@/page/boat/container/TabBoatType.tsx'
-import TabBoatContactForm from '@/page/boat/container/TabBoatContactForm.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
-import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 
 const BoatDetailPage = () => {
     const {
@@ -152,10 +144,7 @@ const BoatDetailPage = () => {
                                 classNameTabPane="px-0"
                                 tabs={[
                                     objectTab('Photos', 'tabPhotos'),
-                                    objectTab(
-                                        'Photos Promotion',
-                                        'tabPhotoPromotion',
-                                    ),
+                                    objectTab('Catalog', 'tabCatalogs'),
                                 ]}
                                 tabContents={[
                                     objectTabContent(
@@ -178,13 +167,13 @@ const BoatDetailPage = () => {
                                         </>,
                                     ),
                                     objectTabContent(
-                                        'Photos Promotion',
+                                        'Catalog',
                                         <>
-                                            {!isEmpty(__detail.promoPhotos) ? (
+                                            {!isEmpty(__detail.catalogs) ? (
                                                 <>
                                                     <PreviewFileModalMultiLogic
                                                         dataFiles={
-                                                            __detail.promoPhotos
+                                                            __detail.catalogs
                                                         }
                                                         dataBy="file"
                                                         isDescription={false}

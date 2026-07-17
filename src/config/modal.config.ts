@@ -15,33 +15,6 @@ export const MDGeneralConfirm: string = 'modalGeneralConfirm'
 export const MDGeneralFormCRUD: string = 'modalGeneralFormCRUD'
 export const MDGeneralPreview = 'modalGeneralPreview'
 
-// Page Setting
-export const MDSettingService = 'modalSettingService'
-export const MDSettingRemoveService = 'modalSettingRemoveService'
-
-export const MDSettingAccess = 'modalSettingAccess'
-export const MDSettingRemoveAccess = 'modalSettingRemoveAccess'
-
-export const MDSettingGlusterfs = 'modalSettingGlusterfs'
-export const MDSettingRemoveGlusterfs = 'modalSettingRemoveGlusterfs'
-
-export const MDSettingServer = 'modalSettingServer'
-export const MDSettingRemoveServer = 'modalSettingRemoveServer'
-
-export const MDDirectoryAdvanceFilter = 'modalDirectoryAdvanceFilter'
-
-export const MDServiceAssetAddDirectory: string =
-    'modalServiceAssetAddDirectory'
-export const MDServiceAssetAddFile: string = 'modalServiceAssetAddFile'
-export const MDServiceAssetPreviewFile: string = 'modalServiceAssetPreviewFile'
-
-export const MDServiceAssetRemoveDirectory: string =
-    'modalServiceAssetRemoveDirectory'
-
-export const MDServiceAssetRemoveFile: string = 'modalServiceAssetRemoveFile'
-
-export const MDAssetServiceFileAdd = 'modalServiceAssetFileAdd'
-
 // Content Page Setting
 export const MDPSTabFAQAdd = 'modalSettingPageFAQAdd'
 export const MDPSTabFAQRemove = 'modalSettingPageFAQRemove'
@@ -102,3 +75,6 @@ export const MDBoatContactFormRemove = 'modalBoatContactFormRemove'
 
 // Content Menu
 export const MDContentMenuAddMenuItem = 'modalContentMenuAddMenuItem'
+
+// Web Config Setting
+export const MDWebConfigSettingUpdate = 'modalWebConfigSettingUpdate'

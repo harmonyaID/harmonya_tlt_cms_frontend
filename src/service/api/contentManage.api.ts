@@ -24,7 +24,7 @@ export const apiBlogContent = {
     ..._shapeObjectMethodCRUD(SrvBlogContentCRUD),
 }
 
-// Blog
+// Experience
 export const apiExperienceContent = {
     ..._shapeObjectMethodCRUD(SrvExperiencesContentCRUD),
 }

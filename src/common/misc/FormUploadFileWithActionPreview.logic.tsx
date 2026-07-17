@@ -59,6 +59,7 @@ const FormUploadFileWithActionPreviewLogic = (
         isMulti = true,
         classNameRowImg = '',
         columnSizeImg = 'col-md-4',
+        nameInput = 'description',
     } = props
 
     const idInput = id || uniqueId
@@ -303,7 +304,10 @@ const FormUploadFileWithActionPreviewLogic = (
                                                             ),
                                                     }}>
                                                     <FormTextArea
-                                                        name="description"
+                                                        name={
+                                                            nameInput ||
+                                                            'description'
+                                                        }
                                                         placeholder="e.g Description about attachment"
                                                         className="mt-4 mb-0 px-2 pb-2"
                                                     />

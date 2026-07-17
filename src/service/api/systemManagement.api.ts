@@ -12,5 +12,5 @@ import {
 export const getWebConfig = () =>
     _shapeMethodGet(SrvWebConfig, 'tcSrvWebConfig')
 
-export const updateWebConfig = (id) =>
-    _shapeMethodPut(SrvWebConfigUpdate(id), 'tcSrvWebConfig')
+export const updateWebConfig = (id, formRequest: any) =>
+    _shapeMethodPut(SrvWebConfigUpdate(id), formRequest)
