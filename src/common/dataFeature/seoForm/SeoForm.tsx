@@ -1,7 +1,7 @@
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import Card from '@/component/card/Card.tsx'
 
-const FormSEO = () => {
+const SeoForm = () => {
     return (
         <Card title="SEO">
             <WrapFormContext></WrapFormContext>
@@ -9,4 +9,4 @@ const FormSEO = () => {
     )
 }
 
-export default FormSEO
+export default SeoForm

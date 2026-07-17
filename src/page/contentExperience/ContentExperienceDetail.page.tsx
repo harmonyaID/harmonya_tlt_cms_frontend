@@ -12,6 +12,11 @@ import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import { isEmpty } from 'lodash'
+import PreviewFileModalMultiLogic from '@/common/misc/PreviewFileModalMulti.logic.tsx'
+import { NotAvailable } from '@/component/general/TextDefault.tsx'
+import CardNavTab from '@/component/card/CardNavTab.tsx'
 
 const ContentExperienceDetailPage = () => {
     const {
@@ -76,43 +81,37 @@ const ContentExperienceDetailPage = () => {
                     <div className="col-lg-8">
                         <Card title="Experience">
                             <HorizontalLoopDataLogic
+                                config={{
+                                    contentColumn: 'col-md-9',
+                                }}
                                 list={[
                                     objectListDetail(
-                                        'Title',
-                                        __detail?.title || '-',
+                                        'Name',
+                                        __detail?.name || '-',
                                     ),
                                     objectListDetail(
-                                        'Slug',
-                                        __detail?.slug || '-',
+                                        'Category',
+                                        __detail?.category?.name || '-',
                                     ),
                                     objectListDetail(
-                                        'Excerpt',
-                                        __detail.excerpt ? (
-                                            <PreElement
-                                                children={__detail.excerpt}
+                                        'Type',
+                                        __detail?.type?.name || '-',
+                                    ),
+                                    objectListDetail(
+                                        'Open Hours',
+                                        __detail?.openHours || '-',
+                                    ),
+                                    objectListDetail(
+                                        'Description',
+                                        __detail.description ? (
+                                            <div
+                                                className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
+                                                dangerouslySetInnerHTML={{
+                                                    __html:
+                                                        __detail?.description ||
+                                                        '-',
+                                                }}
                                             />
-                                        ) : (
-                                            '-'
-                                        ),
-                                    ),
-                                ]}
-                            />
-
-                            <VerticalLoopDataLogic
-                                list={[
-                                    objectListDetail(
-                                        'Content',
-                                        __detail.content ? (
-                                            <>
-                                                <div
-                                                    className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
-                                                    dangerouslySetInnerHTML={{
-                                                        __html:
-                                                            __detail?.content ||
-                                                            '-',
-                                                    }}
-                                                />
-                                            </>
                                         ) : (
                                             '-'
                                         ),
@@ -136,46 +135,143 @@ const ContentExperienceDetailPage = () => {
                                 />
                             </div>
 
-                            <VerticalLoopDataLogic
-                                list={[
-                                    objectListDetail(
-                                        'Status Active',
-                                        <TextTrueOrFalse
-                                            value={__detail.isActive}
-                                        />,
+                            <CardNavTab
+                                classNameTabPane="px-0"
+                                tabs={[
+                                    objectTab('General', 'tabGeneral'),
+                                    objectTab('Photos', 'tabPhotos'),
+                                    objectTab(
+                                        'Photos Promotion',
+                                        'tabPhotoPromotion',
                                     ),
-                                    objectListDetail(
-                                        'Category',
-                                        __detail?.category?.name || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Tags',
-                                        __detail?.tags &&
-                                            __detail?.tags.length ? (
-                                            <div className="d-inline-flex gap-2">
-                                                {__detail?.tags?.map(
-                                                    (tag, index) => (
-                                                        <BadgeStatusGeneral
-                                                            value={
-                                                                tag?.name || '-'
-                                                            }
-                                                            className="text-bg-neutral-400 fw-normal"
-                                                            key={index}
-                                                        />
+                                ]}
+                                tabContents={[
+                                    objectTabContent(
+                                        'General',
+                                        <>
+                                            <VerticalLoopDataLogic
+                                                list={[
+                                                    objectListDetail(
+                                                        'Map Image',
+                                                        __detail?.mapImage ? (
+                                                            <>
+                                                                <PreviewFileModalLogic
+                                                                    dataUrl={__detail?.mapImage?.toString()}
+                                                                    dataBy="file"
+                                                                    dataFile={
+                                                                        __detail.mapImage
+                                                                    }
+                                                                    classNameWidth="w-100 max-h-148px"
+                                                                />
+                                                            </>
+                                                        ) : (
+                                                            '-'
+                                                        ),
                                                     ),
-                                                ) || '-'}
-                                            </div>
-                                        ) : (
-                                            '-'
-                                        ),
+                                                    objectListDetail(
+                                                        'Status Active',
+                                                        <TextTrueOrFalse
+                                                            value={
+                                                                __detail.isActive
+                                                            }
+                                                        />,
+                                                    ),
+                                                    objectListDetail(
+                                                        'Show Inquiry',
+                                                        <TextTrueOrFalse
+                                                            value={
+                                                                __detail.showInquiry
+                                                            }
+                                                        />,
+                                                    ),
+                                                    objectListDetail(
+                                                        'Whatsapp',
+                                                        __detail?.whatsapp ||
+                                                            '-',
+                                                    ),
+                                                    objectListDetail(
+                                                        'Instagram',
+                                                        __detail?.instagram ||
+                                                            '-',
+                                                    ),
+                                                    objectListDetail(
+                                                        'Website',
+                                                        __detail?.website ? (
+                                                            <a
+                                                                href={
+                                                                    __detail.website
+                                                                }
+                                                                target="_blank">
+                                                                {
+                                                                    __detail?.website
+                                                                }
+                                                            </a>
+                                                        ) : (
+                                                            '-'
+                                                        ),
+                                                    ),
+                                                    objectListDetail(
+                                                        'Map Location Url',
+                                                        __detail?.mapLocationUrl ? (
+                                                            <a
+                                                                href={
+                                                                    __detail.mapLocationUrl
+                                                                }
+                                                                target="_blank">
+                                                                {
+                                                                    __detail?.mapLocationUrl
+                                                                }
+                                                            </a>
+                                                        ) : (
+                                                            '-'
+                                                        ),
+                                                    ),
+                                                    objectListDetail(
+                                                        'Created At',
+                                                        __detail?.createdAt ||
+                                                            '-',
+                                                    ),
+                                                ]}
+                                            />
+                                        </>,
                                     ),
-                                    objectListDetail(
-                                        'Author',
-                                        __detail?.author || '-',
+                                    objectTabContent(
+                                        'Photos',
+                                        <>
+                                            {!isEmpty(__detail.photos) ? (
+                                                <>
+                                                    <PreviewFileModalMultiLogic
+                                                        dataFiles={
+                                                            __detail.photos
+                                                        }
+                                                        dataBy="photo"
+                                                        isDescription={false}
+                                                        classNameWrapImg="max-h-120-px"
+                                                    />
+                                                </>
+                                            ) : (
+                                                <NotAvailable />
+                                            )}
+                                        </>,
                                     ),
-                                    objectListDetail(
-                                        'Created At',
-                                        __detail?.createdAt || '-',
+                                    objectTabContent(
+                                        'Photos Promotion',
+                                        <>
+                                            {!isEmpty(__detail.promoPhotos) ? (
+                                                <>
+                                                    <PreviewFileModalMultiLogic
+                                                        dataFiles={
+                                                            __detail.promoPhotos
+                                                        }
+                                                        dataBy="file"
+                                                        isDescription={false}
+                                                        classNameWrapImg="max-h-120-px"
+                                                    />
+                                                </>
+                                            ) : (
+                                                <NotAvailable />
+                                            )}
+                                        </>,
                                     ),
                                 ]}
                             />
