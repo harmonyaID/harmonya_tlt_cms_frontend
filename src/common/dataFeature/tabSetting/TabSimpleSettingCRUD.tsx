@@ -5,14 +5,12 @@ import {
 } from '@/component/general/Button.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import { MDBoatTypeAdd, MDBoatTypeRemove } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
-import { apiBoatType } from '@/service/api/boatManage.api.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
@@ -27,7 +25,27 @@ const initMapForm = (passData) => ({
     name: passData?.name || '',
 })
 
-const TabBoatType = () => {
+const TabSimpleSettingCRUD = ({
+    apiCRUD = {
+        list: (passForm) => {},
+        add: (passForm) => {},
+        update: (id, passForm) => {},
+        delete: (id) => {},
+    },
+    idModal = '',
+    placeholder = 'e.g Hotel',
+    title = '',
+    isSearch = false,
+}: {
+    title: string
+    apiCRUD: any
+    idModal: string
+    placeholder?: string
+    isSearch?: boolean
+}) => {
+    const idModalAdd = idModal + 'Add'
+    const idModalRemove = idModal + 'Remove'
+
     const {
         __list,
         __isLoading,
@@ -37,7 +55,7 @@ const TabBoatType = () => {
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiBoatType.list,
+        urlAPI: (passData) => apiCRUD.list(isSearch ? passData : { page: 0 }),
         advancedSearch: {
             page: 0,
         },
@@ -55,8 +73,8 @@ const TabBoatType = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDBoatTypeAdd,
-        modalRemoveId: MDBoatTypeRemove,
+        modalId: idModalAdd,
+        modalRemoveId: idModalRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: (passData) => initMapForm({ ...passData }),
     })
@@ -69,7 +87,7 @@ const TabBoatType = () => {
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDBoatTypeRemove, false),
+            nextStep: () => actionModal(idModalRemove, false),
         },
     })
 
@@ -77,7 +95,7 @@ const TabBoatType = () => {
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Boat Type</h5>
+                    <h5 className="fs-18 fw-500">{title}</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -123,7 +141,7 @@ const TabBoatType = () => {
                 </div>
             </LoadingStatePreviewData>
 
-            {isShowPagination(__isLoading, __list, __pagination) ? (
+            {isShowPagination(__isLoading, __list, __pagination) && isSearch ? (
                 <Pagination
                     onMove={(step) => __actionPagination(step)}
                     className="mt-2"
@@ -136,9 +154,9 @@ const TabBoatType = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDBoatTypeRemove}
+                    id={idModalRemove}
                     configHandle={{
-                        urlAPI: () => apiBoatType.delete(dataForRemove.id),
+                        urlAPI: () => apiCRUD.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -149,7 +167,7 @@ const TabBoatType = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDBoatTypeAdd}
+                    id={idModalAdd}
                     detail={__detailData}
                     title="Boat Type"
                     isEdit={__isEdit}
@@ -158,14 +176,11 @@ const TabBoatType = () => {
                         change: _handleChange,
                         toggleModal: __actionCloseModal,
                     }}
-                    placeholder="e.g Customer Staging"
+                    placeholder={placeholder}
                     configHandle={{
-                        urlAPIAdd: () => apiBoatType.add(__formRequest),
+                        urlAPIAdd: () => apiCRUD.add(__formRequest),
                         urlAPIUpdate: () => {
-                            return apiBoatType.update(
-                                __selectedId,
-                                __formRequest,
-                            )
+                            return apiCRUD.update(__selectedId, __formRequest)
                         },
                         initialForm: () =>
                             // @ts-ignore
@@ -184,4 +199,4 @@ const TabBoatType = () => {
     )
 }
 
-export default TabBoatType
+export default TabSimpleSettingCRUD

@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import Card from '@/component/card/Card.tsx'
+import { Image } from 'iconsax-react'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import {
     BadgeRequiredProps,
@@ -154,3 +155,16 @@ export const TextComingSoon = ({ className = '' }: { className?: string }) => (
         Coming Soon
     </h5>
 )
+
+export const MediaNotAvailable = () => {
+    return (
+        <div className="hstack gap-3 justify-content-center fw-normal text-neutral-200 py-5">
+            <div className="">
+                <Image size="32" variant="Bulk" />
+            </div>
+            <div className="">
+                <p className="mb-0 fs-20">Media Not Available</p>
+            </div>
+        </div>
+    )
+}

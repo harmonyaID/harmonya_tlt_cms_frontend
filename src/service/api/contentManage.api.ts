@@ -1,10 +1,12 @@
 import {
     _shapeMethodGet,
+    _shapeMethodGetSearch,
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
     SrvBlogContentCRUD,
     SrvExperiencesContentCRUD,
+    SrvHomePageContent,
     SrvHomePageContentCRUD,
     SrvMenuContentCRUD,
     SrvPageContentCRUD,
@@ -14,6 +16,9 @@ import {
 export const apiHomePageContent = {
     ..._shapeObjectMethodCRUD(SrvHomePageContentCRUD),
 }
+
+export const detailHomePageContent = (formSearch) =>
+    _shapeMethodGetSearch(SrvHomePageContent, formSearch, 'tcFormSearch')
 
 // Page
 export const apiPageContent = {

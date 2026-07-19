@@ -16,6 +16,7 @@ import {
     // Property Management
     Building,
     CalendarTick,
+    Star,
 
     // System Management
     GlobalEdit,
@@ -56,6 +57,7 @@ import boatPath from '@/path/boat.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
+import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -279,6 +281,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Booking System"
                     icon={<CalendarTick variant="Bulk" />}
                     to={propertyBookingSystemPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Property Reviews"
+                    icon={<Star variant="Bulk" />}
+                    to={propertyReviewsPath.main}
                 />
             </li>
             <li className="submenu-dropdown">

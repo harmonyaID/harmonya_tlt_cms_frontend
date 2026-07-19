@@ -235,10 +235,9 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             handleArrChange: __handleArrChange,
                                         }}>
                                         <GeneralRowForm
-                                            label="catalogs"
+                                            label="Catalogs"
                                             isRequired>
                                             <FormUploadFileWithActionPreviewLogic
-                                                // isUseInputDesc={false}
                                                 formName="catalogs"
                                                 dataFiles={__dataFilesCatalogs}
                                                 formRequest={__formRequest}
