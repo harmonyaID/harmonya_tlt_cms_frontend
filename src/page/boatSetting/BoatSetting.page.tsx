@@ -3,6 +3,8 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 // import TabBoatContactForm from '@/page/boatSetting/container/TabBoatContactForm.tsx'
 import TabBoatType from '@/page/boatSetting/container/TabBoatType.tsx'
+import TabSimpleSettingCRUD from '@/common/dataFeature/tabSetting/TabSimpleSettingCRUD.tsx'
+import { getBoatFormStatus } from '@/service/api/boatManage.api.ts'
 
 const BoatSettingPage = () => {
     return (
@@ -14,11 +16,22 @@ const BoatSettingPage = () => {
             <CardNavTab
                 tabs={[
                     objectTab('Boat Type', 'tabBoatType'),
-                    // objectTab('Boat Contact Form', 'tabBoatContactForm'),
+                    objectTab('Status Form', 'tabStatusForm'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabBoatType />),
-                    // objectTabContent('', <TabBoatContactForm />),
+                    objectTabContent(
+                        '',
+                        <TabSimpleSettingCRUD
+                            title="Status Form"
+                            apiCRUD={{
+                                list: getBoatFormStatus,
+                            }}
+                            isAdd={false}
+                            isEdit={false}
+                            isRemove={false}
+                        />,
+                    ),
                 ]}
             />
         </>

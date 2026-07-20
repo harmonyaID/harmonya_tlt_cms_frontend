@@ -19,6 +19,7 @@ import PropertyRoute from '@/route/Property.route.tsx'
 import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
 import ContentMenuRoute from '@/route/ContentMenu.route.tsx'
 import ErrorBoundary from '@/component/wrapping/ErrorBoundary.tsx'
+import PropertyReviewsRoute from '@/route/PropertyReviews.route.tsx'
 
 const App = () => {
     return (
@@ -37,6 +38,7 @@ const App = () => {
                         {BoatManagementRoute()}
                         {PropertyRoute()}
                         {PropertyBookingSystemRoute()}
+                        {PropertyReviewsRoute()}
                         {PropertySettingRoute()}
                         {SystemManagementRoute()}
 
