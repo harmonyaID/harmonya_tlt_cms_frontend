@@ -5,8 +5,9 @@ const baseAPI: any = String(import.meta.env.VITE_BASE_API)
 
 // Home Page
 export const SrvHomePageContentCRUD = objectPathEndPointAPI(
-    baseAPI + '/home-page',
+    baseAPI + '/homepages',
 )
+export const SrvHomePageContent = baseAPI + '/homepages'
 
 // Page
 export const SrvPageContentCRUD = objectPathEndPointAPI(baseAPI + '/pages')

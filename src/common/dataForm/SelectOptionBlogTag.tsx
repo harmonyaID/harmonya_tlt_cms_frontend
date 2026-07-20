@@ -43,6 +43,8 @@ const SelectOptionBlogTag = (props: SelectOptionGeneralProps) => {
             onChange: () => {},
         },
 
+        isCreatable = true,
+
         others = {},
     } = props
 
@@ -133,6 +135,7 @@ const SelectOptionBlogTag = (props: SelectOptionGeneralProps) => {
             isMulti={isMulti}
             required={required}
             disabled={disabled}
+            isCreatable
             others={others}
         />
     )

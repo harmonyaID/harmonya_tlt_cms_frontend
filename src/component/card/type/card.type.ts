@@ -4,7 +4,7 @@ import { SwiperProps } from 'swiper/react'
 // Card
 export interface CardProps {
     children: ReactNode
-    title?: string
+    title?: string | ReactNode
     className?: string
     classNameBlog?: string
 }
@@ -12,7 +12,7 @@ export interface CardProps {
 // Card Count
 export interface CardCountProps {
     className?: string
-    icon: Element | any
+    icon?: Element | any
     title: Element | any
     count?: Element | number | any
 }

@@ -106,8 +106,9 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 <FormInput
                                                     label="Slug"
                                                     name="slug"
-                                                    disabled
-                                                    readOnly
+                                                    // disabled
+                                                    // readOnly
+                                                    required
                                                     placeholder="by title"
                                                 />
                                             </GeneralRowForm>
@@ -188,7 +189,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
-                                                label="Slug"
+                                                label="Meta Slug"
                                                 isRequired>
                                                 <FormInput
                                                     name="slug"
@@ -197,7 +198,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
-                                                label="Canonical Url"
+                                                label="Meta Canonical Url"
                                                 isRequired>
                                                 <FormInput
                                                     name="canonicalUrl"
@@ -206,7 +207,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
-                                                label="Description"
+                                                label="Meta Description"
                                                 isRequired>
                                                 <FormTextArea
                                                     name="description"
@@ -224,7 +225,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
-                                                label="Thumbnail"
+                                                label="Meta Image"
                                                 isRequired>
                                                 {__seoThumbnail ? (
                                                     <>
