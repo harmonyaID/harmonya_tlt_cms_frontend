@@ -189,6 +189,35 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
         }
     }, [])
 
+    useLayoutEffect(() => {
+        const timer = setTimeout(() => {
+            const scrollParent =
+                document.querySelector<HTMLElement>('.sidebar-menu')
+            const activeEl =
+                scrollParent?.querySelector<HTMLElement>('a.active')
+
+            if (scrollParent && activeEl) {
+                const parentRect = scrollParent.getBoundingClientRect()
+                const activeRect = activeEl.getBoundingClientRect()
+
+                const offset =
+                    activeRect.top -
+                    parentRect.top +
+                    scrollParent.scrollTop -
+                    scrollParent.clientHeight / 2 +
+                    activeRect.height / 2
+
+                scrollParent.scrollTo({
+                    top: offset,
+                    behavior: 'smooth',
+                })
+            }
+        }, 30)
+
+        return () => clearTimeout(timer)
+    }, [])
+    // }, [pathNow])
+
     return (
         <>
             <li className="">
@@ -304,6 +333,10 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                         _configParamSubMenu(
                             'Integration',
                             propertySettingPath.integration,
+                        ),
+                        _configParamSubMenu(
+                            'Static',
+                            propertySettingPath.static,
                         ),
                     ]}
                 />

@@ -1,10 +1,3 @@
-import {
-    smActivityLogPath,
-    smPlatformInfoPath,
-    smWebConfigPath,
-} from '@/path/systemManagement.path.ts'
-import propertyPath from '@/path/property.path.ts'
-import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
 import { Route } from 'react-router'
 import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
@@ -21,6 +14,10 @@ const PropertyGeneralSettingPage = lazy(
 const PropertyIntegrationSettingPage = lazy(
     () =>
         import('@/page/propertySetting/integration/PropertyIntegrationSetting.page.tsx'),
+)
+const PropertyStaticSettingPage = lazy(
+    () =>
+        import('@/page/propertySetting/static/PropertyStaticSetting.page.tsx'),
 )
 
 const PropertySettingRoute = () => {
@@ -61,6 +58,25 @@ const PropertySettingRoute = () => {
                 <Route
                     path="*"
                     element={<Page404Layout to={integrationSettingPath} />}
+                />
+            </Route>
+
+            <Route path={propertySettingPath.static}>
+                <Route
+                    index
+                    path={propertySettingPath.static}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Static Setting"
+                            isCheckPermission={false}>
+                            <PropertyStaticSettingPage />
+                        </SuspenseLayout>
+                    }
+                />
+
+                <Route
+                    path="*"
+                    element={<Page404Layout to={propertySettingPath.static} />}
                 />
             </Route>
         </>
