@@ -11,18 +11,23 @@ import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData
 import { isEmpty } from 'lodash'
 import { MediaNotAvailable } from '@/component/general/TextDefault.tsx'
 import ContentMedia from '@/component/general/ContentMedia.tsx'
+import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 
 const ContentHomePagePage = () => {
     const {
         // ---- List Data ----
-        __list,
+        // __list: __detail,
+        __detail,
         __isLoading,
-        __pagination,
-        __search,
-        __actionPagination,
-        __actionRemove,
-        __actionChange,
-        __actionClear,
+        // __pagination,
+        // __search,
+        // __actionPagination,
+        // __actionRemove,
+        // __actionChange,
+        // __actionClear,
 
         // ---- Change Page ----
         __handleToAdd,
@@ -30,25 +35,39 @@ const ContentHomePagePage = () => {
         __handleToDetail,
     } = useHomePageMainHook()
 
-    console.log('__list: ', __list)
+    console.log('__detail: ', __detail)
 
     // @ts-ignore
     const {
         SECTION1 = {},
         SECTION2 = {},
+        SECTION3 = {},
+        SECTION4 = {},
+        SECTION5 = {},
+        SECTION6 = {},
+        SECTION7 = {},
+        SECTION8 = {},
+        SECTION9 = {},
+        SECTION10 = {},
+        SECTION11 = {},
+        SECTION12 = {},
+        SECTION13 = {},
 
         // @ts-ignore
-    } = !__isLoading && !isEmpty(__list) ? __list?.value : {}
+    } = !__isLoading && !isEmpty(__detail) ? __detail?.value : {}
+
+    // @ts-ignore
+    const seo = !__detail && !isEmpty(__detail) ? __detail?.seo : {}
 
     return (
         <>
-            <LoadingStatePreviewData isLoading={__isLoading} data={__list}>
+            <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
                 <div className="row">
                     <div className="col-md-8">
+                        <h5 className="fs-18 fw-600 pb-3">Homepage Content</h5>
                         <div className="vstack gap-3 content-public">
                             <CardDropdown
                                 title={<b>SECTION 1</b>}
-                                // classNameBlog="show"
                                 isShow
                                 id="section-01">
                                 <HorizontalLoopDataLogic
@@ -143,6 +162,551 @@ const ContentHomePagePage = () => {
                                     ]}
                                 />
                             </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 3</b>}
+                                id="section-03">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION3.content}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+
+                                <div className="pt-3">
+                                    <TabListContent
+                                        tabId="tabSection03"
+                                        tabs={SECTION3?.tabs || []}
+                                    />
+                                </div>
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 4</b>}
+                                id="section-04">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION4.content}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+
+                                <div className="vstack gap-4 pt-4">
+                                    {!isEmpty(SECTION4.items)
+                                        ? SECTION4.items.map((item, idx) => {
+                                              return (
+                                                  <div
+                                                      key={idx}
+                                                      className="border-bottom border-neutral-500 pb-4">
+                                                      <HorizontalLoopDataLogic
+                                                          config={{
+                                                              contentColumn:
+                                                                  'col-md-9',
+                                                          }}
+                                                          list={[
+                                                              objectListDetail(
+                                                                  'Background Image',
+                                                                  <ContentMedia
+                                                                      src={
+                                                                          item.image
+                                                                      }
+                                                                      type="image"
+                                                                  />,
+                                                              ),
+                                                              objectListDetail(
+                                                                  'Title',
+                                                                  <RenderHtml
+                                                                      html={
+                                                                          item.title
+                                                                      }
+                                                                  />,
+                                                              ),
+                                                              objectListDetail(
+                                                                  'Description',
+                                                                  <RenderHtml
+                                                                      html={
+                                                                          item.description
+                                                                      }
+                                                                  />,
+                                                              ),
+                                                              objectListDetail(
+                                                                  'Button Text',
+                                                                  <RenderHtml
+                                                                      html={
+                                                                          item.buttonText
+                                                                      }
+                                                                  />,
+                                                              ),
+                                                              objectListDetail(
+                                                                  'Button Link',
+                                                                  <RenderHtml
+                                                                      html={
+                                                                          item.buttonLink
+                                                                      }
+                                                                  />,
+                                                              ),
+                                                          ]}
+                                                      />
+                                                  </div>
+                                              )
+                                          })
+                                        : null}
+                                </div>
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 5</b>}
+                                id="section-05">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Label',
+                                            <RenderHtml
+                                                html={SECTION5.label}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION5.content}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Background Image',
+                                            <ContentMedia
+                                                src={SECTION5.background}
+                                                type="image"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Text',
+                                            <RenderHtml
+                                                html={SECTION5.buttonText}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Link',
+                                            <RenderHtml
+                                                html={SECTION5.buttonLink}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 6</b>}
+                                id="section-06">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION6.content}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Text',
+                                            <RenderHtml
+                                                html={SECTION5.buttonText}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Link',
+                                            <RenderHtml
+                                                html={SECTION5.buttonLink}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 7</b>}
+                                id="section-07">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                className="p-3 bg-neutral-400"
+                                                html={SECTION7.content}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+
+                                <div className="vstack gap-4 pt-4">
+                                    {!isEmpty(SECTION7.items)
+                                        ? SECTION7.items.map((item, idx) => {
+                                              return (
+                                                  <div
+                                                      key={idx}
+                                                      className="border-bottom border-neutral-500 pb-4">
+                                                      <HorizontalLoopDataLogic
+                                                          config={{
+                                                              contentColumn:
+                                                                  'col-md-9',
+                                                          }}
+                                                          list={[
+                                                              objectListDetail(
+                                                                  'Icon',
+                                                                  <ContentMedia
+                                                                      src={
+                                                                          item.icon
+                                                                      }
+                                                                      type="image"
+                                                                  />,
+                                                              ),
+                                                              objectListDetail(
+                                                                  'Title',
+                                                                  <RenderHtml
+                                                                      html={
+                                                                          item.title
+                                                                      }
+                                                                  />,
+                                                              ),
+                                                              objectListDetail(
+                                                                  'Description',
+                                                                  <RenderHtml
+                                                                      html={
+                                                                          item.description
+                                                                      }
+                                                                  />,
+                                                              ),
+                                                          ]}
+                                                      />
+                                                  </div>
+                                              )
+                                          })
+                                        : null}
+                                </div>
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 8</b>}
+                                id="section-08">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION8.content}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Text',
+                                            <RenderHtml
+                                                html={SECTION8.buttonText}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Link',
+                                            <RenderHtml
+                                                html={SECTION8.buttonLink}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 9</b>}
+                                id="section-09">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Logo',
+                                            <ContentMedia
+                                                src={SECTION9.logo}
+                                                type="image"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                className="p-3 bg-neutral-400"
+                                                html={SECTION9.content}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Background Image',
+                                            <ContentMedia
+                                                src={SECTION9.backgroundImage}
+                                                type="image"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Text',
+                                            <RenderHtml
+                                                html={SECTION9.buttonText}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Link',
+                                            <RenderHtml
+                                                html={SECTION9.buttonLink}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Images',
+                                            <div className="vstack gap-3">
+                                                {!isEmpty(SECTION9.images)
+                                                    ? SECTION9.images.map(
+                                                          (item, idx) => (
+                                                              <ContentMedia
+                                                                  src={item}
+                                                                  type="image"
+                                                                  key={idx}
+                                                              />
+                                                          ),
+                                                      )
+                                                    : null}
+                                            </div>,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 10</b>}
+                                id="section-10">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION10.content}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Text',
+                                            <RenderHtml
+                                                html={SECTION10.buttonText}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Link',
+                                            <RenderHtml
+                                                html={SECTION10.buttonLink}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 11</b>}
+                                id="section-11">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION11.content}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Address',
+                                            <RenderHtml
+                                                html={SECTION11.address}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Phone',
+                                            <RenderHtml
+                                                html={SECTION11.phone}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Gmaps Embed',
+                                            SECTION11.gmapsEmbed ? (
+                                                <a
+                                                    href={SECTION11.gmapsEmbed}
+                                                    target="_blank">
+                                                    {SECTION11.gmapsEmbed}
+                                                </a>
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 12</b>}
+                                id="section-12">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION12.content}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+
+                            <CardDropdown
+                                title={<b>SECTION 13</b>}
+                                id="section-13">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Label',
+                                            <RenderHtml
+                                                html={SECTION13.label}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Content',
+                                            <RenderHtml
+                                                html={SECTION13.content}
+                                                className="p-3 bg-neutral-400"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Background Image',
+                                            <ContentMedia
+                                                src={SECTION13.background}
+                                                type="image"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Input Placeholder',
+                                            <RenderHtml
+                                                html={
+                                                    SECTION13.inputPlaceholder
+                                                }
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Button Text',
+                                            <RenderHtml
+                                                html={SECTION13.buttonText}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="vstack gap-4">
+                            <Card title="Other Information">
+                                <VerticalLoopDataLogic
+                                    list={[
+                                        objectListDetail(
+                                            'Locale',
+                                            __detail.locale,
+                                        ),
+                                        objectListDetail(
+                                            'Created At',
+                                            __detail?.createdAt || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Updated At',
+                                            __detail?.updatedAt || '-',
+                                        ),
+                                    ]}
+                                />
+                            </Card>
+
+                            <Card title="SEO Information">
+                                <div className="pb-3">
+                                    <p className="mb-2 text-neutral-100">
+                                        Thumbnail
+                                    </p>
+
+                                    <PreviewFileModalLogic
+                                        dataUrl={seo?.thumbnail?.toString()}
+                                        dataBy="file"
+                                        dataFile={seo?.thumbnail}
+                                        classNameWidth="w-100 max-h-148px"
+                                    />
+                                </div>
+
+                                <VerticalLoopDataLogic
+                                    list={[
+                                        objectListDetail(
+                                            'Title',
+                                            seo?.title || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Slug',
+                                            seo?.slug || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Canonical Url',
+                                            seo?.canonicalUrl || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Description',
+                                            seo?.description || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Meta Keyword',
+                                            seo?.metaKeyword || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Robot Follow',
+                                            <TextTrueOrFalse
+                                                value={seo?.robotFollow}
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Robot Index',
+                                            <TextTrueOrFalse
+                                                value={seo?.robotIndex}
+                                            />,
+                                        ),
+                                    ]}
+                                />
+                            </Card>
                         </div>
                     </div>
                 </div>

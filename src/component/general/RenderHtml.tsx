@@ -1,8 +1,10 @@
+import { ReactNode } from 'react'
+
 const RenderHtml = ({
     html = '',
     className,
 }: {
-    html: string
+    html: ReactNode
     className?: string
 }) => {
     return (

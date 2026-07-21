@@ -1,9 +1,9 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import { apiProperty } from '@/service/api/property.api.ts'
-import propertyPath from '@/path/property.path.ts'
+import { apiPropertyReviews } from '@/service/api/property.api.ts'
+import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 
-const usePropertyMainHook = () => {
+const usePropertyReviewsMainHook = () => {
     const {
         __list,
         __isLoading,
@@ -14,20 +14,16 @@ const usePropertyMainHook = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiProperty.list,
-        isHideSidebar: true,
+        urlAPI: apiPropertyReviews.list,
         advancedSearch: {
             page: 1,
-            // limit: 10,
-            // typeIds: [],
-            // categoryIds: [],
         },
     })
 
     const { __handleToAdd, __handleToEdit, __handleToDetail } =
         usePageFlowHandlerHook({
-            basePath: propertyPath,
-            pathFromKey: 'property-main',
+            basePath: propertyReviewsPath,
+            pathFromKey: 'property-reviews-main',
         })
 
     return {
@@ -48,4 +44,4 @@ const usePropertyMainHook = () => {
     }
 }
 
-export default usePropertyMainHook
+export default usePropertyReviewsMainHook
