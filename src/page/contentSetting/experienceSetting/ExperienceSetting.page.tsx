@@ -3,7 +3,7 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabExType from '@/page/contentSetting/experienceSetting/container/TabExType.tsx'
 import { useState } from 'react'
-import TabExCategory from '@/page/contentSetting/experienceSetting/container/TabExCategory.tsx'
+import TabExArea from '@/page/contentSetting/experienceSetting/container/TabExArea.tsx'
 
 const ExperienceSettingPage = () => {
     const [listType, setListType] = useState([])
@@ -16,7 +16,7 @@ const ExperienceSettingPage = () => {
             <CardNavTab
                 tabs={[
                     objectTab('Type', 'tabTypes'),
-                    objectTab('Category', 'tabCategory'),
+                    objectTab('Area', 'tabArea'),
                     // objectTab('Inquiry Form', 'tabInquiryForm'),
                 ]}
                 tabContents={[
@@ -31,7 +31,7 @@ const ExperienceSettingPage = () => {
                     ),
                     objectTabContent(
                         '',
-                        <TabExCategory
+                        <TabExArea
                             listType={listType}
                             isLoadingType={isLoadingType}
                         />,

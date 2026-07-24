@@ -1,9 +1,24 @@
-import { _shapeObjectMethodCRUD } from '@/service/api/_coreAPI/_config.api.ts'
+import {
+    _shapeMethodGet,
+    _shapeObjectMethodCRUD,
+} from '@/service/api/_coreAPI/_config.api.ts'
 import {
     SrvPropertyTypeCRUD,
     SrvPropertyBedTypeCRUD,
     SrvPropertyRoomTypeCRUD,
     SrvPropertyTagCRUD,
+
+    // Static
+    SrvPropertyStaticUnitType,
+    SrvPropertyStaticListingType,
+    SrvPropertyStaticStatus,
+    SrvPropertyStaticAddressType,
+    SrvPropertyStaticSourceType,
+    SrvPropertyStaticAvailabilityType,
+    SrvPropertyStaticCleaningFeeType,
+    SrvPropertyStaticCleaningStatuses,
+    SrvPropertyStaticAdvanceNoticeUnits,
+    SrvPropertyStaticGuestySyncStatuses,
 } from '@/service/api/_property.endPoint.ts'
 
 export const apiPropertyType = {
@@ -19,3 +34,58 @@ export const apiPropertyRoomType = {
 }
 
 export const apiPropertyTag = { ..._shapeObjectMethodCRUD(SrvPropertyTagCRUD) }
+
+// Static Setting
+export const getStaticUnitType = () =>
+    _shapeMethodGet(SrvPropertyStaticUnitType, 'tcSrvPropertyStaticUnitType')
+
+export const getStaticListingType = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticListingType,
+        'tcSrvPropertyStaticListingType',
+    )
+
+export const getStaticStatus = () =>
+    _shapeMethodGet(SrvPropertyStaticStatus, 'tcSrvPropertyStaticStatus')
+
+export const getStaticAddressType = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticAddressType,
+        'tcSrvPropertyStaticAddressType',
+    )
+
+export const getStaticSourceType = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticSourceType,
+        'tcSrvPropertyStaticSourceType',
+    )
+
+export const getStaticAvailabilityType = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticAvailabilityType,
+        'tcSrvPropertyStaticAvailabilityType',
+    )
+
+export const getStaticCleaningFeeType = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticCleaningFeeType,
+        'tcSrvPropertyStaticCleaningFeeType',
+    )
+
+export const getStaticCleaningStatus = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticCleaningStatuses,
+        'tcSrvPropertyStaticCleaningStatuses',
+    )
+
+export const getStaticAdvanceNoticeUnit = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticAdvanceNoticeUnits,
+        'tcSrvPropertyStaticAdvanceNoticeUnits',
+    )
+
+export const getStaticGuestySyncStatus = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticGuestySyncStatuses,
+        'tcSrvPropertyStaticGuestySyncStatuses',
+    )

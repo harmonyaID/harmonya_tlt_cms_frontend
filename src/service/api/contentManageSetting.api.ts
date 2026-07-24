@@ -6,6 +6,7 @@ import {
     SrvBlogCategoryCRUD,
     SrvBlogTagCRUD,
     SrvComponentContactFormTypeCRUD,
+    SrvExperienceAreaCRUD,
     SrvExperienceCategoryCRUD,
     SrvExperienceInquiryFormsCRUD,
     SrvExperienceTypeCRUD,
@@ -48,6 +49,10 @@ export const apiExperienceType = {
 
 export const apiExperienceCategory = {
     ..._shapeObjectMethodCRUD(SrvExperienceCategoryCRUD),
+}
+
+export const apiExperienceArea = {
+    ..._shapeObjectMethodCRUD(SrvExperienceAreaCRUD),
 }
 
 export const apiExperienceInquiryForm = {

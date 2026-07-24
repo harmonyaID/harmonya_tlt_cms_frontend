@@ -1,18 +1,11 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { getWebConfig } from '@/service/api/systemManagement.api.ts'
-import CardListData from '@/component/card/CardListData.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
-import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
 import { useState } from 'react'
-import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
+import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
-import TabMediaPartner from '@/page/settingWebConfig/container/TabMediaPartner.tsx'
-import TabWebContactForm from '@/page/settingWebConfig/container/TabWebContactForm.tsx'
 import TabContactFormType from '@/page/settingWebConfig/container/TabContactFormType.tsx'
+import TabMediaPartner from '@/page/settingWebConfig/container/TabMediaPartner.tsx'
 import TabWebConfig from '@/page/settingWebConfig/container/TabWebConfig.tsx'
+import TabWebContactForm from '@/page/settingWebConfig/container/TabWebContactForm.tsx'
 
 const SettingWebConfigPage = () => {
     // const { __detail, __isLoading } = useDataDetailHook({

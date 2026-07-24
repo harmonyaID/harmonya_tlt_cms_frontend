@@ -1,7 +1,6 @@
 import useContentBlogMainForm from '@/page/contentBlog/hook/useContentBlogMainForm.hook.ts'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
-import boatPath from '@/path/boat.path.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import { Loading } from '@/component/general/TextDefault.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
@@ -14,13 +13,11 @@ import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import SelectOptionBlogCategory from '@/common/dataForm/SelectOptionBlogCategory.tsx'
 import SelectOptionBlogTag from '@/common/dataForm/SelectOptionBlogTag.tsx'
-import { isArray, isObject } from 'lodash'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import { textSlug } from '@/helper/convertText.helper.ts'
+import JsonEditorForm from '@/component/form/FormJsonEditor.tsx'
 
 const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -52,6 +49,8 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = useContentBlogMainForm({ isEdit })
+
+    console.log('Form: ', __formRequest)
 
     return (
         <>
@@ -325,6 +324,24 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     ]}
                                                 />
                                             </GeneralRowForm>
+
+                                            <JsonEditorForm
+                                                name="structuredData"
+                                                label="Structured Data"
+                                                secondLabel="SEO Meta AI Structured Data"
+                                                value={
+                                                    __formRequest.seo
+                                                        .structuredData
+                                                }
+                                                onChange={(name, value) =>
+                                                    __handleChangeWithParent(
+                                                        name,
+                                                        value,
+                                                        'seo',
+                                                    )
+                                                }
+                                                isRequired
+                                            />
                                         </WrapFormContext>
                                     </Card>
                                 </div>
@@ -335,7 +352,9 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     formRequest={__formRequest}
                                     actions={{
                                         change: __handleChange,
-                                        changeTags: (data) =>
+                                        changeTags: (name, value, data) =>
+                                            __handleTagChoose(data),
+                                        changeTagsOld: (data) =>
                                             __handleTagChoose(data),
                                     }}>
                                     <Card title="Other Information">
@@ -435,7 +454,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <SelectOptionBlogTag
                                                 label="Tags"
                                                 name="tagIds"
-                                                nameOfChange="changeTags"
+                                                nameOfChange="changeTagsOld"
                                                 required={
                                                     __formRequest?.tagIds
                                                         ?.length
@@ -446,49 +465,18 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isOnlyChoose
                                                 isMulti
                                                 isClearable
-
                                                 ids={
                                                     __formRequest?.tagIds
                                                         ? __formRequest.tagIds
                                                         : []
                                                 }
+
+                                                // Layout Only Choose
+                                                dataList={__listTags}
+                                                dataActions={{
+                                                    remove: __handleTagRemove,
+                                                }}
                                             />
-                                            {__listTags?.length ? (
-                                                <>
-                                                    <p className="fs-12 mb-2 fw-600">
-                                                        Total Tags :{' '}
-                                                        {__listTags.length}
-                                                    </p>
-                                                    <div className="mb-4 max-h-120-px bg-neutral-600 px-3 pb-3 rounded-2 overflow-auto">
-                                                        {__listTags.map(
-                                                            (tag, index) => {
-                                                                return (
-                                                                    <div
-                                                                        key={
-                                                                            index
-                                                                        }
-                                                                        className="border-dashed border-neutral-400 border-1 pb-2 d-flex pt-3">
-                                                                        <div className="w-100">
-                                                                            {
-                                                                                tag.name
-                                                                            }
-                                                                        </div>
-                                                                        <BtnCircleRemove
-                                                                            className="ms-auto"
-                                                                            actions={{
-                                                                                remove: () =>
-                                                                                    __handleTagRemove(
-                                                                                        tag,
-                                                                                    ),
-                                                                            }}
-                                                                        />
-                                                                    </div>
-                                                                )
-                                                            },
-                                                        )}
-                                                    </div>
-                                                </>
-                                            ) : null}
                                         </div>
                                     </Card>
                                 </WrapFormContext>

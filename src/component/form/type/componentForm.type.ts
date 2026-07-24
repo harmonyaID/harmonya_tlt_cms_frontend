@@ -315,7 +315,7 @@ export interface FormLabelProps {
 // Form Row
 export interface RowFormProps {
     label: string | ReactNode
-    children: ReactNode
+    children?: ReactNode
     classNameColumnLabel?: string
     classNameColumnChild?: string
     className?: string

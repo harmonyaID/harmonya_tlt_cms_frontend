@@ -37,3 +37,34 @@ export const SrvPropertyTagCRUD: SrvWithFeature = objectPathEndPointAPI(
 )
 
 // Setting Static
+const baseAPIDataStatic =
+    String(import.meta.env.VITE_BASE_API) + '/components/statics'
+
+export const SrvPropertyStaticUnitType =
+    baseAPIDataStatic + '/property-unit-types'
+
+export const SrvPropertyStaticListingType =
+    baseAPIDataStatic + '/property-listing-types'
+
+export const SrvPropertyStaticStatus = baseAPIDataStatic + '/property-statuses'
+
+export const SrvPropertyStaticAddressType =
+    baseAPIDataStatic + '/property-address-types'
+
+export const SrvPropertyStaticSourceType =
+    baseAPIDataStatic + '/property-source-types'
+
+export const SrvPropertyStaticAvailabilityType =
+    baseAPIDataStatic + '/property-availability-types'
+
+export const SrvPropertyStaticCleaningFeeType =
+    baseAPIDataStatic + '/property-cleaning-fee-types'
+
+export const SrvPropertyStaticCleaningStatuses =
+    baseAPIDataStatic + '/property-cleaning-statuses'
+
+export const SrvPropertyStaticAdvanceNoticeUnits =
+    baseAPIDataStatic + '/property-advance-notice-units'
+
+export const SrvPropertyStaticGuestySyncStatuses =
+    baseAPIDataStatic + '/property-guesty-sync-statuses'

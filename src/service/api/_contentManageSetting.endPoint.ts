@@ -43,6 +43,10 @@ export const SrvExperienceCategoryCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/categories',
 )
 
+export const SrvExperienceAreaCRUD = objectPathEndPointAPI(
+    baseAPI + '/experiences/areas',
+)
+
 export const SrvExperienceInquiryFormsCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/inquiry-forms',
 )

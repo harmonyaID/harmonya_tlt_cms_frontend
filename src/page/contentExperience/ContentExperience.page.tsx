@@ -100,11 +100,10 @@ const ContentExperiencePage = () => {
                                                 value={vm?.name || '-'}
                                             />
 
-                                            <TblPointData title="Category">
+                                            <TblPointData title="Area">
                                                 <BadgeStatusGeneral
                                                     value={
-                                                        vm?.category?.name ||
-                                                        '-'
+                                                        vm?.area?.name || '-'
                                                     }
                                                     className="text-bg-neutral-300 fw-normal"
                                                 />

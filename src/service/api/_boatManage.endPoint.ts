@@ -15,3 +15,6 @@ export const SrvBoatTypeCRUD = objectPathEndPointAPI(
 export const SrvBoatContactFormCRUD = objectPathEndPointAPI(
     baseAPI + '/boat-contact-forms',
 )
+
+export const SrvBoatStaticStatusForm =
+    baseAPI + '/components/statics/status-form'

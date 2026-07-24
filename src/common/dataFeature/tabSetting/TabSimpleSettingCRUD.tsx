@@ -36,12 +36,18 @@ const TabSimpleSettingCRUD = ({
     placeholder = 'e.g Hotel',
     title = '',
     isSearch = false,
+    isAdd = true,
+    isEdit = true,
+    isRemove = true,
 }: {
     title: string
     apiCRUD: any
-    idModal: string
+    idModal?: string
     placeholder?: string
     isSearch?: boolean
+    isAdd?: boolean
+    isEdit?: boolean
+    isRemove?: boolean
 }) => {
     const idModalAdd = idModal + 'Add'
     const idModalRemove = idModal + 'Remove'
@@ -97,11 +103,13 @@ const TabSimpleSettingCRUD = ({
                 <div className="col-md">
                     <h5 className="fs-18 fw-500">{title}</h5>
                 </div>
-                <div className="col-auto">
-                    <BtnPrimary onClick={() => __actionAddModal()}>
-                        Add New
-                    </BtnPrimary>
-                </div>
+                {isAdd ? (
+                    <div className="col-auto">
+                        <BtnPrimary onClick={() => __actionAddModal()}>
+                            Add New
+                        </BtnPrimary>
+                    </div>
+                ) : null}
             </div>
 
             <LoadingStatePreviewData isLoading={__isLoading} data={__list}>
@@ -109,32 +117,39 @@ const TabSimpleSettingCRUD = ({
                     {__list?.map((vm, index) => (
                         <div className="col-lg-3 col-md-6" key={index}>
                             <CardPreview className="mb-0 h-100">
-                                <div className="hstack gap-2 justify-content-between flex-wrap mb-3 align-items-start">
+                                <div className="hstack gap-2 justify-content-between flex-wrap align-items-start">
                                     <h6 className="fw-500 text-neutral-100 mb-0">
                                         {vm.name}
                                     </h6>
                                 </div>
 
-                                <div className="hstack gap-2 flex-wrap mt-auto">
-                                    <BtnCircleRemove
-                                        title="Delete Data"
-                                        actions={{
-                                            remove: (e) => {
-                                                e.stopPropagation()
-                                                _handleChooseRemove(vm)
-                                            },
-                                        }}
-                                    />
-                                    <BtnCircleEdit
-                                        title="Edit"
-                                        actions={{
-                                            edit: (e) => {
-                                                e.stopPropagation()
-                                                __actionUpdateModal(vm)
-                                            },
-                                        }}
-                                    />
-                                </div>
+                                {isRemove || isEdit ? (
+                                    <div className="hstack gap-2 flex-wrap mt-auto pt-3">
+                                        {isRemove ? (
+                                            <BtnCircleRemove
+                                                title="Delete Data"
+                                                actions={{
+                                                    remove: (e) => {
+                                                        e.stopPropagation()
+                                                        _handleChooseRemove(vm)
+                                                    },
+                                                }}
+                                            />
+                                        ) : null}
+
+                                        {isEdit ? (
+                                            <BtnCircleEdit
+                                                title="Edit"
+                                                actions={{
+                                                    edit: (e) => {
+                                                        e.stopPropagation()
+                                                        __actionUpdateModal(vm)
+                                                    },
+                                                }}
+                                            />
+                                        ) : null}
+                                    </div>
+                                ) : null}
                             </CardPreview>
                         </div>
                     ))}

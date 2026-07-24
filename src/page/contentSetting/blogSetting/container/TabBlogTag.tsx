@@ -37,7 +37,7 @@ const TabBlogTag = () => {
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiBlogTag.list,
+        urlAPI: () => apiBlogTag.list({ page: 0 }),
     })
 
     const {
@@ -119,17 +119,6 @@ const TabBlogTag = () => {
                     ))}
                 </div>
             </LoadingStatePreviewData>
-
-            {isShowPagination(__isLoading, __list, __pagination) ? (
-                <Pagination
-                    onMove={(step) => __actionPagination(step)}
-                    className="mt-2"
-                    pagination={configDefaultPagination(
-                        __pagination,
-                        'totalPage',
-                    )}
-                />
-            ) : null}
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic

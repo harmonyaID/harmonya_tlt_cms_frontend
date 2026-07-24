@@ -1,5 +1,5 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiExperienceCategory } from '@/service/api/contentManageSetting.api.ts'
+import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import { MDExCategoryAdd, MDExCategoryRemove } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
@@ -25,18 +25,32 @@ import {
     TblLineSecond,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
+import { useState } from 'react'
 
 const initForm = {
     experienceTypeId: '',
     name: '',
+    description: '',
+    featuredImage: '',
+    deleteFeaturedImage: '',
+    banner: '',
+    deleteBanner: '',
 }
 
 const initMapForm = (passData) => ({
     experienceTypeId: passData?.type?.id || '',
     name: passData.name || '',
+    description: passData?.description || '',
+    featuredImage: passData?.featuredImage || '',
+    deleteFeaturedImage: passData?.deleteFeaturedImage || 0,
+    banner: passData?.banner || '',
+    deleteBanner: passData?.deleteBanner || 0,
 })
 
-const TabExCategory = ({
+const TabExArea = ({
     listType,
     isLoadingType,
 }: {
@@ -55,8 +69,7 @@ const TabExCategory = ({
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: (passData) =>
-            apiExperienceCategory.list({ ...passData, page: 0 }),
+        urlAPI: (passData) => apiExperienceArea.list({ ...passData, page: 0 }),
     })
 
     const {
@@ -77,7 +90,14 @@ const TabExCategory = ({
         mapDetailToFormRequest: initMapForm,
     })
 
+    const [previewFeaturedImage, setPreviewFeaturedImage] = useState('')
+
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
+
+    const _handleFeaturedImageRemove = () => {
+        setPreviewFeaturedImage('')
+        _handleChange('featuredImage', '')
+    }
 
     const {
         __data: dataForRemove,
@@ -93,7 +113,7 @@ const TabExCategory = ({
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Category</h5>
+                    <h5 className="fs-18 fw-500">Area</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -117,7 +137,7 @@ const TabExCategory = ({
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={['Category', 'Type', '']}
+                        ths={['Area', 'Type', '']}
                         tds={__list}>
                         {__list.map((vm, index) => {
                             return (
@@ -180,7 +200,7 @@ const TabExCategory = ({
                     id={MDExCategoryRemove}
                     configHandle={{
                         urlAPI: () =>
-                            apiExperienceCategory.delete(dataForRemove.id),
+                            apiExperienceArea.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -193,7 +213,7 @@ const TabExCategory = ({
                 <ModalWithActionFormCRUDLogic
                     id={MDExCategoryAdd}
                     detail={__detailData}
-                    title="Category"
+                    title="Area"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -223,13 +243,71 @@ const TabExCategory = ({
                                 required
                                 placeholder="e.g Uni"
                             />
+
+                            <FormTextArea
+                                label="Description"
+                                name="description"
+                                required
+                                placeholder="e.g JUNGUTBATU"
+                            />
+
+                            {previewFeaturedImage ? (
+                                <>
+                                    <div className="pb-3">
+                                        <p className="mb-2 text-neutral-100">
+                                            Featured Image
+                                        </p>
+
+                                        <PreviewFileModalLogic
+                                            dataUrl={previewFeaturedImage?.toString()}
+                                            dataBy="file"
+                                            dataFile={previewFeaturedImage}
+                                            isShowBtnRemove
+                                            actions={{
+                                                remove: _handleChooseRemove,
+                                            }}
+                                            classNameWidth="w-100 max-h-148px"
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <FormUploadFile
+                                    label="Featured Image"
+                                    name="featuredImage"
+                                    required
+                                    isUseHook={false}
+                                    isPreview={false}
+                                    accept="image/*"
+                                    actions={{
+                                        onChange: (_, newFiles) => {
+                                            const img = new Image()
+                                            const objectUrl =
+                                                URL.createObjectURL(newFiles)
+
+                                            img.onload = () => {
+                                                _handleChange(
+                                                    'featuredImage',
+                                                    newFiles,
+                                                )
+                                            }
+
+                                            img.src = objectUrl
+                                        },
+                                        handleDataFiles: (newDataFiles) => {
+                                            setPreviewFeaturedImage(
+                                                newDataFiles.url,
+                                            )
+                                        },
+                                    }}
+                                />
+                            )}
                         </>
                     }
                     configHandle={{
                         urlAPIAdd: () =>
-                            apiExperienceCategory.add(__formRequest),
+                            apiExperienceArea.addWithData(__formRequest),
                         urlAPIUpdate: () => {
-                            return apiExperienceCategory.update(
+                            return apiExperienceArea.updateWithData(
                                 __selectedId,
                                 __formRequest,
                             )
@@ -252,4 +330,4 @@ const TabExCategory = ({
     )
 }
 
-export default TabExCategory
+export default TabExArea

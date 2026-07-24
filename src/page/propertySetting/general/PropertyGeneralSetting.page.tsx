@@ -9,7 +9,7 @@ import TabPropertyTag from '@/page/propertySetting/general/container/TabProperty
 const PropertyGeneralSettingPage = () => {
     return (
         <>
-            <PageTitle title="Property Setting" className="pb-4" />
+            <PageTitle title="General Setting" className="pb-4" />
 
             <CardNavTab
                 tabs={[
