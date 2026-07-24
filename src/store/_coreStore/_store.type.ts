@@ -40,4 +40,5 @@ export interface StoreStateType {
     __handleGet: () => void
     __handleReload: (search?: any) => void
     __handleUpdate: (newData: any, index: number) => void
+    __handlePush?: (newData: any, toTop?: boolean) => void
 }

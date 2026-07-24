@@ -1,51 +1,136 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { getWebConfig } from '@/service/api/systemManagement.api.ts'
-import CardListData from '@/component/card/CardListData.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
-import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
+import TabDataTable from '@/common/dataFeature/tabDataTable/TabDataTable.tsx'
+import CardNavTab from '@/component/card/CardNavTab.tsx'
+import {
+    TblLineFirst,
+    TblLineSecond,
+} from '@/component/general/TablePartial.tsx'
+import { PageTitle } from '@/component/general/TitleGeneral.tsx'
+import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import {
+    getLogActivity,
+    getLogActivitySettingAction,
+    getLogActivitySettingType,
+} from '@/service/api/systemManagement.api.ts'
 
 const SystemActivityLogPage = () => {
-    const { __detail, __isLoading } = useDataDetailHook({
-        urlAPI: () => getWebConfig(),
-    })
+    const ACTIVITY = 'Activity'
+
+    const SETTING_ACTION = 'Setting Action'
+
+    const SETTING_TYPE = 'Setting Type'
 
     return (
         <>
-            <CardListData title="Activity Log">
-                <h5 className="">Coming Soon</h5>
-                {/*<div className="row g-4">*/}
-                {/*    <div className="col-md-6">*/}
-                {/*        <div className="card card-body mb-0">*/}
-                {/*            <HorizontalLoopDataLogic*/}
-                {/*                list={[*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Title',*/}
-                {/*                        __detail.title || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Email',*/}
-                {/*                        __detail.email || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Phone',*/}
-                {/*                        __detail.phone || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Fax',*/}
-                {/*                        __detail.fax || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Whatsapp',*/}
-                {/*                        __detail.whatsapp || '-',*/}
-                {/*                    ),*/}
-                {/*                ]}*/}
-                {/*            />*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-            </CardListData>
+            <PageTitle title="Activity Log" className="pb-4" />
+
+            <CardNavTab
+                tabs={[
+                    objectTab(ACTIVITY, 'tabActivity'),
+                    objectTab(SETTING_ACTION, 'tabSettingAction'),
+                    objectTab(SETTING_TYPE, 'tabSettingType'),
+                ]}
+                tabContents={[
+                    objectTabContent(
+                        '',
+                        <TabDataTable
+                            title={ACTIVITY}
+                            api={{ list: getLogActivity }}
+                            ths={[
+                                'Action',
+                                'Description',
+                                'Type',
+                                'Caused By Name',
+                                'Created At',
+                            ]}
+                            content={{
+                                tr: (data) => {
+                                    return (
+                                        <tr key={data.key}>
+                                            <td>
+                                                <TblLineFirst className="text-capitalize">
+                                                    {data.action}
+                                                </TblLineFirst>
+                                            </td>
+                                            <td>
+                                                <TblLineSecond>
+                                                    {data.description}
+                                                </TblLineSecond>
+                                            </td>
+                                            <td>
+                                                <TblLineSecond>
+                                                    {data.type}
+                                                </TblLineSecond>
+                                            </td>
+                                            <td>
+                                                <TblLineSecond>
+                                                    {data.causedByName}
+                                                </TblLineSecond>
+                                            </td>
+                                            <td>
+                                                <TblLineSecond>
+                                                    {data.createdAt}
+                                                </TblLineSecond>
+                                            </td>
+                                        </tr>
+                                    )
+                                },
+                            }}
+                        />,
+                    ),
+                    objectTabContent(
+                        '',
+                        <TabDataTable
+                            title={SETTING_ACTION}
+                            api={{ list: getLogActivitySettingAction }}
+                            ths={['Name', 'Code']}
+                            content={{
+                                tr: (data) => {
+                                    return (
+                                        <tr key={data.key}>
+                                            <td>
+                                                <TblLineFirst className="text-capitalize">
+                                                    {data.name}
+                                                </TblLineFirst>
+                                            </td>
+                                            <td>
+                                                <TblLineSecond>
+                                                    {data.code}
+                                                </TblLineSecond>
+                                            </td>
+                                        </tr>
+                                    )
+                                },
+                            }}
+                        />,
+                    ),
+                    objectTabContent(
+                        '',
+                        <TabDataTable
+                            title={SETTING_TYPE}
+                            api={{ list: getLogActivitySettingType }}
+                            ths={['Name', 'Code']}
+                            content={{
+                                tr: (data) => {
+                                    return (
+                                        <tr key={data.key}>
+                                            <td>
+                                                <TblLineFirst className="text-capitalize">
+                                                    {data.name}
+                                                </TblLineFirst>
+                                            </td>
+                                            <td>
+                                                <TblLineSecond>
+                                                    {data.code}
+                                                </TblLineSecond>
+                                            </td>
+                                        </tr>
+                                    )
+                                },
+                            }}
+                        />,
+                    ),
+                ]}
+            />
         </>
     )
 }

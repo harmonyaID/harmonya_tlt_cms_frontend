@@ -117,7 +117,7 @@ const SelectOptionBlogCategory = (props: SelectOptionGeneralProps) => {
 
             setOptions(filterOptions)
         }
-    }, [isOnlyChoose, ...ids])
+    }, [isOnlyChoose, ids])
 
     return (
         <SelectOption

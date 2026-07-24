@@ -1,9 +1,5 @@
-const PropertySettingPage = () => {
-    return (
-        <>
-            <h5 className="">Coming Soon</h5>
-        </>
-    )
-}
+import PropertyMainForm from '@/page/property/container/PropertyMainForm.tsx'
 
-export default PropertySettingPage
+const PropertyAddPage = () => <PropertyMainForm />
+
+export default PropertyAddPage

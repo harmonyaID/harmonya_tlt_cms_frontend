@@ -5,7 +5,7 @@ import { useState } from 'react'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import { textSlug } from '@/helper/convertText.helper.ts'
-import { isArray, isObject } from 'lodash'
+import { isArray, isEmpty, isObject } from 'lodash'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import { formatDatePublish } from '@/helper/formatDate.helper.ts'
@@ -24,6 +24,7 @@ const mapSEOForm = (passSEO) => ({
     robotFollow: passSEO.robotFollow ? 1 : 0,
     thumbnail: '',
     deleteThumbnail: '',
+    structuredData: null,
 })
 
 const initForm = {
@@ -47,6 +48,7 @@ const initForm = {
         robotIndex: 1,
         robotFollow: 1,
         thumbnail: '',
+        structuredData: null,
     },
 }
 
@@ -103,16 +105,18 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     }
 
     const _handleTagChoose = (newTag) => {
-        const checkData = isArray(newTag)
-            ? newTag[0]
-            : isObject(newTag)
-              ? newTag
-              : {}
+        if (!isEmpty(newTag)) {
+            const checkData = isArray(newTag)
+                ? newTag[0]
+                : isObject(newTag)
+                  ? newTag
+                  : {}
 
-        nestedForm._handleArrAddMulti('tagIds', [checkData.id])
+            nestedForm._handleArrAddMulti('tagIds', [checkData.id])
 
-        // @ts-ignore
-        setListTags((prevState) => [...prevState, ...newTag])
+            // @ts-ignore
+            setListTags((prevState) => [...prevState, ...newTag])
+        }
     }
 
     const _handleTagRemove = (dataTag) => {

@@ -100,15 +100,14 @@ const ContentExperiencePage = () => {
                                                 value={vm?.name || '-'}
                                             />
 
-                                            {/*<TblPointData title="Category">*/}
-                                            {/*    <BadgeStatusGeneral*/}
-                                            {/*        value={*/}
-                                            {/*            vm?.category?.name ||*/}
-                                            {/*            '-'*/}
-                                            {/*        }*/}
-                                            {/*        className="text-bg-neutral-300 fw-normal"*/}
-                                            {/*    />*/}
-                                            {/*</TblPointData>*/}
+                                            <TblPointData title="Area">
+                                                <BadgeStatusGeneral
+                                                    value={
+                                                        vm?.area?.name || '-'
+                                                    }
+                                                    className="text-bg-neutral-300 fw-normal"
+                                                />
+                                            </TblPointData>
                                         </td>
                                         <td>
                                             <TblPointData title="Open Hours">

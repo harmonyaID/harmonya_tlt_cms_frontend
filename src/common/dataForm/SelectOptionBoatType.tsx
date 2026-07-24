@@ -37,6 +37,7 @@ const SelectOptionBoatType = (props: SelectOptionGeneralProps) => {
         isMulti = false,
 
         isOnlyChoose = false,
+        isCreatable = false,
         ids = [],
 
         actions = {
@@ -119,6 +120,22 @@ const SelectOptionBoatType = (props: SelectOptionGeneralProps) => {
             setOptions(filterOptions)
         }
     }, [isOnlyChoose, ...ids])
+
+    useEffect(() => {
+        const findData = _configList().filter((vm) => {
+            if (!isMulti && !isArray(dataValue)) {
+                return vm.value === dataValue
+            } else {
+                return isCreatable
+                    ? dataValue.some((item) => item.value === vm.value)
+                    : dataValue.includes(vm.value)
+            }
+        })
+
+        setSelectedData(
+            isCreatable && isArray(dataValue) ? dataValue : findData || [],
+        )
+    }, [dataValue, __list])
 
     return (
         <SelectOption

@@ -47,6 +47,9 @@ const TabLanguage = () => {
         __actionPagination,
     } = useDataListHook({
         urlAPI: apiLanguage.list,
+        advancedSearch: {
+            page: 0,
+        },
     })
 
     const {
@@ -134,16 +137,16 @@ const TabLanguage = () => {
                 </div>
             </LoadingStatePreviewData>
 
-            {isShowPagination(__isLoading, __list, __pagination) ? (
-                <Pagination
-                    onMove={(step) => __actionPagination(step)}
-                    className="mt-2"
-                    pagination={configDefaultPagination(
-                        __pagination,
-                        'totalPage',
-                    )}
-                />
-            ) : null}
+            {/*{isShowPagination(__isLoading, __list, __pagination) ? (*/}
+            {/*    <Pagination*/}
+            {/*        onMove={(step) => __actionPagination(step)}*/}
+            {/*        className="mt-2"*/}
+            {/*        pagination={configDefaultPagination(*/}
+            {/*            __pagination,*/}
+            {/*            'totalPage',*/}
+            {/*        )}*/}
+            {/*    />*/}
+            {/*) : null}*/}
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
