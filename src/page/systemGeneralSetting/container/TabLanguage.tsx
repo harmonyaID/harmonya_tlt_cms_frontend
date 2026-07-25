@@ -1,28 +1,28 @@
+import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import CardPreview from '@/component/card/CardPreview.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiLanguage } from '@/service/api/contentManageSetting.api.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import {
-    MDPSTabLanguageAdd,
-    MDPSTabLanguageRemove,
-} from '@/config/modal.config.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
+import {
+    MDPSTabLanguageAdd,
+    MDPSTabLanguageRemove,
+} from '@/config/modal.config.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import { apiLanguage } from '@/service/api/contentManageSetting.api.ts'
 
 const initForm = {
     code: '',
@@ -86,7 +86,7 @@ const TabLanguage = () => {
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Language</h5>
+                    <h5 className="fs-18 fw-500">Multi Language</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -165,7 +165,7 @@ const TabLanguage = () => {
                 <ModalWithActionFormCRUDLogic
                     id={MDPSTabLanguageAdd}
                     detail={__detailData}
-                    title="Language"
+                    title="Multi Language"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{

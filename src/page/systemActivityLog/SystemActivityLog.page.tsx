@@ -26,7 +26,7 @@ const SystemActivityLogPage = () => {
             <CardNavTab
                 tabs={[
                     objectTab(ACTIVITY, 'tabActivity'),
-                    objectTab(SETTING_ACTION, 'tabSettingAction'),
+                    // objectTab(SETTING_ACTION, 'tabSettingAction'),
                     objectTab(SETTING_TYPE, 'tabSettingType'),
                 ]}
                 tabContents={[
@@ -77,32 +77,32 @@ const SystemActivityLogPage = () => {
                             }}
                         />,
                     ),
-                    objectTabContent(
-                        '',
-                        <TabDataTable
-                            title={SETTING_ACTION}
-                            api={{ list: getLogActivitySettingAction }}
-                            ths={['Name', 'Code']}
-                            content={{
-                                tr: (data) => {
-                                    return (
-                                        <tr key={data.key}>
-                                            <td>
-                                                <TblLineFirst className="text-capitalize">
-                                                    {data.name}
-                                                </TblLineFirst>
-                                            </td>
-                                            <td>
-                                                <TblLineSecond>
-                                                    {data.code}
-                                                </TblLineSecond>
-                                            </td>
-                                        </tr>
-                                    )
-                                },
-                            }}
-                        />,
-                    ),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabDataTable
+                    //         title={SETTING_ACTION}
+                    //         api={{ list: getLogActivitySettingAction }}
+                    //         ths={['Name', 'Code']}
+                    //         content={{
+                    //             tr: (data) => {
+                    //                 return (
+                    //                     <tr key={data.key}>
+                    //                         <td>
+                    //                             <TblLineFirst className="text-capitalize">
+                    //                                 {data.name}
+                    //                             </TblLineFirst>
+                    //                         </td>
+                    //                         <td>
+                    //                             <TblLineSecond>
+                    //                                 {data.code}
+                    //                             </TblLineSecond>
+                    //                         </td>
+                    //                     </tr>
+                    //                 )
+                    //             },
+                    //         }}
+                    //     />,
+                    // ),
                     objectTabContent(
                         '',
                         <TabDataTable
