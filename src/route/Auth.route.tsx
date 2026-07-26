@@ -15,7 +15,9 @@ const AuthRoute = () => (
         <Route
             path={authPath.login}
             element={
-                <SuspenseLayout titlePage="Login" isCheckPermission={false}>
+                <SuspenseLayout
+                    titlePage="TLT CMS - Login"
+                    isCheckPermission={false}>
                     <LoginPage />
                 </SuspenseLayout>
             }
@@ -24,7 +26,7 @@ const AuthRoute = () => (
             path={authPath.forgotPassword}
             element={
                 <SuspenseLayout
-                    titlePage="Forgot Password"
+                    titlePage="TLT CMS - Forgot Password"
                     isCheckPermission={false}>
                     <ForgotPasswordPage />
                 </SuspenseLayout>
@@ -34,7 +36,7 @@ const AuthRoute = () => (
             path={authPath.resetPassword}
             element={
                 <SuspenseLayout
-                    titlePage="Reset Password"
+                    titlePage="TLT CMS - Reset Password"
                     isCheckPermission={false}>
                     <ResetPasswordPage />
                 </SuspenseLayout>

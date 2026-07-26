@@ -1,5 +1,6 @@
-import { PageTitle } from '@/component/general/TitleGeneral.tsx'
+import TabSimpleSettingCRUD from '@/common/dataFeature/tabSetting/TabSimpleSettingCRUD.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
+import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import {
     getStaticAddressType,
@@ -9,11 +10,12 @@ import {
     getStaticCleaningStatus,
     getStaticGuestySyncStatus,
     getStaticListingType,
+    getStaticMediaPartnerType,
     getStaticSourceType,
     getStaticStatus,
+    getStaticStatusForm,
     getStaticUnitType,
 } from '@/service/api/propertySettingGeneral.api.ts'
-import TabSimpleSettingCRUD from '@/common/dataFeature/tabSetting/TabSimpleSettingCRUD.tsx'
 
 const TabSettingStatic = ({ title, apiList }) => (
     <TabSimpleSettingCRUD
@@ -28,6 +30,11 @@ const TabSettingStatic = ({ title, apiList }) => (
 )
 
 const PropertyStaticSettingPage = () => {
+    const UNIT_TYPE = 'Unit Type'
+    const LISTING_TYPE = 'Listing Type'
+    const MEDIA_PARTNER_TYPE = 'Media Partner Type'
+    const STATUS_FORM = 'Status Form'
+
     return (
         <>
             <PageTitle title="Static Setting" className="pb-4" />
@@ -44,6 +51,8 @@ const PropertyStaticSettingPage = () => {
                     objectTab('Cleaning Status', 'tabCleaningStatus'),
                     objectTab('Advance Notice Unit', 'tabAdvanceNoticeUnit'),
                     objectTab('Guesty Sync Status', 'tabGuestySyncStatus'),
+                    objectTab(MEDIA_PARTNER_TYPE, 'tab_MEDIA_PARTNER_TYPE'),
+                    objectTab(STATUS_FORM, 'tabStatusForm'),
                 ]}
                 tabContents={[
                     objectTabContent(
@@ -114,6 +123,20 @@ const PropertyStaticSettingPage = () => {
                         <TabSettingStatic
                             title="Guesty Sync Status"
                             apiList={getStaticGuestySyncStatus}
+                        />,
+                    ),
+                    objectTabContent(
+                        '',
+                        <TabSettingStatic
+                            title={MEDIA_PARTNER_TYPE}
+                            apiList={getStaticMediaPartnerType}
+                        />,
+                    ),
+                    objectTabContent(
+                        '',
+                        <TabSettingStatic
+                            title={STATUS_FORM}
+                            apiList={getStaticStatusForm}
                         />,
                     ),
                 ]}

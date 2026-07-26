@@ -1,48 +1,51 @@
+import { useState } from 'react'
+import { Link } from 'react-router'
+import SelectBaseOptionMediaPartnerType from '@/common/dataForm/SelectBaseOptionMediaPartnerType.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiMediaPartner } from '@/service/api/contentManageSetting.api.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import {
-    MDPSTabMediaPartnerAdd,
-    MDPSTabMediaPartnerRemove,
-} from '@/config/modal.config.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import { ImgInTable } from '@/component/general/Image.tsx'
+import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirst,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import { Link } from 'react-router'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
-import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import {
+    MDPSTabMediaPartnerAdd,
+    MDPSTabMediaPartnerRemove,
+} from '@/config/modal.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import { objectToFormData } from '@/helper/convertFormData.helper.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import { apiMediaPartner } from '@/service/api/contentManageSetting.api.ts'
 import { APIResponse } from '@/type/resultAPI'
-import { ImgInTable } from '@/component/general/Image.tsx'
-import { useState } from 'react'
 
 const initForm = {
     name: '',
     description: '',
     url: '',
     isPublish: 1,
-    image: '',
+    logo: '',
+    // featureImage: '',
+    typeId: '',
 }
 
 const initMapForm = (passData) => ({
@@ -50,8 +53,13 @@ const initMapForm = (passData) => ({
     description: passData.description || '',
     url: passData.url || '',
     isPublish: passData.isPublish ? 1 : 0,
-    image: '',
+    logo: '',
+    // featureImage: '',
+    typeId: passData?.type?.id || '',
 })
+
+const PARAM_LOGO = 'logo'
+const PARAM_FEATURE_IMAGE = 'featureImage'
 
 const TabMediaPartner = () => {
     const {
@@ -66,7 +74,10 @@ const TabMediaPartner = () => {
         urlAPI: apiMediaPartner.list,
     })
 
-    const [previewImage, setPreviewImage] = useState('')
+    const [previewDataImage, setPreviewDataImage] = useState({
+        [PARAM_LOGO]: '',
+        [PARAM_FEATURE_IMAGE]: '',
+    })
 
     const {
         __formRequest,
@@ -84,8 +95,11 @@ const TabMediaPartner = () => {
         modalRemoveId: MDPSTabMediaPartnerRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: (res) => {
-            if (res?.image) {
-                setPreviewImage(res.image)
+            if (res) {
+                setPreviewDataImage({
+                    [PARAM_FEATURE_IMAGE]: res[PARAM_FEATURE_IMAGE] || '',
+                    [PARAM_LOGO]: res[PARAM_LOGO] || '',
+                })
             }
 
             return initMapForm(res)
@@ -94,9 +108,13 @@ const TabMediaPartner = () => {
 
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
 
-    const _handleRemoveImage = () => {
-        setPreviewImage('')
-        _handleChange('image', '')
+    const _handleDataImage = (name, value = '') => {
+        setPreviewDataImage((prevState) => ({ ...prevState, [name]: value }))
+    }
+
+    const _handleRemoveImage = (name: string) => {
+        _handleDataImage(name, '')
+        _handleChange(name, '')
     }
 
     const {
@@ -138,8 +156,9 @@ const TabMediaPartner = () => {
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
-                            { content: 'Image', className: 'w-10' },
+                            { content: 'Logo', className: 'w-10' },
                             'Name',
+                            'Type',
                             'Description',
                             'Publish',
                             'Link',
@@ -153,13 +172,18 @@ const TabMediaPartner = () => {
                                         {/*{vm.image}*/}
 
                                         <ImgInTable
-                                            src={vm.image}
+                                            src={vm.logo}
                                             alt={vm.name}
                                             extraClassImg="img-contain-100"
                                         />
                                     </td>
                                     <td>
                                         <TblLineFirst value={vm.name} />
+                                    </td>
+                                    <td>
+                                        <TblLineFirst
+                                            value={vm?.type?.name || '-'}
+                                        />
                                     </td>
                                     <td>
                                         <TblLineSecond>
@@ -268,6 +292,8 @@ const TabMediaPartner = () => {
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
                             />
 
+                            <SelectBaseOptionMediaPartnerType />
+
                             <FormRadioButtonMulti
                                 label="Share Publish ?"
                                 name="isPublish"
@@ -284,19 +310,22 @@ const TabMediaPartner = () => {
                                 ]}
                             />
 
-                            {previewImage ? (
+                            {previewDataImage[PARAM_LOGO] ? (
                                 <div className="my-3">
                                     <p className="mb-2 text-neutral-100">
                                         Logo
                                     </p>
 
                                     <PreviewFileModalLogic
-                                        dataUrl={previewImage?.toString()}
+                                        dataUrl={previewDataImage[
+                                            PARAM_LOGO
+                                        ]?.toString()}
                                         dataBy="file"
-                                        dataFile={previewImage}
+                                        dataFile={previewDataImage[PARAM_LOGO]}
                                         isShowBtnRemove
                                         actions={{
-                                            remove: _handleRemoveImage,
+                                            remove: () =>
+                                                _handleRemoveImage(PARAM_LOGO),
                                         }}
                                     />
                                 </div>
@@ -304,8 +333,7 @@ const TabMediaPartner = () => {
                                 <>
                                     <FormUploadFile
                                         label="Logo"
-                                        name="image"
-                                        required
+                                        name={PARAM_LOGO}
                                         isUseHook={false}
                                         isPreview={false}
                                         accept="image/*"
@@ -319,7 +347,7 @@ const TabMediaPartner = () => {
 
                                                 img.onload = () => {
                                                     _handleChange(
-                                                        'image',
+                                                        PARAM_LOGO,
                                                         newFiles,
                                                     )
                                                 }
@@ -328,13 +356,75 @@ const TabMediaPartner = () => {
                                             },
 
                                             handleDataFiles: (newDataFiles) =>
-                                                setPreviewImage(
+                                                _handleDataImage(
+                                                    PARAM_LOGO,
                                                     newDataFiles.url,
                                                 ),
                                         }}
                                     />
                                 </>
                             )}
+
+                            {/*{previewDataImage[PARAM_FEATURE_IMAGE] ? (*/}
+                            {/*    <div className="my-3">*/}
+                            {/*        <p className="mb-2 text-neutral-100">*/}
+                            {/*            Featured Image*/}
+                            {/*        </p>*/}
+
+                            {/*        <PreviewFileModalLogic*/}
+                            {/*            dataUrl={previewDataImage[*/}
+                            {/*                PARAM_FEATURE_IMAGE*/}
+                            {/*            ]?.toString()}*/}
+                            {/*            dataBy="file"*/}
+                            {/*            dataFile={*/}
+                            {/*                previewDataImage[*/}
+                            {/*                    PARAM_FEATURE_IMAGE*/}
+                            {/*                ]*/}
+                            {/*            }*/}
+                            {/*            isShowBtnRemove*/}
+                            {/*            actions={{*/}
+                            {/*                remove: () =>*/}
+                            {/*                    _handleRemoveImage(*/}
+                            {/*                        PARAM_FEATURE_IMAGE,*/}
+                            {/*                    ),*/}
+                            {/*            }}*/}
+                            {/*        />*/}
+                            {/*    </div>*/}
+                            {/*) : (*/}
+                            {/*    <>*/}
+                            {/*        <FormUploadFile*/}
+                            {/*            label="Feature Image"*/}
+                            {/*            name={PARAM_FEATURE_IMAGE}*/}
+                            {/*            isUseHook={false}*/}
+                            {/*            isPreview={false}*/}
+                            {/*            accept="image/*"*/}
+                            {/*            actions={{*/}
+                            {/*                onChange: (name, newFiles) => {*/}
+                            {/*                    const img = new Image()*/}
+                            {/*                    const objectUrl =*/}
+                            {/*                        URL.createObjectURL(*/}
+                            {/*                            newFiles,*/}
+                            {/*                        )*/}
+
+                            {/*                    img.onload = () => {*/}
+                            {/*                        _handleChange(*/}
+                            {/*                            PARAM_FEATURE_IMAGE,*/}
+                            {/*                            newFiles,*/}
+                            {/*                        )*/}
+                            {/*                    }*/}
+
+                            {/*                    img.src = objectUrl*/}
+                            {/*                },*/}
+
+                            {/*                handleDataFiles: (newDataFiles) =>*/}
+                            {/*                    _handleDataImage(*/}
+                            {/*                        PARAM_FEATURE_IMAGE,*/}
+                            {/*                        newDataFiles.url,*/}
+                            {/*                    ),*/}
+                            {/*            }}*/}
+                            {/*        />*/}
+                            {/*    </>*/}
+                            {/*)}*/}
                         </>
                     }
                     configHandle={{

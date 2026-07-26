@@ -68,3 +68,8 @@ export const SrvPropertyStaticAdvanceNoticeUnits =
 
 export const SrvPropertyStaticGuestySyncStatuses =
     baseAPIDataStatic + '/property-guesty-sync-statuses'
+
+export const SrvPropertyStaticMediaPartnerType =
+    baseAPIDataStatic + '/media-partner-type'
+
+export const SrvPropertyStaticStatusForm = baseAPIDataStatic + '/status-form'

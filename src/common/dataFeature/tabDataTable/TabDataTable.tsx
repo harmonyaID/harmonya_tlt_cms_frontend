@@ -21,7 +21,7 @@ const TabDataTable = ({
     isPagination = true,
     isSearchBar = false,
 }: {
-    title: string
+    title?: string
     ths: any[]
     api: any
     content?: {
@@ -51,7 +51,7 @@ const TabDataTable = ({
 
     return (
         <>
-            <h5 className="fs-18 fw-500 mb-3">{title}</h5>
+            {title ? <h5 className="fs-18 fw-500 mb-3">{title}</h5> : null}
 
             {isSearchBar ? (
                 <FilterBarBasic

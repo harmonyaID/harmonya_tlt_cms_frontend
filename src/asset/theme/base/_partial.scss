@@ -328,10 +328,10 @@
 }
 .tab-pane {
    padding: 1.5rem 1.25rem 1.25rem;
-   .row > * {
-      padding-left: calc(#{$bs-gutter-x-sm} * 0.5);
-      padding-right: calc(#{$bs-gutter-x-sm} * 0.5);
-   }
+   //.row > * {
+   //   padding-left: calc(#{$bs-gutter-x-sm} * 0.5);
+   //   padding-right: calc(#{$bs-gutter-x-sm} * 0.5);
+   //}
 
    .card {
       margin-bottom: 1.563rem;
