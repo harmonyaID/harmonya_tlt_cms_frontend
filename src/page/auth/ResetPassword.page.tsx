@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import '@/asset/theme/base/_auth.scss'
-import AuthLayout from '@/page/auth/component/AuthLayout.tsx'
-import { WrapFormContext } from '@/context/Form.context.tsx'
-import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import { BtnPrimary } from '@/component/general/Button.tsx'
-import FormInputPassword from '@/component/form/FormInputPassword.tsx'
-import useIsLoginHook from '@/hook/useIsLogin.hook.ts'
 import { Link, useNavigate, useSearchParams } from 'react-router'
+import { ArrowLeft } from 'iconsax-react'
+import FormInputPassword from '@/component/form/FormInputPassword.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
+import FormWrap from '@/component/wrapping/Form.wrap.tsx'
+import { WrapFormContext } from '@/context/Form.context.tsx'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
+import useIsLoginHook from '@/hook/useIsLogin.hook.ts'
+import AuthLayout from '@/page/auth/component/AuthLayout.tsx'
 import authPath from '@/path/auth.path.ts'
 import { apiAuthResetPassword } from '@/service/api/auth.api.ts'
-import { ArrowLeft } from 'iconsax-react'
 
 const ResetPasswordPage = () => {
     useIsLoginHook()
@@ -95,7 +95,7 @@ const ResetPasswordPage = () => {
 
                             <BtnPrimary
                                 type="submit"
-                                className="w-100 mt-3"
+                                className="w-100 mt-3 py-2"
                                 isDisabled={isLoading}
                                 isLoading={isLoading}>
                                 Reset Password

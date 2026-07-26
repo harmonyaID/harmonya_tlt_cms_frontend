@@ -23,6 +23,7 @@ import {
     Profile2User,
     Clock,
     InfoCircle,
+    Setting2,
 
     // Boat Management
     Ship,
@@ -38,26 +39,27 @@ import {
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context'
 import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.ts'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
-import dashboardPath from '@/path/dashboard.path'
-import contentHomePagePath from '@/path/contentHomePage.path.ts'
-import pagePath from '@/path/page.path'
-import contentBlogPath from '@/path/contentBlog.path'
-import contentSettingPath from '@/path/contentSetting.path.ts'
-import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
-import propertyPath from '@/path/property.path.ts'
-import propertySettingPath from '@/path/propertySetting.path.ts'
-import userPath from '@/path/user.path.ts'
+import boatPath from '@/path/boat.path.ts'
+import boatSettingPath from '@/path/boatSetting.path.ts'
 import contentAllPagesPath from '@/path/contentAllPages.path.ts'
+import contentBlogPath from '@/path/contentBlog.path'
+import contentExperiencePath from '@/path/contentExperience.path.ts'
+import contentHomePagePath from '@/path/contentHomePage.path.ts'
+import contentMenuPath from '@/path/contentMenu.path.ts'
+import contentSettingPath from '@/path/contentSetting.path.ts'
+import dashboardPath from '@/path/dashboard.path'
+import pagePath from '@/path/page.path'
+import propertyPath from '@/path/property.path.ts'
+import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
+import propertyReviewsPath from '@/path/propertyReviews.path.ts'
+import propertySettingPath from '@/path/propertySetting.path.ts'
 import {
     smActivityLogPath,
+    smGeneralSettingPath,
     smPlatformInfoPath,
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
-import boatPath from '@/path/boat.path.ts'
-import boatSettingPath from '@/path/boatSetting.path.ts'
-import contentExperiencePath from '@/path/contentExperience.path.ts'
-import contentMenuPath from '@/path/contentMenu.path.ts'
-import propertyReviewsPath from '@/path/propertyReviews.path.ts'
+import userPath from '@/path/user.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -383,6 +385,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Platform Info"
                     icon={<InfoCircle variant="Bulk" />}
                     to={smPlatformInfoPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="General Setting"
+                    icon={<Setting2 variant="Bulk" />}
+                    to={smGeneralSettingPath.main}
                 />
             </li>
         </>

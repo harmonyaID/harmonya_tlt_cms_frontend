@@ -1,23 +1,24 @@
-import useContentBlogMainForm from '@/page/contentBlog/hook/useContentBlogMainForm.hook.ts'
-import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
-import { objectNavBread } from '@/config/objectNavBread.config.ts'
-import contentBlogPath from '@/path/contentBlog.path.ts'
-import { Loading } from '@/component/general/TextDefault.tsx'
-import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import Card from '@/component/card/Card.tsx'
-import { WrapFormContext } from '@/context/Form.context.tsx'
-import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FooterSubmit from '@/component/general/FooterSubmit.tsx'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import SelectOptionBlogCategory from '@/common/dataForm/SelectOptionBlogCategory.tsx'
 import SelectOptionBlogTag from '@/common/dataForm/SelectOptionBlogTag.tsx'
-import { BtnCircleRemove } from '@/component/general/Button.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import Card from '@/component/card/Card.tsx'
+import CardDropdown from '@/component/card/CardDropdown.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
 import JsonEditorForm from '@/component/form/FormJsonEditor.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormTextEditor from '@/component/form/FormTextEditor.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
+import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
+import { BtnCircleRemove } from '@/component/general/Button.tsx'
+import FooterSubmit from '@/component/general/FooterSubmit.tsx'
+import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
+import { Loading } from '@/component/general/TextDefault.tsx'
+import FormWrap from '@/component/wrapping/Form.wrap.tsx'
+import { objectNavBread } from '@/config/objectNavBread.config.ts'
+import { WrapFormContext } from '@/context/Form.context.tsx'
+import useContentBlogMainForm from '@/page/contentBlog/hook/useContentBlogMainForm.hook.ts'
+import contentBlogPath from '@/path/contentBlog.path.ts'
 
 const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -76,8 +77,10 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     >
                         <div className="row">
                             <div className="col-lg-8">
-                                <div className="vstack gap-3">
-                                    <Card title="Blog Information">
+                                <div className="vstack gap-4">
+                                    <CardDropdown
+                                        title="Blog Information"
+                                        isShow>
                                         <WrapFormContext
                                             formRequest={__formRequest}
                                             actions={{
@@ -139,7 +142,11 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 />
                                             </GeneralRowForm>
                                         </WrapFormContext>
+                                    </CardDropdown>
 
+                                    <CardDropdown
+                                        title="SEO Information"
+                                        isShow>
                                         <WrapFormContext
                                             formRequest={__formRequest.seo}
                                             actions={{
@@ -150,9 +157,6 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         'seo',
                                                     ),
                                             }}>
-                                            <h5 className="fs-18 pb-3">
-                                                SEO Information
-                                            </h5>
                                             <GeneralRowForm
                                                 label="Meta Title"
                                                 isRequired>
@@ -343,7 +347,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired
                                             />
                                         </WrapFormContext>
-                                    </Card>
+                                    </CardDropdown>
                                 </div>
                             </div>
 

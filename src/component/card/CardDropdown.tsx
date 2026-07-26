@@ -1,5 +1,6 @@
-import { CardProps } from './type/card.type'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
+import { textToId } from '@/helper/convertText.helper.ts'
+import { CardProps } from './type/card.type'
 
 const CardDropdown = ({
     children,
@@ -8,7 +9,9 @@ const CardDropdown = ({
     classNameBlog = '',
     id,
     isShow = false,
-}: CardProps & { id: string; isShow?: boolean }) => {
+}: CardProps & { id?: string; isShow?: boolean }) => {
+    const cardId = id || textToId(title.toString())
+
     return (
         <div className={'card overflow-hidden border-0 ' + className}>
             {title ? (
@@ -21,14 +24,17 @@ const CardDropdown = ({
                         {/*</div>*/}
 
                         <button
-                            className={joinClassNameHelper('accordion-button', {
-                                collapsed: !isShow,
-                            })}
+                            className={joinClassNameHelper(
+                                'accordion-button fw-600 fs-18 text-neutral-100 mb-0',
+                                {
+                                    collapsed: !isShow,
+                                },
+                            )}
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target={'#' + id}
+                            data-bs-target={'#' + cardId}
                             aria-expanded="true"
-                            aria-controls={id}>
+                            aria-controls={cardId}>
                             {title}
                         </button>
                     </div>
@@ -40,7 +46,7 @@ const CardDropdown = ({
                     classNameBlog,
                     { show: isShow },
                 )}
-                id={id}>
+                id={cardId}>
                 {children}
             </div>
         </div>

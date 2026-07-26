@@ -1,35 +1,35 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiWebContactForm } from '@/service/api/contentManageSetting.api.ts'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import FormSelectOption from '@/component/form/FormSelectOption.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import {
-    MDPSTabWebContactFormAdd,
-    MDPSTabWebContactFormRemove,
-} from '@/config/modal.config.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import Pagination from '@/component/general/Pagination.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirst,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import FormSelectOption from '@/component/form/FormSelectOption.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import {
+    MDPSTabWebContactFormAdd,
+    MDPSTabWebContactFormRemove,
+} from '@/config/modal.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import { apiWebContactForm } from '@/service/api/contentManageSetting.api.ts'
 
 const initForm = {
     formTypeId: '',
@@ -239,7 +239,7 @@ const TabWebContactForm = ({
                             {/*{!isEmpty(listContactFormType) ? (*/}
                             <FormSelectOption
                                 label="Form Type"
-                                name="formType"
+                                name="formTypeId"
                                 required>
                                 <option value="">- Select Form Type -</option>
                                 {listContactFormType.map((vm, index) => (
@@ -280,12 +280,12 @@ const TabWebContactForm = ({
                                 placeholder="e.g Lembongan Good For Kids"
                             />
 
-                            {/*<FormTextArea*/}
-                            {/*    label="message"*/}
-                            {/*    name="message"*/}
-                            {/*    required*/}
-                            {/*    placeholder="e.g We would like to discuss a potential partnership."*/}
-                            {/*/>*/}
+                            <FormTextArea
+                                label="Message"
+                                name="message"
+                                required
+                                placeholder="e.g We would like to discuss a potential partnership."
+                            />
                         </>
                     }
                     configHandle={{

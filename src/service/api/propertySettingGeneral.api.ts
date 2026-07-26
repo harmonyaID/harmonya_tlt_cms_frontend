@@ -19,6 +19,8 @@ import {
     SrvPropertyStaticCleaningStatuses,
     SrvPropertyStaticAdvanceNoticeUnits,
     SrvPropertyStaticGuestySyncStatuses,
+    SrvPropertyStaticMediaPartnerType,
+    SrvPropertyStaticStatusForm,
 } from '@/service/api/_property.endPoint.ts'
 
 export const apiPropertyType = {
@@ -88,4 +90,16 @@ export const getStaticGuestySyncStatus = () =>
     _shapeMethodGet(
         SrvPropertyStaticGuestySyncStatuses,
         'tcSrvPropertyStaticGuestySyncStatuses',
+    )
+
+export const getStaticMediaPartnerType = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticMediaPartnerType,
+        'tcSrvPropertyStaticMediaPartnerType',
+    )
+
+export const getStaticStatusForm = () =>
+    _shapeMethodGet(
+        SrvPropertyStaticStatusForm,
+        'tcSrvPropertyStaticStatusForm',
     )

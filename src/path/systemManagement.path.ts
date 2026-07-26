@@ -9,3 +9,7 @@ export const smActivityLogPath = {
 export const smPlatformInfoPath = {
     main: '/sm-platform-info',
 }
+
+export const smGeneralSettingPath = {
+    main: '/sm-general-setting',
+}

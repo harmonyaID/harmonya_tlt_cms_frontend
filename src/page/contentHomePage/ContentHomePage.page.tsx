@@ -1,20 +1,19 @@
 import '@/asset/theme/content-public.scss'
-import useHomePageMainHook from '@/page/contentHomePage/hook/useHomePageMain.hook.ts'
+import { isEmpty } from 'lodash'
+import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
+import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
-import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
-
-import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
-import RenderHtml from '@/component/general/RenderHtml.tsx'
-import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import { isEmpty } from 'lodash'
-import { MediaNotAvailable } from '@/component/general/TextDefault.tsx'
-import ContentMedia from '@/component/general/ContentMedia.tsx'
-import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
-import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
+import ContentMedia from '@/component/general/ContentMedia.tsx'
+import RenderHtml from '@/component/general/RenderHtml.tsx'
+import { MediaNotAvailable } from '@/component/general/TextDefault.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
+import useHomePageMainHook from '@/page/contentHomePage/hook/useHomePageMain.hook.ts'
 
 const ContentHomePagePage = () => {
     const {
@@ -67,7 +66,7 @@ const ContentHomePagePage = () => {
                         <h5 className="fs-18 fw-600 pb-3">Homepage Content</h5>
                         <div className="vstack gap-3 content-public">
                             <CardDropdown
-                                title={<b>SECTION 1</b>}
+                                title="SECTION 1"
                                 isShow
                                 id="section-01">
                                 <HorizontalLoopDataLogic
@@ -100,9 +99,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 2</b>}
-                                id="section-02">
+                            <CardDropdown title="SECTION 2" id="section-02">
                                 <p className="fs-18 fw-medium">Left Position</p>
                                 <HorizontalLoopDataLogic
                                     config={{
@@ -163,9 +160,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 3</b>}
-                                id="section-03">
+                            <CardDropdown title="SECTION 3" id="section-03">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -188,9 +183,7 @@ const ContentHomePagePage = () => {
                                 </div>
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 4</b>}
-                                id="section-04">
+                            <CardDropdown title="SECTION 4" id="section-04">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -268,9 +261,7 @@ const ContentHomePagePage = () => {
                                 </div>
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 5</b>}
-                                id="section-05">
+                            <CardDropdown title="SECTION 5" id="section-05">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -311,9 +302,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 6</b>}
-                                id="section-06">
+                            <CardDropdown title="SECTION 6" id="section-06">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -341,9 +330,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 7</b>}
-                                id="section-07">
+                            <CardDropdown title="SECTION 7" id="section-07">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -406,9 +393,7 @@ const ContentHomePagePage = () => {
                                 </div>
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 8</b>}
-                                id="section-08">
+                            <CardDropdown title="SECTION 8" id="section-08">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -436,9 +421,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 9</b>}
-                                id="section-09">
+                            <CardDropdown title="SECTION 9" id="section-09">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -497,9 +480,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 10</b>}
-                                id="section-10">
+                            <CardDropdown title="SECTION 10" id="section-10">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -527,9 +508,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 11</b>}
-                                id="section-11">
+                            <CardDropdown title="SECTION 11" id="section-11">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -569,9 +548,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 12</b>}
-                                id="section-12">
+                            <CardDropdown title="SECTION 12" id="section-12">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',
@@ -587,9 +564,7 @@ const ContentHomePagePage = () => {
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title={<b>SECTION 13</b>}
-                                id="section-13">
+                            <CardDropdown title="SECTION 13" id="section-13">
                                 <HorizontalLoopDataLogic
                                     config={{
                                         contentColumn: 'col-md-9',

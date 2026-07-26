@@ -6,3 +6,16 @@ export interface SelectOptionGeneralProps extends BaseSelectOptionWithHookProps 
     isCreatable?: boolean
     ids?: any[]
 }
+
+export interface SelectBaseOptionProps {
+    name?: string
+    label?: string
+    isRequired?: boolean
+    selectEmpty?: string
+}
+
+export interface SelectBaseOptionStoreProps extends SelectBaseOptionProps {
+    // List Data From Store
+    listStore?: any[]
+    isLoadingStore?: boolean
+}

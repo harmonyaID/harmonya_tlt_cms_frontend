@@ -6,6 +6,7 @@ import {
     useLayoutEffect,
     ReactNode,
 } from 'react'
+import { useNavigate, useLocation } from 'react-router'
 import { isEmpty, isNull } from 'lodash'
 import {
     LS_MODE_THEME,
@@ -28,7 +29,6 @@ import {
     getLocalStorage,
     setLocalStorage,
 } from '@/helper/base/localStorage.helper.ts'
-import { useNavigate, useLocation } from 'react-router'
 import useProfileHook from '@/hook/useProfile.hook'
 import authPath from '@/path/auth.path.ts'
 // import { getBusinessRoleAndPermission } from '@/service/api/access/access.api'
@@ -62,7 +62,7 @@ export const WrapGlobalPrivateContext = ({
         passTitlePage: string = '',
     ): void => {
         const configTitlePage: string =
-            (passTitlePage || passNavTitle) + ' - TLT CRM'
+            'TLT CMS - ' + (passTitlePage || passNavTitle)
 
         setTitleNavbar(passNavTitle)
         setTitlePage(configTitlePage)

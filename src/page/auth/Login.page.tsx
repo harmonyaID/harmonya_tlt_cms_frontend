@@ -1,20 +1,20 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router'
-import { LOGO_PAGE_LOGIN } from '@/config/logoPath.config.ts'
 import '@/asset/theme/base/_auth.scss'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormInputPassword from '@/component/form/FormInputPassword.tsx'
 import { BtnPrimary } from '@/component/general/Button'
-import AuthLayout from './component/AuthLayout'
+import FormWrap from '@/component/wrapping/Form.wrap.tsx'
+import { LS_TOKEN } from '@/config/localStrorage.config.ts'
+import { LOGO_PAGE_LOGIN } from '@/config/logoPath.config.ts'
 import { WrapFormContext } from '@/context/Form.context'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
 import { setLocalStorage } from '@/helper/base/localStorage.helper.ts'
-import { LS_TOKEN } from '@/config/localStrorage.config.ts'
-import authPath from '@/path/auth.path.ts'
-import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import FormInputPassword from '@/component/form/FormInputPassword.tsx'
-import { apiAuthLogin } from '@/service/api/auth.api.ts'
 import useIsLoginHook from '@/hook/useIsLogin.hook.ts'
+import authPath from '@/path/auth.path.ts'
 import dashboardPath from '@/path/dashboard.path.ts'
+import { apiAuthLogin } from '@/service/api/auth.api.ts'
+import AuthLayout from './component/AuthLayout'
 
 type LoginMainParam = {
     email: string
@@ -72,7 +72,7 @@ const LoginPage = () => {
                 <div className="w-100 mt-autoP mt-5 mb-auto">
                     <h4 className="normal fw-600 text-neutral-100">
                         Welcome to{' '}
-                        <span className="text-black fw-600">CRM Traveller</span>
+                        <span className="text-black fw-600">TLT CMS</span>
                     </h4>
                     <p className="fw-400 text-neutral-200 pb-3">
                         Sign in to your account below
@@ -112,7 +112,7 @@ const LoginPage = () => {
                                 type="submit"
                                 isDisabled={isLoading}
                                 isLoading={isLoading}
-                                className="w-100 mt-3">
+                                className="w-100 mt-3 py-2">
                                 Sign In
                             </BtnPrimary>
                         </WrapFormContext>

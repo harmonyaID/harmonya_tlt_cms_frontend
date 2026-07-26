@@ -1,19 +1,18 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { ArrowLeft } from 'iconsax-react'
-import AuthLayout from './component/AuthLayout'
 // import InputForm from '@/component/form/Input.form'
-import authPath from '@/path/auth.path.ts'
-import { WrapFormContext } from '@/context/Form.context.tsx'
-import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import { BtnPrimary } from '@/component/general/Button.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
+import FormWrap from '@/component/wrapping/Form.wrap.tsx'
+import { WrapFormContext } from '@/context/Form.context.tsx'
 
 import '@/asset/theme/base/_auth.scss'
-import { apiAuthForgotPassword } from '@/service/api/auth.api.ts'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
 import useIsLoginHook from '@/hook/useIsLogin.hook.ts'
-import { useNavigate } from 'react-router'
+import authPath from '@/path/auth.path.ts'
+import { apiAuthForgotPassword } from '@/service/api/auth.api.ts'
+import AuthLayout from './component/AuthLayout'
 
 const ForgotPasswordPage = () => {
     useIsLoginHook()
@@ -84,7 +83,7 @@ const ForgotPasswordPage = () => {
 
                             <BtnPrimary
                                 type="submit"
-                                className="w-100 mt-3"
+                                className="w-100 mt-3 py-2"
                                 isDisabled={isLoading}
                                 isLoading={isLoading}>
                                 Reset Password

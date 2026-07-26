@@ -25,9 +25,9 @@ const AuthLayout = (props: any) => {
                                     "Manage Smarter. Serve Better. Travel
                                     Further."
                                 </h3>
-                                <p className="m-0 fw-400 paragraph-16">
-                                    - CRM Traveller
-                                </p>
+                                {/*<p className="m-0 fw-400 paragraph-16">*/}
+                                {/*    - TLT CMS*/}
+                                {/*</p>*/}
                             </div>
                         </div>
                     </div>

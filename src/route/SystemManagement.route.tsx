@@ -1,9 +1,10 @@
+import { lazy } from 'react'
 import { Route } from 'react-router'
 import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
-import { lazy } from 'react'
 import {
     smActivityLogPath,
+    smGeneralSettingPath,
     smPlatformInfoPath,
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
@@ -20,11 +21,17 @@ const SystemPlatformInfoPage = lazy(
     () => import('@/page/systemPlatformInfo/SystemPlatformInfo.page.tsx'),
 )
 
+const SystemGeneralSettingPage = lazy(
+    () => import('@/page/systemGeneralSetting/SystemGeneralSetting.page.tsx'),
+)
+
 const webConfigMainPath = smWebConfigPath.main
 
 const activityLogMainPath = smActivityLogPath.main
 
 const platformInfoMainPath = smPlatformInfoPath.main
+
+const generalSettingMainPath = smGeneralSettingPath.main
 
 const SystemManagementRoute = () => {
     return (
@@ -86,6 +93,26 @@ const SystemManagementRoute = () => {
                 <Route
                     path="*"
                     element={<Page404Layout to={platformInfoMainPath} />}
+                />
+            </Route>
+
+            {/*General Setting*/}
+            <Route path={generalSettingMainPath}>
+                <Route
+                    index
+                    path={generalSettingMainPath}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="General Setting"
+                            isCheckPermission={false}>
+                            <SystemGeneralSettingPage />
+                        </SuspenseLayout>
+                    }
+                />
+
+                <Route
+                    path="*"
+                    element={<Page404Layout to={generalSettingMainPath} />}
                 />
             </Route>
         </>
