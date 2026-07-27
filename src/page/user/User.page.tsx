@@ -1,23 +1,20 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiStaff } from '@/service/api/staff.api.ts'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import userPath from '@/path/user.path.ts'
+import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
     MDSUserSettingPermission,
     MDSUserSettingRole,
@@ -26,16 +23,19 @@ import {
     MDUserUpdateActivation,
     MDUserUpdateSuperAdmin,
 } from '@/config/modal.config.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import UserModalSettingPermission from '@/page/user/container/UserModalSettingPermission.tsx'
 import UserModalSettingRole from '@/page/user/container/UserModalSettingRole.tsx'
-import UserModalUpdatePassword from '@/page/user/container/UserModalUpdatePassword.tsx'
 import UserModalUpdateActivation from '@/page/user/container/UserModalUpdateActivation.tsx'
+import UserModalUpdatePassword from '@/page/user/container/UserModalUpdatePassword.tsx'
 import UserModalUpdateSuperAdmin from '@/page/user/container/UserModalUpdateSuperAdmin.tsx'
+import userPath from '@/path/user.path.ts'
+import { apiStaff } from '@/service/api/staff.api.ts'
 
 const UserPage = () => {
     const {
@@ -258,18 +258,18 @@ const UserPage = () => {
                                                                 Activation
                                                             </button>
                                                         </li>
-                                                        <li>
-                                                            <button
-                                                                className="dropdown-item btn-sm"
-                                                                onClick={() =>
-                                                                    _handleChooseForUpdateSuperAdmin(
-                                                                        vm,
-                                                                    )
-                                                                }>
-                                                                Change Super
-                                                                Admin
-                                                            </button>
-                                                        </li>
+                                                        {/*<li>*/}
+                                                        {/*    <button*/}
+                                                        {/*        className="dropdown-item btn-sm"*/}
+                                                        {/*        onClick={() =>*/}
+                                                        {/*            _handleChooseForUpdateSuperAdmin(*/}
+                                                        {/*                vm,*/}
+                                                        {/*            )*/}
+                                                        {/*        }>*/}
+                                                        {/*        Change Super*/}
+                                                        {/*        Admin*/}
+                                                        {/*    </button>*/}
+                                                        {/*</li>*/}
                                                     </ul>
                                                 </div>
 

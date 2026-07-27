@@ -3,12 +3,12 @@ import { useEffect, useId, useState } from 'react'
 import { isArray, isEmpty } from 'lodash'
 import { SelectOptionGeneralProps } from '@/common/dataForm/type/selectOption.type.ts'
 import SelectOption from '@/component/form/SelectOption.tsx'
-import { useHookContextForm } from '@/context/Form.context.tsx'
-import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
-import useBlogTagStore from '@/store/useBlogTag.store.ts'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
-import { apiBlogTag } from '@/service/api/contentManageSetting.api.ts'
+import { useHookContextForm } from '@/context/Form.context.tsx'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
+import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
+import { apiBlogTag } from '@/service/api/contentManageSetting.api.ts'
+import useBlogTagStore from '@/store/useBlogTag.store.ts'
 
 interface ListDataProps {
     dataList?: any[]
@@ -105,7 +105,7 @@ const SelectOptionBlogTag = (
 
     const _handleSelectData = (data: any = {}) => {
         if (isArray(data) && data[0]?.__isNew__) {
-            console.log('data: ', data[0])
+            // console.log('data: ', data[0])
             // __isNew__ respond default from creatable
             _handleAddNewTag(data[0])
         } else {
@@ -193,12 +193,12 @@ const SelectOptionBlogTag = (
                     <p className="fs-12 mb-2 fw-600">
                         Total Tags : {dataList.length}
                     </p>
-                    <div className="mb-4 max-h-120-px bg-neutral-600 px-3 pb-3 rounded-2 overflow-auto">
+                    <div className="mb-4 max-h-240px bg-neutral-600 px-3 pb-3 rounded-2 overflow-auto">
                         {dataList.map((tag, index) => {
                             return (
                                 <div
                                     key={index}
-                                    className="border-dashed border-neutral-400 border-1 pb-2 d-flex pt-3">
+                                    className="border-dashed border-neutral-400 border-1 pb-2 pt-2 d-flex align-items-center">
                                     <div className="w-100">{tag.name}</div>
                                     <BtnCircleRemove
                                         className="ms-auto"

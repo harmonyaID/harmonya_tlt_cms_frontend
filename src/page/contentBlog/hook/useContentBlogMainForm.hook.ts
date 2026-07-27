@@ -1,15 +1,15 @@
-import { useParams } from 'react-router'
-import useLocationStateHook from '@/hook/useLocationState.hook.ts'
-import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import { useState } from 'react'
+import { useParams } from 'react-router'
+import { isArray, isEmpty, isObject } from 'lodash'
+import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
+import { textSlug } from '@/helper/convertText.helper.ts'
+import { formatDatePublish } from '@/helper/formatDate.helper.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
-import { textSlug } from '@/helper/convertText.helper.ts'
-import { isArray, isEmpty, isObject } from 'lodash'
-import { apiBlogContent } from '@/service/api/contentManage.api.ts'
+import useLocationStateHook from '@/hook/useLocationState.hook.ts'
+import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
-import { formatDatePublish } from '@/helper/formatDate.helper.ts'
-import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
+import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 
 const defaultActive = '1'
 
@@ -59,7 +59,7 @@ const initMapForm = (passData) => ({
     excerpt: passData?.excerpt || '',
     content: passData?.content || '', // text editor
     author: passData?.author || '',
-    publishedAt: passData?.publishedAt || formatDatePublish() || '',
+    publishedAt: formatDatePublish() || '',
     isActive: passData?.isActive ? defaultActive : '0',
     tagIds: [],
     thumbnail: '',
