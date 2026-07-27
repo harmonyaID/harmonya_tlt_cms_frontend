@@ -1,23 +1,23 @@
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import CardPreview from '@/component/card/CardPreview.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import Pagination from '@/component/general/Pagination.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { MDBoatTypeAdd, MDBoatTypeRemove } from '@/config/modal.config.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
 import { apiBoatType } from '@/service/api/boatManage.api.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
 
 const initForm = {
     name: '',
@@ -123,16 +123,16 @@ const TabBoatType = () => {
                 </div>
             </LoadingStatePreviewData>
 
-            {isShowPagination(__isLoading, __list, __pagination) ? (
-                <Pagination
-                    onMove={(step) => __actionPagination(step)}
-                    className="mt-2"
-                    pagination={configDefaultPagination(
-                        __pagination,
-                        'totalPage',
-                    )}
-                />
-            ) : null}
+            {/*{isShowPagination(__isLoading, __list, __pagination) ? (*/}
+            {/*    <Pagination*/}
+            {/*        onMove={(step) => __actionPagination(step)}*/}
+            {/*        className="mt-2"*/}
+            {/*        pagination={configDefaultPagination(*/}
+            {/*            __pagination,*/}
+            {/*            'totalPage',*/}
+            {/*        )}*/}
+            {/*    />*/}
+            {/*) : null}*/}
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic

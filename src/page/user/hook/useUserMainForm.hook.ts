@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import userPath from '@/path/user.path.ts'
-import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import { apiStaff } from '@/service/api/staff.api.ts'
 
 const genderDefault = 1
@@ -94,7 +94,7 @@ const useUserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     ? apiStaff.update(id, formRequest)
                     : apiStaff.add(formRequest),
             setIsLoading,
-            // isDirectToDetail: true,
+            isDirectToDetail: false,
             callBack: () => {
                 __handleToMain()
             },
