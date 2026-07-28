@@ -7,37 +7,68 @@ import userPath from '@/path/user.path.ts'
 const UserPage = lazy(() => import('@/page/user/User.page.tsx'))
 const UserAddPage = lazy(() => import('@/page/user/UserAdd.page.tsx'))
 const UserEditPage = lazy(() => import('@/page/user/UserEdit.page.tsx'))
+const MyProfilePage = lazy(() => import('@/page/user/UserMyProfile.page'))
+const MyProfileEditPage = lazy(
+    () => import('@/page/user/UserMyProfileEdit.page'),
+)
 
 const UserRoute = () => (
-    <Route path={userPath.main}>
+    <>
+        <Route path={userPath.main}>
+            <Route
+                index
+                path={userPath.main}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Staff"
+                        isCheckPermission={false}>
+                        <UserPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                path={userPath.add}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Staff"
+                        isCheckPermission={false}>
+                        <UserAddPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                path={userPath.edit()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Staff"
+                        isCheckPermission={false}>
+                        <UserEditPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route path="*" element={<Page404Layout to={userPath.main} />} />
+        </Route>
+
         <Route
             index
-            path={userPath.main}
+            path={userPath.myProfile}
             element={
-                <SuspenseLayout titleNavbar="Staff" isCheckPermission={false}>
-                    <UserPage />
+                <SuspenseLayout titleNavbar="Profile" isCheckPermission={false}>
+                    <MyProfilePage />
                 </SuspenseLayout>
             }
         />
         <Route
-            path={userPath.add}
+            index
+            path={userPath.myProfileEdit}
             element={
-                <SuspenseLayout titleNavbar="Staff" isCheckPermission={false}>
-                    <UserAddPage />
+                <SuspenseLayout titleNavbar="Profile" isCheckPermission={false}>
+                    <MyProfileEditPage />
                 </SuspenseLayout>
             }
         />
-        <Route
-            path={userPath.edit()}
-            element={
-                <SuspenseLayout titleNavbar="Staff" isCheckPermission={false}>
-                    <UserEditPage />
-                </SuspenseLayout>
-            }
-        />
-
-        <Route path="*" element={<Page404Layout to={userPath.main} />} />
-    </Route>
+    </>
 )
 
 export default UserRoute

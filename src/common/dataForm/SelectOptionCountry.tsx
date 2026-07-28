@@ -10,7 +10,7 @@ const SelectOptionCountry = (props: SelectOptionGeneralProps) => {
     const uniqueId = useId()
     const ctx = useHookContextForm()
 
-    const { __list } = useCountryStore({ isFormatList: false })
+    const { __list, __isLoading } = useCountryStore({ isFormatList: false })
 
     const _configList = () => {
         return __list.map((vm) => ({
@@ -107,7 +107,7 @@ const SelectOptionCountry = (props: SelectOptionGeneralProps) => {
             })
             setSelectedData(!isEmpty(findData) ? findData : [])
         }
-    }, [isOnlyChoose, dataValue])
+    }, [isOnlyChoose, dataValue, __isLoading])
 
     // handle only choose
     useEffect(() => {
@@ -118,7 +118,7 @@ const SelectOptionCountry = (props: SelectOptionGeneralProps) => {
 
             setOptions(filterOptions)
         }
-    }, [isOnlyChoose, ...ids])
+    }, [isOnlyChoose, ...ids, __isLoading])
 
     return (
         <SelectOption

@@ -7,6 +7,8 @@ const userPath = {
     ...objectPathMenu(basic + '/staff'),
 
     roleAndPermission: { ...objectPathMenu(basic + '/role-permission') },
+    myProfile: '/profile',
+    myProfileEdit: '/profile/edit',
 }
 
 export default userPath

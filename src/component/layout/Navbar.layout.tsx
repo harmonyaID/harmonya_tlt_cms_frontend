@@ -12,6 +12,7 @@ import {
     Home3,
     Refresh,
     Logout,
+    User,
 } from 'iconsax-react'
 import defaultAvatar from '@/asset/image/avatar_small2x.jpeg'
 import ButtonNavbarSearchServiceLoc from '@/common/misc/ButtonNavbarSearchServiceLoc'
@@ -46,12 +47,13 @@ import {
 // import ModalConfirmLogout from '../modal/ModalConfirmLogout'
 // import { businessRefreshAccess } from '@/service/api/auth/auth.api'
 // import { apiAuthLogout } from '@/service/api/auth/auth.api.ts'
+import userPath from '@/path/user.path.ts'
+import { apiAuthLogout } from '@/service/api/auth.api.ts'
 import { AvatarInTable } from '../general/Avatar'
 import { Loading, NotAvailable } from '../general/TextDefault'
 // import LoadingSpinner from '../loading/LoadingSpinner'
 import ShortAddDropdownMenu from './_menu/ShortAddDropdown.menu'
 import { NavbarProps } from './type/layout.type'
-import { apiAuthLogout } from '@/service/api/auth.api.ts'
 
 const NavbarLayout = ({ title = '' }: NavbarProps) => {
     // const {
@@ -228,16 +230,26 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
                             {/*        </>*/}
                             {/*    )}*/}
                             {/*</button>*/}
-                            <button
-                                type="button"
-                                className="dropdown-item profile-item py-2"
-                                disabled={isLoadingRefreshAccess}
-                                onClick={_handleRefreshAccess}>
+
+                            <Link
+                                to={userPath.myProfile}
+                                className="dropdown-item profile-item py-2">
                                 <span className="me-2">
-                                    <Refresh variant="Bulk" />
+                                    <User variant="Bulk" />
                                 </span>
-                                Refresh Access
-                            </button>
+                                My Profile
+                            </Link>
+
+                            {/*<button*/}
+                            {/*    type="button"*/}
+                            {/*    className="dropdown-item profile-item py-2"*/}
+                            {/*    disabled={isLoadingRefreshAccess}*/}
+                            {/*    onClick={_handleRefreshAccess}>*/}
+                            {/*    <span className="me-2">*/}
+                            {/*        <Refresh variant="Bulk" />*/}
+                            {/*    </span>*/}
+                            {/*    Refresh Access*/}
+                            {/*</button>*/}
                             <button
                                 className="dropdown-item profile-item py-2"
                                 id="logout-btn"

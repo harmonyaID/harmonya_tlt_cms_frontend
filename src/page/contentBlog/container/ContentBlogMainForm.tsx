@@ -13,6 +13,7 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
+import SEOPreviewPublic from '@/component/general/SEOPreviewPublic.tsx'
 import { Loading } from '@/component/general/TextDefault.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
@@ -147,6 +148,18 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     <CardDropdown
                                         title="SEO Information"
                                         isShow>
+                                        <SEOPreviewPublic
+                                            title={
+                                                __formRequest?.seo?.title || ''
+                                            }
+                                            description={
+                                                __formRequest?.seo
+                                                    ?.description || ''
+                                            }
+
+                                            className="mb-4"
+                                        />
+
                                         <WrapFormContext
                                             formRequest={__formRequest.seo}
                                             actions={{

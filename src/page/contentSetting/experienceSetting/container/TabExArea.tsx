@@ -1,34 +1,34 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import { MDExCategoryAdd, MDExCategoryRemove } from '@/config/modal.config.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
+import { useState } from 'react'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
+import { MDExCategoryAdd, MDExCategoryRemove } from '@/config/modal.config.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormSelectOption from '@/component/form/FormSelectOption.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
-import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
-import { useState } from 'react'
 
 const initForm = {
     experienceTypeId: '',
