@@ -1,10 +1,9 @@
 import { FC, ReactNode, MouseEvent } from 'react'
-import { Edit } from 'react-feather'
+import { Edit, Eye } from 'react-feather'
 import { Printer, Send2, Trash } from 'iconsax-react'
 import LoadingSpinner from '@/component/loading/LoadingSpinner.tsx'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import { BtnBaseProps } from './type/general.type'
-
 
 export const BtnBase = ({
     type,
@@ -157,6 +156,21 @@ export const BtnCircleEdit: FC<BtnBaseProps> = ({
         )}
         type="button">
         <Edit size={16} strokeWidth={2.4} />
+    </BtnBase>
+)
+
+export const BtnCircleDetail: FC<BtnBaseProps> = ({
+    actions = { onClick: () => {} },
+    className = '',
+}) => (
+    <BtnBase
+        onClick={actions.onClick}
+        className={joinClassNameHelper(
+            'btn-gray-300 text-black btn-sm mt-0 btn-circle-icon',
+            className,
+        )}
+        type="button">
+        <Eye size={16} strokeWidth={2.4} />
     </BtnBase>
 )
 

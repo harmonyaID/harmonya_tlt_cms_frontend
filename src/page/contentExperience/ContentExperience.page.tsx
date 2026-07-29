@@ -1,27 +1,27 @@
-import useContentExHook from '@/page/contentExperience/hook/useContentEx.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
-import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
+import { MDGeneralRemove } from '@/config/modal.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useContentExHook from '@/page/contentExperience/hook/useContentEx.hook.ts'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 
 const ContentExperiencePage = () => {
@@ -64,7 +64,6 @@ const ContentExperiencePage = () => {
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
                     actions={{
                         change: __actionChange,
                         pagination: __actionPagination,

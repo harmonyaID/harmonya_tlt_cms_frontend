@@ -149,9 +149,9 @@ const UserPage = () => {
                             isNoWrap
                             ths={[
                                 'Full Name',
+                                'Country',
                                 'Address',
                                 'Contact',
-                                'Country',
                                 'Super Admin',
                                 'Status',
                                 '',
@@ -172,6 +172,11 @@ const UserPage = () => {
                                         </td>
                                         <td>
                                             <TblLineSecond>
+                                                {vm?.country?.name || '-'}
+                                            </TblLineSecond>
+                                        </td>
+                                        <td>
+                                            <TblLineSecond>
                                                 {vm?.address || '-'}
                                             </TblLineSecond>
                                         </td>
@@ -184,11 +189,6 @@ const UserPage = () => {
                                                 title="Phone"
                                                 value={vm.phone || '-'}
                                             />
-                                        </td>
-                                        <td>
-                                            <TblLineSecond>
-                                                {vm?.country?.name || '-'}
-                                            </TblLineSecond>
                                         </td>
                                         <td>
                                             <TextTrueOrFalse

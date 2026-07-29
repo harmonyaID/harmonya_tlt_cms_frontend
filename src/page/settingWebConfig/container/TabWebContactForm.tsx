@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash'
+import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
@@ -6,29 +8,41 @@ import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import {
+    BtnCircleDetail,
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
+import PreElement from '@/component/general/PreElement.tsx'
 import {
     TblLineFirst,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
+import { Loading, TitleOfTab } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
+import OffCanvasGeneral from '@/component/offCanvas/OffCanvasGeneral.tsx'
 import {
     MDPSTabWebContactFormAdd,
     MDPSTabWebContactFormRemove,
 } from '@/config/modal.config.ts'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import {
+    OCGeneralPreviewDetail,
+    OCWebContactFormDetail,
+} from '@/config/offCanvas.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
+import actionOffCanvas from '@/helper/actionOffCanvas.helper.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import useWebContactFormDetailHook from '@/page/settingWebConfig/hook/useWebContactFormDetail.hook.ts'
 import { apiWebContactForm } from '@/service/api/contentManageSetting.api.ts'
 
 const initForm = {
@@ -98,6 +112,15 @@ const TabWebContactForm = ({
         },
     })
 
+    const {
+        __detail,
+        __isLoadingDetail,
+
+        __handleChooseDetail,
+        __handleSetDetail,
+        __handleCloseDetail,
+    } = useWebContactFormDetailHook()
+
     return (
         <>
             <div className="row mb-4">
@@ -119,8 +142,8 @@ const TabWebContactForm = ({
                         ths={[
                             'Name',
                             'Form Type',
-                            'Email',
                             'Phone',
+                            'Email',
                             // 'Contact Info.',
                             // { content: 'FAQ', className: 'w-75' },
                             'Subject',
@@ -147,12 +170,12 @@ const TabWebContactForm = ({
                                         </td>
                                         <td>
                                             <TblLineFirst
-                                                value={vm.email || '-'}
+                                                value={vm.phone || '-'}
                                             />
                                         </td>
                                         <td>
                                             <TblLineFirst
-                                                value={vm.phone || '-'}
+                                                value={vm.email || '-'}
                                             />
                                         </td>
                                         <td>
@@ -182,6 +205,16 @@ const TabWebContactForm = ({
                                                         edit: (e) => {
                                                             e.stopPropagation()
                                                             __actionUpdateModal(
+                                                                vm,
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+                                                <BtnCircleDetail
+                                                    actions={{
+                                                        onClick: (e) => {
+                                                            e.stopPropagation()
+                                                            __handleChooseDetail(
                                                                 vm,
                                                             )
                                                         },
@@ -302,6 +335,7 @@ const TabWebContactForm = ({
                             __isEdit
                                 ? __actionUpdate(newData)
                                 : __actionAdd(newData, 'id', true)
+                            __handleCloseDetail()
                         },
                         emptySelect: () =>
                             __setFormRequest(() => ({
@@ -309,6 +343,46 @@ const TabWebContactForm = ({
                             })),
                     }}
                 />
+
+                <OffCanvasGeneral
+                    title="Detail Information"
+                    closeAction={() => __handleCloseDetail()}
+                    isCloseAnywhere
+                    id={OCWebContactFormDetail}>
+                    {__isLoadingDetail || isEmpty(__detail) ? (
+                        <LoadingNotAvailable isLoading={__isLoadingDetail} />
+                    ) : (
+                        <HorizontalLoopDataLogic
+                            list={[
+                                objectListDetail('Name', __detail.name),
+                                objectListDetail(
+                                    'Form Type',
+                                    __detail?.formType?.name || '-',
+                                ),
+                                objectListDetail(
+                                    'Read',
+                                    <TextTrueOrFalse value={__detail.isRead} />,
+                                ),
+                                objectListDetail(
+                                    'Phone',
+                                    __detail.phone || '-',
+                                ),
+                                objectListDetail(
+                                    'Email',
+                                    __detail.email || '-',
+                                ),
+                                objectListDetail(
+                                    'Subject',
+                                    __detail.subject || '-',
+                                ),
+                                objectListDetail(
+                                    'Message',
+                                    <PreElement>{__detail.message}</PreElement>,
+                                ),
+                            ]}
+                        />
+                    )}
+                </OffCanvasGeneral>
             </CreatePortalLayout>
         </>
     )

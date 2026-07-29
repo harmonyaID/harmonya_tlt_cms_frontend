@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash'
 import TabDataTable from '@/common/dataFeature/tabDataTable/TabDataTable.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
@@ -9,6 +10,7 @@ import {
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
+import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
 import LoadingSpinner from '@/component/loading/LoadingSpinner.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
@@ -47,11 +49,11 @@ const SystemActivityLogPage = () => {
     return (
         <>
             <Card title={ACTIVITY}>
-                {__isLoading ? (
-                    <LoadingSpinner />
+                {__isLoading || isEmpty(__list) ? (
+                    <LoadingNotAvailable isLoading={__isLoading} />
                 ) : (
                     <>
-                        <div className="vstack gap-3">
+                        <div className="vstack gap-3 pb-4">
                             {__list.map((vm, index) => {
                                 return (
                                     <div
@@ -105,7 +107,6 @@ const SystemActivityLogPage = () => {
                         {isShowPagination(__isLoading, __list, __pagination) ? (
                             <Pagination
                                 onMove={(step) => __actionPagination(step)}
-                                className="mt-2"
                                 pagination={configDefaultPagination(
                                     __pagination,
                                     'totalPage',

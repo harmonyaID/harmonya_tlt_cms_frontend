@@ -1,25 +1,27 @@
 'use client'
+import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
+import SelectOptionBoatType from '@/common/dataForm/SelectOptionBoatType.tsx'
+import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
+import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import Card from '@/component/card/Card.tsx'
+import CardDropdown from '@/component/card/CardDropdown.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormTextEditor from '@/component/form/FormTextEditor.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
+import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
+import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
+import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
-import { objectNavBread } from '@/config/objectNavBread.config.ts'
-import boatPath from '@/path/boat.path.ts'
-import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
 import { Loading } from '@/component/general/TextDefault.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import Card from '@/component/card/Card.tsx'
+import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
-import FooterSubmit from '@/component/general/FooterSubmit.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
-import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
 import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
-import SelectOptionBoatType from '@/common/dataForm/SelectOptionBoatType.tsx'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
-import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
+import boatPath from '@/path/boat.path.ts'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -35,9 +37,15 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleCustomInfoRemove,
         __handleSubmit,
         __handleCancel,
+        __handleChangeWithParent,
 
         __handleToggleDeletePrevPhotoPromotion,
         __lisPreviousPhotosPromotion,
+
+        // SEO
+        __seoThumbnail,
+        __setSetSEOThumbnail,
+        __handleSEOThumbnailRemove,
 
         // used during editing
         __handleToggleDeletePrevPhotos,
@@ -92,8 +100,8 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                         actions={{
                             handleSubmit: () => __handleSubmit(),
                         }}
-                        className="vstack gap-1">
-                        <Card title="Boat Information">
+                        className="vstack gap-3">
+                        <CardDropdown title="Boat Information" isShow>
                             <div className="row">
                                 <div className="col-md-8">
                                     <WrapFormContext
@@ -334,7 +342,20 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     </WrapFormContext>
                                 </div>
                             </div>
-                        </Card>
+                        </CardDropdown>
+
+                        <SectionFormSEOInfo
+                            classNameColumn="col-md-8"
+                            __formRequest={__formRequest}
+                            __handleChangeWithParent={__handleChangeWithParent}
+
+                            // SEO Thumbnail
+                            __seoThumbnail={__seoThumbnail}
+                            __setSetSEOThumbnail={__setSetSEOThumbnail}
+                            __handleSEOThumbnailRemove={
+                                __handleSEOThumbnailRemove
+                            }
+                        />
 
                         <FooterSubmit
                             isLoading={__isLoading}

@@ -1,11 +1,12 @@
-import { useParams } from 'react-router'
-import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import { useState } from 'react'
+import { useParams } from 'react-router'
+import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
-import { apiBoat } from '@/service/api/boatManage.api.ts'
+import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
+import { apiBoat } from '@/service/api/boatManage.api.ts'
 
 const defaultActive = '1'
 
@@ -20,6 +21,9 @@ const initForm = {
     promoPhotos: [],
     photos: [],
     customInformations: [],
+    seo: {
+        ...initSEOFormConfig,
+    },
 }
 
 const initMapForm = (passData) => ({
@@ -39,6 +43,8 @@ const initMapForm = (passData) => ({
 
     promoPhotos: [],
     deletePromoPhotoIds: [],
+
+    seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
 const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
@@ -51,6 +57,15 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
             basePath: boatPath,
             pathFromKey: restored.from,
         })
+
+    // START SEO
+    const [seoThumbnail, setSetSEOThumbnail] = useState('')
+
+    const _handleSEOThumbnailRemove = () => {
+        setSetSEOThumbnail('')
+        nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
+    }
+    // END SEO
 
     const [previewPriceFile, setPreviewPriceFile] = useState('')
 
@@ -229,8 +244,14 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChange: nestedForm._handleChange,
         __handleArrToggle: nestedForm._handleArrToggle,
         __handleArrChange: nestedForm._handleArrChange,
+        __handleChangeWithParent: nestedForm._handleChangeWithParent,
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
+
+        // SEO
+        __seoThumbnail: seoThumbnail,
+        __setSetSEOThumbnail: setSetSEOThumbnail,
+        __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
 
         // Price File
         __previewPriceFile: previewPriceFile,

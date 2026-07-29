@@ -27,6 +27,16 @@ body {
     white-space: nowrap;
   }
 
+.text-dots-base {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+}
+.text-dots-base-line-2 {
+    -webkit-line-clamp: 2;
+}
+
 
 // Base Config
 @import 'base/_index.base.scss';

@@ -1,46 +1,60 @@
-import useUserMainFormHook from '@/page/user/hook/useUserMainForm.hook.ts'
-import { objectNavBread } from '@/config/objectNavBread.config.ts'
-import boatPath from '@/path/boat.path.ts'
+import { isEmpty } from 'lodash'
+import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
+import Card from '@/component/card/Card.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormInputPassword from '@/component/form/FormInputPassword.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
+import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
-import userPath from '@/path/user.path.ts'
 import { Loading, NotAvailable } from '@/component/general/TextDefault.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import Card from '@/component/card/Card.tsx'
-import FooterSubmit from '@/component/general/FooterSubmit.tsx'
+import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import FormInputPassword from '@/component/form/FormInputPassword.tsx'
-import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
-import { isEmpty } from 'lodash'
+import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
+import useUserMainFormHook from '@/page/user/hook/useUserMainForm.hook.ts'
+import boatPath from '@/path/boat.path.ts'
+import userPath from '@/path/user.path.ts'
 
-const UserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
+const UserMainForm = ({
+    isEdit = false,
+    isEditProfile = false,
+}: {
+    isEdit?: boolean
+    isEditProfile?: boolean
+}) => {
+    const { __profile, __isLoadingProfile, __handleReloadProfile } =
+        useGlobalPrivateContext()
+
     const {
         __formRequest,
         __isLoading,
         __isLoadingDetail,
         __pageStateDataSearch,
-        __setFormRequest,
         __handleChange,
         __dataDetail,
 
         __handleSubmit,
         __handleCancel,
-    } = useUserMainFormHook({ isEdit })
+    } = useUserMainFormHook({
+        isEdit,
+        profileId: isEditProfile ? __profile.id : '',
+    })
 
     return (
         <>
-            <NavBreadcrumb
-                navs={[
-                    objectNavBread('Staff', {
-                        url: userPath.main,
-                        state: __pageStateDataSearch,
-                    }),
-                    objectNavBread(isEdit ? 'Edit' : 'Add'),
-                ]}
-            />
+            {!isEditProfile ? (
+                <NavBreadcrumb
+                    navs={[
+                        objectNavBread('Staff', {
+                            url: userPath.main,
+                            state: __pageStateDataSearch,
+                        }),
+                        objectNavBread(isEdit ? 'Edit' : 'Add'),
+                    ]}
+                />
+            ) : null}
 
             {__isLoadingDetail && isEdit ? (
                 <Loading />
@@ -53,7 +67,12 @@ const UserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                             handleSubmit: () => __handleSubmit(),
                         }}
                         className="vstack gap-1">
-                        <Card title="Staff Information">
+                        <Card
+                            title={
+                                isEditProfile
+                                    ? 'Edit Profile'
+                                    : 'Staff Information'
+                            }>
                             <div className="row">
                                 <div className="col-md-8">
                                     <WrapFormContext
@@ -141,40 +160,45 @@ const UserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 />
                                             </GeneralRowForm>
                                         ) : null}
-                                        <GeneralRowForm
-                                            label="Status"
-                                            isRequired>
-                                            <FormRadioButtonMulti
-                                                name="isActive"
-                                                checkBoxs={[
-                                                    {
-                                                        defaultValue: false,
-                                                        label: 'Not Active',
-                                                    },
-                                                    {
-                                                        defaultValue: true,
-                                                        label: 'Active',
-                                                    },
-                                                ]}
-                                            />
-                                        </GeneralRowForm>
-                                        <GeneralRowForm
-                                            label="Super Admin"
-                                            isRequired>
-                                            <FormRadioButtonMulti
-                                                name="isSuperadmin"
-                                                checkBoxs={[
-                                                    {
-                                                        defaultValue: false,
-                                                        label: 'No',
-                                                    },
-                                                    {
-                                                        defaultValue: true,
-                                                        label: 'Yes',
-                                                    },
-                                                ]}
-                                            />
-                                        </GeneralRowForm>
+
+                                        {!isEditProfile ? (
+                                            <>
+                                                <GeneralRowForm
+                                                    label="Status"
+                                                    isRequired>
+                                                    <FormRadioButtonMulti
+                                                        name="isActive"
+                                                        checkBoxs={[
+                                                            {
+                                                                defaultValue: false,
+                                                                label: 'Not Active',
+                                                            },
+                                                            {
+                                                                defaultValue: true,
+                                                                label: 'Active',
+                                                            },
+                                                        ]}
+                                                    />
+                                                </GeneralRowForm>
+                                                <GeneralRowForm
+                                                    label="Super Admin"
+                                                    isRequired>
+                                                    <FormRadioButtonMulti
+                                                        name="isSuperadmin"
+                                                        checkBoxs={[
+                                                            {
+                                                                defaultValue: false,
+                                                                label: 'No',
+                                                            },
+                                                            {
+                                                                defaultValue: true,
+                                                                label: 'Yes',
+                                                            },
+                                                        ]}
+                                                    />
+                                                </GeneralRowForm>
+                                            </>
+                                        ) : null}
                                     </WrapFormContext>
                                 </div>
                             </div>
@@ -182,9 +206,7 @@ const UserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                         <FooterSubmit
                             isLoading={__isLoading}
-                            handleCancel={() =>
-                                __handleCancel(__pageStateDataSearch)
-                            }
+                            handleCancel={() => __handleCancel()}
                         />
                     </FormWrap>
                 </>

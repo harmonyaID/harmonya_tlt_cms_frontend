@@ -1,3 +1,4 @@
+import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import SelectOptionBlogCategory from '@/common/dataForm/SelectOptionBlogCategory.tsx'
 import SelectOptionBlogTag from '@/common/dataForm/SelectOptionBlogTag.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
@@ -13,6 +14,7 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
+import SEOPreviewPublic from '@/component/general/SEOPreviewPublic.tsx'
 import { Loading } from '@/component/general/TextDefault.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
@@ -50,8 +52,6 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = useContentBlogMainForm({ isEdit })
-
-    console.log('Form: ', __formRequest)
 
     return (
         <>
@@ -144,210 +144,238 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </WrapFormContext>
                                     </CardDropdown>
 
-                                    <CardDropdown
-                                        title="SEO Information"
-                                        isShow>
-                                        <WrapFormContext
-                                            formRequest={__formRequest.seo}
-                                            actions={{
-                                                change: (name, value) =>
-                                                    __handleChangeWithParent(
-                                                        name,
-                                                        value,
-                                                        'seo',
-                                                    ),
-                                            }}>
-                                            <GeneralRowForm
-                                                label="Meta Title"
-                                                isRequired>
-                                                <FormInput
-                                                    name="title"
-                                                    required
-                                                    value={
-                                                        __formRequest.seo.title
-                                                    }
-                                                    placeholder="e.g Best Beach Clubs in Nusa Lembongan"
-                                                    actions={{
-                                                        onChange: (
-                                                            name,
-                                                            value,
-                                                        ) => {
-                                                            __handleChangeWithParent(
-                                                                name,
-                                                                value,
-                                                                'seo',
-                                                            )
-                                                            __handleChangeWithParent(
-                                                                'info',
-                                                                value,
-                                                                'seo',
-                                                            )
-                                                            // __handleChangeWithParent(
-                                                            //     'slug',
-                                                            //     textSlug(value),
-                                                            //     'seo',
-                                                            // )
-                                                        },
-                                                    }}
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Meta Slug"
-                                                isRequired>
-                                                <FormInput
-                                                    name="slug"
-                                                    required
-                                                    placeholder="e.g best-beach-clubs-in-nusa-lembongan"
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Meta Canonical Url"
-                                                isRequired>
-                                                <FormInput
-                                                    name="canonicalUrl"
-                                                    required
-                                                    placeholder="e.g https://www.thelembongantraveller.com/nusa-lembongan/"
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Meta Description"
-                                                isRequired>
-                                                <FormTextArea
-                                                    name="description"
-                                                    required
-                                                    placeholder="e.g Best Beach Clubs in Nusa Lembongan"
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Meta Keyword"
-                                                isRequired>
-                                                <FormTextArea
-                                                    name="metaKeyword"
-                                                    required
-                                                    placeholder="e.g the lembongan traveller, explore bali, lembongan bali"
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Meta Image"
-                                                isRequired>
-                                                {__seoThumbnail ? (
-                                                    <>
-                                                        <div className="pb-3P">
-                                                            <PreviewFileModalLogic
-                                                                dataUrl={__seoThumbnail?.toString()}
-                                                                dataBy="file"
-                                                                dataFile={
-                                                                    __seoThumbnail
-                                                                }
-                                                                isShowBtnRemove
-                                                                actions={{
-                                                                    remove: __handleSEOThumbnailRemove,
-                                                                }}
-                                                                classNameWidth="w-100 max-h-148px"
-                                                            />
-                                                        </div>
-                                                    </>
-                                                ) : (
-                                                    <FormUploadFile
-                                                        // label="Thumbnail"
-                                                        name="thumbnail"
-                                                        required
-                                                        isUseHook={false}
-                                                        isPreview={false}
-                                                        accept="image/*"
-                                                        actions={{
-                                                            onChange: (
-                                                                _,
-                                                                newFiles,
-                                                            ) => {
-                                                                const img =
-                                                                    new Image()
-                                                                const objectUrl =
-                                                                    URL.createObjectURL(
-                                                                        newFiles,
-                                                                    )
+                                    <SectionFormSEOInfo
+                                        classNameColumn="col-md-8"
+                                        __formRequest={__formRequest}
+                                        __handleChangeWithParent={
+                                            __handleChangeWithParent
+                                        }
 
-                                                                img.onload =
-                                                                    () => {
-                                                                        __handleChangeWithParent(
-                                                                            'thumbnail',
-                                                                            newFiles,
-                                                                            'seo',
-                                                                        )
-                                                                    }
+                                        // SEO Thumbnail
+                                        __seoThumbnail={__seoThumbnail}
+                                        __setSetSEOThumbnail={
+                                            __setSetSEOThumbnail
+                                        }
+                                        __handleSEOThumbnailRemove={
+                                            __handleSEOThumbnailRemove
+                                        }
+                                    />
 
-                                                                img.src =
-                                                                    objectUrl
-                                                            },
-                                                            handleDataFiles: (
-                                                                newDataFiles,
-                                                            ) => {
-                                                                __setSetSEOThumbnail(
-                                                                    newDataFiles.url,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-                                                )}
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Robot Index"
-                                                isRequired>
-                                                <FormRadioButtonMulti
-                                                    name="robotIndex"
-                                                    className="mb-0"
-                                                    required
-                                                    checkBoxs={[
-                                                        {
-                                                            defaultValue: 0,
-                                                            label: 'No',
-                                                        },
-                                                        {
-                                                            defaultValue: 1,
-                                                            label: 'Yes',
-                                                        },
-                                                    ]}
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Robot Follow"
-                                                isRequired>
-                                                <FormRadioButtonMulti
-                                                    name="robotFollow"
-                                                    className="mb-0"
-                                                    required
-                                                    checkBoxs={[
-                                                        {
-                                                            defaultValue: 0,
-                                                            label: 'No',
-                                                        },
-                                                        {
-                                                            defaultValue: 1,
-                                                            label: 'Yes',
-                                                        },
-                                                    ]}
-                                                />
-                                            </GeneralRowForm>
+                                    {/*<CardDropdown*/}
+                                    {/*    title="SEO Information"*/}
+                                    {/*    isShow>*/}
+                                    {/*    <SEOPreviewPublic*/}
+                                    {/*        title={*/}
+                                    {/*            __formRequest?.seo?.title || ''*/}
+                                    {/*        }*/}
+                                    {/*        description={*/}
+                                    {/*            __formRequest?.seo*/}
+                                    {/*                ?.description || ''*/}
+                                    {/*        }*/}
 
-                                            <JsonEditorForm
-                                                name="structuredData"
-                                                label="Structured Data"
-                                                secondLabel="SEO Meta AI Structured Data"
-                                                value={
-                                                    __formRequest.seo
-                                                        .structuredData
-                                                }
-                                                onChange={(name, value) =>
-                                                    __handleChangeWithParent(
-                                                        name,
-                                                        value,
-                                                        'seo',
-                                                    )
-                                                }
-                                                isRequired
-                                            />
-                                        </WrapFormContext>
-                                    </CardDropdown>
+                                    {/*        className="mb-4"*/}
+                                    {/*    />*/}
+
+                                    {/*    <WrapFormContext*/}
+                                    {/*        formRequest={__formRequest.seo}*/}
+                                    {/*        actions={{*/}
+                                    {/*            change: (name, value) =>*/}
+                                    {/*                __handleChangeWithParent(*/}
+                                    {/*                    name,*/}
+                                    {/*                    value,*/}
+                                    {/*                    'seo',*/}
+                                    {/*                ),*/}
+                                    {/*        }}>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Meta Title"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormInput*/}
+                                    {/*                name="title"*/}
+                                    {/*                required*/}
+                                    {/*                value={*/}
+                                    {/*                    __formRequest.seo.title*/}
+                                    {/*                }*/}
+                                    {/*                placeholder="e.g Best Beach Clubs in Nusa Lembongan"*/}
+                                    {/*                actions={{*/}
+                                    {/*                    onChange: (*/}
+                                    {/*                        name,*/}
+                                    {/*                        value,*/}
+                                    {/*                    ) => {*/}
+                                    {/*                        __handleChangeWithParent(*/}
+                                    {/*                            name,*/}
+                                    {/*                            value,*/}
+                                    {/*                            'seo',*/}
+                                    {/*                        )*/}
+                                    {/*                        __handleChangeWithParent(*/}
+                                    {/*                            'info',*/}
+                                    {/*                            value,*/}
+                                    {/*                            'seo',*/}
+                                    {/*                        )*/}
+                                    {/*                        // __handleChangeWithParent(*/}
+                                    {/*                        //     'slug',*/}
+                                    {/*                        //     textSlug(value),*/}
+                                    {/*                        //     'seo',*/}
+                                    {/*                        // )*/}
+                                    {/*                    },*/}
+                                    {/*                }}*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Meta Slug"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormInput*/}
+                                    {/*                name="slug"*/}
+                                    {/*                required*/}
+                                    {/*                placeholder="e.g best-beach-clubs-in-nusa-lembongan"*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Meta Canonical Url"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormInput*/}
+                                    {/*                name="canonicalUrl"*/}
+                                    {/*                required*/}
+                                    {/*                placeholder="e.g https://www.thelembongantraveller.com/nusa-lembongan/"*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Meta Description"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormTextArea*/}
+                                    {/*                name="description"*/}
+                                    {/*                required*/}
+                                    {/*                placeholder="e.g Best Beach Clubs in Nusa Lembongan"*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Meta Keyword"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormTextArea*/}
+                                    {/*                name="metaKeyword"*/}
+                                    {/*                required*/}
+                                    {/*                placeholder="e.g the lembongan traveller, explore bali, lembongan bali"*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Meta Image"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            {__seoThumbnail ? (*/}
+                                    {/*                <>*/}
+                                    {/*                    <div className="pb-3P">*/}
+                                    {/*                        <PreviewFileModalLogic*/}
+                                    {/*                            dataUrl={__seoThumbnail?.toString()}*/}
+                                    {/*                            dataBy="file"*/}
+                                    {/*                            dataFile={*/}
+                                    {/*                                __seoThumbnail*/}
+                                    {/*                            }*/}
+                                    {/*                            isShowBtnRemove*/}
+                                    {/*                            actions={{*/}
+                                    {/*                                remove: __handleSEOThumbnailRemove,*/}
+                                    {/*                            }}*/}
+                                    {/*                            classNameWidth="w-100 max-h-148px"*/}
+                                    {/*                        />*/}
+                                    {/*                    </div>*/}
+                                    {/*                </>*/}
+                                    {/*            ) : (*/}
+                                    {/*                <FormUploadFile*/}
+                                    {/*                    // label="Thumbnail"*/}
+                                    {/*                    name="thumbnail"*/}
+                                    {/*                    required*/}
+                                    {/*                    isUseHook={false}*/}
+                                    {/*                    isPreview={false}*/}
+                                    {/*                    accept="image/*"*/}
+                                    {/*                    actions={{*/}
+                                    {/*                        onChange: (*/}
+                                    {/*                            _,*/}
+                                    {/*                            newFiles,*/}
+                                    {/*                        ) => {*/}
+                                    {/*                            const img =*/}
+                                    {/*                                new Image()*/}
+                                    {/*                            const objectUrl =*/}
+                                    {/*                                URL.createObjectURL(*/}
+                                    {/*                                    newFiles,*/}
+                                    {/*                                )*/}
+
+                                    {/*                            img.onload =*/}
+                                    {/*                                () => {*/}
+                                    {/*                                    __handleChangeWithParent(*/}
+                                    {/*                                        'thumbnail',*/}
+                                    {/*                                        newFiles,*/}
+                                    {/*                                        'seo',*/}
+                                    {/*                                    )*/}
+                                    {/*                                }*/}
+
+                                    {/*                            img.src =*/}
+                                    {/*                                objectUrl*/}
+                                    {/*                        },*/}
+                                    {/*                        handleDataFiles: (*/}
+                                    {/*                            newDataFiles,*/}
+                                    {/*                        ) => {*/}
+                                    {/*                            __setSetSEOThumbnail(*/}
+                                    {/*                                newDataFiles.url,*/}
+                                    {/*                            )*/}
+                                    {/*                        },*/}
+                                    {/*                    }}*/}
+                                    {/*                />*/}
+                                    {/*            )}*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Robot Index"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormRadioButtonMulti*/}
+                                    {/*                name="robotIndex"*/}
+                                    {/*                className="mb-0"*/}
+                                    {/*                required*/}
+                                    {/*                checkBoxs={[*/}
+                                    {/*                    {*/}
+                                    {/*                        defaultValue: 0,*/}
+                                    {/*                        label: 'No',*/}
+                                    {/*                    },*/}
+                                    {/*                    {*/}
+                                    {/*                        defaultValue: 1,*/}
+                                    {/*                        label: 'Yes',*/}
+                                    {/*                    },*/}
+                                    {/*                ]}*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+                                    {/*        <GeneralRowForm*/}
+                                    {/*            label="Robot Follow"*/}
+                                    {/*            isRequired>*/}
+                                    {/*            <FormRadioButtonMulti*/}
+                                    {/*                name="robotFollow"*/}
+                                    {/*                className="mb-0"*/}
+                                    {/*                required*/}
+                                    {/*                checkBoxs={[*/}
+                                    {/*                    {*/}
+                                    {/*                        defaultValue: 0,*/}
+                                    {/*                        label: 'No',*/}
+                                    {/*                    },*/}
+                                    {/*                    {*/}
+                                    {/*                        defaultValue: 1,*/}
+                                    {/*                        label: 'Yes',*/}
+                                    {/*                    },*/}
+                                    {/*                ]}*/}
+                                    {/*            />*/}
+                                    {/*        </GeneralRowForm>*/}
+
+                                    {/*        <JsonEditorForm*/}
+                                    {/*            name="schemaMarkup"*/}
+                                    {/*            label="Schema Markup"*/}
+                                    {/*            secondLabel="SEO Meta AI Schema Markup"*/}
+                                    {/*            value={*/}
+                                    {/*                __formRequest.seo.schemaMarkup*/}
+                                    {/*            }*/}
+                                    {/*            onChange={(name, value) =>*/}
+                                    {/*                __handleChangeWithParent(*/}
+                                    {/*                    name,*/}
+                                    {/*                    value,*/}
+                                    {/*                    'seo',*/}
+                                    {/*                )*/}
+                                    {/*            }*/}
+                                    {/*            isRequired*/}
+                                    {/*        />*/}
+                                    {/*    </WrapFormContext>*/}
+                                    {/*</CardDropdown>*/}
                                 </div>
                             </div>
 

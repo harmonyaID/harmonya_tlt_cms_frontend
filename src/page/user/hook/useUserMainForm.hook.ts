@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
@@ -41,8 +41,16 @@ const initMapForm = (passData) => ({
     // confirmPassword: passData?.confirmPassword || '',
 })
 
-const useUserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
-    const { id } = useParams()
+const useUserMainForm = ({
+    isEdit = false,
+    profileId = '',
+}: {
+    isEdit?: boolean
+    profileId?: string
+}) => {
+    const navigate = useNavigate()
+
+    const id = profileId ? profileId : useParams().id
 
     const restored = useLocationStateHook()
 
@@ -96,9 +104,13 @@ const useUserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             setIsLoading,
             isDirectToDetail: false,
             callBack: () => {
-                __handleToMain()
+                profileId ? navigate(userPath.myProfile) : __handleToMain()
             },
         })
+    }
+
+    const _handleCancel = () => {
+        profileId ? navigate(userPath.myProfile) : __handleCancel(restored)
     }
 
     return {
@@ -115,7 +127,7 @@ const useUserMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
-        __handleCancel,
+        __handleCancel: _handleCancel,
     }
 }
 

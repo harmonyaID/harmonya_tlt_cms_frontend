@@ -1,13 +1,14 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import { useEffect } from 'react'
+import { isEmpty } from 'lodash'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import CardPreview from '@/component/card/CardPreview.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
 import {
     apiContactFormType,
     apiFAQ,
 } from '@/service/api/contentManageSetting.api.ts'
-import {
-    BtnCircleEdit,
-    BtnCircleRemove,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
     MDPSTabFAQAdd,
@@ -17,17 +18,17 @@ import {
 } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import {
+    BtnCircleEdit,
+    BtnCircleRemove,
+    BtnPrimary,
+} from '@/component/general/Button.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import Pagination from '@/component/general/Pagination.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirst,
     TblLineSecond,
@@ -35,9 +36,8 @@ import {
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
-import { useEffect } from 'react'
-import { isEmpty } from 'lodash'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
 
 const initForm = {
     name: '',
@@ -156,16 +156,16 @@ const TabContactFormType = ({
                 </div>
             </LoadingStatePreviewData>
 
-            {isShowPagination(__isLoading, __list, __pagination) ? (
-                <Pagination
-                    onMove={(step) => __actionPagination(step)}
-                    className="mt-2"
-                    pagination={configDefaultPagination(
-                        __pagination,
-                        'totalPage',
-                    )}
-                />
-            ) : null}
+            {/*{isShowPagination(__isLoading, __list, __pagination) ? (*/}
+            {/*    <Pagination*/}
+            {/*        onMove={(step) => __actionPagination(step)}*/}
+            {/*        className="mt-2"*/}
+            {/*        pagination={configDefaultPagination(*/}
+            {/*            __pagination,*/}
+            {/*            'totalPage',*/}
+            {/*        )}*/}
+            {/*    />*/}
+            {/*) : null}*/}
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic

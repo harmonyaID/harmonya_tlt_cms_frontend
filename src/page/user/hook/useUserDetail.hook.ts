@@ -2,24 +2,24 @@ import { useParams } from 'react-router'
 import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import propertyPath from '@/path/property.path.ts'
-import { apiProperty } from '@/service/api/property.api.ts'
+import userPath from '@/path/user.path.ts'
+import { apiStaff } from '@/service/api/staff.api.ts'
 
-const usePropertyDetail = () => {
-    const { id } = useParams()
+const useUserDetail = (passId?: string | number) => {
+    const id = passId ? passId.toString() : useParams().id
 
     const restored = useLocationStateHook()
 
     const { __detail, __isLoading } = useDataDetailHook({
-        urlAPI: () => apiProperty.detail(id),
+        urlAPI: () => apiStaff.detail(id),
         isCallAPI: true,
         triggerBy: id,
     })
 
     const { __handleToAdd, __handleToEdit, __handleToMain } =
         usePageFlowHandlerHook({
-            basePath: propertyPath,
-            pathFromKey: 'property-detail',
+            basePath: userPath,
+            pathFromKey: 'user-detail',
             search: restored.dataSearch,
         })
 
@@ -36,4 +36,4 @@ const usePropertyDetail = () => {
     }
 }
 
-export default usePropertyDetail
+export default useUserDetail
