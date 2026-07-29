@@ -6,29 +6,32 @@ import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import { MDExCategoryAdd, MDExCategoryRemove } from '@/config/modal.config.ts'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import HDataImage from '@/component/general/HDataImage.tsx'
+import { BoxImage } from '@/component/general/Image.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import PreElement from '@/component/general/PreElement.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import { MDExCategoryAdd, MDExCategoryRemove } from '@/config/modal.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
 
 const initForm = {
     experienceTypeId: '',
@@ -44,10 +47,10 @@ const initMapForm = (passData) => ({
     experienceTypeId: passData?.type?.id || '',
     name: passData.name || '',
     description: passData?.description || '',
-    featuredImage: passData?.featuredImage || '',
-    deleteFeaturedImage: passData?.deleteFeaturedImage || 0,
-    banner: passData?.banner || '',
-    deleteBanner: passData?.deleteBanner || 0,
+    featuredImage: '', //passData?.featuredImage || '',
+    deleteFeaturedImage: passData?.deleteFeaturedImage || '',
+    banner: '', //passData?.banner || '',
+    deleteBanner: passData?.deleteBanner || '',
 })
 
 const TabExArea = ({
@@ -69,7 +72,7 @@ const TabExArea = ({
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: (passData) => apiExperienceArea.list({ ...passData, page: 0 }),
+        urlAPI: (passData) => apiExperienceArea.list({ ...passData }),
     })
 
     const {
@@ -87,16 +90,48 @@ const TabExArea = ({
         modalId: MDExCategoryAdd,
         modalRemoveId: MDExCategoryRemove,
         emptyParam: { ...initForm },
-        mapDetailToFormRequest: initMapForm,
+        mapDetailToFormRequest: (passData) => {
+            if (passData.featuredImage) {
+                setPreviewFeaturedImage(passData.featuredImage)
+            }
+
+            if (passData.banner) {
+                setPreviewBanner(passData.banner)
+            }
+
+            return {
+                ...initMapForm(passData),
+            }
+        },
     })
 
     const [previewFeaturedImage, setPreviewFeaturedImage] = useState('')
 
+    const [previewBanner, setPreviewBanner] = useState('')
+
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
 
-    const _handleFeaturedImageRemove = () => {
-        setPreviewFeaturedImage('')
-        _handleChange('featuredImage', '')
+    const _handleImageRemove = (name = '') => {
+        __setFormRequest((prevState) => {
+            const newState = { ...prevState }
+            newState[name] = ''
+
+            if (name === 'featuredImage') {
+                setPreviewFeaturedImage('')
+                if (__detailData.featuredImage === previewFeaturedImage) {
+                    newState.deleteFeaturedImage = 1
+                }
+            }
+
+            if (name === 'banner') {
+                setPreviewBanner('')
+                if (__detailData.banner === previewBanner) {
+                    newState.deleteBanner = 1
+                }
+            }
+
+            return newState
+        })
     }
 
     const {
@@ -137,7 +172,16 @@ const TabExArea = ({
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={['Area', 'Type', '']}
+                        ths={[
+                            {
+                                content: 'Area',
+                                className: 'max-w-200px',
+                            },
+                            'Banner',
+                            'Type',
+                            'Description',
+                            '',
+                        ]}
                         tds={__list}>
                         {__list.map((vm, index) => {
                             return (
@@ -146,14 +190,28 @@ const TabExArea = ({
                                     title="Preview Detail"
                                     className="cursor-pointer">
                                     <td>
-                                        <TblLineFirstPrimary
-                                            value={vm?.name || ''}
-                                        />
+                                        <HDataImage src={vm.featuredImage}>
+                                            <TblLineFirstPrimary
+                                                value={vm?.name || ''}
+                                            />
+                                        </HDataImage>
+                                    </td>
+                                    <td>
+                                        <BoxImage src={vm.banner} />
                                     </td>
                                     <td>
                                         <TblLineSecond>
                                             {vm?.type?.name || '-'}
                                         </TblLineSecond>
+                                    </td>
+                                    <td>
+                                        {vm.description ? (
+                                            <PreElement>
+                                                {vm.description}
+                                            </PreElement>
+                                        ) : (
+                                            '-'
+                                        )}
                                     </td>
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
@@ -241,14 +299,14 @@ const TabExArea = ({
                                 label="Name"
                                 name="name"
                                 required
-                                placeholder="e.g Uni"
+                                placeholder="e.g JUNGUTBATU"
                             />
 
                             <FormTextArea
                                 label="Description"
                                 name="description"
                                 required
-                                placeholder="e.g JUNGUTBATU"
+                                placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
                             />
 
                             {previewFeaturedImage ? (
@@ -264,7 +322,10 @@ const TabExArea = ({
                                             dataFile={previewFeaturedImage}
                                             isShowBtnRemove
                                             actions={{
-                                                remove: _handleChooseRemove,
+                                                remove: () =>
+                                                    _handleImageRemove(
+                                                        'featuredImage',
+                                                    ),
                                             }}
                                             classNameWidth="w-100 max-h-148px"
                                         />
@@ -297,6 +358,59 @@ const TabExArea = ({
                                             setPreviewFeaturedImage(
                                                 newDataFiles.url,
                                             )
+                                        },
+                                    }}
+                                />
+                            )}
+
+                            {/*Banner Image*/}
+                            {previewBanner ? (
+                                <>
+                                    <div className="pb-3">
+                                        <p className="mb-2 text-neutral-100">
+                                            Banner Image
+                                        </p>
+
+                                        <PreviewFileModalLogic
+                                            dataUrl={previewBanner?.toString()}
+                                            dataBy="file"
+                                            dataFile={previewBanner}
+                                            isShowBtnRemove
+                                            actions={{
+                                                remove: () =>
+                                                    _handleImageRemove(
+                                                        'banner',
+                                                    ),
+                                            }}
+                                            classNameWidth="w-100 max-h-148px"
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <FormUploadFile
+                                    label="Banner Image"
+                                    name="banner"
+                                    required
+                                    isUseHook={false}
+                                    isPreview={false}
+                                    accept="image/*"
+                                    actions={{
+                                        onChange: (_, newFiles) => {
+                                            const img = new Image()
+                                            const objectUrl =
+                                                URL.createObjectURL(newFiles)
+
+                                            img.onload = () => {
+                                                _handleChange(
+                                                    'banner',
+                                                    newFiles,
+                                                )
+                                            }
+
+                                            img.src = objectUrl
+                                        },
+                                        handleDataFiles: (newDataFiles) => {
+                                            setPreviewBanner(newDataFiles.url)
                                         },
                                     }}
                                 />

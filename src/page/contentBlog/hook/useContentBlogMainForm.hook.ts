@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
 import { isArray, isEmpty, isObject } from 'lodash'
+import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
 import { textSlug } from '@/helper/convertText.helper.ts'
 import { formatDatePublish } from '@/helper/formatDate.helper.ts'
@@ -12,20 +13,6 @@ import contentBlogPath from '@/path/contentBlog.path.ts'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 
 const defaultActive = '1'
-
-const mapSEOForm = (passSEO) => ({
-    info: passSEO?.info || '',
-    title: passSEO?.title || '',
-    slug: passSEO?.slug || '',
-    description: passSEO?.description || '',
-    metaKeyword: passSEO?.metaKeyword || '',
-    canonicalUrl: passSEO?.canonicalUrl || '',
-    robotIndex: passSEO.robotIndex ? 1 : 0,
-    robotFollow: passSEO.robotFollow ? 1 : 0,
-    thumbnail: '',
-    deleteThumbnail: '',
-    structuredData: null,
-})
 
 const initForm = {
     categoryId: '',
@@ -39,16 +26,7 @@ const initForm = {
     tagIds: [],
     thumbnail: '',
     seo: {
-        info: '',
-        title: '',
-        slug: '',
-        description: '',
-        metaKeyword: '',
-        canonicalUrl: '',
-        robotIndex: 1,
-        robotFollow: 1,
-        thumbnail: '',
-        structuredData: null,
+        ...initSEOFormConfig,
     },
 }
 
@@ -63,7 +41,7 @@ const initMapForm = (passData) => ({
     isActive: passData?.isActive ? defaultActive : '0',
     tagIds: [],
     thumbnail: '',
-    seo: mapSEOForm(passData?.seo || {}),
+    seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
 const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {

@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
+import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
-import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
+import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 
 const defaultIsActive = 1
 
@@ -30,6 +31,7 @@ const initMapForm = (passData) => {
         mapImage: '',
         photos: [],
         catalogs: [],
+        seo: { ...mapSEOFormConfig(passData?.seo || {}) },
     }
 }
 
@@ -49,6 +51,9 @@ const initForm = {
     mapImage: '',
     photos: [],
     catalogs: [],
+    seo: {
+        ...initSEOFormConfig,
+    },
 }
 
 const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
@@ -68,6 +73,8 @@ const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [previewMapImage, setPreviewMapImage] = useState('')
 
+    const [seoThumbnail, setSetSEOThumbnail] = useState('')
+
     const [formRequest, setFormRequest] = useState({
         ...initForm,
         author: __profile?.fullName || '',
@@ -85,6 +92,11 @@ const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     const _handleMapImageRemove = () => {
         setPreviewMapImage('')
         nestedForm.__handleChange('mapImage', '')
+    }
+
+    const _handleSEOThumbnailRemove = () => {
+        setSetSEOThumbnail('')
+        nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
     }
 
     const dataDetail = useDetailFormRequestHook({
@@ -109,6 +121,10 @@ const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                 if (res?.mapImage) {
                     setPreviewMapImage(res.mapImage)
+                }
+
+                if (res?.seo?.thumbnail) {
+                    setSetSEOThumbnail(res.seo.thumbnail)
                 }
             }
         },
@@ -151,6 +167,11 @@ const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __previewMapImage: previewMapImage,
         __setPreviewMapImage: setPreviewMapImage,
         __handleMapImageRemove: _handleMapImageRemove,
+
+        // SEO
+        __seoThumbnail: seoThumbnail,
+        __setSetSEOThumbnail: setSetSEOThumbnail,
+        __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,

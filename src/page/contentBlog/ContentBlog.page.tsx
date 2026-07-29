@@ -1,28 +1,28 @@
-import useContentBlogMainHook from '@/page/contentBlog/hook/useContentBlogMain.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import CardListData from '@/component/card/CardListData.tsx'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import CardListData from '@/component/card/CardListData.tsx'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
+import { MDGeneralRemove } from '@/config/modal.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useContentBlogMainHook from '@/page/contentBlog/hook/useContentBlogMain.hook.ts'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
-import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 
 const ContentBlogPage = () => {
     const {
@@ -64,7 +64,7 @@ const ContentBlogPage = () => {
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
+                    // isDateRange
                     actions={{
                         change: __actionChange,
                         pagination: __actionPagination,

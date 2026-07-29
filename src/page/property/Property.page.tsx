@@ -1,15 +1,9 @@
-import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnCircleEdit,
-    BtnCircleRemove,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
-import usePropertyMainHook from '@/page/property/hook/usePropertyMain.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import CardListData from '@/component/card/CardListData.tsx'
 import {
     TblLineFirst,
     TblLineFirstPrimary,
@@ -17,15 +11,21 @@ import {
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import {
+    BtnCircleEdit,
+    BtnCircleRemove,
+    BtnPrimary,
+} from '@/component/general/Button.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import { MDGeneralRemove } from '@/config/modal.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import usePropertyMainHook from '@/page/property/hook/usePropertyMain.hook.ts'
 import { apiProperty } from '@/service/api/property.api.ts'
-import Image from 'rc-image'
-import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 
 const PropertyPage = () => {
     const {
@@ -67,7 +67,6 @@ const PropertyPage = () => {
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
                     actions={{
                         change: __actionChange,
                         pagination: __actionPagination,

@@ -1,6 +1,8 @@
+import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
+import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
@@ -45,6 +47,11 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __previewMapImage,
         __setPreviewMapImage,
         __handleMapImageRemove,
+
+        // SEO Thumbnail
+        __seoThumbnail,
+        __setSetSEOThumbnail,
+        __handleSEOThumbnailRemove,
 
         // Form
         __handleSubmit,
@@ -101,161 +108,196 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                         }}>
                         <div className="row">
                             <div className="col-md-8">
-                                <Card title="Experience Information">
-                                    <WrapFormContext
-                                        formRequest={__formRequest}
-                                        actions={{
-                                            change: __handleChange,
-                                        }}>
-                                        <GeneralRowForm label="Name" isRequired>
-                                            <FormInput
-                                                name="name"
-                                                placeholder="e.g Amara"
-                                                required
-                                            />
-                                        </GeneralRowForm>
-                                        <GeneralRowForm label="Type" isRequired>
-                                            <FormSelectOption
-                                                name="experienceTypeId"
-                                                disabled={isTypeLoading}
-                                                required
-                                                value={
-                                                    __formRequest.experienceTypeId
-                                                }
-                                                actions={{
-                                                    onChange: (name, value) => {
-                                                        __setFormRequest(
-                                                            (prev) => ({
-                                                                ...prev,
-                                                                experienceCategoryId:
-                                                                    '',
-                                                                [name]: value,
-                                                            }),
-                                                        )
-                                                    },
-                                                }}>
-                                                <option value="">
-                                                    - Select Type -
-                                                </option>
-                                                {typeList.map((vm, index) => (
-                                                    <option
-                                                        key={index}
-                                                        value={vm.id}>
-                                                        {vm.name}
-                                                    </option>
-                                                ))}
-                                            </FormSelectOption>
-                                        </GeneralRowForm>
-                                        <GeneralRowForm
-                                            label="Category"
-                                            isRequired>
-                                            <FormSelectOption
-                                                name="experienceCategoryId"
-                                                disabled={isCategoryLoading}
-                                                required>
-                                                <option value="">
-                                                    - Select Category -
-                                                </option>
-                                                {categoryList
-                                                    .filter(
-                                                        (vm) =>
-                                                            vm.type.id ==
-                                                            __formRequest.experienceTypeId,
-                                                    )
-                                                    .map((vm, index) => (
-                                                        <option
-                                                            key={index}
-                                                            value={vm.id}>
-                                                            {vm.name}
-                                                        </option>
-                                                    ))}
-                                            </FormSelectOption>
-                                        </GeneralRowForm>
-                                        <GeneralRowForm
-                                            label="Open Hours"
-                                            isRequired>
-                                            <FormInput
-                                                name="openHours"
-                                                placeholder="e.g Open Everyday 6.30AM - Late"
-                                                required
-                                            />
-                                        </GeneralRowForm>
-                                        <GeneralRowForm
-                                            label="Description"
-                                            isRequired>
-                                            <FormTextEditor
-                                                value={
-                                                    __formRequest.description
-                                                }
-                                                actions={{
-                                                    onChange: (value) =>
-                                                        __handleChange(
-                                                            'description',
+                                <div className="vstack gap-4">
+                                    <CardDropdown
+                                        title="Experience Information"
+                                        isShow>
+                                        <WrapFormContext
+                                            formRequest={__formRequest}
+                                            actions={{
+                                                change: __handleChange,
+                                            }}>
+                                            <GeneralRowForm
+                                                label="Name"
+                                                isRequired>
+                                                <FormInput
+                                                    name="name"
+                                                    placeholder="e.g Amara"
+                                                    required
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Type"
+                                                isRequired>
+                                                <FormSelectOption
+                                                    name="experienceTypeId"
+                                                    disabled={isTypeLoading}
+                                                    required
+                                                    value={
+                                                        __formRequest.experienceTypeId
+                                                    }
+                                                    actions={{
+                                                        onChange: (
+                                                            name,
                                                             value,
+                                                        ) => {
+                                                            __setFormRequest(
+                                                                (prev) => ({
+                                                                    ...prev,
+                                                                    experienceCategoryId:
+                                                                        '',
+                                                                    [name]: value,
+                                                                }),
+                                                            )
+                                                        },
+                                                    }}>
+                                                    <option value="">
+                                                        - Select Type -
+                                                    </option>
+                                                    {typeList.map(
+                                                        (vm, index) => (
+                                                            <option
+                                                                key={index}
+                                                                value={vm.id}>
+                                                                {vm.name}
+                                                            </option>
                                                         ),
-                                                }}
-                                                required
-                                            />
-                                        </GeneralRowForm>
-                                    </WrapFormContext>
+                                                    )}
+                                                </FormSelectOption>
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Category"
+                                                isRequired>
+                                                <FormSelectOption
+                                                    name="experienceCategoryId"
+                                                    disabled={isCategoryLoading}
+                                                    required>
+                                                    <option value="">
+                                                        - Select Category -
+                                                    </option>
+                                                    {categoryList
+                                                        .filter(
+                                                            (vm) =>
+                                                                vm.type.id ==
+                                                                __formRequest.experienceTypeId,
+                                                        )
+                                                        .map((vm, index) => (
+                                                            <option
+                                                                key={index}
+                                                                value={vm.id}>
+                                                                {vm.name}
+                                                            </option>
+                                                        ))}
+                                                </FormSelectOption>
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Open Hours"
+                                                isRequired>
+                                                <FormInput
+                                                    name="openHours"
+                                                    placeholder="e.g Open Everyday 6.30AM - Late"
+                                                    required
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Description"
+                                                isRequired>
+                                                <FormTextEditor
+                                                    value={
+                                                        __formRequest.description
+                                                    }
+                                                    actions={{
+                                                        onChange: (value) =>
+                                                            __handleChange(
+                                                                'description',
+                                                                value,
+                                                            ),
+                                                    }}
+                                                    required
+                                                />
+                                            </GeneralRowForm>
+                                        </WrapFormContext>
 
-                                    <WrapFormContext
-                                        formRequest={__formRequest}
-                                        actions={{
-                                            change: __handleChange,
-                                            handleAddFiles: __actionAddFiles,
-                                            handleSetDataFiles:
-                                                __actionSetDataFiles,
-                                            handleRemoveDataFile:
-                                                __actionRemoveDataFile,
-                                            handleArrChange: __handleArrChange,
-                                        }}>
-                                        <GeneralRowForm
-                                            label="New Photos"
-                                            isRequired>
-                                            <FormUploadFileWithActionPreviewLogic
-                                                isUseInputDesc={false}
-                                                formName="photos"
-                                                dataFiles={__dataFiles}
-                                                formRequest={__formRequest}
-                                            />
-                                        </GeneralRowForm>
-                                    </WrapFormContext>
+                                        <WrapFormContext
+                                            formRequest={__formRequest}
+                                            actions={{
+                                                change: __handleChange,
+                                                handleAddFiles:
+                                                    __actionAddFiles,
+                                                handleSetDataFiles:
+                                                    __actionSetDataFiles,
+                                                handleRemoveDataFile:
+                                                    __actionRemoveDataFile,
+                                                handleArrChange:
+                                                    __handleArrChange,
+                                            }}>
+                                            <GeneralRowForm
+                                                label="New Photos"
+                                                isRequired>
+                                                <FormUploadFileWithActionPreviewLogic
+                                                    isUseInputDesc={false}
+                                                    formName="photos"
+                                                    dataFiles={__dataFiles}
+                                                    formRequest={__formRequest}
+                                                />
+                                            </GeneralRowForm>
+                                        </WrapFormContext>
 
-                                    <WrapFormContext
-                                        formRequest={__formRequest}
-                                        actions={{
-                                            change: __handleChange,
-                                            handleAddFiles:
-                                                __actionAddFilesCatalogs,
-                                            handleSetDataFiles:
-                                                __actionSetDataFilesCatalogs,
-                                            handleRemoveDataFile:
-                                                __actionRemoveDataFileCatalogs,
-                                            handleArrChange: __handleArrChange,
-                                        }}>
-                                        <GeneralRowForm
-                                            label="Catalogs"
-                                            isRequired>
-                                            <FormUploadFileWithActionPreviewLogic
-                                                formName="catalogs"
-                                                dataFiles={__dataFilesCatalogs}
-                                                formRequest={__formRequest}
-                                                nameInput="nameInput"
-                                                actions={{
-                                                    handleAddFiles:
-                                                        __actionAddFilesCatalogs,
-                                                    handleSetDataFiles:
-                                                        __actionSetDataFilesCatalogs,
-                                                    handleRemoveDataFile:
-                                                        __actionRemoveDataFileCatalogs,
-                                                    handleArrChange:
-                                                        __handleArrChange,
-                                                }}
-                                            />
-                                        </GeneralRowForm>
-                                    </WrapFormContext>
-                                </Card>
+                                        <WrapFormContext
+                                            formRequest={__formRequest}
+                                            actions={{
+                                                change: __handleChange,
+                                                handleAddFiles:
+                                                    __actionAddFilesCatalogs,
+                                                handleSetDataFiles:
+                                                    __actionSetDataFilesCatalogs,
+                                                handleRemoveDataFile:
+                                                    __actionRemoveDataFileCatalogs,
+                                                handleArrChange:
+                                                    __handleArrChange,
+                                            }}>
+                                            <GeneralRowForm
+                                                label="Catalogs"
+                                                isRequired>
+                                                <FormUploadFileWithActionPreviewLogic
+                                                    formName="catalogs"
+                                                    dataFiles={
+                                                        __dataFilesCatalogs
+                                                    }
+                                                    formRequest={__formRequest}
+                                                    nameInput="nameInput"
+                                                    actions={{
+                                                        handleAddFiles:
+                                                            __actionAddFilesCatalogs,
+                                                        handleSetDataFiles:
+                                                            __actionSetDataFilesCatalogs,
+                                                        handleRemoveDataFile:
+                                                            __actionRemoveDataFileCatalogs,
+                                                        handleArrChange:
+                                                            __handleArrChange,
+                                                    }}
+                                                />
+                                            </GeneralRowForm>
+                                        </WrapFormContext>
+                                    </CardDropdown>
+
+                                    <SectionFormSEOInfo
+                                        // classNameColumn="col-md-8"
+                                        __formRequest={__formRequest}
+                                        __handleChangeWithParent={
+                                            __handleChangeWithParent
+                                        }
+
+                                        // SEO Thumbnail
+                                        __seoThumbnail={__seoThumbnail}
+                                        __setSetSEOThumbnail={
+                                            __setSetSEOThumbnail
+                                        }
+                                        __handleSEOThumbnailRemove={
+                                            __handleSEOThumbnailRemove
+                                        }
+                                    />
+                                </div>
                             </div>
 
                             <div className="col-lg-4">
