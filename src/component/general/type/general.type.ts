@@ -285,7 +285,7 @@ export interface TextInTableProps {
 }
 
 export interface NotAvailableInTableProps {
-    colSpan: number
+    colSpan?: number
 }
 
 export interface TextRequiredProps {
