@@ -182,11 +182,11 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         - Select Area -
                                                     </option>
                                                     {areaList
-                                                        .filter(
-                                                            (vm) =>
-                                                                vm.type.id ==
-                                                                __formRequest.experienceAreaId,
-                                                        )
+                                                        // .filter(
+                                                        //     (vm) =>
+                                                        //         vm.type.id !==
+                                                        //         __formRequest.experienceAreaId,
+                                                        // )
                                                         .map((vm, index) => (
                                                             <option
                                                                 key={index}
