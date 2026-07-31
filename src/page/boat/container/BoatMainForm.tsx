@@ -316,6 +316,26 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
                                     </WrapFormContext>
 
+                                    {/*New Photos*/}
+                                    {isEdit &&
+                                    __lisPreviousPhotosPromotion?.length ? (
+                                        <GeneralRowForm label="Previous Photos Promotion">
+                                            <FormEditFileLogic
+                                                dataFiles={__lisPreviousPhotosPromotion.filter(
+                                                    (vm) => !vm.isDeleted,
+                                                )}
+                                                dataBy="file"
+                                                actions={{
+                                                    remove: (data) =>
+                                                        __handleToggleDeletePrevPhotoPromotion(
+                                                            data.id,
+                                                        ),
+                                                    restore: () => {},
+                                                }}
+                                            />
+                                        </GeneralRowForm>
+                                    ) : null}
+
                                     {/*Promo Photos*/}
                                     <WrapFormContext
                                         formRequest={__formRequest}

@@ -1,38 +1,51 @@
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
-import CardListData from '@/component/card/CardListData.tsx'
+import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import ReviewRating from '@/common/misc/ReviewRating.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import CardListData from '@/component/card/CardListData.tsx'
+import {
+    BtnCircleEdit,
+    BtnCircleRemove,
+    BtnPrimary,
+} from '@/component/general/Button.tsx'
+import Pagination from '@/component/general/Pagination.tsx'
+import PreElement from '@/component/general/PreElement.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import { apiPropertyReviews } from '@/service/api/property.api.ts'
-import ReviewRating from '@/common/misc/ReviewRating.tsx'
-import actionOffCanvas from '@/helper/actionOffCanvas.helper.ts'
-import { OCPropertyReviewDetail } from '@/config/offCanvas.config.ts'
 import OffCanvasGeneral from '@/component/offCanvas/OffCanvasGeneral.tsx'
-import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
+import { MDGeneralRemove } from '@/config/modal.config.ts'
 import { objectListDetail } from '@/config/objectList.config.ts'
-import PreElement from '@/component/general/PreElement.tsx'
+import { OCPropertyReviewDetail } from '@/config/offCanvas.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import actionOffCanvas from '@/helper/actionOffCanvas.helper.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import { apiPropertyReviews } from '@/service/api/property.api.ts'
 
 const PropertyReview = ({
     isDetailProperty = false,
     api = {
         list: (passSearch) => {},
     },
+    actions = {
+        add: () => {},
+        edit: () => {},
+    },
 }: {
     isDetailProperty?: boolean
     api?: {
         list?: any
+    }
+    actions?: {
+        add: () => void
+        edit: (pass?: any) => void
     }
 }) => {
     const {
@@ -75,12 +88,11 @@ const PropertyReview = ({
         <>
             <CardListData
                 title="Property Reviews"
-                // componentAction={
-                //     <BtnPrimary onClick={() => __handleToAdd()}>
-                //         Add New
-                //     </BtnPrimary>
-                // }
-            >
+                componentAction={
+                    <BtnPrimary onClick={() => actions.add()}>
+                        Add New
+                    </BtnPrimary>
+                }>
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
@@ -103,6 +115,7 @@ const PropertyReview = ({
                                 'Rating',
                                 'Status Active',
                                 'Created At',
+                                '',
                             ]}
                             tds={__list}>
                             {__list.map((vm, index) => {
@@ -132,6 +145,7 @@ const PropertyReview = ({
                                                         : 0
                                                 }
                                             />
+                                            {/*<TblLineSecond value={vm.rating} />*/}
                                         </td>
 
                                         <td>
@@ -143,6 +157,30 @@ const PropertyReview = ({
                                             <TblLineSecond>
                                                 {vm?.createdAt || '-'}
                                             </TblLineSecond>
+                                        </td>
+                                        <td>
+                                            <div className="hstack gap-2 justify-content-end">
+                                                <BtnCircleRemove
+                                                    actions={{
+                                                        remove: (e) => {
+                                                            e.stopPropagation()
+                                                            _handleChooseRemove(
+                                                                vm,
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+
+                                                <BtnCircleEdit
+                                                    title="Edit Data"
+                                                    actions={{
+                                                        edit: (e) => {
+                                                            e.stopPropagation()
+                                                            actions.edit(vm.id)
+                                                        },
+                                                    }}
+                                                />
+                                            </div>
                                         </td>
                                     </tr>
                                 )

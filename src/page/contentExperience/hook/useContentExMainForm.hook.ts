@@ -17,7 +17,7 @@ const initCatalogForm = (name, file) => ({ name, file })
 const initMapForm = (passData) => {
     return {
         experienceTypeId: passData?.type?.id || '',
-        experienceCategoryId: passData?.category?.id || '',
+        experienceAreaId: passData?.area?.id || '',
         name: passData.name || '',
         openHours: passData.openHours || '',
         description: passData.description || '',
@@ -30,14 +30,16 @@ const initMapForm = (passData) => {
         thumbnail: '',
         mapImage: '',
         photos: [],
+        deletePhotoIds: [],
         catalogs: [],
+        deleteCatalogIds: [],
         seo: { ...mapSEOFormConfig(passData?.seo || {}) },
     }
 }
 
 const initForm = {
     experienceTypeId: '',
-    experienceCategoryId: '',
+    experienceAreaId: '',
     name: '',
     openHours: '',
     description: '',

@@ -1,18 +1,19 @@
-import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
-import boatPath from '@/path/boat.path.ts'
-import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
-import PageTitle from '@/component/general/PageTitle.tsx'
-import { BtnPrimary } from '@/component/general/Button.tsx'
-import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import Card from '@/component/card/Card.tsx'
-import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { isEmpty } from 'lodash'
-import { NotAvailable } from '@/component/general/TextDefault.tsx'
+import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import PreviewFileModalMultiLogic from '@/common/misc/PreviewFileModalMulti.logic.tsx'
-import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
+import Card from '@/component/card/Card.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
+import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
+import PageTitle from '@/component/general/PageTitle.tsx'
+import { NotAvailable } from '@/component/general/TextDefault.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
+import boatPath from '@/path/boat.path.ts'
 
 const BoatDetailPage = () => {
     const {
@@ -76,6 +77,9 @@ const BoatDetailPage = () => {
                 <div className="row g-3">
                     <div className="col-lg-4">
                         <Card title="Boat Information">
+                            <h6 className="mb-3 fw-500 text-primary">
+                                {__detail.name}
+                            </h6>
                             <HorizontalLoopDataLogic
                                 config={{
                                     titleColumn: 'col-md-4',
@@ -139,64 +143,18 @@ const BoatDetailPage = () => {
                                     )}
                                 </div>
                             ) : null}
-
-                            <CardNavTab
-                                classNameTabPane="px-0"
-                                tabs={[
-                                    objectTab('Photos', 'tabPhotos'),
-                                    objectTab('Catalog', 'tabCatalogs'),
-                                ]}
-                                tabContents={[
-                                    objectTabContent(
-                                        'Photos',
-                                        <>
-                                            {!isEmpty(__detail.photos) ? (
-                                                <>
-                                                    <PreviewFileModalMultiLogic
-                                                        dataFiles={
-                                                            __detail.photos
-                                                        }
-                                                        dataBy="photo"
-                                                        isDescription={false}
-                                                        classNameWrapImg="max-h-120-px"
-                                                    />
-                                                </>
-                                            ) : (
-                                                <NotAvailable />
-                                            )}
-                                        </>,
-                                    ),
-                                    objectTabContent(
-                                        'Catalog',
-                                        <>
-                                            {!isEmpty(__detail.catalogs) ? (
-                                                <>
-                                                    <PreviewFileModalMultiLogic
-                                                        dataFiles={
-                                                            __detail.catalogs
-                                                        }
-                                                        dataBy="file"
-                                                        isDescription={false}
-                                                        classNameWrapImg="max-h-120-px"
-                                                    />
-                                                </>
-                                            ) : (
-                                                <NotAvailable />
-                                            )}
-                                        </>,
-                                    ),
-                                ]}
-                            />
                         </Card>
                     </div>
                     <div className="col-lg-8">
                         <CardNavTab
                             tabs={[
                                 objectTab('Description', 'tabDescription'),
-                                // objectTab(
-                                //     'Boat Contact Form',
-                                //     'tabBoatContactForm',
-                                // ),
+                                objectTab('Photos', 'tabPhotos'),
+                                objectTab('Promo Photos', 'tabPromoPhotos'),
+                                objectTab(
+                                    'SEO Information',
+                                    'tabSEOInformation',
+                                ),
                             ]}
                             tabContents={[
                                 objectTabContent(
@@ -209,6 +167,50 @@ const BoatDetailPage = () => {
                                                     __detail?.description ||
                                                     '-',
                                             }}
+                                        />
+                                    </>,
+                                ),
+                                objectTabContent(
+                                    'Photos',
+                                    <>
+                                        {!isEmpty(__detail.photos) ? (
+                                            <>
+                                                <PreviewFileModalMultiLogic
+                                                    dataFiles={__detail.photos}
+                                                    dataBy="photo"
+                                                    isDescription={false}
+                                                    classNameWrapImg="max-h-120-px"
+                                                />
+                                            </>
+                                        ) : (
+                                            <NotAvailable />
+                                        )}
+                                    </>,
+                                ),
+                                objectTabContent(
+                                    'Promo Photos',
+                                    <>
+                                        {!isEmpty(__detail.promoPhotos) ? (
+                                            <>
+                                                <PreviewFileModalMultiLogic
+                                                    dataFiles={
+                                                        __detail.promoPhotos
+                                                    }
+                                                    dataBy="file"
+                                                    isDescription={false}
+                                                    classNameWrapImg="max-h-120-px"
+                                                />
+                                            </>
+                                        ) : (
+                                            <NotAvailable />
+                                        )}
+                                    </>,
+                                ),
+                                objectTabContent(
+                                    '',
+                                    <>
+                                        <SectionPreviewSEOInformation
+                                            seo={__detail?.seo || {}}
                                         />
                                     </>,
                                 ),

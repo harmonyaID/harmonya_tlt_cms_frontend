@@ -258,14 +258,29 @@
 // }
 
 import PropertyReview from '@/common/dataFeature/propertyReview/PropertyReview.tsx'
+import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
+import boatPath from '@/path/boat.path.ts'
+import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import { apiPropertyReviews } from '@/service/api/property.api.ts'
 
-const PropertyReviewsPage = () => (
-    <PropertyReview
-        api={{
-            list: apiPropertyReviews.list,
-        }}
-    />
-)
+const PropertyReviewsPage = () => {
+    const { __handleToAdd, __handleToEdit, __handleToDetail } =
+        usePageFlowHandlerHook({
+            basePath: propertyReviewsPath,
+            pathFromKey: 'property-review-main',
+        })
+
+    return (
+        <PropertyReview
+            api={{
+                list: apiPropertyReviews.list,
+            }}
+            actions={{
+                add: __handleToAdd,
+                edit: __handleToEdit,
+            }}
+        />
+    )
+}
 
 export default PropertyReviewsPage

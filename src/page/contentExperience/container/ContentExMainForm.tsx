@@ -22,6 +22,7 @@ import useContentExMainFormHook from '@/page/contentExperience/hook/useContentEx
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import {
+    apiExperienceArea,
     apiExperienceCategory,
     apiExperienceType,
 } from '@/service/api/contentManageSetting.api.ts'
@@ -80,11 +81,16 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     })
 
     // List Option Category
-    const { __list: categoryList, __isLoading: isCategoryLoading } =
-        useDataListHook({
-            urlAPI: ({ search }) =>
-                apiExperienceCategory.list({ search, page: 0 }),
-        })
+    // const { __list: categoryList, __isLoading: isCategoryLoading } =
+    //     useDataListHook({
+    //         urlAPI: ({ search }) =>
+    //             apiExperienceCategory.list({ search, page: 0 }),
+    //     })
+
+    // List Option Area
+    const { __list: areaList, __isLoading: isAreaLoading } = useDataListHook({
+        urlAPI: ({ search }) => apiExperienceArea.list({ search, page: 0 }),
+    })
 
     return (
         <>
@@ -166,21 +172,21 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 </FormSelectOption>
                                             </GeneralRowForm>
                                             <GeneralRowForm
-                                                label="Category"
+                                                label="Area"
                                                 isRequired>
                                                 <FormSelectOption
-                                                    name="experienceCategoryId"
-                                                    disabled={isCategoryLoading}
+                                                    name="experienceAreaId"
+                                                    disabled={isAreaLoading}
                                                     required>
                                                     <option value="">
-                                                        - Select Category -
+                                                        - Select Area -
                                                     </option>
-                                                    {categoryList
-                                                        .filter(
-                                                            (vm) =>
-                                                                vm.type.id ==
-                                                                __formRequest.experienceTypeId,
-                                                        )
+                                                    {areaList
+                                                        // .filter(
+                                                        //     (vm) =>
+                                                        //         vm.type.id !==
+                                                        //         __formRequest.experienceAreaId,
+                                                        // )
                                                         .map((vm, index) => (
                                                             <option
                                                                 key={index}

@@ -145,7 +145,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     </CardDropdown>
 
                                     <SectionFormSEOInfo
-                                        classNameColumn="col-md-8"
+                                        classNameColumn="col-md-12"
                                         __formRequest={__formRequest}
                                         __handleChangeWithParent={
                                             __handleChangeWithParent
