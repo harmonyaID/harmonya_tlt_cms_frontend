@@ -1,51 +1,31 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { getWebConfig } from '@/service/api/systemManagement.api.ts'
-import CardListData from '@/component/card/CardListData.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
+import CardListData from '@/component/card/CardListData.tsx'
+import CardNavTab from '@/component/card/CardNavTab.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import { PageTitle } from '@/component/general/TitleGeneral.tsx'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import TabCacheInfo from '@/page/systemPlatformInfo/container/TabCacheInfo.tsx'
+import TabSystemInfo from '@/page/systemPlatformInfo/container/TabSystemInfo.tsx'
+import { getWebConfig } from '@/service/api/systemManagement.api.ts'
 
 const SystemPlatformInfoPage = () => {
-    const { __detail, __isLoading } = useDataDetailHook({
-        urlAPI: () => getWebConfig(),
-    })
-
     return (
         <>
-            <CardListData title="Platform Information">
-                <h5 className="">Coming Soon</h5>
-                {/*<div className="row g-4">*/}
-                {/*    <div className="col-md-6">*/}
-                {/*        <div className="card card-body mb-0">*/}
-                {/*            <HorizontalLoopDataLogic*/}
-                {/*                list={[*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Title',*/}
-                {/*                        __detail.title || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Email',*/}
-                {/*                        __detail.email || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Phone',*/}
-                {/*                        __detail.phone || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Fax',*/}
-                {/*                        __detail.fax || '-',*/}
-                {/*                    ),*/}
-                {/*                    objectListDetail(*/}
-                {/*                        'Whatsapp',*/}
-                {/*                        __detail.whatsapp || '-',*/}
-                {/*                    ),*/}
-                {/*                ]}*/}
-                {/*            />*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-            </CardListData>
+            <PageTitle title="Platform Information" className="pb-4" />
+
+            <CardNavTab
+                tabs={[
+                    objectTab('System Information', 'tabSystemInfo'),
+                    objectTab('Cache Management', 'tabCacheInfo'),
+                ]}
+                tabContents={[
+                    objectTabContent('System Information', <TabSystemInfo />),
+                    objectTabContent('Cache Management', <TabCacheInfo />),
+                ]}
+            />
         </>
     )
 }

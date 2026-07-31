@@ -1,5 +1,7 @@
 import { Map, Location } from 'iconsax-react'
 import { isEmpty } from 'lodash'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 import PreviewFileModalMultiLogic from '@/common/misc/PreviewFileModalMulti.logic.tsx'
@@ -38,6 +40,11 @@ const PropertyDetailPage = () => {
     const availability = __detail?.availability || {}
     const guestInfo = __detail?.guestInfo || {}
     const descriptions = __detail?.descriptions || []
+    const pricing = __detail?.pricing || {}
+
+    const _handleFormatPrice = (value) => {
+        return __detail.currency + ' ' + value
+    }
 
     return (
         <>
@@ -103,7 +110,22 @@ const PropertyDetailPage = () => {
                 <div className="vstack gap-3">
                     <Card>
                         <div className="row">
-                            <div className="col-md-3"></div>
+                            <div className="col-md-2">
+                                <div className="position-relative">
+                                    <div className="overflow-hidden rounded position-relative">
+                                        <div
+                                            className="wp-img-preview"
+                                            onClick={() => {}}>
+                                            <Image
+                                                src={__detail?.coverPhoto}
+                                                alt="Preview File"
+                                                fallback={ImgGeneralDefault}
+                                                className="data-img data-img-contain w-100"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div className="col-md-9">
                                 <h5 className="text-primary">
@@ -114,7 +136,6 @@ const PropertyDetailPage = () => {
                                 </h5>
 
                                 <div className="hstack gap-3">
-                                    {/*{__detail?.address}*/}
                                     {__detail?.tags
                                         ? __detail?.tags.map((tag) => {
                                               return (
@@ -209,6 +230,18 @@ const PropertyDetailPage = () => {
                                                                 __detail
                                                                     ?.roomType
                                                                     ?.name ||
+                                                                    '-',
+                                                            ),
+                                                            objectTabContent(
+                                                                'Cleaning Status',
+                                                                __detail
+                                                                    ?.cleaningStatus
+                                                                    ?.name ||
+                                                                    '-',
+                                                            ),
+                                                            objectTabContent(
+                                                                'Currency',
+                                                                __detail?.currency ||
                                                                     '-',
                                                             ),
                                                             objectTabContent(
@@ -316,6 +349,13 @@ const PropertyDetailPage = () => {
                                                                                 objectTabContent(
                                                                                     'Label',
                                                                                     vm?.label ||
+                                                                                        '-',
+                                                                                ),
+                                                                                objectTabContent(
+                                                                                    'Room Type',
+                                                                                    vm
+                                                                                        ?.roomType
+                                                                                        ?.name ||
                                                                                         '-',
                                                                                 ),
                                                                                 objectTabContent(
@@ -533,9 +573,83 @@ const PropertyDetailPage = () => {
                                 </>,
                             ),
                             objectTabContent(
-                                'Pricing',
+                                '',
                                 <>
-                                    <h5 className="">Coming Soon</h5>
+                                    <div className="row">
+                                        <div className="col-md-9">
+                                            <div className="vstack gap-4">
+                                                <PropertySpaceInfo title="Pricing">
+                                                    <HorizontalLoopDataLogic
+                                                        list={[
+                                                            objectTabContent(
+                                                                'Cleaning Fee Type',
+                                                                pricing
+                                                                    ?.cleaningFeeType
+                                                                    ?.name ||
+                                                                    '-',
+                                                            ),
+                                                            objectTabContent(
+                                                                'Cleaning Fee',
+                                                                _handleFormatPrice(
+                                                                    pricing?.cleaningFee ||
+                                                                        '-',
+                                                                ),
+                                                            ),
+                                                            objectTabContent(
+                                                                'Extra Person Fee',
+                                                                pricing?.extraPersonFee ||
+                                                                    '-',
+                                                            ),
+                                                            objectTabContent(
+                                                                'Markup Percent',
+                                                                pricing?.markupPercent ||
+                                                                    '-',
+                                                            ),
+                                                            objectTabContent(
+                                                                'Monthly Discount',
+                                                                _handleFormatPrice(
+                                                                    pricing?.monthlyDiscount ||
+                                                                        '-',
+                                                                ),
+                                                            ),
+                                                            objectTabContent(
+                                                                'Rate Strategy',
+                                                                pricing?.rateStrategy ||
+                                                                    '-',
+                                                            ),
+                                                            objectTabContent(
+                                                                'Security Deposit Fee',
+                                                                _handleFormatPrice(
+                                                                    pricing?.securityDepositFee ||
+                                                                        '-',
+                                                                ),
+                                                            ),
+                                                            objectTabContent(
+                                                                'Weekday Base Price',
+                                                                _handleFormatPrice(
+                                                                    pricing?.weekdayBasePrice,
+                                                                ),
+                                                            ),
+                                                            objectTabContent(
+                                                                'Weekend Base Price',
+                                                                _handleFormatPrice(
+                                                                    pricing?.weekendBasePrice ||
+                                                                        '-',
+                                                                ),
+                                                            ),
+                                                            objectTabContent(
+                                                                'Weekly Discount',
+                                                                _handleFormatPrice(
+                                                                    pricing?.weeklyDiscount ||
+                                                                        '-',
+                                                                ),
+                                                            ),
+                                                        ]}
+                                                    />
+                                                </PropertySpaceInfo>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </>,
                             ),
                             // objectTabContent(
