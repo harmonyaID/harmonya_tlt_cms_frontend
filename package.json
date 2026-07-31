@@ -29,6 +29,7 @@
     "quill": "^2.0.3",
     "rc-image": "^7.12.0",
     "react": "^19.2.6",
+    "react-bootstrap-typeahead": "^6.4.1",
     "react-copy-to-clipboard": "^5.1.1",
     "react-dom": "^19.2.6",
     "react-feather": "^2.0.10",
