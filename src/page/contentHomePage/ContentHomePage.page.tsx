@@ -6,10 +6,12 @@ import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
 import ContentMedia from '@/component/general/ContentMedia.tsx'
 import RenderHtml from '@/component/general/RenderHtml.tsx'
 import { MediaNotAvailable } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import VerticalDataPreview from '@/component/general/VerticalDataPreview.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
@@ -33,8 +35,6 @@ const ContentHomePagePage = () => {
         __handleToEdit,
         __handleToDetail,
     } = useHomePageMainHook()
-
-    console.log('__detail: ', __detail)
 
     // @ts-ignore
     const {
@@ -63,7 +63,19 @@ const ContentHomePagePage = () => {
             <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
                 <div className="row">
                     <div className="col-md-8">
-                        <h5 className="fs-18 fw-600 pb-3">Homepage Content</h5>
+                        <div className="hstack flex-wrap align-items-center justify-content-between">
+                            <h5 className="fs-18 fw-600 pb-3">
+                                Homepage Content
+                            </h5>
+
+                            <BtnPrimary
+                                className="btn-sm"
+                                isOutline
+                                handle={() => __handleToEdit(__detail.locale)}>
+                                Edit Content
+                            </BtnPrimary>
+                        </div>
+
                         <div className="vstack gap-3 content-public">
                             <CardDropdown
                                 title="SECTION 1"
@@ -94,7 +106,86 @@ const ContentHomePagePage = () => {
                                                 type="video"
                                             />,
                                         ),
-                                        objectListDetail('', ''),
+                                        objectListDetail(
+                                            'Search',
+                                            <>
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Search Label Dates"
+                                                            content={
+                                                                SECTION1.searchLabelDates
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Search Placeholder Dates"
+                                                            content={
+                                                                SECTION1.searchPlaceholderDates
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Search Label Guest"
+                                                            content={
+                                                                SECTION1.searchLabelGuest
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Search Placeholder Guest"
+                                                            content={
+                                                                SECTION1.searchPlaceholderGuest
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Search Label Collection"
+                                                            content={
+                                                                SECTION1.searchLabelCollection
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Search Placeholder Collection"
+                                                            content={
+                                                                SECTION1.searchPlaceholderCollection
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Button Text"
+                                                            content={
+                                                                SECTION1.buttonText
+                                                            }
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <VerticalDataPreview
+                                                            title="Button Link"
+                                                            content={
+                                                                SECTION1.buttonLink
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </>,
+                                        ),
                                     ]}
                                 />
                             </CardDropdown>

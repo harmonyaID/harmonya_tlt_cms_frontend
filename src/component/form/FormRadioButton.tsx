@@ -51,10 +51,13 @@ const FormRadioButton: FC<FormRadioButtonProps> = (props) => {
     }
 
     const _handleNormalizeBool = (val) => {
-        if (val === null || val === undefined) return false
-        if (typeof val === 'boolean') return val
-        const str = String(val).trim().toLowerCase()
-        return str === 'true' || str === '1'
+        if (val === null || val === undefined) return '0'
+
+        if (typeof val === 'boolean'){
+            return String(Number(val))
+        }
+
+        return String(val)
     }
 
     const isChecked =

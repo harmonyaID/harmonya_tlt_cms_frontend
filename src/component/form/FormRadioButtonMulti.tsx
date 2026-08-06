@@ -30,6 +30,7 @@ const FormRadioButtonMulti: FC<FormRadioButtonMultiProps> = (props) => {
                     {checkBoxs?.map((data, index) => (
                         <div className="col-auto" key={index}>
                             <FormRadioButton
+                                id={dataId + '-' + index}
                                 value={props.value}
                                 name={props.name}
                                 actions={{ ...actions }}

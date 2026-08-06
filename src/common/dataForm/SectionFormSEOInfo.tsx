@@ -25,7 +25,7 @@ const SectionFormSEOInfo = ({
                         <SEOPreviewPublic
                             title={__formRequest?.seo?.title || ''}
                             description={__formRequest?.seo?.description || ''}
-
+                            urlPhoto={__seoThumbnail}
                             className="mb-4"
                         />
 
