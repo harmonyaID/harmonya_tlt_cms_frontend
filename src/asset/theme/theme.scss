@@ -86,3 +86,23 @@ body {
         }
     }
 }
+
+.bg-badge-log-green {
+    background: rgba(var(--bs-success-rgb), 0.5);
+    color: darken($primary, 10%);
+}
+
+.bg-badge-log-red {
+    background: rgba(var(--bs-danger-rgb), 0.5);
+    color: darken($danger-100, 10%)
+}
+
+.bg-badge-log-yellow {
+    background: rgba(var(--bs-warning-rgb), 0.5);
+    color: darken($warning-100, 10%);
+}
+
+.size-35 {
+    width: 35px;
+    height: 35px;
+}
