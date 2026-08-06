@@ -4,6 +4,7 @@ export type FormTextEditorProps = {
     value: string
     readOnly?: boolean
     placeholder?: string
+    classNameTextEditor?: string
     required?: boolean
     actions?: {
         onChange: (content: string) => void
