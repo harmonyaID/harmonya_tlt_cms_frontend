@@ -7,7 +7,7 @@ import PreElement from '@/component/general/PreElement.tsx'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import { LOG_ACTION_BADGE, LOG_ACTION_ICON } from '@/config/systemActivityLog.config.ts'
-import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
+import { actionFormatDateStrict, oneTypeFormatDate } from '@/helper/actionFormatDate.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
@@ -100,13 +100,13 @@ const SystemActivityLogPage = () => {
 
                                         return (
                                             <div
-                                                className="card card-body border-neutral-500"
+                                                className="card card-body border-0 shadow-subtle"
                                                 key={index + '_' + idx}>
                                                 <div className="row">
                                                     <div className="col-auto">
                                                         <span
                                                             className={joinClassNameHelper(
-                                                                'size-35 rounded-2 d-flex justify-content-center align-items-center',
+                                                                'size-35 rounded-3 d-flex justify-content-center align-items-center',
                                                                 LOG_ACTION_BADGE[
                                                                     vm.action
                                                                 ],
@@ -140,7 +140,7 @@ const SystemActivityLogPage = () => {
                                                                         '-'
                                                                     }
                                                                     subTitle={
-                                                                        vm?.createdAt ||
+                                                                        vm?.createdAt ? oneTypeFormatDate(vm.createdAt, 'D MMMM YYYY') :
                                                                         '-'
                                                                     }
                                                                 />
