@@ -1,11 +1,11 @@
-import { getStaticMediaPartnerType } from '@/service/api/propertySettingGeneral.api.ts'
+import { getStaticCleaningFeeType } from '@/service/api/propertySettingGeneral.api.ts'
 import { createStoreWithAPI } from '@/store/_coreStore/_create.store.ts'
 import { DefaultConfigCreatStoreType } from '@/store/_coreStore/_store.type.ts'
 import useHookFetchDataStore from '@/store/_coreStore/_useHookFetchData.store.ts'
 
-const configUseStore = createStoreWithAPI(getStaticMediaPartnerType)
+const configUseStore = createStoreWithAPI(getStaticCleaningFeeType)
 
-const useStaticMediaPartnerType = (
+const useStaticPropertyCleaningFeeTypeStore = (
     passConfig: DefaultConfigCreatStoreType = {},
 ) => {
     return {
@@ -16,4 +16,4 @@ const useStaticMediaPartnerType = (
     }
 }
 
-export default useStaticMediaPartnerType
+export default useStaticPropertyCleaningFeeTypeStore

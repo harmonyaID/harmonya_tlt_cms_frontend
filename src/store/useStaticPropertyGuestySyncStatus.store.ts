@@ -1,11 +1,13 @@
-import { apiBoatType } from '@/service/api/boatManage.api.ts'
+import { getStaticGuestySyncStatus } from '@/service/api/propertySettingGeneral.api.ts'
 import { createStoreWithAPI } from '@/store/_coreStore/_create.store.ts'
 import { DefaultConfigCreatStoreType } from '@/store/_coreStore/_store.type.ts'
 import useHookFetchDataStore from '@/store/_coreStore/_useHookFetchData.store.ts'
 
-const configUseStore = createStoreWithAPI(() => apiBoatType.list({ page: 0 }))
+const configUseStore = createStoreWithAPI(getStaticGuestySyncStatus)
 
-const useBoatTypeStore = (passConfig: DefaultConfigCreatStoreType = {}) => {
+const useStaticPropertyGuestySyncStatusStore = (
+    passConfig: DefaultConfigCreatStoreType = {},
+) => {
     return {
         ...useHookFetchDataStore({
             ...passConfig,
@@ -14,4 +16,4 @@ const useBoatTypeStore = (passConfig: DefaultConfigCreatStoreType = {}) => {
     }
 }
 
-export default useBoatTypeStore
+export default useStaticPropertyGuestySyncStatusStore

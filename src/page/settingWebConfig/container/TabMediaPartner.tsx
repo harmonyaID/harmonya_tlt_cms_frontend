@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import SelectBaseOptionMediaPartnerType from '@/common/dataForm/SelectBaseOptionMediaPartnerType.tsx'
+import SelectBaseOptionStaticMediaPartnerType from '@/common/dataForm/SelectBaseOptionStaticMediaPartnerType.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
@@ -234,16 +235,16 @@ const TabMediaPartner = () => {
                 </div>
             </div>
 
-            {/*{isShowPagination(__isLoading, __list, __pagination) ? (*/}
-            {/*    <Pagination*/}
-            {/*        onMove={(step) => __actionPagination(step)}*/}
-            {/*        className="mt-2"*/}
-            {/*        pagination={configDefaultPagination(*/}
-            {/*            __pagination,*/}
-            {/*            'totalPage',*/}
-            {/*        )}*/}
-            {/*    />*/}
-            {/*) : null}*/}
+            {isShowPagination(__isLoading, __list, __pagination) ? (
+                <Pagination
+                    onMove={(step) => __actionPagination(step)}
+                    className="mt-2"
+                    pagination={configDefaultPagination(
+                        __pagination,
+                        'totalPage',
+                    )}
+                />
+            ) : null}
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
@@ -292,7 +293,7 @@ const TabMediaPartner = () => {
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
                             />
 
-                            <SelectBaseOptionMediaPartnerType />
+                            <SelectBaseOptionStaticMediaPartnerType />
 
                             <FormRadioButtonMulti
                                 label="Share Publish ?"

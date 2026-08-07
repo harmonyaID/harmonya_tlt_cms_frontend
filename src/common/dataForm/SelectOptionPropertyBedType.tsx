@@ -4,12 +4,12 @@ import { SelectOptionGeneralProps } from '@/common/dataForm/type/selectOption.ty
 import SelectOption from '@/component/form/SelectOption.tsx'
 import { useHookContextForm } from '@/context/Form.context.tsx'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
-import usePropertyTypeStore from '@/store/usePropertyType.store.ts'
+import usePropertyBedTypeStore from '@/store/usePropertyBedType.store.ts'
 
-const SelectOptionPropertyType = (props: SelectOptionGeneralProps) => {
+const SelectOptionPropertyBedType = (props: SelectOptionGeneralProps) => {
     const ctx = useHookContextForm()
 
-    const { __list, __isLoading } = usePropertyTypeStore({
+    const { __list, __isLoading } = usePropertyBedTypeStore({
         isFormatList: false,
     })
 
@@ -156,4 +156,4 @@ const SelectOptionPropertyType = (props: SelectOptionGeneralProps) => {
     )
 }
 
-export default SelectOptionPropertyType
+export default SelectOptionPropertyBedType

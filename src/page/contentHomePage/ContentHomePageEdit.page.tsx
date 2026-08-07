@@ -80,7 +80,7 @@ const ContentHomePageEditPage = () => {
                             handleSubmit: () => __handleSubmit(),
                         }}>
                         <div className="row">
-                            <div className="col-lg-8">
+                            <div className="col-lg-12">
                                 <h5 className="fs-18 fw-600 pb-3">
                                     Homepage Content
                                 </h5>
@@ -834,25 +834,25 @@ const ContentHomePageEditPage = () => {
                                                 </div>
                                             </GeneralRowForm>
                                         </CardDropdown>
+
+                                        <SectionFormSEOInfo
+                                            classNameColumn="col-12"
+                                            __formRequest={__formRequest}
+                                            __handleChangeWithParent={
+                                                __handleChangeWithParent
+                                            }
+
+                                            // SEO Thumbnail
+                                            __seoThumbnail={__seoThumbnail}
+                                            __setSetSEOThumbnail={
+                                                __setSetSEOThumbnail
+                                            }
+                                            __handleSEOThumbnailRemove={
+                                                __handleSEOThumbnailRemove
+                                            }
+                                        />
                                     </div>
                                 </WrapFormContext>
-                            </div>
-
-                            <div className="col-lg-4">
-                                <SectionFormSEOInfo
-                                    classNameColumn="col-12"
-                                    __formRequest={__formRequest}
-                                    __handleChangeWithParent={
-                                        __handleChangeWithParent
-                                    }
-
-                                    // SEO Thumbnail
-                                    __seoThumbnail={__seoThumbnail}
-                                    __setSetSEOThumbnail={__setSetSEOThumbnail}
-                                    __handleSEOThumbnailRemove={
-                                        __handleSEOThumbnailRemove
-                                    }
-                                />
                             </div>
                         </div>
 

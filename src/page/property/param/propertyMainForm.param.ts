@@ -1,5 +1,9 @@
+import { isEmpty } from 'lodash'
+import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
+
 export const propertyMapFormAddress = (passData: Record<string, any> = {}) => ({
-    typeId: passData.typeId || '',
+    buildingName: passData.buildingName || '',
+    typeId: passData?.type?.id || '',
     address: passData.address || '',
     latitude: passData.latitude || '',
     longitude: passData.longitude || '',
@@ -7,16 +11,23 @@ export const propertyMapFormAddress = (passData: Record<string, any> = {}) => ({
 })
 
 export const propertyMapFormRoom = (passData: Record<string, any> = {}) => ({
-    roomTypeId: passData.id || '',
+    roomTypeId: passData?.roomType?.id || '',
+    bedTypeId: passData?.bedType?.id || '',
+    bedCount: passData.bedCount || '',
     label: passData.label || '',
     order: passData.order || '',
 })
 
 export const propertyMapFormDesc = (passData: Record<string, any> = {}) => ({
     channel: passData.channel || '',
+    gettingAround: passData.gettingAround || '',
+    guestAccess: passData.guestAccess || '',
     language: passData.language || '',
-    title: passData.title || '',
+    otherThingsToNote: passData.otherThingsToNote || '',
     summary: passData.summary || '',
+    theNeighborhood: passData.theNeighborhood || '',
+    theSpace: passData.theSpace || '',
+    title: passData.title || '',
 })
 
 export const propertyInitForm = {
@@ -54,16 +65,51 @@ export const propertyInitForm = {
     amenityIds: [],
     tagIds: [],
     seo: {
-        title: '',
-        slug: '',
-        robotIndex: '',
-        robotFollow: '',
-        structuredData: {
-            // JSON
-            '@context': '',
-            '@type': '',
-        },
+        ...initSEOFormConfig,
     },
 }
 
-export const propertyMapInitForm = (passData) => ({})
+export const propertyMapInitForm = (passData) => ({
+    nickname: passData.nickname || '',
+    propertyTypeId: passData?.type?.id || '',
+    unitTypeId: passData?.unitType?.id || '',
+    listingTypeId: passData?.listingType?.id || '',
+    occupancy: passData.occupancy || '',
+    statusId: passData?.status?.id || '',
+    cleaningStatusId: passData?.cleaningStatus?.id || '',
+    sourceTypeId: passData?.sourceType?.id || '',
+    currency: 'AUD',
+    addresses: !isEmpty(passData.addresses)
+        ? passData.addresses.map((vm) => propertyMapFormAddress(vm))
+        : [],
+    guestInfo: {
+        hostName: passData.guestInfo.hostName || '',
+        wifiName: passData.guestInfo.wifiName || '',
+        wifiPassword: passData.guestInfo.wifiPassword || '',
+    },
+    rooms: !isEmpty(passData.rooms)
+        ? passData.rooms.map((vm) => propertyMapFormRoom(vm))
+        : [],
+    availability: {
+        defaultAvailabilityId:
+            passData?.availability?.defaultAvailability?.id || '',
+        advanceNoticeValue: passData?.availability?.advanceNoticeValue || '',
+        advanceNoticeUnitId:
+            passData?.availability?.advanceNoticeUnit?.id || '',
+        minLengthOfStay: passData?.availability?.minLengthOfStay || '',
+        maxLengthOfStay: passData?.availability?.maxLengthOfStay || '',
+    },
+    pricing: {
+        weekdayBasePrice: passData?.pricing?.weekdayBasePrice || '',
+        cleaningFee: passData?.pricing?.cleaningFee || '',
+        cleaningFeeTypeId: passData?.pricing?.cleaningFeeType?.id || '',
+        weeklyDiscount: passData?.pricing?.weeklyDiscount || '',
+        monthlyDiscount: passData?.pricing?.monthlyDiscount || '',
+    },
+    descriptions: !isEmpty(passData.descriptions)
+        ? passData.descriptions.map((vm) => propertyMapFormDesc(vm))
+        : [],
+    amenityIds: [],
+    tagIds: [],
+    seo: { ...mapSEOFormConfig(passData?.seo || {}) },
+})

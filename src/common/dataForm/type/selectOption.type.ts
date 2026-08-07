@@ -12,6 +12,7 @@ export interface SelectBaseOptionProps {
     label?: string
     isRequired?: boolean
     selectEmpty?: string
+    [key: string]: any
 }
 
 export interface SelectBaseOptionStoreProps extends SelectBaseOptionProps {

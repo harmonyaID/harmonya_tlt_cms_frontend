@@ -8,10 +8,15 @@ const SelectBaseOption = ({
     selectEmpty = '- Select Option -',
     listStore = [],
     isLoadingStore,
+    value = '',
 }: SelectBaseOptionStoreProps) => {
     return (
         <>
-            <FormSelectOption label={label} name={name} required={isRequired}>
+            <FormSelectOption
+                label={label}
+                name={name}
+                required={isRequired}
+                value={value}>
                 {isLoadingStore ? (
                     <option value="">- Select Category -</option>
                 ) : (

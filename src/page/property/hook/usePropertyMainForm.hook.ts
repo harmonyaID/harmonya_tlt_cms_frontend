@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { useParams } from 'react-router'
+import { isEmpty } from 'lodash'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import propertyPath from '@/path/property.path.ts'
-import { useState } from 'react'
 import {
     propertyMapFormAddress,
     propertyMapFormRoom,
@@ -10,8 +12,7 @@ import {
     propertyInitForm,
     propertyMapInitForm,
 } from '@/page/property/param/propertyMainForm.param.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
+import propertyPath from '@/path/property.path.ts'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 import { apiProperty } from '@/service/api/property.api.ts'
 
@@ -26,29 +27,42 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             pathFromKey: restored.from,
         })
 
+    const [seoThumbnail, setSetSEOThumbnail] = useState('')
+
     const [formRequest, setFormRequest] = useState({ ...propertyInitForm })
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const [listTags, setListTags] = useState<any[]>([])
+
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
+
+    const _handleSEOThumbnailRemove = () => {
+        setSetSEOThumbnail('')
+        nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
+    }
 
     // Data Detail
     const dataDetail = useDetailFormRequestHook({
-        urlAPI: () => apiBlogContent.detail(id),
+        urlAPI: () => apiProperty.detail(id),
         formRequest,
         setFormRequest,
         isManualSetFormRequest: true,
+        // isHideSidebar: true,
         handleSetFormRequest: (res) => {
             if (isEdit) {
                 //@ts-ignore
                 setFormRequest({
                     ...propertyMapInitForm(res),
+                    tagIds: !isEmpty(res.tags)
+                        ? res.tags.map((vm) => vm.id)
+                        : [],
                 })
 
-                // if (res?.tags && res?.tags.length) {
-                //     setListTags(res?.tags)
-                // }
-                //
+                if (res?.tags && res?.tags.length) {
+                    setListTags(res?.tags)
+                }
+
                 // if (res?.thumbnail) {
                 //     setPreviewThumbnail(res.thumbnail)
                 // }
@@ -70,7 +84,7 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             apiCall: () =>
                 isEdit
                     ? apiProperty.update(id, formRequest)
-                    : apiBlogContent.add(formRequest),
+                    : apiProperty.add(formRequest),
             setIsLoading,
             isDirectToDetail: true,
         })
@@ -83,6 +97,17 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
         // Data Page
         __pageStateDataSearch: restored,
+
+        // Tags
+        // __handleTagChoose: _handleTagChoose,
+        // __handleTagRemove: _handleTagRemove,
+        __listTags: listTags,
+        __setListTags: setListTags,
+
+        // SEO
+        __seoThumbnail: seoThumbnail,
+        __setSetSEOThumbnail: setSetSEOThumbnail,
+        __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
