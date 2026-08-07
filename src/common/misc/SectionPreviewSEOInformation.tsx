@@ -67,6 +67,7 @@ const SectionPreviewSEOInformation = ({
                     <SEOPreviewPublic
                         title={seo?.title || ''}
                         description={seo?.description || ''}
+                        urlPhoto={seo.thumbnail || ''}
                         className="mb-4"
                     />
 

@@ -1,13 +1,15 @@
 import { FC, useEffect, useRef } from 'react'
 import Quill from 'quill'
-import LabelForm from './LabelForm'
 import { FormTextEditorProps } from '@/component/form/type/formTextEditor.type.ts'
+import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
+import LabelForm from './LabelForm'
 
 const FormTextEditor = ({
     label,
     value,
     readOnly = false,
     placeholder = 'Write something...',
+    classNameTextEditor = '',
     required = false,
     actions = {
         onChange: () => {},
@@ -61,7 +63,7 @@ const FormTextEditor = ({
             quill.off('text-change', () => {})
             quillRef.current = null
         }
-    }, []) //eslint-disable-line
+    }, [])
 
     // Update content if parent changes (and differs)
     useEffect(() => {
@@ -81,7 +83,13 @@ const FormTextEditor = ({
         <div className="form-group">
             {label ? <LabelForm label={label} required={required} /> : null}
 
-            <div ref={containerRef} className="quill-editor" />
+            <div
+                ref={containerRef}
+                className={joinClassNameHelper(
+                    'quill-editor',
+                    classNameTextEditor,
+                )}
+            />
         </div>
     )
 }

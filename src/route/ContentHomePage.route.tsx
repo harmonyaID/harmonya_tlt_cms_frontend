@@ -9,6 +9,9 @@ const mainPath = contentHomePagePath.main
 const ContentHomePage = lazy(
     () => import('@/page/contentHomePage/ContentHomePage.page.tsx'),
 )
+const ContentHomePageEdit = lazy(
+    () => import('@/page/contentHomePage/ContentHomePageEdit.page.tsx'),
+)
 
 const ContentHomePageRoute = () => (
     <Route path={mainPath}>
@@ -20,6 +23,18 @@ const ContentHomePageRoute = () => (
                     titleNavbar="Home Page"
                     isCheckPermission={false}>
                     <ContentHomePage />
+                </SuspenseLayout>
+            }
+        />
+
+        <Route
+            index
+            path={contentHomePagePath.edit()}
+            element={
+                <SuspenseLayout
+                    titleNavbar="Home Page"
+                    isCheckPermission={false}>
+                    <ContentHomePageEdit />
                 </SuspenseLayout>
             }
         />

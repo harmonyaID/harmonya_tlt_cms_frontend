@@ -375,6 +375,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="">
                 <LinkMenu
+                    name="General Setting"
+                    icon={<Setting2 variant="Bulk" />}
+                    to={smGeneralSettingPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
                     name="Activity Log"
                     icon={<Clock variant="Bulk" />}
                     to={smActivityLogPath.main}
@@ -385,13 +392,6 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Platform Info"
                     icon={<InfoCircle variant="Bulk" />}
                     to={smPlatformInfoPath.main}
-                />
-            </li>
-            <li className="">
-                <LinkMenu
-                    name="General Setting"
-                    icon={<Setting2 variant="Bulk" />}
-                    to={smGeneralSettingPath.main}
                 />
             </li>
         </>
