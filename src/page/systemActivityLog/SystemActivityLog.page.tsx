@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { capitalize, isEmpty, upperCase } from 'lodash'
 import Card from '@/component/card/Card.tsx'
 import { AvatarInTable } from '@/component/general/Avatar.tsx'
@@ -14,9 +14,18 @@ import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import { getLogActivity } from '@/service/api/systemManagement.api.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
+import SelectOptionRows from '@/common/dataForm/SelectOptionRows.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 
 const SystemActivityLogPage = () => {
     const ACTIVITY = 'Activity Log'
+
+    const [formRequest, setFormRequest] = useState({
+        page: 1,
+        limit: 50,
+        typeIds: [],
+        categoryIds: [],
+    })
 
     const {
         __list,
@@ -30,12 +39,7 @@ const SystemActivityLogPage = () => {
         __actionClear,
     } = useDataListHook({
         urlAPI: getLogActivity,
-        advancedSearch: {
-            page: 1,
-            limit: 50,
-            typeIds: [],
-            categoryIds: [],
-        },
+        advancedSearch: { ...formRequest },
     })
 
     const grouped = useMemo(() => {
@@ -60,21 +64,30 @@ const SystemActivityLogPage = () => {
     return (
         <>
             <Card title={ACTIVITY}>
+                <div className="mb-3">
+                    <FilterBarBasic
+                        formRequest={__search}
+                        searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                        isDateRange={false}
+                        actions={{
+                            change: __actionChange,
+                            pagination: __actionPagination,
+                            clear: __actionClear,
+                        }}>
+                        <div className="col-md-2">
+                            <SelectOptionRows
+                                name="limit"
+                                label="Rows"
+                                className="mb-0"
+                            />
+                        </div>
+                    </FilterBarBasic>
+                </div>
+
                 {__isLoading || isEmpty(__list) ? (
                     <LoadingNotAvailable isLoading={__isLoading} />
                 ) : (
                     <>
-                        <WrapFormContext formRequest={{}}>
-                            <div className="row mb-2">
-                                <div className="col-md-3">
-                                    <FormInput
-                                        placeholder="Search"
-                                        name="search"
-                                    />
-                                </div>
-                            </div>
-                        </WrapFormContext>
-
                         {grouped.map((log: any, index) => (
                             <Fragment key={index}>
                                 <p className="fw-medium text-neutral-300 fs-13">
@@ -109,7 +122,7 @@ const SystemActivityLogPage = () => {
                                                             <div className="d-flex justify-content-between align-items-start">
                                                                 <span
                                                                     className={joinClassNameHelper(
-                                                                        'w-fit-content badge rounded-1 fw-medium fs-12 text-capitalize',
+                                                                        'w-fit-content badge rounded-2 fw-bold fs-12 text-capitalize',
                                                                         LOG_ACTION_BADGE[
                                                                             vm
                                                                                 .action
@@ -120,56 +133,31 @@ const SystemActivityLogPage = () => {
                                                                     )}
                                                                 </span>
 
-                                                                <p className="m-0">
-                                                                    {
-                                                                        vm.createdAt
+                                                                <AvatarInTable
+                                                                    isSmall
+                                                                    title={
+                                                                        vm?.causedByName ||
+                                                                        '-'
                                                                     }
-                                                                </p>
+                                                                    subTitle={
+                                                                        vm?.createdAt ||
+                                                                        '-'
+                                                                    }
+                                                                />
                                                             </div>
-                                                            <AvatarInTable
-                                                                isSmall
-                                                                title={
-                                                                    vm?.causedByName ||
-                                                                    '-'
-                                                                }
-                                                            />
                                                             <PreElement
                                                                 classNameFs="fs-12 fw-400"
                                                                 className="bg-neutral-600">
-                                                                <span className="fw-bold text-capitalize">
+                                                                <p className="mb-2 text-neutral-400 text-capitalize">
                                                                     {vm.type.replaceAll(
                                                                         '_',
                                                                         ' ',
                                                                     )}
-                                                                    :
-                                                                </span>{' '}
+                                                                </p>
                                                                 {vm.description}
                                                             </PreElement>
                                                         </div>
                                                     </div>
-
-                                                    {/*<div className="col-md-1">*/}
-                                                    {/*    <TblPointData*/}
-                                                    {/*        title="Action"*/}
-                                                    {/*        classNameValue="text-capitalize"*/}
-                                                    {/*        value={vm.action}*/}
-                                                    {/*    />*/}
-                                                    {/*</div>*/}
-                                                    {/*<div className="col-md-2">*/}
-                                                    {/*    <TblPointData*/}
-                                                    {/*        title="Caused By Name"*/}
-                                                    {/*        value={*/}
-                                                    {/*            vm?.causedByName ||*/}
-                                                    {/*            '-'*/}
-                                                    {/*        }*/}
-                                                    {/*    />*/}
-                                                    {/*</div>*/}
-
-                                                    {/*<div className="col-md-1">*/}
-                                                    {/*    <TblPointData title="Created At">*/}
-                                                    {/*       */}
-                                                    {/*    </TblPointData>*/}
-                                                    {/*</div>*/}
                                                 </div>
                                             </div>
                                         )
