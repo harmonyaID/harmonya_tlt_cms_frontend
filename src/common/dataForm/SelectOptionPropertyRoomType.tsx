@@ -4,12 +4,12 @@ import { SelectOptionGeneralProps } from '@/common/dataForm/type/selectOption.ty
 import SelectOption from '@/component/form/SelectOption.tsx'
 import { useHookContextForm } from '@/context/Form.context.tsx'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
-import usePropertyTypeStore from '@/store/usePropertyType.store.ts'
+import usePropertyRoomTypeStore from '@/store/usePropertyRoomType.store.ts'
 
-const SelectOptionPropertyType = (props: SelectOptionGeneralProps) => {
+const SelectOptionPropertyRoomType = (props: SelectOptionGeneralProps) => {
     const ctx = useHookContextForm()
 
-    const { __list, __isLoading } = usePropertyTypeStore({
+    const { __list, __isLoading } = usePropertyRoomTypeStore({
         isFormatList: false,
     })
 
@@ -22,11 +22,11 @@ const SelectOptionPropertyType = (props: SelectOptionGeneralProps) => {
     }
 
     const {
-        id = 'select-property-type',
+        id = 'select-room-type',
         name = '',
         className = '',
         label = '',
-        placeholder = 'Select Property Type',
+        placeholder = 'Select Room Type',
 
         nameOfChange = '',
         valueKey = 'value',
@@ -48,7 +48,7 @@ const SelectOptionPropertyType = (props: SelectOptionGeneralProps) => {
         others = {},
     } = props
 
-    const myId = id || 'select-property-type' + name + useId()
+    const myId = id || 'select-room-type' + name + useId()
 
     const { dataValue } = useComponentInputConfigHook(
         ctx,
@@ -156,4 +156,4 @@ const SelectOptionPropertyType = (props: SelectOptionGeneralProps) => {
     )
 }
 
-export default SelectOptionPropertyType
+export default SelectOptionPropertyRoomType

@@ -63,7 +63,7 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
             setFormRequest(initMapForm(res))
         },
         isAutoGet: isEdit,
-        isHideSidebar: true,
+        // isHideSidebar: true,
     })
 
     const isLoadingDetail = isEdit

@@ -61,21 +61,19 @@ const ContentHomePagePage = () => {
     return (
         <>
             <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
+                <div className="hstack flex-wrap align-items-center justify-content-between">
+                    <h5 className="fs-18 fw-600 pb-3">Homepage Content</h5>
+
+                    <BtnPrimary
+                        className="btn-sm"
+                        isOutline
+                        handle={() => __handleToEdit(__detail.locale)}>
+                        Edit Content
+                    </BtnPrimary>
+                </div>
+
                 <div className="row">
                     <div className="col-md-8">
-                        <div className="hstack flex-wrap align-items-center justify-content-between">
-                            <h5 className="fs-18 fw-600 pb-3">
-                                Homepage Content
-                            </h5>
-
-                            <BtnPrimary
-                                className="btn-sm"
-                                isOutline
-                                handle={() => __handleToEdit(__detail.locale)}>
-                                Edit Content
-                            </BtnPrimary>
-                        </div>
-
                         <div className="vstack gap-3 content-public">
                             <CardDropdown
                                 title="SECTION 1"
@@ -698,31 +696,10 @@ const ContentHomePagePage = () => {
                                     ]}
                                 />
                             </CardDropdown>
-                        </div>
-                    </div>
 
-                    <div className="col-md-4">
-                        <div className="vstack gap-4">
-                            <Card title="Other Information">
-                                <VerticalLoopDataLogic
-                                    list={[
-                                        objectListDetail(
-                                            'Locale',
-                                            __detail.locale,
-                                        ),
-                                        objectListDetail(
-                                            'Created At',
-                                            __detail?.createdAt || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Updated At',
-                                            __detail?.updatedAt || '-',
-                                        ),
-                                    ]}
-                                />
-                            </Card>
-
-                            <Card title="SEO Information">
+                            <CardDropdown
+                                title="SEO Information"
+                                id="section-seo-info">
                                 <div className="pb-3">
                                     <p className="mb-2 text-neutral-100">
                                         Thumbnail
@@ -769,6 +746,29 @@ const ContentHomePagePage = () => {
                                             <TextTrueOrFalse
                                                 value={seo?.robotIndex}
                                             />,
+                                        ),
+                                    ]}
+                                />
+                            </CardDropdown>
+                        </div>
+                    </div>
+
+                    <div className="col-md-4">
+                        <div className="vstack gap-4">
+                            <Card title="Other Information">
+                                <VerticalLoopDataLogic
+                                    list={[
+                                        objectListDetail(
+                                            'Locale',
+                                            __detail.locale,
+                                        ),
+                                        objectListDetail(
+                                            'Created At',
+                                            __detail?.createdAt || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Updated At',
+                                            __detail?.updatedAt || '-',
                                         ),
                                     ]}
                                 />

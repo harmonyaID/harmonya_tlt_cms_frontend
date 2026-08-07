@@ -81,50 +81,59 @@ const ContentExperienceDetailPage = () => {
             <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
                 <div className="row">
                     <div className="col-lg-8">
-                        <Card title="Experience">
-                            <HorizontalLoopDataLogic
-                                config={{
-                                    contentColumn: 'col-md-9',
-                                }}
-                                list={[
-                                    objectListDetail(
-                                        'Name',
-                                        __detail?.name || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Type',
-                                        __detail?.type?.name || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Area',
-                                        __detail?.area?.name || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Open Hours',
-                                        __detail?.openHours || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Description',
-                                        __detail.description ? (
-                                            <div
-                                                className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
-                                                dangerouslySetInnerHTML={{
-                                                    __html:
-                                                        __detail?.description ||
-                                                        '-',
-                                                }}
-                                            />
-                                        ) : (
-                                            '-'
+                        <div className="vstack gap-4">
+                            <Card title="Experience">
+                                <HorizontalLoopDataLogic
+                                    config={{
+                                        contentColumn: 'col-md-9',
+                                    }}
+                                    list={[
+                                        objectListDetail(
+                                            'Name',
+                                            __detail?.name || '-',
                                         ),
-                                    ),
-                                ]}
-                            />
-                        </Card>
+                                        objectListDetail(
+                                            'Type',
+                                            __detail?.type?.name || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Area',
+                                            __detail?.area?.name || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Open Hours',
+                                            __detail?.openHours || '-',
+                                        ),
+                                        objectListDetail(
+                                            'Description',
+                                            __detail.description ? (
+                                                <div
+                                                    className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html:
+                                                            __detail?.description ||
+                                                            '-',
+                                                    }}
+                                                />
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
+                                    ]}
+                                />
+                            </Card>
+
+                            <CardDropdown title="SEO Information" isShow>
+                                <SectionPreviewSEOInformation
+                                    isTitle={false}
+                                    seo={__detail.seo}
+                                />
+                            </CardDropdown>
+                        </div>
                     </div>
                     <div className="col-lg-4">
                         <div className="vstack gap-4">
-                            <Card title="Other Information">
+                            <CardDropdown title="Other Information" isShow>
                                 <div className="pb-3">
                                     <p className="mb-2 text-neutral-100">
                                         Thumbnail
@@ -283,14 +292,6 @@ const ContentExperienceDetailPage = () => {
                                             </>,
                                         ),
                                     ]}
-                                />
-                            </Card>
-
-                            <CardDropdown title="SEO Information">
-                                <SectionPreviewSEOInformation
-                                    isTitle={false}
-                                    seo={__detail.seo}
-                                    variant="vertical"
                                 />
                             </CardDropdown>
                         </div>
