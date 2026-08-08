@@ -1,13 +1,14 @@
+import { isEmpty } from 'lodash'
+import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
+import Card from '@/component/card/Card.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import PageTitle from '@/component/general/PageTitle.tsx'
-import { BtnPrimary } from '@/component/general/Button.tsx'
-import Card from '@/component/card/Card.tsx'
-import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import useContentMenuDetailHook from '@/page/contentMenu/hook/useContentMenuDetail.hook.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
-import { isEmpty } from 'lodash'
 
 const RowMenus = ({
     menus = [],
@@ -119,7 +120,9 @@ const ContentMenuDetailPage = () => {
                                     ),
                                     objectListDetail(
                                         'Created At',
-                                        __detail?.createdAt || '-',
+                                        formatDateTimeByTlt(
+                                            __detail?.createdAt,
+                                        ),
                                     ),
                                 ]}
                             />

@@ -14,6 +14,10 @@ import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import VerticalDataPreview from '@/component/general/VerticalDataPreview.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
+import {
+    formatDateByTlt,
+    formatDateTimeByTlt,
+} from '@/helper/actionFormatDate.helper.ts'
 import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
 import useHomePageMainHook from '@/page/contentHomePage/hook/useHomePageMain.hook.ts'
 
@@ -764,11 +768,15 @@ const ContentHomePagePage = () => {
                                         ),
                                         objectListDetail(
                                             'Created At',
-                                            __detail?.createdAt || '-',
+                                            formatDateTimeByTlt(
+                                                __detail?.createdAt,
+                                            ),
                                         ),
                                         objectListDetail(
                                             'Updated At',
-                                            __detail?.updatedAt || '-',
+                                            formatDateTimeByTlt(
+                                                __detail?.updatedAt,
+                                            ),
                                         ),
                                     ]}
                                 />
