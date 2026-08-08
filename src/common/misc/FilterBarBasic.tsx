@@ -36,6 +36,8 @@ export type FilterBarBasicProps = {
     // Classname row
     classNameWrap?: string
 
+    children?: React.ReactNode
+
     // Actions
     actions?: {
         setFormRequest?: ([key]: any) => void
@@ -88,6 +90,8 @@ const FilterBarBasic = (props: FilterBarBasicProps) => {
 
         // Classname row
         classNameWrap = '',
+
+        children,
 
         // Actions
         actions = {
@@ -158,6 +162,8 @@ const FilterBarBasic = (props: FilterBarBasicProps) => {
                                 />
                             </div>
                         ) : null}
+
+                        {children}
 
                         <div
                             className={joinClassNameHelper(

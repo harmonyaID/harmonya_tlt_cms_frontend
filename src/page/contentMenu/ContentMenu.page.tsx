@@ -1,28 +1,29 @@
-import CardListData from '@/component/card/CardListData.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import useContentMenuHook from '@/page/contentMenu/hook/useContentMenu.hook.ts'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import CardListData from '@/component/card/CardListData.tsx'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
-import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
-import { apiBlogContent, apiMenu } from '@/service/api/contentManage.api.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import useChooseData from '@/hook/useChooseData.hook.ts'
+import { MDGeneralRemove } from '@/config/modal.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useContentMenuHook from '@/page/contentMenu/hook/useContentMenu.hook.ts'
+import { apiBlogContent, apiMenu } from '@/service/api/contentManage.api.ts'
 
 const ContentMenuPage = () => {
     const {
@@ -117,7 +118,9 @@ const ContentMenuPage = () => {
                                         {/*</td>*/}
                                         <td>
                                             <TblLineSecond>
-                                                {vm?.createdAt || '-'}
+                                                {formatDateTimeByTlt(
+                                                    vm?.createdAt,
+                                                )}
                                             </TblLineSecond>
                                         </td>
                                         <td>

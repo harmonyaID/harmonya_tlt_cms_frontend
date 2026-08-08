@@ -17,6 +17,7 @@ import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import useContentExDetail from '@/page/contentExperience/hook/useContentExDetail.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 
@@ -240,8 +241,9 @@ const ContentExperienceDetailPage = () => {
                                                         ),
                                                         objectListDetail(
                                                             'Created At',
-                                                            __detail?.createdAt ||
-                                                                '-',
+                                                            formatDateTimeByTlt(
+                                                                __detail?.createdAt,
+                                                            ),
                                                         ),
                                                     ]}
                                                 />

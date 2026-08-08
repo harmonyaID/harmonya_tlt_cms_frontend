@@ -8,20 +8,21 @@ import {
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
+import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirstPrimary,
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { MDGeneralRemove } from '@/config/modal.config.ts'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useContentExHook from '@/page/contentExperience/hook/useContentEx.hook.ts'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 
 const ContentExperiencePage = () => {
@@ -140,7 +141,9 @@ const ContentExperiencePage = () => {
                                         </td>
                                         <td>
                                             <TblPointData title="Create At">
-                                                {vm?.createdAt || '-'}
+                                                {formatDateTimeByTlt(
+                                                    vm?.createdAt,
+                                                )}
                                             </TblPointData>
                                         </td>
                                         <td>

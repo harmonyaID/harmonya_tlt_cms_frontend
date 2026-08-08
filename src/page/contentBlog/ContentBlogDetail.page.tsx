@@ -124,6 +124,13 @@ const ContentBlogDetailPage = () => {
                                     ]}
                                 />
                             </Card>
+
+                            <CardDropdown title="SEO Information" isShow>
+                                <SectionPreviewSEOInformation
+                                    isTitle={false}
+                                    seo={__detail.seo}
+                                />
+                            </CardDropdown>
                         </div>
                     </div>
                     <div className="col-lg-4">
@@ -245,14 +252,6 @@ const ContentBlogDetailPage = () => {
                                             __detail?.createdAt || '-',
                                         ),
                                     ]}
-                                />
-                            </CardDropdown>
-
-                            <CardDropdown title="SEO Information" isShow>
-                                <SectionPreviewSEOInformation
-                                    isTitle={false}
-                                    seo={__detail.seo}
-                                    variant="vertical"
                                 />
                             </CardDropdown>
 

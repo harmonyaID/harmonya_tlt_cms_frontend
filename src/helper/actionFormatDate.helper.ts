@@ -1,3 +1,4 @@
+'use client'
 import moment, { Moment, unitOfTime } from 'moment'
 
 export const actionFormatDateStrict = (
@@ -13,6 +14,26 @@ export const oneTypeFormatDate = (
     baseFormat: string = 'DD/MM/YYYY',
 ) => {
     return moment(value).format(baseFormat)
+}
+
+export const formatDateByTlt = (value) => {
+    let dataValue = value
+
+    if (value) {
+        dataValue = moment(value, 'DD/MM/YYYY')
+    }
+
+    return value ? oneTypeFormatDate(dataValue, 'D MMMM YYYY') : '-'
+}
+
+export const formatDateTimeByTlt = (value) => {
+    let dataValue = value
+
+    if (value) {
+        dataValue = moment(value, 'DD/MM/YYYY HH:mm')
+    }
+
+    return value ? oneTypeFormatDate(dataValue, 'DD MMMM YYYY HH:mm') : '-'
 }
 
 export const dateDifference = (
