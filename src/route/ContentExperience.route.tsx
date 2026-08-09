@@ -3,6 +3,9 @@ import { Route } from 'react-router'
 import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
+import experienceAreaPath from '@/path/experienceArea.path.ts'
+import experienceInquiryFormPath from '@/path/experienceInquiryForm.path.ts'
+import experienceTypePath from '@/path/experienceType.path.ts'
 
 const mainPath = contentExperiencePath.main
 
@@ -19,55 +22,184 @@ const ContentExperienceDetailPage = lazy(
     () => import('@/page/contentExperience/ContentExperienceDetail.page.tsx'),
 )
 
-const ContentExperienceRoute = () => (
-    <Route path={mainPath}>
-        <Route
-            index
-            path={mainPath}
-            element={
-                <SuspenseLayout
-                    titleNavbar="Experience"
-                    isCheckPermission={false}>
-                    <ContentExperiencePage />
-                </SuspenseLayout>
-            }
-        />
-        <Route
-            index
-            path={contentExperiencePath.add}
-            element={
-                <SuspenseLayout
-                    titleNavbar="Experience"
-                    isCheckPermission={false}>
-                    <ContentExperienceAddPage />
-                </SuspenseLayout>
-            }
-        />
-        <Route
-            index
-            path={contentExperiencePath.edit()}
-            element={
-                <SuspenseLayout
-                    titleNavbar="Experience"
-                    isCheckPermission={false}>
-                    <ContentExperienceEditPage />
-                </SuspenseLayout>
-            }
-        />
-        <Route
-            index
-            path={contentExperiencePath.detail()}
-            element={
-                <SuspenseLayout
-                    titleNavbar="Experience"
-                    isCheckPermission={false}>
-                    <ContentExperienceDetailPage />
-                </SuspenseLayout>
-            }
-        />
+// Inquiry Form
+const ExpInquiryFormPage = lazy(
+    () => import('@/page/experienceInquiryForm/ExpInquiryForm.page.tsx'),
+)
 
-        <Route path="*" element={<Page404Layout to={mainPath} />} />
-    </Route>
+// Type
+const ExperienceTypePage = lazy(
+    () => import('@/page/experienceType/ExpType.page.tsx'),
+)
+const ExperienceTypeAddPage = lazy(
+    () => import('@/page/experienceType/ExpTypeAdd.page.tsx'),
+)
+const ExperienceTypeEditPage = lazy(
+    () => import('@/page/experienceType/ExpTypeEdit.page.tsx'),
+)
+
+// Area
+const ExperienceAreaPage = lazy(
+    () => import('@/page/experienceArea/ExperienceArea.page.tsx'),
+)
+const ExperienceAreaAddPage = lazy(
+    () => import('@/page/experienceArea/ExperienceAreaAdd.page.tsx'),
+)
+const ExperienceAreaEditPage = lazy(
+    () => import('@/page/experienceArea/ExperienceAreaEdit.page.tsx'),
+)
+
+const titleInquiryForm = 'Inquiry Form'
+const titleArea = 'Area'
+const titleType = 'Type'
+
+const ContentExperienceRoute = () => (
+    <>
+        <Route path={mainPath}>
+            <Route
+                index
+                path={mainPath}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience"
+                        isCheckPermission={false}>
+                        <ContentExperiencePage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={contentExperiencePath.add}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience"
+                        isCheckPermission={false}>
+                        <ContentExperienceAddPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={contentExperiencePath.edit()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience"
+                        isCheckPermission={false}>
+                        <ContentExperienceEditPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={contentExperiencePath.detail()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience"
+                        isCheckPermission={false}>
+                        <ContentExperienceDetailPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route path="*" element={<Page404Layout to={mainPath} />} />
+        </Route>
+
+        <Route path={experienceInquiryFormPath.main}>
+            <Route
+                index
+                path={experienceInquiryFormPath.main}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleInquiryForm}
+                        isCheckPermission={false}>
+                        <ExpInquiryFormPage />
+                    </SuspenseLayout>
+                }
+            />
+        </Route>
+
+        <Route path={experienceTypePath.main}>
+            <Route
+                index
+                path={experienceTypePath.main}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleType}
+                        isCheckPermission={false}>
+                        <ExperienceTypePage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={experienceTypePath.add}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleType}
+                        isCheckPermission={false}>
+                        <ExperienceTypeAddPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={experienceTypePath.edit()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleType}
+                        isCheckPermission={false}>
+                        <ExperienceTypeEditPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path="*"
+                element={<Page404Layout to={experienceTypePath.main} />}
+            />
+        </Route>
+
+        <Route path={experienceAreaPath.main}>
+            <Route
+                index
+                path={experienceAreaPath.main}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleArea}
+                        isCheckPermission={false}>
+                        <ExperienceAreaPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={experienceAreaPath.add}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleArea}
+                        isCheckPermission={false}>
+                        <ExperienceAreaAddPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={experienceAreaPath.edit()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleArea}
+                        isCheckPermission={false}>
+                        <ExperienceAreaEditPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path="*"
+                element={<Page404Layout to={experienceAreaPath.main} />}
+            />
+        </Route>
+    </>
 )
 
 export default ContentExperienceRoute

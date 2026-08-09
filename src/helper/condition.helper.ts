@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { isEmpty } from 'lodash'
 import { themeMode } from './base/actionThemeMode.helper'
 
 interface ResData {
@@ -12,7 +12,7 @@ export const isSuccess = (resData: ResData): boolean =>
     resData && resData?.status && resData?.status?.code === 200 ? true : false
 
 export const isResDataEmpty = (resData: ResData): boolean =>
-    _.isEmpty(resData) && _.isEmpty(resData.result)
+    isEmpty(resData) && isEmpty(resData.result)
 
 export const isFirstOfList = (index: number): boolean => index === 0
 
@@ -32,9 +32,17 @@ export const isShowPagination = (
     isLoading: boolean = false,
     list: any[] = [],
     pagination: object | any = {},
-) => !isLoading && (!_.isEmpty(list) || +pagination?.count === 0)
+) => !isLoading && (!isEmpty(list) || +pagination?.count === 0)
 
 export const checkThemeMode = (): 'light' | 'dark' =>
     themeMode() === 'dark' ? 'light' : 'dark'
 
 export const isDarkMode = (): boolean => themeMode() === 'dark'
+
+export const isLoadingAndDetail = (isLoading?: boolean | any, detail = {}) => {
+    return isLoading || isEmpty(detail)
+}
+
+export const viewData = (data) => {
+    return !isEmpty(data) ? data : '-'
+}

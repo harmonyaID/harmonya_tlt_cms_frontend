@@ -20,5 +20,12 @@ export const SrvExperiencesContentCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences',
 )
 
+export const SrvExpInquiryFormCRUD = objectPathEndPointAPI(
+    baseAPI + '/experiences/inquiry-forms',
+)
+
+export const SrvExpInquiryFormUpdateStatus = (id) =>
+    SrvExpInquiryFormCRUD.main + '/' + id + '/status'
+
 // Menus
 export const SrvMenuContentCRUD = objectPathEndPointAPI(baseAPI + '/menus')

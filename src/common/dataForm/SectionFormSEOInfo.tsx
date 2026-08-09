@@ -39,10 +39,13 @@ const SectionFormSEOInfo = ({
                                         'seo',
                                     ),
                             }}>
-                            <GeneralRowForm label="Meta Title" isRequired>
+                            <GeneralRowForm
+                                label="Meta Title"
+                                // isRequired
+                            >
                                 <FormInput
                                     name="title"
-                                    required
+                                    // required
                                     value={__formRequest.seo.title}
                                     placeholder="e.g Best Beach Clubs in Nusa Lembongan"
                                     actions={{
@@ -66,37 +69,50 @@ const SectionFormSEOInfo = ({
                                     }}
                                 />
                             </GeneralRowForm>
-                            <GeneralRowForm label="Meta Slug" isRequired>
+                            <GeneralRowForm
+                                label="Meta Slug"
+                                // isRequired
+                            >
                                 <FormInput
                                     name="slug"
-                                    required
+                                    // required
                                     placeholder="e.g best-beach-clubs-in-nusa-lembongan"
                                 />
                             </GeneralRowForm>
                             <GeneralRowForm
                                 label="Meta Canonical Url"
-                                isRequired>
+                                // isRequired
+                            >
                                 <FormInput
                                     name="canonicalUrl"
-                                    required
+                                    // required
                                     placeholder="e.g https://www.thelembongantraveller.com/nusa-lembongan/"
                                 />
                             </GeneralRowForm>
-                            <GeneralRowForm label="Meta Description" isRequired>
+                            <GeneralRowForm
+                                label="Meta Description"
+                                // isRequired
+                            >
                                 <FormTextArea
                                     name="description"
-                                    required
+                                    // required
                                     placeholder="e.g Best Beach Clubs in Nusa Lembongan"
                                 />
                             </GeneralRowForm>
-                            <GeneralRowForm label="Meta Keyword" isRequired>
+                            <GeneralRowForm
+                                label="Meta Keyword"
+                                // isRequired
+                            >
                                 <FormTextArea
                                     name="metaKeyword"
-                                    required
+                                    // required
                                     placeholder="e.g the lembongan traveller, explore bali, lembongan bali"
                                 />
                             </GeneralRowForm>
-                            <GeneralRowForm label="Meta Image" isRequired>
+                            <GeneralRowForm
+                                label="Meta Image"
+                                // isRequired
+                            >
                                 {__seoThumbnail ? (
                                     <>
                                         <div className="pb-3P">
@@ -164,11 +180,14 @@ const SectionFormSEOInfo = ({
                                     ]}
                                 />
                             </GeneralRowForm>
-                            <GeneralRowForm label="Robot Follow" isRequired>
+                            <GeneralRowForm
+                                label="Robot Follow"
+                                // isRequired
+                            >
                                 <FormRadioButtonMulti
                                     name="robotFollow"
                                     className="mb-0"
-                                    required
+                                    // required
                                     checkBoxs={[
                                         {
                                             defaultValue: 0,
@@ -190,7 +209,7 @@ const SectionFormSEOInfo = ({
                                 onChange={(name, value) =>
                                     __handleChangeWithParent(name, value, 'seo')
                                 }
-                                isRequired
+                                // isRequired
                             />
                         </WrapFormContext>
                     </div>
