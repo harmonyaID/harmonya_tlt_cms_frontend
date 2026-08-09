@@ -4,7 +4,13 @@ import { SrvWithFeature } from '@/service/api/type/config.type.ts'
 const baseAPI: any = String(import.meta.env.VITE_BASE_API)
 
 // Boat
-export const SrvBoatCRUD = objectPathEndPointAPI(baseAPI + '/boats')
+const baseAPIBoat = baseAPI + '/boats'
+export const SrvBoatCRUD = {
+    ...objectPathEndPointAPI(baseAPIBoat),
+    trash: baseAPIBoat + '/trash',
+    trashWithId: (id: number|string) =>  baseAPIBoat + '/trash/' + id,
+    restore: (id: number|string) =>  baseAPIBoat + '/trash/' + id + '/restore',
+}
 
 // Boat Type
 export const SrvBoatTypeCRUD = objectPathEndPointAPI(

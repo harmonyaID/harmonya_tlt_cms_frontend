@@ -6,6 +6,7 @@ import boatPath from '@/path/boat.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
 
 const BoatPage = lazy(() => import('@/page/boat/Boat.page.tsx'))
+const BoatTrashPage = lazy(() => import('@/page/boat/BoatTrash.page.tsx'))
 const BoatAddPage = lazy(() => import('@/page/boat/BoatAdd.page.tsx'))
 const BoatEditPage = lazy(() => import('@/page/boat/BoatEdit.page.tsx'))
 const BoatDetailPage = lazy(() => import('@/page/boat/BoatDetail.page.tsx'))
@@ -29,6 +30,17 @@ const BoatManagementRoute = () => (
                         titleNavbar="Boat"
                         isCheckPermission={false}>
                         <BoatPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={boatPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Boat Trash"
+                        isCheckPermission={false}>
+                        <BoatTrashPage />
                     </SuspenseLayout>
                 }
             />

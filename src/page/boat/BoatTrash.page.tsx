@@ -1,35 +1,26 @@
 import useBoatMain from '@/page/boat/hook/useBoatMain.hook.ts'
 import CardListData from '@/component/card/CardListData.tsx'
 import {
-    BtnBase,
-    BtnCircleEdit,
-    BtnCircleRemove,
-    BtnCircleRestore,
-    BtnDanger,
-    BtnPrimary,
+    BtnCircleRestore, BtnCircleX,
+    BtnInfo,
 } from '@/component/general/Button.tsx'
 import {
     TblLineFirst,
     TblLineFirstPrimary,
     TblLineSecond,
-    TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
-import { MDGeneralRemove } from '@/config/modal.config.ts'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import { useState } from 'react'
-import { isEmpty } from 'lodash'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
-const BoatPage = () => {
+const BoatTrashPage = () => {
     const {
         // ---- List Data ----
         __list,
@@ -42,38 +33,35 @@ const BoatPage = () => {
         __actionClear,
 
         // ---- Change Page ----
-        __handleToAdd,
-        __handleToEdit,
-        __handleToDetail,
-        __handleToTrash,
-    } = useBoatMain({ urlAPI: apiBoat.list })
+        __handleToMain
+    } = useBoatMain({ urlAPI: apiBoat.trash })
+
 
     const {
-        __data: dataForRemove,
-        __handleChooseAndNextStep: _handleChooseRemove,
-        __setData: _handleSetData,
-    } = useChooseData({
-        action: {
-            nextStep: () => actionModal(MDGeneralRemove, false),
-        },
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: apiBoat.restore,
+        urlAPIPermanentRemove: apiBoat.permanentDelete,
+        actions:{
+            onSuccess: (boat) => __actionRemove(boat.id),
+        }
     })
 
     return (
         <>
             <CardListData
-                title="Boat"
+                title="Boat Trash"
                 componentAction={
-                    <div className="hstack gap-2">
-                        <BtnDanger
-                            isOutline
-                            handle={() => {
-                                __handleToTrash()
-                            }}>
-                            Trash
-                        </BtnDanger>
-                        <BtnPrimary onClick={() => __handleToAdd()}>
-                            Add New
-                        </BtnPrimary>
+                    <div className="hstack gap-3">
+                        <BtnInfo isOutline onClick={() => __handleToMain()}>
+                            Back
+                        </BtnInfo>
                     </div>
                 }>
                 <FilterBarBasic
@@ -103,10 +91,7 @@ const BoatPage = () => {
                             tds={__list}>
                             {__list.map((vm, index) => {
                                 return (
-                                    <tr
-                                        key={index}
-                                        title="Preview Detail"
-                                        className="cursor-pointer">
+                                    <tr key={index} title="Preview Detail">
                                         <td>
                                             <TblLineFirstPrimary
                                                 value={vm?.name}
@@ -142,24 +127,21 @@ const BoatPage = () => {
                                         </td>
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
-                                                <BtnCircleRemove
+                                                <BtnCircleX
                                                     actions={{
-                                                        remove: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleChooseRemove(
+                                                        click: () => {
+                                                            __handleChoosePermanentRemove(
                                                                 vm,
                                                             )
                                                         },
                                                     }}
                                                 />
 
-                                                <BtnCircleEdit
-                                                    title="Edit Data"
+                                                <BtnCircleRestore
                                                     actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            __handleToEdit(
-                                                                vm.id,
+                                                        click: () => {
+                                                            __handleChooseRestore(
+                                                                vm,
                                                             )
                                                         },
                                                     }}
@@ -186,16 +168,12 @@ const BoatPage = () => {
             </CardListData>
 
             <CreatePortalLayout>
-                <ConfirmRemoveListLogic
-                    id={MDGeneralRemove}
-                    configHandle={{
-                        urlAPI: () => apiBoat.delete(dataForRemove.id),
-                        callBack: () => {
-                            __actionRemove(dataForRemove.id)
-                        },
-                        emptySelect: () => {
-                            _handleSetData({})
-                        },
+                <TrashConfirmModals
+                    name={__dataRestore?.name  || __dataPermanentRemove?.name}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove
                     }}
                 />
             </CreatePortalLayout>
@@ -203,4 +181,4 @@ const BoatPage = () => {
     )
 }
 
-export default BoatPage
+export default BoatTrashPage
