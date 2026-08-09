@@ -5,6 +5,7 @@ import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
 import userPath from '@/path/user.path.ts'
 
 const UserPage = lazy(() => import('@/page/user/User.page.tsx'))
+const UserTrashPage = lazy(() => import('@/page/user/UserTrash.page.tsx'))
 const UserAddPage = lazy(() => import('@/page/user/UserAdd.page.tsx'))
 const UserEditPage = lazy(() => import('@/page/user/UserEdit.page.tsx'))
 const MyProfilePage = lazy(() => import('@/page/user/UserMyProfile.page'))
@@ -23,6 +24,16 @@ const UserRoute = () => (
                         titleNavbar="Staff"
                         isCheckPermission={false}>
                         <UserPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                path={userPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Staff Trash"
+                        isCheckPermission={false}>
+                        <UserTrashPage />
                     </SuspenseLayout>
                 }
             />
