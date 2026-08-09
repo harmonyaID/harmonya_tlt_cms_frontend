@@ -1,16 +1,19 @@
 import {
-    _shapeMethodGet,
-    _shapeMethodGetSearch,
-    _shapeObjectMethodCRUD,
-} from '@/service/api/_coreAPI/_config.api.ts'
-import {
     SrvBlogContentCRUD,
     SrvExperiencesContentCRUD,
+    SrvExpInquiryFormCRUD,
+    SrvExpInquiryFormUpdateStatus,
     SrvHomePageContent,
     SrvHomePageContentCRUD,
     SrvMenuContentCRUD,
     SrvPageContentCRUD,
 } from '@/service/api/_contentManage.endPoint.ts'
+import {
+    _shapeMethodGet,
+    _shapeMethodGetSearch,
+    _shapeMethodPatch,
+    _shapeObjectMethodCRUD,
+} from '@/service/api/_coreAPI/_config.api.ts'
 
 // Home Page
 export const apiHomePageContent = {
@@ -33,6 +36,13 @@ export const apiBlogContent = {
 export const apiExperienceContent = {
     ..._shapeObjectMethodCRUD(SrvExperiencesContentCRUD),
 }
+
+export const apiExpInquiryForm = {
+    ..._shapeObjectMethodCRUD(SrvExpInquiryFormCRUD),
+}
+
+export const updateStatusExpInquiryForm = (id, formRequest) =>
+    _shapeMethodPatch(SrvExpInquiryFormUpdateStatus(id), formRequest)
 
 // Menu
 export const apiMenu = {

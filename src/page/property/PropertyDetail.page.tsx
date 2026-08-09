@@ -20,6 +20,7 @@ import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import PropertyBoxInfo from '@/page/property/component/PropertyBoxInfo.tsx'
 import PropertySpaceInfo from '@/page/property/component/PropertySpaceInfo.tsx'
 import PropertyTitleInfo from '@/page/property/component/PropertyTitleInfo.tsx'
+import PropertyTabReview from '@/page/property/container/PropertyTabReview.tsx'
 import usePropertyDetail from '@/page/property/hook/usePropertyDetail.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import propertyPath from '@/path/property.path.ts'
@@ -168,8 +169,8 @@ const PropertyDetailPage = () => {
                             ),
                             objectTab('Overview', 'tabOverview'),
                             objectTab('Pricing', 'tabPricing'),
-                            // objectTab('Review', 'tabReview'),
                             objectTab('Photos', 'tabPhotos'),
+                            objectTab('Review', 'tabReview'),
                             objectTab('SEO Information', 'tabSEOInformation'),
                             // objectTab('Calender', 'tabCalender'),
                         ]}
@@ -652,12 +653,6 @@ const PropertyDetailPage = () => {
                                     </div>
                                 </>,
                             ),
-                            // objectTabContent(
-                            //     'Review',
-                            //     <>
-                            //         <h5 className="">Coming Soon</h5>
-                            //     </>,
-                            // ),
 
                             objectTabContent(
                                 'Photos',
@@ -676,6 +671,7 @@ const PropertyDetailPage = () => {
                                     )}
                                 </>,
                             ),
+                            objectTabContent('', <PropertyTabReview />),
                             objectTabContent(
                                 '',
                                 <SectionPreviewSEOInformation

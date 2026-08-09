@@ -1,5 +1,5 @@
 import { objectPathMenu } from '@/config/base/objectPath.config.js'
 
-const contentExperiencePath = { ...objectPathMenu('cm-experience') }
+const contentExperiencePath = { ...objectPathMenu('experience') }
 
 export default contentExperiencePath
