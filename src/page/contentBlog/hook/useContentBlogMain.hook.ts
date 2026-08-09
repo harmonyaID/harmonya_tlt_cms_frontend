@@ -3,7 +3,7 @@ import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 
-const useContentBlogMainHook = () => {
+const useContentBlogMainHook = ({urlAPI}:{urlAPI: any}) => {
     const {
         __list,
         __isLoading,
@@ -14,7 +14,7 @@ const useContentBlogMainHook = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiBlogContent.list,
+        urlAPI: urlAPI,
         advancedSearch: {
             page: 1,
             // limit: 10,
@@ -23,7 +23,7 @@ const useContentBlogMainHook = () => {
         },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
+    const { __handleToAdd, __handleToEdit, __handleToDetail, __handleToTrash, __handleToMain } =
         usePageFlowHandlerHook({
             basePath: contentBlogPath,
             pathFromKey: 'blog-main',
@@ -44,6 +44,8 @@ const useContentBlogMainHook = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
     }
 }
 

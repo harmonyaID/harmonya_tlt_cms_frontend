@@ -1,16 +1,17 @@
-import useBoatMain from '@/page/boat/hook/useBoatMain.hook.ts'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
+import {BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
+import useContentBlogMainHook from '@/page/contentBlog/hook/useContentBlogMain.hook.ts'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { apiBoat } from '@/service/api/boatManage.api.ts'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import ContentBlogTable from '@/page/contentBlog/component/ContentBlogTable.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import { apiBoat } from '@/service/api/boatManage.api.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
-import BoatTable from '@/page/boat/component/BoatTable.tsx'
+import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 
-const BoatTrashPage = () => {
+const ContentBlogTrashPage = () => {
     const {
         // ---- List Data ----
         __list,
@@ -24,8 +25,7 @@ const BoatTrashPage = () => {
 
         // ---- Change Page ----
         __handleToMain
-    } = useBoatMain({ urlAPI: apiBoat.trash })
-
+    } = useContentBlogMainHook({urlAPI: apiBlogContent.trash})
 
     const {
         __isLoadingTrash,
@@ -36,8 +36,8 @@ const BoatTrashPage = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: apiBoat.restore,
-        urlAPIPermanentRemove: apiBoat.permanentDelete,
+        urlAPIRestore: apiBlogContent.restore,
+        urlAPIPermanentRemove: apiBlogContent.permanentDelete,
         actions:{
             onSuccess: (boat) => __actionRemove(boat.id),
         }
@@ -46,7 +46,7 @@ const BoatTrashPage = () => {
     return (
         <>
             <CardListData
-                title="Boat Trash"
+                title="Blog Trash"
                 componentAction={
                     <BtnPrimary isOutline onClick={() => __handleToMain()}>
                         Back
@@ -55,14 +55,15 @@ const BoatTrashPage = () => {
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
+                    // isDateRange
                     actions={{
                         change: __actionChange,
                         pagination: __actionPagination,
                         clear: __actionClear,
                     }}
                 />
-                <BoatTable
+
+                <ContentBlogTable
                     isTrash={true}
                     __list={__list}
                     __isLoading={__isLoading}
@@ -78,7 +79,7 @@ const BoatTrashPage = () => {
 
             <CreatePortalLayout>
                 <TrashConfirmModals
-                    name={__dataRestore?.name || __dataPermanentRemove?.name}
+                    name={__dataRestore?.title || __dataPermanentRemove?.title}
                     isLoading={__isLoadingTrash}
                     actions={{
                         handleRestore: __handleRestore,
@@ -90,4 +91,4 @@ const BoatTrashPage = () => {
     )
 }
 
-export default BoatTrashPage
+export default ContentBlogTrashPage
