@@ -80,3 +80,6 @@ export const MDContentMenuAddMenuItem = 'modalContentMenuAddMenuItem'
 
 // Web Config Setting
 export const MDWebConfigSettingUpdate = 'modalWebConfigSettingUpdate'
+
+// General Setting
+export const MDGuestyConfigForm = 'modalGuestyConfigForm'
