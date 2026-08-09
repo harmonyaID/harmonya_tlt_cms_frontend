@@ -106,7 +106,7 @@ const BoatPage = () => {
                                     <tr
                                         key={index}
                                         title="Preview Detail"
-                                        className="cursor-pointer">
+                                        className="cursor-pointer" onClick={() => __handleToDetail(vm.id)}>
                                         <td>
                                             <TblLineFirstPrimary
                                                 value={vm?.name}

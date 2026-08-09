@@ -1,8 +1,10 @@
 import useBoatMain from '@/page/boat/hook/useBoatMain.hook.ts'
 import CardListData from '@/component/card/CardListData.tsx'
 import {
-    BtnCircleRestore, BtnCircleX,
+    BtnCircleRestore,
+    BtnCircleX,
     BtnInfo,
+    BtnPrimary,
 } from '@/component/general/Button.tsx'
 import {
     TblLineFirst,
@@ -59,9 +61,9 @@ const BoatTrashPage = () => {
                 title="Boat Trash"
                 componentAction={
                     <div className="hstack gap-3">
-                        <BtnInfo isOutline onClick={() => __handleToMain()}>
+                        <BtnPrimary isOutline onClick={() => __handleToMain()}>
                             Back
-                        </BtnInfo>
+                        </BtnPrimary>
                     </div>
                 }>
                 <FilterBarBasic
