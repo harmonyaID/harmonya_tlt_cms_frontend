@@ -4,7 +4,7 @@ import {
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { apiBoat } from '@/service/api/boatManage.api.ts'
+import { apiBoat, getBoatTrash, permanentDeleteBoat, restoreBoat } from '@/service/api/boatManage.api.ts'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
@@ -24,7 +24,7 @@ const BoatTrashPage = () => {
 
         // ---- Change Page ----
         __handleToMain
-    } = useBoatMain({ urlAPI: apiBoat.trash })
+    } = useBoatMain({ urlAPI: getBoatTrash })
 
 
     const {
@@ -36,8 +36,8 @@ const BoatTrashPage = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: apiBoat.restore,
-        urlAPIPermanentRemove: apiBoat.permanentDelete,
+        urlAPIRestore: restoreBoat,
+        urlAPIPermanentRemove: permanentDeleteBoat,
         actions:{
             onSuccess: (boat) => __actionRemove(boat.id),
         }

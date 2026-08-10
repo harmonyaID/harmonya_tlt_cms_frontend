@@ -6,16 +6,29 @@ import {
 import {
     SrvBoatContactFormCRUD,
     SrvBoatCRUD,
+    SrvBoatRestore,
     SrvBoatStaticStatusForm,
+    SrvBoatTrash,
+    SrvBoatTrashWithId,
     SrvBoatTypeCRUD,
 } from '@/service/api/_boatManage.endPoint.ts'
+import {
+    SrvStaffRestore,
+    SrvStaffTrash,
+    SrvStaffTrashWithId,
+} from '@/service/api/_staff.endPoint.ts'
 
-export const apiBoat = {
-    ..._shapeObjectMethodCRUD(SrvBoatCRUD),
-    trash: (search:any) => _shapeMethodGetSearch(SrvBoatCRUD.trash, search),
-    permanentDelete: (id: any) => _shapeMethodDel(SrvBoatCRUD.trashWithId(id)),
-    restore: (id: any) => _shapeMethodPost(SrvBoatCRUD.restore(id))
-}
+export const apiBoat = {..._shapeObjectMethodCRUD(SrvBoatCRUD)}
+
+export const getBoatTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvBoatTrash, search)
+
+export const permanentDeleteBoat = (id: string | number) =>
+    _shapeMethodDel(SrvBoatTrashWithId(id))
+
+export const restoreBoat = (id: string | number) =>
+    _shapeMethodPost(SrvBoatRestore(id))
+
 
 export const apiBoatType = { ..._shapeObjectMethodCRUD(SrvBoatTypeCRUD) }
 

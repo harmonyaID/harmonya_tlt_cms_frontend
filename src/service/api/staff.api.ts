@@ -12,14 +12,21 @@ import {
     SrvStaffUpdatePassword,
     SrvStaffUpdateActivation,
     SrvStaffUpdateSuperAdmin,
+    SrvStaffTrash,
+    SrvStaffTrashWithId,
+    SrvStaffRestore,
 } from '@/service/api/_staff.endPoint.ts'
 
-export const apiStaff = {
-    ..._shapeObjectMethodCRUD(SrvStaffCRUD),
-    trash: (search:any) => _shapeMethodGetSearch(SrvStaffCRUD.trash, search),
-    permanentDelete: (id: string|number) => _shapeMethodDel(SrvStaffCRUD.trashWithId(id)),
-    restore: (id: string|number) => _shapeMethodPost(SrvStaffCRUD.restore(id))
-}
+export const apiStaff = { ..._shapeObjectMethodCRUD(SrvStaffCRUD) }
+
+export const getStaffTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvStaffTrash, search)
+
+export const permanentDeleteStaff = (id: string | number) =>
+    _shapeMethodDel(SrvStaffTrashWithId(id))
+
+export const restoreStaff = (id: string | number) =>
+    _shapeMethodPost(SrvStaffRestore(id))
 
 export const updatePasswordStaff = (id: any, formRequest: any) =>
     _shapeMethodPatch(SrvStaffUpdatePassword(id), formRequest)

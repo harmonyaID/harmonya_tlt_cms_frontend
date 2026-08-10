@@ -7,7 +7,7 @@ import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import userPath from '@/path/user.path.ts'
-import { apiStaff } from '@/service/api/staff.api.ts'
+import { apiStaff, getStaffTrash, permanentDeleteStaff, restoreStaff } from '@/service/api/staff.api.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import UserTable from '@/page/user/component/UserTable.tsx'
@@ -23,7 +23,7 @@ const UserTrashPage = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiStaff.trash,
+        urlAPI: getStaffTrash,
         advancedSearch: {
             page: 1,
             limit: 10,
@@ -46,8 +46,8 @@ const UserTrashPage = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: apiStaff.restore,
-        urlAPIPermanentRemove: apiStaff.permanentDelete,
+        urlAPIRestore: restoreStaff,
+        urlAPIPermanentRemove: permanentDeleteStaff,
         actions: {
             onSuccess: (data) => __actionRemove(data.id),
         },

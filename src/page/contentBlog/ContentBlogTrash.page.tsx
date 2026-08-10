@@ -7,9 +7,8 @@ import useContentBlogMainHook from '@/page/contentBlog/hook/useContentBlogMain.h
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import ContentBlogTable from '@/page/contentBlog/component/ContentBlogTable.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
-import { apiBoat } from '@/service/api/boatManage.api.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
-import { apiBlogContent } from '@/service/api/contentManage.api.ts'
+import { getBlogTrash, permanentDeleteBlog, restoreBlog } from '@/service/api/contentManage.api.ts'
 
 const ContentBlogTrashPage = () => {
     const {
@@ -25,7 +24,7 @@ const ContentBlogTrashPage = () => {
 
         // ---- Change Page ----
         __handleToMain
-    } = useContentBlogMainHook({urlAPI: apiBlogContent.trash})
+    } = useContentBlogMainHook({urlAPI: getBlogTrash})
 
     const {
         __isLoadingTrash,
@@ -36,8 +35,8 @@ const ContentBlogTrashPage = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: apiBlogContent.restore,
-        urlAPIPermanentRemove: apiBlogContent.permanentDelete,
+        urlAPIRestore: restoreBlog,
+        urlAPIPermanentRemove: permanentDeleteBlog,
         actions:{
             onSuccess: (boat) => __actionRemove(boat.id),
         }

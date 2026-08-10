@@ -3,12 +3,15 @@ import { SrvWithFeature } from '@/service/api/type/config.type.ts'
 
 const baseAPI: any = String(import.meta.env.VITE_BASE_API) + '/staffs'
 
-export const SrvStaffCRUD = {
-    ...objectPathEndPointAPI(baseAPI),
-    trash: baseAPI + '/trash',
-    trashWithId: (id: string|number) => baseAPI + '/trash/' + id,
-    restore: (id: number|string) =>  baseAPI + '/trash/' + id,
-}
+export const SrvStaffCRUD = { ...objectPathEndPointAPI(baseAPI)}
+
+export const SrvStaffTrash = baseAPI + '/trash'
+
+export const SrvStaffTrashWithId = (id: string | number = ''): string =>
+    baseAPI + '/trash/' + id
+
+export const SrvStaffRestore = (id: string | number = ''): string =>
+    baseAPI + '/trash/' + id + '/restore'
 
 export const SrvStaffUpdatePassword = (id: string | number = ''): string =>
     baseAPI + '/' + id + '/password'

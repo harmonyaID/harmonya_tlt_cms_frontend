@@ -14,12 +14,15 @@ export const SrvPageContentCRUD = objectPathEndPointAPI(baseAPI + '/pages')
 
 // Blog
 const baseAPIBlog = baseAPI + '/blogs'
-export const SrvBlogContentCRUD = {
-    ...objectPathEndPointAPI(baseAPIBlog),
-    trash: baseAPIBlog + '/trash',
-    trashWithId: (id: number|string) => baseAPIBlog + '/trash/' + id,
-    restore: (id: number|string) => baseAPIBlog + '/trash/' + id + '/restore',
-}
+export const SrvBlogContentCRUD = {...objectPathEndPointAPI(baseAPIBlog)}
+
+export const SrvBlogTrash = baseAPIBlog + '/trash'
+
+export const SrvBlogTrashWithId = (id: string | number = ''): string =>
+    baseAPIBlog + '/trash/' + id
+
+export const SrvBlogRestore = (id: string | number = ''): string =>
+    baseAPIBlog + '/trash/' + id + '/restore'
 
 // Experiences
 export const SrvExperiencesContentCRUD = objectPathEndPointAPI(

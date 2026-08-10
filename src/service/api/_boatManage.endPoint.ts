@@ -5,12 +5,15 @@ const baseAPI: any = String(import.meta.env.VITE_BASE_API)
 
 // Boat
 const baseAPIBoat = baseAPI + '/boats'
-export const SrvBoatCRUD = {
-    ...objectPathEndPointAPI(baseAPIBoat),
-    trash: baseAPIBoat + '/trash',
-    trashWithId: (id: number|string) =>  baseAPIBoat + '/trash/' + id,
-    restore: (id: number|string) =>  baseAPIBoat + '/trash/' + id + '/restore',
-}
+export const SrvBoatCRUD = { ...objectPathEndPointAPI(baseAPIBoat)}
+
+export const SrvBoatTrash = baseAPIBoat + '/trash'
+
+export const SrvBoatTrashWithId = (id: string | number = ''): string =>
+    baseAPIBoat + '/trash/' + id
+
+export const SrvBoatRestore = (id: string | number = ''): string =>
+    baseAPIBoat + '/trash/' + id + '/restore'
 
 // Boat Type
 export const SrvBoatTypeCRUD = objectPathEndPointAPI(
