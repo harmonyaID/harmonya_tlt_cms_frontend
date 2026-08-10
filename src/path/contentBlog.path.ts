@@ -1,5 +1,8 @@
-import { objectPathMenu } from '@/config/base/objectPath.config.js'
+import { objectPathMenu, pathBasenameRoute } from '@/config/base/objectPath.config.js'
 
-const contentBlogPath = { ...objectPathMenu('cm-blog') }
+const contentBlogPath = {
+    ...objectPathMenu('cm-blog'),
+    trash: pathBasenameRoute('cm-blog') + '/trash',
+}
 
 export default contentBlogPath

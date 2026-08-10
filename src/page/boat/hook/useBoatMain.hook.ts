@@ -3,7 +3,7 @@ import { apiBoat } from '@/service/api/boatManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 
-const useBoatMain = () => {
+const useBoatMain = ({ urlAPI }: { urlAPI: any }) => {
     const {
         __list,
         __isLoading,
@@ -14,7 +14,7 @@ const useBoatMain = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiBoat.list,
+        urlAPI: urlAPI,
         // isHideSidebar: true,
         advancedSearch: {
             page: 1,
@@ -24,7 +24,7 @@ const useBoatMain = () => {
         },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
+    const { __handleToAdd, __handleToEdit, __handleToDetail, __handleToMain, __handleToTrash } =
         usePageFlowHandlerHook({
             basePath: boatPath,
             pathFromKey: 'boat-main',
@@ -45,6 +45,8 @@ const useBoatMain = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToMain,
+        __handleToTrash,
     }
 }
 
