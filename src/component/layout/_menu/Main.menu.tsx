@@ -10,8 +10,13 @@ import {
     Home3,
     TaskSquare,
     Blogger,
-    MedalStar,
     HambergerMenu,
+
+    // Experience Management
+    MedalStar,
+    Map,
+    Flag,
+    MessageQuestion,
 
     // Property Management
     Building,
@@ -48,6 +53,9 @@ import contentHomePagePath from '@/path/contentHomePage.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
 import contentSettingPath from '@/path/contentSetting.path.ts'
 import dashboardPath from '@/path/dashboard.path'
+import experienceAreaPath from '@/path/experienceArea.path.ts'
+import experienceInquiryFormPath from '@/path/experienceInquiryForm.path.ts'
+import experienceTypePath from '@/path/experienceType.path.ts'
 import pagePath from '@/path/page.path'
 import propertyPath from '@/path/property.path.ts'
 import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
@@ -254,13 +262,6 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="">
                 <LinkMenu
-                    name="Experience"
-                    icon={<MedalStar variant="Bulk" />}
-                    to={contentExperiencePath.main}
-                />
-            </li>
-            <li className="">
-                <LinkMenu
                     name="Menu"
                     icon={<HambergerMenu variant="Bulk" />}
                     to={contentMenuPath.main}
@@ -275,11 +276,41 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     subMenus={[
                         _configParamSubMenu('Page', contentSettingPath.page),
                         _configParamSubMenu('Blog', contentSettingPath.blog),
-                        _configParamSubMenu(
-                            'Experience',
-                            contentSettingPath.experience,
-                        ),
+                        // _configParamSubMenu(
+                        //     'Experience',
+                        //     contentSettingPath.experience,
+                        // ),
                     ]}
+                />
+            </li>
+
+            <MenuSection name="Experience Management" />
+            <li className="">
+                <LinkMenu
+                    name="Experience"
+                    icon={<MedalStar variant="Bulk" />}
+                    to={contentExperiencePath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Inquiry Form"
+                    icon={<MessageQuestion variant="Bulk" />}
+                    to={experienceInquiryFormPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Type"
+                    icon={<Flag variant="Bulk" />}
+                    to={experienceTypePath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Area"
+                    icon={<Map variant="Bulk" />}
+                    to={experienceAreaPath.main}
                 />
             </li>
 

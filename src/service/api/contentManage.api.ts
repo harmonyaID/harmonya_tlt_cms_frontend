@@ -2,7 +2,7 @@ import {
     _shapeMethodDel,
     _shapeMethodGet,
     _shapeMethodGetSearch, _shapeMethodPost,
-    _shapeObjectMethodCRUD,
+    _shapeObjectMethodCRUD, _shapeMethodPatch,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
     SrvBlogContentCRUD,
@@ -10,17 +10,13 @@ import {
     SrvBlogTrash,
     SrvBlogTrashWithId,
     SrvExperiencesContentCRUD,
+    SrvExpInquiryFormCRUD,
+    SrvExpInquiryFormUpdateStatus,
     SrvHomePageContent,
     SrvHomePageContentCRUD,
     SrvMenuContentCRUD,
     SrvPageContentCRUD,
 } from '@/service/api/_contentManage.endPoint.ts'
-import { SrvBoatCRUD } from '@/service/api/_boatManage.endPoint.ts'
-import {
-    SrvStaffRestore,
-    SrvStaffTrash,
-    SrvStaffTrashWithId,
-} from '@/service/api/_staff.endPoint.ts'
 
 // Home Page
 export const apiHomePageContent = {
@@ -50,6 +46,13 @@ export const restoreBlog = (id: string | number) =>
 export const apiExperienceContent = {
     ..._shapeObjectMethodCRUD(SrvExperiencesContentCRUD),
 }
+
+export const apiExpInquiryForm = {
+    ..._shapeObjectMethodCRUD(SrvExpInquiryFormCRUD),
+}
+
+export const updateStatusExpInquiryForm = (id, formRequest) =>
+    _shapeMethodPatch(SrvExpInquiryFormUpdateStatus(id), formRequest)
 
 // Menu
 export const apiMenu = {

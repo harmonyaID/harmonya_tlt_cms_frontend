@@ -57,7 +57,7 @@ const SectionPreviewSEOInformation = ({
     ]
 
     return (
-        <>
+        <div>
             {isTitle ? (
                 <h6 className="fs-16 fw-500 mb-3">SEO Information</h6>
             ) : null}
@@ -78,7 +78,7 @@ const SectionPreviewSEOInformation = ({
                     )}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

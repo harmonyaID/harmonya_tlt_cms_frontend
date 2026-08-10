@@ -88,6 +88,7 @@ const PropertyReview = ({
         <>
             <CardListData
                 title="Property Reviews"
+                className={isDetailProperty ? 'p-0' : ''}
                 componentAction={
                     <BtnPrimary onClick={() => actions.add()}>
                         Add New

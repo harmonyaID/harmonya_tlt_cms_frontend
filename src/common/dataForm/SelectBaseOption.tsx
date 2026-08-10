@@ -9,6 +9,7 @@ const SelectBaseOption = ({
     listStore = [],
     isLoadingStore,
     value = '',
+    ...other
 }: SelectBaseOptionStoreProps) => {
     return (
         <>
@@ -16,9 +17,10 @@ const SelectBaseOption = ({
                 label={label}
                 name={name}
                 required={isRequired}
-                value={value}>
+                value={value}
+                {...other}>
                 {isLoadingStore ? (
-                    <option value="">- Select Category -</option>
+                    <option value="">Loading..</option>
                 ) : (
                     <option value="">
                         {selectEmpty || '- Select ' + label + ' -'}

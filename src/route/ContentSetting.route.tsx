@@ -53,24 +53,24 @@ const ContentSettingRoute = () => (
             <Route path="*" element={<Page404Layout to={mainBlogPath} />} />
         </Route>
 
-        <Route path={mainExperiencePath}>
-            <Route
-                index
-                path={mainExperiencePath}
-                element={
-                    <SuspenseLayout
-                        titleNavbar="Experience Setting"
-                        isCheckPermission={false}>
-                        <ContentExperienceSettingPage />
-                    </SuspenseLayout>
-                }
-            />
+        {/*<Route path={mainExperiencePath}>*/}
+        {/*    <Route*/}
+        {/*        index*/}
+        {/*        path={mainExperiencePath}*/}
+        {/*        element={*/}
+        {/*            <SuspenseLayout*/}
+        {/*                titleNavbar="Experience Setting"*/}
+        {/*                isCheckPermission={false}>*/}
+        {/*                <ContentExperienceSettingPage />*/}
+        {/*            </SuspenseLayout>*/}
+        {/*        }*/}
+        {/*    />*/}
 
-            <Route
-                path="*"
-                element={<Page404Layout to={mainExperiencePath} />}
-            />
-        </Route>
+        {/*    <Route*/}
+        {/*        path="*"*/}
+        {/*        element={<Page404Layout to={mainExperiencePath} />}*/}
+        {/*    />*/}
+        {/*</Route>*/}
     </>
 )
 
