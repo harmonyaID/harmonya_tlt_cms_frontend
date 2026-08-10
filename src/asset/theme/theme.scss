@@ -102,6 +102,11 @@ body {
     color: darken($warning-100, 10%);
 }
 
+.bg-badge-log-blue {
+    background: rgba(var(--bs-info-rgb), 0.5);
+    color: darken($info-100, 10%);
+}
+
 .size-35 {
     width: 35px;
     height: 35px;

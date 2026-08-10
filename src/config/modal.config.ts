@@ -14,6 +14,8 @@ export const MDGeneralFilterMaxThreeMonth: string =
 export const MDGeneralConfirm: string = 'modalGeneralConfirm'
 export const MDGeneralFormCRUD: string = 'modalGeneralFormCRUD'
 export const MDGeneralPreview = 'modalGeneralPreview'
+export const MDGeneralRestore: string = 'modalGeneralRestore'
+export const MDGeneralPermanentRemove: string = 'modalGeneralPermanentRemove'
 
 // Content Page Setting
 export const MDPSTabFAQAdd = 'modalSettingPageFAQAdd'
@@ -78,3 +80,6 @@ export const MDContentMenuAddMenuItem = 'modalContentMenuAddMenuItem'
 
 // Web Config Setting
 export const MDWebConfigSettingUpdate = 'modalWebConfigSettingUpdate'
+
+// General Setting
+export const MDGuestyConfigForm = 'modalGuestyConfigForm'

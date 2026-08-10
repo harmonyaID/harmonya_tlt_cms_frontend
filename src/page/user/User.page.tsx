@@ -1,19 +1,10 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import {
-    BtnCircleEdit,
-    BtnCircleRemove,
+    BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import Pagination from '@/component/general/Pagination.tsx'
-import {
-    TblLineFirstPrimary,
-    TblLineSecond,
-    TblPointData,
-} from '@/component/general/TablePartial.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
     MDSUserSettingPermission,
@@ -23,9 +14,7 @@ import {
     MDUserUpdateActivation,
     MDUserUpdateSuperAdmin,
 } from '@/config/modal.config.ts'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
@@ -36,6 +25,7 @@ import UserModalUpdatePassword from '@/page/user/container/UserModalUpdatePasswo
 import UserModalUpdateSuperAdmin from '@/page/user/container/UserModalUpdateSuperAdmin.tsx'
 import userPath from '@/path/user.path.ts'
 import { apiStaff } from '@/service/api/staff.api.ts'
+import UserTable from '@/page/user/component/UserTable.tsx'
 
 const UserPage = () => {
     const {
@@ -58,7 +48,7 @@ const UserPage = () => {
         },
     })
 
-    const { __handleToAdd, __handleToEdit } = usePageFlowHandlerHook({
+    const { __handleToAdd, __handleToEdit, __handleToTrash } = usePageFlowHandlerHook({
         basePath: userPath,
         pathFromKey: 'user-main',
     })
@@ -128,9 +118,14 @@ const UserPage = () => {
             <CardListData
                 title="Staff"
                 componentAction={
+                <div className="hstack gap-2">
+                    <BtnDanger isOutline handle={() => __handleToTrash()}>
+                        Trash
+                    </BtnDanger>
                     <BtnPrimary onClick={() => __handleToAdd()}>
                         Add New
                     </BtnPrimary>
+                </div>
                 }>
                 <FilterBarBasic
                     formRequest={__search}
@@ -142,178 +137,21 @@ const UserPage = () => {
                         clear: __actionClear,
                     }}
                 />
-                <div className="row overflow-y position-relative">
-                    <div className="col-md-12 table-responsive-md">
-                        <TableThemeLogic
-                            isLoading={__isLoading}
-                            isNoWrap
-                            ths={[
-                                'Full Name',
-                                'Country',
-                                'Address',
-                                'Contact',
-                                'Super Admin',
-                                'Status',
-                                '',
-                            ]}
-                            tds={__list}>
-                            {__list.map((vm, index) => {
-                                return (
-                                    <tr key={index}>
-                                        <td>
-                                            <TblLineFirstPrimary
-                                                value={vm.fullName}
-                                            />
 
-                                            <TblPointData
-                                                title="Gender"
-                                                value={vm?.gender?.name || '-'}
-                                            />
-                                        </td>
-                                        <td>
-                                            <TblLineSecond>
-                                                {vm?.country?.name || '-'}
-                                            </TblLineSecond>
-                                        </td>
-                                        <td>
-                                            <TblLineSecond>
-                                                {vm?.address || '-'}
-                                            </TblLineSecond>
-                                        </td>
-                                        <td>
-                                            <TblPointData
-                                                title="Email"
-                                                value={vm.email || '-'}
-                                            />
-                                            <TblPointData
-                                                title="Phone"
-                                                value={vm.phone || '-'}
-                                            />
-                                        </td>
-                                        <td>
-                                            <TextTrueOrFalse
-                                                value={vm.isSuperadmin}
-                                            />
-                                        </td>
-                                        <td>
-                                            <TextTrueOrFalse
-                                                value={vm.isActive}
-                                                textTrue="Active"
-                                                textFalse="Not Active"
-                                            />
-                                        </td>
-                                        <td>
-                                            <div className="hstack gap-2 justify-content-end">
-                                                <div className="dropdown me-1">
-                                                    <button
-                                                        className="btn btn-outline-neutral-300 btn-sm dropdown-toggle"
-                                                        type="button"
-                                                        data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        Setting
-                                                    </button>
-                                                    <ul className="dropdown-menu p-2">
-                                                        <li>
-                                                            <button
-                                                                className="dropdown-item btn-sm"
-                                                                onClick={() =>
-                                                                    _handleChooseForRole(
-                                                                        vm,
-                                                                    )
-                                                                }>
-                                                                Role
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button
-                                                                className="dropdown-item btn-sm"
-                                                                onClick={() =>
-                                                                    _handleChooseForPermission(
-                                                                        vm,
-                                                                    )
-                                                                }>
-                                                                Permission
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button
-                                                                className="dropdown-item btn-sm"
-                                                                onClick={() =>
-                                                                    _handleChooseForUpdatePW(
-                                                                        vm,
-                                                                    )
-                                                                }>
-                                                                Update Password
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <button
-                                                                className="dropdown-item btn-sm"
-                                                                onClick={() =>
-                                                                    _handleChooseForUpdateActivation(
-                                                                        vm,
-                                                                    )
-                                                                }>
-                                                                Change
-                                                                Activation
-                                                            </button>
-                                                        </li>
-                                                        {/*<li>*/}
-                                                        {/*    <button*/}
-                                                        {/*        className="dropdown-item btn-sm"*/}
-                                                        {/*        onClick={() =>*/}
-                                                        {/*            _handleChooseForUpdateSuperAdmin(*/}
-                                                        {/*                vm,*/}
-                                                        {/*            )*/}
-                                                        {/*        }>*/}
-                                                        {/*        Change Super*/}
-                                                        {/*        Admin*/}
-                                                        {/*    </button>*/}
-                                                        {/*</li>*/}
-                                                    </ul>
-                                                </div>
-
-                                                <BtnCircleRemove
-                                                    actions={{
-                                                        remove: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleChooseRemove(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-
-                                                <BtnCircleEdit
-                                                    title="Edit Data"
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            __handleToEdit(
-                                                                vm.id,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </TableThemeLogic>
-                    </div>
-                </div>
-
-                {isShowPagination(__isLoading, __list, __pagination) ? (
-                    <Pagination
-                        onMove={(step) => __actionPagination(step)}
-                        className="mt-2"
-                        pagination={configDefaultPagination(
-                            __pagination,
-                            'totalPage',
-                        )}
-                    />
-                ) : null}
+                <UserTable
+                    __list={__list}
+                    __isLoading={__isLoading}
+                    __pagination={__pagination}
+                    actions={{
+                        __actionPagination: __actionPagination,
+                        __handleChooseForUpdateActivation: _handleChooseForUpdateActivation,
+                        __handleChooseForPermission: _handleChooseForPermission,
+                        __handleChooseForRole: _handleChooseForRole,
+                        __handleChooseForUpdatePW: _handleChooseForUpdatePW,
+                        __handleToEdit: __handleToEdit,
+                        __handleChooseRemove: _handleChooseRemove,
+                    }}
+                />
             </CardListData>
 
             <CreatePortalLayout>

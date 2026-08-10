@@ -135,8 +135,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
 
                                         <GeneralRowForm
-                                            label="Custom Informations"
-                                            isRequired>
+                                            label="Custom Informations">
                                             {__formRequest.customInformations.map(
                                                 (vm, index) => {
                                                     const order = index + 1
@@ -225,8 +224,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
 
                                         <GeneralRowForm
-                                            label="Description"
-                                            isRequired>
+                                            label="Description">
                                             <FormTextEditor
                                                 value={
                                                     __formRequest.description
@@ -261,8 +259,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
 
                                         <GeneralRowForm
-                                            label="Price File"
-                                            isRequired>
+                                            label="Price File">
                                             <FormUploadFile
                                                 name="priceFile"
                                                 nameFileDefault="Price"
@@ -350,8 +347,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             handleArrChange: __handleArrChange,
                                         }}>
                                         <GeneralRowForm
-                                            label="Promo Photos"
-                                            isRequired>
+                                            label="Promo Photos">
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}
                                                 formName="promoPhotos"

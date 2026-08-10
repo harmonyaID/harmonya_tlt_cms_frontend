@@ -1,5 +1,8 @@
-import { objectPathMenu } from '@/config/base/objectPath.config.js'
+import { objectPathMenu, pathBasenameRoute } from '@/config/base/objectPath.config.js'
 
-const boatPath = { ...objectPathMenu('boat') }
+const boatPath = {
+    ...objectPathMenu('boat'),
+    trash: pathBasenameRoute('boat') + '/trash',
+}
 
 export default boatPath

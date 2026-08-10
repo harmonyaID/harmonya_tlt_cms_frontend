@@ -3,7 +3,11 @@ import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import { apiPropertyReviews } from '@/service/api/property.api.ts'
 
-const PropertyTabReview = () => {
+const PropertyTabReview = ({
+    propertyId,
+}: {
+    propertyId?: string | number
+}) => {
     const { __handleToAdd, __handleToEdit, __handleToDetail } =
         usePageFlowHandlerHook({
             basePath: propertyReviewsPath,
@@ -14,7 +18,8 @@ const PropertyTabReview = () => {
         <PropertyReview
             isDetailProperty
             api={{
-                list: apiPropertyReviews.list,
+                list: (search) =>
+                    apiPropertyReviews.list({ ...search, propertyId }),
             }}
             actions={{
                 add: __handleToAdd,
