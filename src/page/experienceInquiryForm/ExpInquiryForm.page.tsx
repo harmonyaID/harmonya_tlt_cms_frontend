@@ -12,6 +12,7 @@ import {
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
+import HyperLink from '@/component/general/HyperLink.tsx'
 import { BoxImage } from '@/component/general/Image.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
 import PreElement from '@/component/general/PreElement.tsx'
@@ -39,6 +40,7 @@ import { viewData } from '@/helper/condition.helper.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useExpInquiryDetailOffCanvas from '@/page/experienceInquiryForm/hook/useExpInquiryDetailOffCanvas.hook.ts'
 import useExpInquiryMainHook from '@/page/experienceInquiryForm/hook/useExpInquiryMain.hook.ts'
+import contentExperiencePath from '@/path/contentExperience.path.ts'
 import { apiExpInquiryForm } from '@/service/api/contentManage.api.ts'
 import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
 
@@ -118,12 +120,21 @@ const ExpInquiryFormPage = () => {
                                             <TblLineFirstPrimary
                                                 value={vm?.fullName || ''}
                                             />
-                                            <TblPointData
-                                                title="Experience"
-                                                value={
-                                                    vm?.experience?.name || '-'
-                                                }
-                                            />
+                                            <TblPointData title="Experience">
+                                                {vm?.experience?.name ? (
+                                                    <HyperLink
+                                                        isOpenNewTab
+                                                        className="fs-13"
+                                                        url={contentExperiencePath.detail(
+                                                            vm.experience.id ||
+                                                                '#',
+                                                        )}>
+                                                        {vm.experience.name}
+                                                    </HyperLink>
+                                                ) : (
+                                                    '-'
+                                                )}
+                                            </TblPointData>
                                         </td>
                                         <td>
                                             <TblLineSecond
