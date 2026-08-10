@@ -1,10 +1,4 @@
 import {
-    _shapeMethodDel,
-    _shapeMethodGet,
-    _shapeMethodGetSearch, _shapeMethodPost,
-    _shapeObjectMethodCRUD, _shapeMethodPatch,
-} from '@/service/api/_coreAPI/_config.api.ts'
-import {
     SrvBlogContentCRUD,
     SrvBlogRestore,
     SrvBlogTrash,
@@ -17,6 +11,12 @@ import {
     SrvMenuContentCRUD,
     SrvPageContentCRUD,
 } from '@/service/api/_contentManage.endPoint.ts'
+import {
+    _shapeMethodDel,
+    _shapeMethodGet,
+    _shapeMethodGetSearch, _shapeMethodPost,
+    _shapeObjectMethodCRUD, _shapeMethodPatch,
+} from '@/service/api/_coreAPI/_config.api.ts'
 
 // Home Page
 export const apiHomePageContent = {

@@ -371,7 +371,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                             __handleSEOThumbnailRemove={
                                 __handleSEOThumbnailRemove
                             }
-                            isRequired={false}
                         />
 
                         <FooterSubmit
