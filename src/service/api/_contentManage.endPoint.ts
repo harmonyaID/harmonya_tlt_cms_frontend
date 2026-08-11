@@ -14,7 +14,7 @@ export const SrvPageContentCRUD = objectPathEndPointAPI(baseAPI + '/pages')
 
 // Blog
 const baseAPIBlog = baseAPI + '/blogs'
-export const SrvBlogContentCRUD = {...objectPathEndPointAPI(baseAPIBlog)}
+export const SrvBlogContentCRUD = { ...objectPathEndPointAPI(baseAPIBlog) }
 
 export const SrvBlogTrash = baseAPIBlog + '/trash'
 
@@ -38,3 +38,6 @@ export const SrvExpInquiryFormUpdateStatus = (id) =>
 
 // Menus
 export const SrvMenuContentCRUD = objectPathEndPointAPI(baseAPI + '/menus')
+
+// Menus Setting
+export const SrvMenuTypeStatic = baseAPI + +'/components/statics/menu-types'

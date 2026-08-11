@@ -5,6 +5,7 @@ import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
+import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import { BtnPrimary } from '@/component/general/Button.tsx'
 import ContentMedia from '@/component/general/ContentMedia.tsx'
@@ -13,16 +14,17 @@ import { MediaNotAvailable } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import VerticalDataPreview from '@/component/general/VerticalDataPreview.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { localeOption } from '@/config/locale.config.ts'
 import { objectListDetail } from '@/config/objectList.config.ts'
-import {
-    formatDateByTlt,
-    formatDateTimeByTlt,
-} from '@/helper/actionFormatDate.helper.ts'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
 import useHomePageMainHook from '@/page/contentHomePage/hook/useHomePageMain.hook.ts'
 
 const ContentHomePagePage = () => {
     const {
+        __search,
+        __handleSearchChange,
+
         // ---- List Data ----
         // __list: __detail,
         __detail,
@@ -65,15 +67,33 @@ const ContentHomePagePage = () => {
     return (
         <>
             <LoadingStatePreviewData isLoading={__isLoading} data={__detail}>
-                <div className="hstack flex-wrap align-items-center justify-content-between">
-                    <h5 className="fs-18 fw-600 pb-3">Homepage Content</h5>
+                <div className="hstack flex-wrap align-items-center justify-content-between pb-3">
+                    <h5 className="fs-18 fw-600 mb-0">Homepage Content</h5>
 
-                    <BtnPrimary
-                        className="btn-sm"
-                        isOutline
-                        handle={() => __handleToEdit(__detail.locale)}>
-                        Edit Content
-                    </BtnPrimary>
+                    <div className="hstack flex-wrap gap-2">
+                        <FormSelectOption
+                            name="locale"
+                            className="mb-0"
+                            isUseHook={false}
+                            classNameSelect="text-uppercase fs-13"
+                            value={__search.locale}
+                            actions={{
+                                onChange: (name, value) =>
+                                    __handleSearchChange(name, value),
+                            }}>
+                            {localeOption.map((vm) => (
+                                <option value={vm} key={vm}>
+                                    {vm}
+                                </option>
+                            ))}
+                        </FormSelectOption>
+
+                        <BtnPrimary
+                            className="btn-sm"
+                            handle={() => __handleToEdit(__detail.locale)}>
+                            Edit Content
+                        </BtnPrimary>
+                    </div>
                 </div>
 
                 <div className="row">

@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams, useSearchParams } from 'react-router'
+import { LOCALE_EN } from '@/config/locale.config.ts'
+import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { detailHomePageContent } from '@/service/api/contentManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import contentHomePagePath from '@/path/contentHomePage.path.ts'
-import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
+import { detailHomePageContent } from '@/service/api/contentManage.api.ts'
 
 const useHomePageMainHook = () => {
     // const {
@@ -24,12 +26,15 @@ const useHomePageMainHook = () => {
     //     },
     // })
 
+    const { id } = useParams()
+
     const [search, setSearch] = useState({
-        locale: 'en',
+        locale: id || LOCALE_EN,
     })
 
     const { __detail, __isLoading } = useDataDetailHook({
         urlAPI: () => detailHomePageContent(search),
+        triggerBy: search.locale,
     })
 
     const { __handleToAdd, __handleToEdit, __handleToDetail } =
@@ -37,6 +42,19 @@ const useHomePageMainHook = () => {
             basePath: contentHomePagePath,
             pathFromKey: 'hom-main',
         })
+
+    const _handleSearchChange = (name, value) => {
+        setSearch((prevState) => ({ ...prevState, [name]: value }))
+        if (value) {
+            __handleToDetail(value)
+        }
+    }
+
+    useEffect(() => {
+        if (!id) {
+            __handleToDetail(LOCALE_EN)
+        }
+    }, [id])
 
     return {
         // ---- List Data ----
@@ -48,6 +66,9 @@ const useHomePageMainHook = () => {
         // __actionRemove,
         // __actionChange,
         // __actionClear,
+
+        __search: search,
+        __handleSearchChange: _handleSearchChange,
 
         __detail,
         __isLoading,

@@ -1,9 +1,6 @@
 import TabSimpleSettingCRUD from '@/common/dataFeature/tabSetting/TabSimpleSettingCRUD.tsx'
-import {
-    apiPropertyTag,
-    apiPropertyType,
-} from '@/service/api/propertySettingGeneral.api.ts'
 import { MDGeneralFormCRUD } from '@/config/modal.config.ts'
+import { apiPropertyTag } from '@/service/api/propertySettingGeneral.api.ts'
 
 const TabPropertyTag = () => (
     <TabSimpleSettingCRUD

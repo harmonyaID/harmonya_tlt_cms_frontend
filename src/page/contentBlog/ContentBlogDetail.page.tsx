@@ -17,6 +17,7 @@ import { objectListDetail } from '@/config/objectList.config.ts'
 import useContentBlogDetail from '@/page/contentBlog/hook/useContentBlogDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
+import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
 
 const ContentBlogDetailPage = () => {
     const {
@@ -29,6 +30,7 @@ const ContentBlogDetailPage = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToMain,
+        __handleToPreview,
     } = useContentBlogDetail()
 
     return (
@@ -53,6 +55,12 @@ const ContentBlogDetailPage = () => {
 
                 <div className="col-auto">
                     <div className="hstack gap-2 flex-wrap">
+                        <BtnPrimary
+                            isOutline
+                            onClick={() => __handleToPreview(__detail.id)}>
+                            Preview
+                        </BtnPrimary>
+
                         <BtnPrimary
                             isOutline
                             onClick={() =>
@@ -92,9 +100,13 @@ const ContentBlogDetailPage = () => {
                                         objectListDetail(
                                             'Excerpt',
                                             __detail.excerpt ? (
-                                                <PreElement
-                                                    children={__detail.excerpt}
-                                                />
+                                                <div className="p-3 bg-neutral-600 rounded-2 border-neutral-500">
+                                                    <TinyMCERenderer
+                                                        content={
+                                                            __detail.excerpt
+                                                        }
+                                                    />
+                                                </div>
                                             ) : (
                                                 '-'
                                             ),
@@ -107,16 +119,13 @@ const ContentBlogDetailPage = () => {
                                         objectListDetail(
                                             'Content',
                                             __detail.content ? (
-                                                <>
-                                                    <div
-                                                        className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
-                                                        dangerouslySetInnerHTML={{
-                                                            __html:
-                                                                __detail?.content ||
-                                                                '-',
-                                                        }}
+                                                <div className="p-3 bg-neutral-600 rounded-2 border-neutral-500">
+                                                    <TinyMCERenderer
+                                                        content={
+                                                            __detail.content
+                                                        }
                                                     />
-                                                </>
+                                                </div>
                                             ) : (
                                                 '-'
                                             ),

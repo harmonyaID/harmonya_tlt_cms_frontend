@@ -141,6 +141,7 @@ const PropertyDetailPage = () => {
                                         ? __detail?.tags.map((tag) => {
                                               return (
                                                   <BadgeStatusGeneral
+                                                      key={tag.name}
                                                       value={tag.name}
                                                       className="text-bg-neutral-500"
                                                       inTable
@@ -255,6 +256,9 @@ const PropertyDetailPage = () => {
                                                                               ) => {
                                                                                   return (
                                                                                       <BadgeStatusGeneral
+                                                                                          key={
+                                                                                              tag.name
+                                                                                          }
                                                                                           value={
                                                                                               tag.name
                                                                                           }

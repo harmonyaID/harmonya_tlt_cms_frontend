@@ -21,6 +21,7 @@ import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import useContentBlogMainForm from '@/page/contentBlog/hook/useContentBlogMainForm.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -52,7 +53,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = useContentBlogMainForm({ isEdit })
-
+console.log(__formRequest.content)
     return (
         <>
             <NavBreadcrumb
@@ -117,9 +118,9 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <GeneralRowForm
                                                 label="Excerpt"
                                                 isRequired>
-                                                <FormTextArea
+                                                <FormTinyMCE
                                                     name="excerpt"
-                                                    required
+                                                    height={300}
                                                     placeholder="e.g Nusa Lembongan is a stunning island just 30 minutes from Bali."
                                                 />
                                             </GeneralRowForm>
@@ -127,19 +128,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <GeneralRowForm
                                                 label="Content"
                                                 isRequired>
-                                                <FormTextEditor
-                                                    value={
-                                                        __formRequest.content
-                                                    }
-                                                    actions={{
-                                                        onChange: (value) =>
-                                                            __handleChange(
-                                                                'content',
-                                                                value,
-                                                            ),
-                                                    }}
-                                                    required
-                                                />
+                                                <FormTinyMCE name="content" />
                                             </GeneralRowForm>
                                         </WrapFormContext>
                                     </CardDropdown>
