@@ -9,6 +9,9 @@ const mainPath = contentBlogPath.main
 const ContentBlogPage = lazy(
     () => import('@/page/contentBlog/ContentBlog.page.tsx'),
 )
+const ContentBlogPreviewPage = lazy(
+    () => import('@/page/contentBlog/ContentBlogPreview.page.tsx'),
+)
 const ContentBlogTrashPage = lazy(
     () => import('@/page/contentBlog/ContentBlogTrash.page.tsx'),
 )
@@ -36,7 +39,9 @@ const ContentBlogRoute = () => (
         <Route
             path={contentBlogPath.trash}
             element={
-                <SuspenseLayout titleNavbar="Blog Trash" isCheckPermission={false}>
+                <SuspenseLayout
+                    titleNavbar="Blog"
+                    isCheckPermission={false}>
                     <ContentBlogTrashPage />
                 </SuspenseLayout>
             }
@@ -54,6 +59,16 @@ const ContentBlogRoute = () => (
             element={
                 <SuspenseLayout titleNavbar="Blog" isCheckPermission={false}>
                     <ContentBlogEditPage />
+                </SuspenseLayout>
+            }
+        />
+        <Route
+            path={contentBlogPath.preview(":id")}
+            element={
+                <SuspenseLayout
+                    titleNavbar="Blog"
+                    isCheckPermission={false}>
+                    <ContentBlogPreviewPage />
                 </SuspenseLayout>
             }
         />
