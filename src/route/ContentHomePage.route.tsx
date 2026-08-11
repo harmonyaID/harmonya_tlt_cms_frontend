@@ -28,6 +28,17 @@ const ContentHomePageRoute = () => (
         />
 
         <Route
+            path={contentHomePagePath.detail()}
+            element={
+                <SuspenseLayout
+                    titleNavbar="Home Page"
+                    isCheckPermission={false}>
+                    <ContentHomePage />
+                </SuspenseLayout>
+            }
+        />
+
+        <Route
             index
             path={contentHomePagePath.edit()}
             element={

@@ -9,13 +9,16 @@ import {
     SrvHomePageContent,
     SrvHomePageContentCRUD,
     SrvMenuContentCRUD,
+    SrvMenuTypeStatic,
     SrvPageContentCRUD,
 } from '@/service/api/_contentManage.endPoint.ts'
 import {
     _shapeMethodDel,
     _shapeMethodGet,
-    _shapeMethodGetSearch, _shapeMethodPost,
-    _shapeObjectMethodCRUD, _shapeMethodPatch,
+    _shapeMethodGetSearch,
+    _shapeMethodPost,
+    _shapeObjectMethodCRUD,
+    _shapeMethodPatch,
 } from '@/service/api/_coreAPI/_config.api.ts'
 
 // Home Page
@@ -31,7 +34,7 @@ export const apiPageContent = {
     ..._shapeObjectMethodCRUD(SrvPageContentCRUD),
 }
 // Blog
-export const apiBlogContent = {..._shapeObjectMethodCRUD(SrvBlogContentCRUD)}
+export const apiBlogContent = { ..._shapeObjectMethodCRUD(SrvBlogContentCRUD) }
 
 export const getBlogTrash = (search: any) =>
     _shapeMethodGetSearch(SrvBlogTrash, search)
@@ -58,3 +61,6 @@ export const updateStatusExpInquiryForm = (id, formRequest) =>
 export const apiMenu = {
     ..._shapeObjectMethodCRUD(SrvMenuContentCRUD),
 }
+
+export const getStaticTypeMenu = () =>
+    _shapeMethodGet(SrvMenuTypeStatic, 'tcSrvMenuTypeStatic')

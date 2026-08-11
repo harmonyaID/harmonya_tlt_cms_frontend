@@ -5,10 +5,7 @@ import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
 import { FormSelectOptionProps } from './type/componentForm.type'
 
-
 const FormSelectOption: FC<FormSelectOptionProps> = (props) => {
-    const ctx = useHookContextForm()
-
     const {
         id = '',
         children = '',
@@ -16,8 +13,11 @@ const FormSelectOption: FC<FormSelectOptionProps> = (props) => {
         classNameSelect = '',
         required = false,
         disabled = false,
+        isUseHook = true,
         other,
     } = props
+
+    const ctx = isUseHook ? useHookContextForm() : {}
 
     const { dataValue, handleChange } = useComponentInputConfigHook(
         ctx,

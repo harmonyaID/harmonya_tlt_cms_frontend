@@ -32,7 +32,7 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
 
     const restored = useLocationStateHook()
 
-    const { __handleSubmit, __handleCancel, __handleToMain } =
+    const { __handleSubmit, __handleCancel, __handleToMain, __handleToDetail } =
         usePageFlowHandlerHook({
             basePath: contentHomePagePath,
             pathFromKey: restored.from,
@@ -74,10 +74,10 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
         return __handleSubmit({
             apiCall: () => apiHomePageContent.updateWithData(id, formRequest),
             setIsLoading,
-            // isDirectToDetail: true,
-            callBack: () => {
-                __handleToMain()
-            },
+            isDirectToDetail: true,
+            // callBack: () => {
+            //     __handleToMain()
+            // },
         })
     }
 
@@ -102,7 +102,7 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
-        __handleCancel,
+        __handleCancel: () => __handleToDetail(id),
     }
 }
 

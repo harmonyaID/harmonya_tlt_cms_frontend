@@ -1,15 +1,13 @@
-import { apiExperienceCategory } from '@/service/api/contentManageSetting.api.ts'
+import { apiPropertyTag } from '@/service/api/propertySettingGeneral.api.ts'
 import { createStoreWithAPI } from '@/store/_coreStore/_create.store.ts'
 import { DefaultConfigCreatStoreType } from '@/store/_coreStore/_store.type.ts'
 import useHookFetchDataStore from '@/store/_coreStore/_useHookFetchData.store.ts'
 
 const configUseStore = createStoreWithAPI(() =>
-    apiExperienceCategory.list({ page: 0 }),
+    apiPropertyTag.list({ page: 0 }),
 )
 
-const useExperienceCategoryStore = (
-    passConfig: DefaultConfigCreatStoreType = {},
-) => {
+const useBlogTagStore = (passConfig: DefaultConfigCreatStoreType = {}) => {
     return {
         ...useHookFetchDataStore({
             ...passConfig,
@@ -18,4 +16,4 @@ const useExperienceCategoryStore = (
     }
 }
 
-export default useExperienceCategoryStore
+export default useBlogTagStore

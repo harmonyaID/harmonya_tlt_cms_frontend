@@ -3,6 +3,8 @@ import {
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
+    SrvAmenitiesCategoryCRUD,
+    SrvAmenitiesCRUD,
     SrvCountries,
     SrvInfoWebsite,
     SrvInfoWebsiteUpdate,
@@ -17,3 +19,12 @@ export const getInfoWebsite = () =>
 
 export const updateInfoWebsite = (id: string | number) =>
     _shapeMethodGet(SrvInfoWebsiteUpdate(id), 'tcSrvInfoWebsiteUpdate')
+
+// Amenities
+export const apiAmenitiesCRUD = {
+    ..._shapeObjectMethodCRUD(SrvAmenitiesCRUD),
+}
+
+export const apiAmenitiesCategoryCRUD = {
+    ..._shapeObjectMethodCRUD(SrvAmenitiesCategoryCRUD),
+}

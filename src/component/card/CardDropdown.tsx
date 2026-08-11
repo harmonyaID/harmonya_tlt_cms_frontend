@@ -13,7 +13,7 @@ const CardDropdown = ({
     const cardId = id || textToId(title.toString())
 
     return (
-        <div className={'card overflow-hidden border-0 ' + className}>
+        <div className={'card border-0 ' + className}>
             {title ? (
                 <div
                     className="card-header border-0 bg-white"

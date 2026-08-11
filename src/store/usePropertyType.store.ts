@@ -1,4 +1,3 @@
-import { apiBoatType } from '@/service/api/boatManage.api.ts'
 import { apiPropertyType } from '@/service/api/propertySettingGeneral.api.ts'
 import { createStoreWithAPI } from '@/store/_coreStore/_create.store.ts'
 import { DefaultConfigCreatStoreType } from '@/store/_coreStore/_store.type.ts'

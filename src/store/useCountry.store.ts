@@ -1,7 +1,7 @@
-import { createStoreWithAPI } from '@/store/_coreStore/_create.store.ts'
-import useHookFetchDataStore from '@/store/_coreStore/_useHookFetchData.store.ts'
 import { getCountries } from '@/service/api/setting.api.ts'
+import { createStoreWithAPI } from '@/store/_coreStore/_create.store.ts'
 import { DefaultConfigCreatStoreType } from '@/store/_coreStore/_store.type.ts'
+import useHookFetchDataStore from '@/store/_coreStore/_useHookFetchData.store.ts'
 
 const configUseStore = createStoreWithAPI(getCountries)
 

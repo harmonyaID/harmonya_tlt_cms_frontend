@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
-import { isEmpty } from 'lodash'
+import { isArray, isEmpty, isObject } from 'lodash'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
@@ -27,20 +27,69 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             pathFromKey: restored.from,
         })
 
-    const [seoThumbnail, setSetSEOThumbnail] = useState('')
-
     const [formRequest, setFormRequest] = useState({ ...propertyInitForm })
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const [listTags, setListTags] = useState<any[]>([])
-
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
+
+    const [seoThumbnail, setSetSEOThumbnail] = useState('')
 
     const _handleSEOThumbnailRemove = () => {
         setSetSEOThumbnail('')
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
     }
+
+    // START TAGS
+    const [listTags, setListTags] = useState<any[]>([])
+
+    const _handleTagChoose = (newTag) => {
+        if (!isEmpty(newTag)) {
+            const checkData = isArray(newTag)
+                ? newTag[0]
+                : isObject(newTag)
+                  ? newTag
+                  : {}
+
+            nestedForm._handleArrAddMulti('tagIds', [checkData.id])
+
+            // @ts-ignore
+            setListTags((prevState) => [...prevState, ...newTag])
+        }
+    }
+
+    const _handleTagRemove = (dataTag) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.tagIds = newState.tagIds.filter(
+                (tagId) => tagId !== dataTag.id,
+            )
+
+            return newState
+        })
+
+        setListTags((prev) => prev.filter((tag) => tag.id !== dataTag.id))
+    }
+    // END TAGS
+
+    // START AMENITIES
+    const [listAmenities, setListAmenities] = useState<any[]>([])
+
+    const _handleAmenitiesChoose = () => {}
+
+    const _handleAmenitiesRemove = (dataTag) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.amenityIds = newState.amenityIds.filter(
+                (tagId) => tagId !== dataTag.id,
+            )
+
+            return newState
+        })
+
+        setListAmenities((prev) => prev.filter((tag) => tag.id !== dataTag.id))
+    }
+    // END AMENITIES
 
     // Data Detail
     const dataDetail = useDetailFormRequestHook({
@@ -99,8 +148,8 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __pageStateDataSearch: restored,
 
         // Tags
-        // __handleTagChoose: _handleTagChoose,
-        // __handleTagRemove: _handleTagRemove,
+        __handleTagChoose: _handleTagChoose,
+        __handleTagRemove: _handleTagRemove,
         __listTags: listTags,
         __setListTags: setListTags,
 

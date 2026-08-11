@@ -12,3 +12,11 @@ export const SrvInfoWebsite = baseAPI + '/configurations/website'
 
 export const SrvInfoWebsiteUpdate = (id: string | number) =>
     baseAPI + '/configurations/website/' + id + '/update'
+
+// Amenities
+export const SrvAmenitiesCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPI + '/settings/amenities',
+)
+export const SrvAmenitiesCategoryCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPI + '/settings/amenities/categories',
+)

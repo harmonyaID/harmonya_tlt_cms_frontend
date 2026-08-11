@@ -45,6 +45,11 @@ export const propertyInitForm = {
         hostName: '',
         wifiName: '',
         wifiPassword: '',
+        // cleaningInstructions: ''
+        // houseManual: ''
+        // interactionWithGuests: ''
+        // parkingInstructions: ''
+        // trashInstructions: ''
     },
     rooms: [],
     availability: {
@@ -64,6 +69,7 @@ export const propertyInitForm = {
     descriptions: [],
     amenityIds: [],
     tagIds: [],
+    features: [],
     seo: {
         ...initSEOFormConfig,
     },
@@ -111,5 +117,6 @@ export const propertyMapInitForm = (passData) => ({
         : [],
     amenityIds: [],
     tagIds: [],
+    features: [],
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
