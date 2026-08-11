@@ -1,6 +1,7 @@
 import {
     BtnCircleEdit,
     BtnCircleRemove,
+    BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
@@ -16,6 +17,11 @@ import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import CardPreview from '@/component/card/CardPreview.tsx'
+import { useEffect, useState } from 'react'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import { permanentDeleteBoat, restoreBoat } from '@/service/api/boatManage.api.ts'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
 const initForm = {
     name: '',
@@ -32,6 +38,7 @@ const TabSimpleSettingCRUD = ({
         update: (id, passForm) => {},
         delete: (id) => {},
     },
+    apiTrash,
     idModal = '',
     placeholder = 'e.g Hotel',
     title = '',
@@ -39,18 +46,28 @@ const TabSimpleSettingCRUD = ({
     isAdd = true,
     isEdit = true,
     isRemove = true,
+    isTrash = false,
 }: {
     title: string
     apiCRUD: any
+    apiTrash?: {
+        list: any,
+        restore: any,
+        delete: any,
+    }
     idModal?: string
     placeholder?: string
     isSearch?: boolean
     isAdd?: boolean
     isEdit?: boolean
     isRemove?: boolean
+    isTrash?: boolean
 }) => {
     const idModalAdd = idModal + 'Add'
     const idModalRemove = idModal + 'Remove'
+
+    const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
+    const [urlAPI, setUrlAPI] = useState(() => apiCRUD.list)
 
     const {
         __list,
@@ -61,7 +78,7 @@ const TabSimpleSettingCRUD = ({
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: (passData) => apiCRUD.list(isSearch ? passData : { page: 0 }),
+        urlAPI: (passData) => urlAPI?.(isSearch ? passData : { page: 0 }),
         advancedSearch: {
             page: 0,
         },
@@ -97,19 +114,68 @@ const TabSimpleSettingCRUD = ({
         },
     })
 
+    const {
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: apiTrash?.restore,
+        urlAPIPermanentRemove: apiTrash?.delete,
+        actions: {
+            onSuccess: (vm) => __actionRemove(vm.id),
+        },
+    })
+
+    const _handleShowTrash = () => {
+        setIsShowTrash(true)
+        if(apiTrash?.list) {
+            setUrlAPI(() => apiTrash.list)
+        }
+    }
+
+    const _handleShowList = () => {
+        setIsShowTrash(false)
+        setUrlAPI(() => apiCRUD.list)
+    }
+
+    useEffect(() => {
+        __actionPagination(1)
+    }, [urlAPI])
+
     return (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">{title}</h5>
+                    <h5 className="fs-18 fw-500">
+                        {title} {isShowTrash ? 'Trash' : ''}
+                    </h5>
                 </div>
-                {isAdd ? (
-                    <div className="col-auto">
-                        <BtnPrimary onClick={() => __actionAddModal()}>
-                            Add New
+                <div className="col-auto">
+                    {isShowTrash ? (
+                        <BtnPrimary isOutline onClick={() => _handleShowList()}>
+                            Back
                         </BtnPrimary>
-                    </div>
-                ) : null}
+                    ) : (
+                        <div className="hstack gap-2">
+                            {isTrash && (
+                                <BtnDanger
+                                    isOutline
+                                    handle={() => _handleShowTrash()}>
+                                    Trash
+                                </BtnDanger>
+                            )}
+                            {isAdd ? (
+                                <BtnPrimary onClick={() => __actionAddModal()}>
+                                    Add New
+                                </BtnPrimary>
+                            ) : null}
+                        </div>
+                    )}
+                </div>
             </div>
 
             <LoadingStatePreviewData isLoading={__isLoading} data={__list}>
@@ -123,33 +189,48 @@ const TabSimpleSettingCRUD = ({
                                     </h6>
                                 </div>
 
-                                {isRemove || isEdit ? (
-                                    <div className="hstack gap-2 flex-wrap mt-auto pt-3">
-                                        {isRemove ? (
-                                            <BtnCircleRemove
-                                                title="Delete Data"
-                                                actions={{
-                                                    remove: (e) => {
-                                                        e.stopPropagation()
-                                                        _handleChooseRemove(vm)
-                                                    },
-                                                }}
-                                            />
-                                        ) : null}
+                                <div className="hstack gap-2 flex-wrap mt-auto pt-3">
+                                    {isShowTrash ? (
+                                        <TrashActionButtons
+                                            selected={vm}
+                                            actions={{
+                                                permanentRemove:
+                                                    __handleChoosePermanentRemove,
+                                                restore: __handleChooseRestore,
+                                            }}
+                                        />
+                                    ) : (
+                                        <>
+                                            {isRemove ? (
+                                                <BtnCircleRemove
+                                                    title="Delete Data"
+                                                    actions={{
+                                                        remove: (e) => {
+                                                            e.stopPropagation()
+                                                            _handleChooseRemove(
+                                                                vm,
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+                                            ) : null}
 
-                                        {isEdit ? (
-                                            <BtnCircleEdit
-                                                title="Edit"
-                                                actions={{
-                                                    edit: (e) => {
-                                                        e.stopPropagation()
-                                                        __actionUpdateModal(vm)
-                                                    },
-                                                }}
-                                            />
-                                        ) : null}
-                                    </div>
-                                ) : null}
+                                            {isEdit ? (
+                                                <BtnCircleEdit
+                                                    title="Edit"
+                                                    actions={{
+                                                        edit: (e) => {
+                                                            e.stopPropagation()
+                                                            __actionUpdateModal(
+                                                                vm,
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+                                            ) : null}
+                                        </>
+                                    )}
+                                </div>
                             </CardPreview>
                         </div>
                     ))}
@@ -207,6 +288,15 @@ const TabSimpleSettingCRUD = ({
                         },
                         // @ts-ignore
                         emptySelect: () => __setFormRequest({ ...initForm }),
+                    }}
+                />
+
+                <TrashConfirmModals
+                    name={__dataRestore?.name || __dataPermanentRemove?.name}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove,
                     }}
                 />
             </CreatePortalLayout>

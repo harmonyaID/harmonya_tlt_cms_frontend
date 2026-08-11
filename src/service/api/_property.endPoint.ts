@@ -28,9 +28,15 @@ export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
 )
 
 // Setting
-export const SrvPropertyTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/types',
-)
+const baseAPIPropertyType = baseAPIProperty + '/types'
+export const SrvPropertyTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIPropertyType)
+export const SrvPropertyTypeTrash = baseAPIPropertyType + '/trash'
+export const SrvPropertyTypeTrashWithId = (id: string | number = ''): string =>
+    baseAPIPropertyType + '/trash/' + id
+export const SrvPropertyTypeRestore = (id: string | number = ''): string =>
+    baseAPIPropertyType + '/trash/' + id + '/restore'
+
 
 export const SrvPropertyBedTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPIProperty + '/bed-types',
