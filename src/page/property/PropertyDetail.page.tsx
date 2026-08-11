@@ -671,7 +671,10 @@ const PropertyDetailPage = () => {
                                     )}
                                 </>,
                             ),
-                            objectTabContent('', <PropertyTabReview />),
+                            objectTabContent(
+                                '',
+                                <PropertyTabReview propertyId={__id} />,
+                            ),
                             objectTabContent(
                                 '',
                                 <SectionPreviewSEOInformation
