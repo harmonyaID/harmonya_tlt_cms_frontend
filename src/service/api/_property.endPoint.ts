@@ -14,6 +14,14 @@ export const SrvPropertyPhotosCreate = (propertyId) =>
 export const SrvPropertyPhotosRemove = (propertyId, photoId) =>
     SrvPropertyPhotosCreate(propertyId) + '/' + photoId
 
+export const SrvPropertyTrash = baseAPIProperty + '/trash'
+
+export const SrvPropertyTrashWithId = (id: string | number = ''): string =>
+    baseAPIProperty + '/trash/' + id
+
+export const SrvPropertyRestore = (id: string | number = ''): string =>
+    baseAPIProperty + '/trash/' + id + '/restore'
+
 // Reviews Property
 export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPIProperty + '/reviews',

@@ -1,13 +1,15 @@
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import { TblLineFirst, TblLineFirstPrimary, TblLineSecond } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { BtnCircleEdit, BtnCircleRemove, BtnCircleRestore, BtnCircleX } from '@/component/general/Button.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
+import { BtnCircleEdit, BtnCircleRemove } from '@/component/general/Button.tsx'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 
-const BoatTable = ({
+const PropertyTable = ({
     isTrash = false,
     __isLoading,
     __list,
@@ -35,12 +37,15 @@ const BoatTable = ({
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
-                            'Name',
-                            'Boat Type',
-                            'Total Photos',
-                            'Total Promo Photos',
-                            'Status Active',
-                            'Created At',
+                            {
+                                content: 'Property',
+                                className: 'max-w-200px',
+                            },
+                            'Source Type',
+                            'Unit Type',
+                            'Occupancy',
+                            'Cleaning Status',
+                            'Status',
                             '',
                         ]}
                         tds={__list}>
@@ -49,37 +54,87 @@ const BoatTable = ({
                                 <tr
                                     key={index}
                                     title="Preview Detail"
-                                    className={!isTrash && 'cursor-pointer'}
-                                    onClick={() =>
-                                        !isTrash &&
+                                    className="cursor-pointer"
+                                    onClick={() => {
                                         actions?.__handleToDetail(vm.id)
-                                    }>
-                                    <td>
-                                        <TblLineFirstPrimary value={vm?.name} />
-                                    </td>
-                                    <td>
-                                        <TblLineFirst
-                                            value={vm?.boatComponentTypeName}
-                                        />
-                                    </td>
-                                    <td>
-                                        <TblLineSecond>
-                                            {vm?.photos.length || '-'}
-                                        </TblLineSecond>
-                                    </td>
-                                    <td>
-                                        <TblLineSecond>
-                                            {vm?.promoPhotos.length || '-'}
-                                        </TblLineSecond>
-                                    </td>
+                                    }}>
+                                    <td className="col-3 max-w-200px">
+                                        <div className="row gy-2">
+                                            <div
+                                                className="col-auto"
+                                                onClick={(e) =>
+                                                    e.stopPropagation()
+                                                }>
+                                                <div className="position-relative float-end">
+                                                    <div className="overflow-hidden rounded position-relative">
+                                                        <div
+                                                            className="wp-img-preview"
+                                                            onClick={() => {}}>
+                                                            <Image
+                                                                src={
+                                                                    vm?.coverPhoto
+                                                                }
+                                                                alt="Preview File"
+                                                                fallback={
+                                                                    ImgGeneralDefault
+                                                                }
+                                                                className="data-img data-img-contain avatar-46"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-9 px-0">
+                                                <div className="hstack flex-wrap gap-2 pb-2">
+                                                    <TblLineFirstPrimary
+                                                        value={vm.nickname}
+                                                        isUseDefaultMargin={
+                                                            false
+                                                        }
+                                                        className="mb-0 fw-600"
+                                                    />
 
-                                    <td>
-                                        <TextTrueOrFalse value={vm.isActive} />
+                                                    <div className="fs-12 py-0 px-2 rounded-pill bg-tint-500">
+                                                        {vm?.type?.name}
+                                                    </div>
+                                                </div>
+
+                                                <TblLineSecond>
+                                                    {vm.address}
+                                                </TblLineSecond>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
-                                        <TblLineSecond>
-                                            {vm?.createdAt || '-'}
-                                        </TblLineSecond>
+                                        <TblLineFirst>
+                                            {vm?.sourceType?.name}
+                                        </TblLineFirst>
+                                    </td>
+                                    <td>
+                                        <TblLineFirst>
+                                            {vm?.unitType?.name}
+                                        </TblLineFirst>
+                                    </td>
+                                    <td>
+                                        <TblLineFirst>
+                                            {vm?.occupancy || '-'}
+                                        </TblLineFirst>
+                                    </td>
+                                    <td>
+                                        <TblLineFirst>
+                                            {vm?.cleaningStatus?.name ||
+                                                '-'}
+                                        </TblLineFirst>
+                                    </td>
+                                    <td>
+                                        <TextTrueOrFalse
+                                            value={
+                                                vm?.status?.name ===
+                                                'Active'
+                                                    ? true
+                                                    : false
+                                            }
+                                        />
                                     </td>
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
@@ -140,4 +195,4 @@ const BoatTable = ({
     )
 }
 
-export default BoatTable
+export default PropertyTable
