@@ -1,0 +1,79 @@
+@import url('https://fonts.cdnfonts.com/css/tt-drugs-trial');
+
+.blog-tag {
+  background: rgba(85, 186, 181, 0.12);
+  border: 1px solid rgba(152, 201, 201, 1);
+  color: rgba(85, 85, 85, 1);
+}
+
+.tinymce {
+  font-family: 'TT Drugs Trial', sans-serif;
+  color: rgba(85, 85, 85, 1);
+
+  h1,h2,h3,h4,h5,h6 {
+    font-weight:  normal;
+    text-transform: uppercase;
+  }
+
+  blockquote {
+    width: 80%;
+    max-width: 700px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    h1,h2,h3,h4,h5,h6,p {
+      line-height: 1.5;
+      font-size: 1.5rem !important;
+    }
+  }
+
+  p {
+    margin: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .info-block {
+    padding: 16px 20px;
+    margin: 20px 0;
+
+    background: rgba(85, 186, 181, 0.12);
+    border: 1px solid rgba(152, 201, 201, 1);
+    color: rgba(85, 85, 85, 1);
+    border-radius: 6px;
+
+    :is(h1, h2, h3, h4, h5, h6)::before {
+      content: "\f589";
+      font-family: "bootstrap-icons", serif;
+      margin-right: 8px;
+      font-size: 0.8em;
+      vertical-align: middle;
+    }
+  }
+
+  .warning-block {
+    padding: 16px 20px;
+    margin: 20px 0;
+
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(252, 211, 77, 1);
+    color: rgba(120, 53, 15, 1);
+    border-left: 4px solid hsl(38 92% 50%);
+    border-radius: 6px;
+  }
+
+  .danger-block {
+    padding: 16px 20px;
+    margin: 20px 0;
+
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(252, 165, 165, 1);
+    color: rgba(127, 29, 29, 1);
+    border-left: 4px solid hsl(0 72% 51%);
+    border-radius: 6px;
+  }
+}
+
