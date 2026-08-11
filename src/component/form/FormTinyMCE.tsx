@@ -92,11 +92,10 @@ const FormTinyMCE = ({
 
                 toolbar:
                     'undo redo | blocks | fontfamily | styles ' +
-                    'bold italic forecolor | ' +
+                    'bold italic forecolor backcolor | ' +
                     'alignleft aligncenter alignright alignjustify | ' +
                     'bullist numlist outdent indent | ' +
-                    'link image media | ' +
-                    'removeformat | code | help',
+                    'link image media | ',
                 block_formats:
                     'Paragraph=p;' +
                     'Heading 1=h1;' +
@@ -107,6 +106,7 @@ const FormTinyMCE = ({
                     'Heading 4=h6;' +
                     'Quote=blockquote;' +
                     'Preformatted=pre',
+                table_header_type: 'sectionCells',
 
                 file_picker_callback: (callback) => {
                     const input = document.createElement('input')

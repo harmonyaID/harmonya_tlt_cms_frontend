@@ -36,6 +36,21 @@
     height: auto;
   }
 
+  table {
+    border-collapse: collapse;
+    border: 1px solid rgba(170, 170, 170, 1);
+
+    th {
+      border: 1px solid rgba(170, 170, 170, 1);
+      padding: 15px 15px;
+    }
+
+    td{
+      border: 1px solid rgba(170, 170, 170, 1);
+      padding: 20px 15px;
+    }
+  }
+
   .info-block {
     padding: 16px 20px;
     margin: 20px 0;
