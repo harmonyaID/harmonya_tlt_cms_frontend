@@ -858,9 +858,7 @@ const ContentHomePageEditPage = () => {
 
                         <FooterSubmit
                             isLoading={__isLoading}
-                            handleCancel={() =>
-                                __handleCancel(__pageStateDataSearch)
-                            }
+                            handleCancel={() => __handleCancel()}
                         />
                     </FormWrap>
                 </>
