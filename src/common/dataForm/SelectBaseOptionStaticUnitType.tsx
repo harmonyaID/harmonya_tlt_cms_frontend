@@ -7,6 +7,7 @@ const SelectBaseOptionStaticUnitType = (props: SelectBaseOptionProps) => {
 
     return (
         <SelectBaseOption
+            selectEmpty="- Select Unit Type -"
             {...props}
             listStore={__list}
             isLoadingStore={__isLoading}

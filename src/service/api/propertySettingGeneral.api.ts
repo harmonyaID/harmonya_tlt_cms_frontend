@@ -1,5 +1,6 @@
 import {
-    _shapeMethodGet,
+    _shapeMethodDel,
+    _shapeMethodGet, _shapeMethodGetSearch, _shapeMethodPost,
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
@@ -21,21 +22,68 @@ import {
     SrvPropertyStaticGuestySyncStatuses,
     SrvPropertyStaticMediaPartnerType,
     SrvPropertyStaticStatusForm,
+    SrvPropertyTrash,
+    SrvPropertyTrashWithId,
+    SrvPropertyRestore,
+    SrvPropertyTypeTrash,
+    SrvPropertyTypeTrashWithId,
+    SrvPropertyTypeRestore,
+    SrvPropertyBedTypeTrash,
+    SrvPropertyBedTypeTrashWithId,
+    SrvPropertyBedTypeRestore,
+    SrvPropertyRoomTypeTrash,
+    SrvPropertyRoomTypeTrashWithId,
+    SrvPropertyRoomTypeRestore,
+    SrvPropertyTagTrash,
+    SrvPropertyTagTrashWithId,
+    SrvPropertyTagRestore,
 } from '@/service/api/_property.endPoint.ts'
 
 export const apiPropertyType = {
     ..._shapeObjectMethodCRUD(SrvPropertyTypeCRUD),
 }
+export const getPropertyTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvPropertyTypeTrash, search)
+export const permanentDeletePropertyType = (id: string | number) =>
+    _shapeMethodDel(SrvPropertyTypeTrashWithId(id))
+export const restorePropertyType = (id: string | number) =>
+    _shapeMethodPost(SrvPropertyTypeRestore(id))
+
+
+
 
 export const apiPropertyBedType = {
     ..._shapeObjectMethodCRUD(SrvPropertyBedTypeCRUD),
 }
+export const getPropertyBedTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvPropertyBedTypeTrash, search)
+export const permanentDeletePropertyBedType = (id: string | number) =>
+    _shapeMethodDel(SrvPropertyBedTypeTrashWithId(id))
+export const restorePropertyBedType = (id: string | number) =>
+    _shapeMethodPost(SrvPropertyBedTypeRestore(id))
+
+
 
 export const apiPropertyRoomType = {
     ..._shapeObjectMethodCRUD(SrvPropertyRoomTypeCRUD),
 }
+export const getPropertyRoomTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvPropertyRoomTypeTrash, search)
+export const permanentDeletePropertyRoomType = (id: string | number) =>
+    _shapeMethodDel(SrvPropertyRoomTypeTrashWithId(id))
+export const restorePropertyRoomType = (id: string | number) =>
+    _shapeMethodPost(SrvPropertyRoomTypeRestore(id))
+
 
 export const apiPropertyTag = { ..._shapeObjectMethodCRUD(SrvPropertyTagCRUD) }
+export const getPropertyTagTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvPropertyTagTrash, search)
+export const permanentDeletePropertyTag = (id: string | number) =>
+    _shapeMethodDel(SrvPropertyTagTrashWithId(id))
+export const restorePropertyTag = (id: string | number) =>
+    _shapeMethodPost(SrvPropertyTagRestore(id))
+
+
 
 // Static Setting
 export const getStaticUnitType = () =>

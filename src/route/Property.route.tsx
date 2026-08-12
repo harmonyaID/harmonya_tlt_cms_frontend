@@ -6,6 +6,8 @@ import { lazy } from 'react'
 
 const PropertyMainPage = lazy(() => import('@/page/property/Property.page.tsx'))
 
+const PropertyTrashPage = lazy(() => import('@/page/property/PropertyTrash.page.tsx'))
+
 const PropertyAddPage = lazy(
     () => import('@/page/property/PropertyAdd.page.tsx'),
 )
@@ -32,6 +34,17 @@ const PropertyRoute = () => {
                             titleNavbar="Property"
                             isCheckPermission={false}>
                             <PropertyMainPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    index
+                    path={propertyPath.trash}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property"
+                            isCheckPermission={false}>
+                            <PropertyTrashPage />
                         </SuspenseLayout>
                     }
                 />

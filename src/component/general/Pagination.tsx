@@ -18,7 +18,7 @@ const Pagination: FC<PaginationProps> = (props) => {
                         onClick={() => props.onMove(i + 1)}
                         className={
                             props.pagination.currentPage === i + 1
-                                ? 'active'
+                                ? 'active text-tint-600'
                                 : ''
                         }>
                         <p className="mb-0">{i + 1}</p>
@@ -68,7 +68,10 @@ const Pagination: FC<PaginationProps> = (props) => {
         }
 
         // Prev Button if exist
-        if (props.pagination.links.previous) {
+        if (
+            props.pagination.links.previous &&
+            props.pagination.currentPage > 1
+        ) {
             pages.unshift(
                 <li
                     key={'prev'}
@@ -83,7 +86,10 @@ const Pagination: FC<PaginationProps> = (props) => {
         }
 
         // Next Button if exist
-        if (props.pagination.links.next) {
+        if (
+            props.pagination.links.next &&
+            props.pagination.currentPage !== props.pagination.totalPages
+        ) {
             pages.push(
                 <li
                     key={'next'}

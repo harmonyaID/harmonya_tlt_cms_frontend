@@ -1,10 +1,9 @@
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
-// import TabBoatContactForm from '@/page/boatSetting/container/TabBoatContactForm.tsx'
-import TabBoatType from '@/page/boatSetting/container/TabBoatType.tsx'
 import TabSimpleSettingCRUD from '@/common/dataFeature/tabSetting/TabSimpleSettingCRUD.tsx'
-import { getBoatFormStatus } from '@/service/api/boatManage.api.ts'
+import { apiBoatType, getBoatFormStatus, getBoatTypeTrash, permanentDeleteBoatType, restoreBoatType } from '@/service/api/boatManage.api.ts'
+import { MDBoatTypeAdd } from '@/config/modal.config.ts'
 
 const BoatSettingPage = () => {
     return (
@@ -19,7 +18,20 @@ const BoatSettingPage = () => {
                     objectTab('Status Form', 'tabStatusForm'),
                 ]}
                 tabContents={[
-                    objectTabContent('', <TabBoatType />),
+                    objectTabContent(
+                        '',
+                        <TabSimpleSettingCRUD
+                            title="Boat Type"
+                            apiCRUD={apiBoatType}
+                            apiTrash={{
+                                list: getBoatTypeTrash,
+                                restore: restoreBoatType,
+                                delete: permanentDeleteBoatType
+                            }}
+                            idModal={MDBoatTypeAdd}
+                            placeholder="e.g Boat"
+                        />,
+                    ),
                     objectTabContent(
                         '',
                         <TabSimpleSettingCRUD

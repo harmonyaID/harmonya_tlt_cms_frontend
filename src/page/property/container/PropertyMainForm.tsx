@@ -1,3 +1,4 @@
+import SearchPropertyAmenities from '@/common/dataForm/SearchPropertyAmenities.tsx'
 import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import SelectBaseOptionLanguage from '@/common/dataForm/SelectBaseOptionLanguage.tsx'
 import SelectBaseOptionStaticStatus from '@/common/dataForm/SelectBaseOptionStaticAddressType.tsx'
@@ -5,6 +6,7 @@ import SelectBaseOptionStaticAdvanceNoticeUnit from '@/common/dataForm/SelectBas
 import SelectBaseOptionStaticAvailabilityType from '@/common/dataForm/SelectBaseOptionStaticAvailabilityType.tsx'
 import SelectBaseOptionStaticCleaningFeeType from '@/common/dataForm/SelectBaseOptionStaticCleaningFeeType.tsx'
 import SelectBaseOptionStaticListingType from '@/common/dataForm/SelectBaseOptionStaticListingType.tsx'
+import SelectBaseOptionStaticSourceType from '@/common/dataForm/SelectBaseOptionStaticSourceType.tsx'
 import SelectBaseOptionStaticUnitType from '@/common/dataForm/SelectBaseOptionStaticUnitType.tsx'
 import SelectOptionPropertyBedType from '@/common/dataForm/SelectOptionPropertyBedType.tsx'
 import SelectOptionPropertyRoomType from '@/common/dataForm/SelectOptionPropertyRoomType.tsx'
@@ -49,6 +51,12 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleTagRemove,
         __listTags,
         __setListTags,
+
+        // Amenities
+        __listAmenities,
+        __listAmenitiesIds,
+        __handleAmenitiesChoose,
+        __handleAmenitiesRemove,
 
         // SEO
         __seoThumbnail,
@@ -116,6 +124,14 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                               ]
                                                             : []),
                                                     ]}
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Source Type"
+                                                isRequired>
+                                                <SelectBaseOptionStaticSourceType
+                                                    name="sourceTypeId"
+                                                    isRequired
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
@@ -543,7 +559,7 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 </WrapFormContext>
                                             </GeneralRowForm>
 
-                                            <GeneralRowForm label="Tag's">
+                                            <GeneralRowForm label="Tags">
                                                 <SelectOptionPropertyTag
                                                     name="tagIds"
                                                     nameOfChange="changeTags"
@@ -570,6 +586,61 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         remove: __handleTagRemove,
                                                     }}
                                                 />
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm label="Amenities">
+                                                <SearchPropertyAmenities
+                                                    isOnlyChoose
+                                                    isUseHook={false}
+                                                    name="amenities"
+                                                    amenitiesIds={
+                                                        __listAmenitiesIds
+                                                    }
+                                                    actions={{
+                                                        onChange: (
+                                                            name,
+                                                            value,
+                                                            data,
+                                                        ) =>
+                                                            __handleAmenitiesChoose(
+                                                                data,
+                                                            ),
+                                                    }}
+                                                />
+
+                                                {__listAmenities?.length ? (
+                                                    <>
+                                                        <div className="mb-4 max-h-400px bg-neutral-600 px-3 pb-3 pt-1 rounded-2 overflow-auto">
+                                                            {__listAmenities.map(
+                                                                (vm, index) => (
+                                                                    <div
+                                                                        className="hstack justify-content-between align-items-center border-dashed border-neutral-400 border-1 py-2"
+                                                                        key={
+                                                                            index
+                                                                        }>
+                                                                        <h6 className="fw-400 mb-0">
+                                                                            {
+                                                                                vm.name
+                                                                            }
+                                                                        </h6>
+
+                                                                        <div className="flex-shrink-0">
+                                                                            <BtnCircleRemove
+                                                                                className="ms-auto"
+                                                                                actions={{
+                                                                                    remove: () =>
+                                                                                        __handleAmenitiesRemove(
+                                                                                            vm,
+                                                                                        ),
+                                                                                }}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                    </>
+                                                ) : null}
                                             </GeneralRowForm>
                                         </WrapFormContext>
                                     </div>

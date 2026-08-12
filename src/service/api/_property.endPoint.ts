@@ -7,34 +7,68 @@ const baseAPIProperty: any =
 // Property
 export const SrvPropertyCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPIProperty)
-
 export const SrvPropertyPhotosCreate = (propertyId) =>
     baseAPIProperty + '/' + propertyId + '/photos'
-
 export const SrvPropertyPhotosRemove = (propertyId, photoId) =>
     SrvPropertyPhotosCreate(propertyId) + '/' + photoId
+export const SrvPropertyTrash = baseAPIProperty + '/trash'
+export const SrvPropertyTrashWithId = (id: string | number = ''): string =>
+    baseAPIProperty + '/trash/' + id
+export const SrvPropertyRestore = (id: string | number = ''): string =>
+    baseAPIProperty + '/trash/' + id + '/restore'
 
 // Reviews Property
+const baseAPIPropertyReviews = baseAPIProperty + '/reviews'
 export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/reviews',
+    baseAPIPropertyReviews,
 )
+export const SrvPropertyReviewsTrash = baseAPIPropertyReviews + '/trash'
+export const SrvPropertyReviewsTrashWithId = (id: string | number = ''): string =>
+    baseAPIPropertyReviews + '/trash/' + id
+export const SrvPropertyReviewsRestore = (id: string | number = ''): string =>
+    baseAPIPropertyReviews + '/trash/' + id + '/restore'
 
 // Setting
-export const SrvPropertyTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/types',
-)
+const baseAPIPropertyType = baseAPIProperty + '/types'
+export const SrvPropertyTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIPropertyType)
+export const SrvPropertyTypeTrash = baseAPIPropertyType + '/trash'
+export const SrvPropertyTypeTrashWithId = (id: string | number = ''): string =>
+    baseAPIPropertyType + '/trash/' + id
+export const SrvPropertyTypeRestore = (id: string | number = ''): string =>
+    baseAPIPropertyType + '/trash/' + id + '/restore'
 
-export const SrvPropertyBedTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/bed-types',
-)
 
-export const SrvPropertyRoomTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/room-types',
-)
+const baseAPIBedType = baseAPIProperty + '/bed-types'
+export const SrvPropertyBedTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIBedType)
+export const SrvPropertyBedTypeTrash = baseAPIBedType + '/trash'
+export const SrvPropertyBedTypeTrashWithId = (id: string | number = ''): string =>
+    baseAPIBedType + '/trash/' + id
+export const SrvPropertyBedTypeRestore = (id: string | number = ''): string =>
+    baseAPIBedType + '/trash/' + id + '/restore'
 
-export const SrvPropertyTagCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/tags',
-)
+
+const baseAPIRoomType = baseAPIProperty + '/room-types'
+export const SrvPropertyRoomTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIRoomType)
+export const SrvPropertyRoomTypeTrash = baseAPIRoomType + '/trash'
+export const SrvPropertyRoomTypeTrashWithId = (
+    id: string | number = '',
+): string => baseAPIRoomType + '/trash/' + id
+export const SrvPropertyRoomTypeRestore = (id: string | number = ''): string =>
+    baseAPIRoomType + '/trash/' + id + '/restore'
+
+
+const baseAPITag = baseAPIProperty + '/tag'
+export const SrvPropertyTagCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPITag)
+export const SrvPropertyTagTrash = baseAPITag + '/trash'
+export const SrvPropertyTagTrashWithId = (
+    id: string | number = '',
+): string => baseAPITag + '/trash/' + id
+export const SrvPropertyTagRestore = (id: string | number = ''): string =>
+    baseAPITag + '/trash/' + id + '/restore'
+
 
 // Setting Static
 const baseAPIDataStatic =
