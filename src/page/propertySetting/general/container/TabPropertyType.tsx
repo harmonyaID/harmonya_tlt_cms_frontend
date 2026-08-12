@@ -5,7 +5,6 @@ import { MDGeneralFormCRUD } from '@/config/modal.config.ts'
 const TabPropertyType = () => (
     <TabSimpleSettingCRUD
         title="Type"
-        isTrash
         apiTrash={{
             list: getPropertyTypeTrash,
             delete: permanentDeletePropertyType,

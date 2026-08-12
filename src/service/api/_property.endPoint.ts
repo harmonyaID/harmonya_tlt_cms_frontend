@@ -39,17 +39,36 @@ export const SrvPropertyTypeRestore = (id: string | number = ''): string =>
     baseAPIPropertyType + '/trash/' + id + '/restore'
 
 
-export const SrvPropertyBedTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/bed-types',
-)
+const baseAPIBedType = baseAPIProperty + '/bed-types'
+export const SrvPropertyBedTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIBedType)
+export const SrvPropertyBedTypeTrash = baseAPIBedType + '/trash'
+export const SrvPropertyBedTypeTrashWithId = (id: string | number = ''): string =>
+    baseAPIBedType + '/trash/' + id
+export const SrvPropertyBedTypeRestore = (id: string | number = ''): string =>
+    baseAPIBedType + '/trash/' + id + '/restore'
 
-export const SrvPropertyRoomTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/room-types',
-)
 
-export const SrvPropertyTagCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/tags',
-)
+const baseAPIRoomType = baseAPIProperty + '/room-types'
+export const SrvPropertyRoomTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIRoomType)
+export const SrvPropertyRoomTypeTrash = baseAPIRoomType + '/trash'
+export const SrvPropertyRoomTypeTrashWithId = (
+    id: string | number = '',
+): string => baseAPIRoomType + '/trash/' + id
+export const SrvPropertyRoomTypeRestore = (id: string | number = ''): string =>
+    baseAPIRoomType + '/trash/' + id + '/restore'
+
+
+const baseAPITag = baseAPIProperty + '/tag'
+export const SrvPropertyTagCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPITag)
+export const SrvPropertyTagTrash = baseAPITag + '/trash'
+export const SrvPropertyTagTrashWithId = (
+    id: string | number = '',
+): string => baseAPITag + '/trash/' + id
+export const SrvPropertyTagRestore = (id: string | number = ''): string =>
+    baseAPITag + '/trash/' + id + '/restore'
+
 
 // Setting Static
 const baseAPIDataStatic =

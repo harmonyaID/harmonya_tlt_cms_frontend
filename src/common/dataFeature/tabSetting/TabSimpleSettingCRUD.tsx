@@ -46,7 +46,6 @@ const TabSimpleSettingCRUD = ({
     isAdd = true,
     isEdit = true,
     isRemove = true,
-    isTrash = false,
 }: {
     title: string
     apiCRUD: any
@@ -61,7 +60,6 @@ const TabSimpleSettingCRUD = ({
     isAdd?: boolean
     isEdit?: boolean
     isRemove?: boolean
-    isTrash?: boolean
 }) => {
     const idModalAdd = idModal + 'Add'
     const idModalRemove = idModal + 'Remove'
@@ -161,7 +159,7 @@ const TabSimpleSettingCRUD = ({
                         </BtnPrimary>
                     ) : (
                         <div className="hstack gap-2">
-                            {isTrash && (
+                            {apiTrash?.list && (
                                 <BtnDanger
                                     isOutline
                                     handle={() => _handleShowTrash()}>
@@ -265,7 +263,7 @@ const TabSimpleSettingCRUD = ({
                 <ModalWithActionFormCRUDLogic
                     id={idModalAdd}
                     detail={__detailData}
-                    title="Boat Type"
+                    title={title}
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
