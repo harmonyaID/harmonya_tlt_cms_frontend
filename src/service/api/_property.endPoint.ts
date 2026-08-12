@@ -7,25 +7,26 @@ const baseAPIProperty: any =
 // Property
 export const SrvPropertyCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPIProperty)
-
 export const SrvPropertyPhotosCreate = (propertyId) =>
     baseAPIProperty + '/' + propertyId + '/photos'
-
 export const SrvPropertyPhotosRemove = (propertyId, photoId) =>
     SrvPropertyPhotosCreate(propertyId) + '/' + photoId
-
 export const SrvPropertyTrash = baseAPIProperty + '/trash'
-
 export const SrvPropertyTrashWithId = (id: string | number = ''): string =>
     baseAPIProperty + '/trash/' + id
-
 export const SrvPropertyRestore = (id: string | number = ''): string =>
     baseAPIProperty + '/trash/' + id + '/restore'
 
 // Reviews Property
+const baseAPIPropertyReviews = baseAPIProperty + '/reviews'
 export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPIProperty + '/reviews',
+    baseAPIPropertyReviews,
 )
+export const SrvPropertyReviewsTrash = baseAPIPropertyReviews + '/trash'
+export const SrvPropertyReviewsTrashWithId = (id: string | number = ''): string =>
+    baseAPIPropertyReviews + '/trash/' + id
+export const SrvPropertyReviewsRestore = (id: string | number = ''): string =>
+    baseAPIPropertyReviews + '/trash/' + id + '/restore'
 
 // Setting
 const baseAPIPropertyType = baseAPIProperty + '/types'

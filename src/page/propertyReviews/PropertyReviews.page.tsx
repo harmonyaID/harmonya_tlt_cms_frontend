@@ -264,7 +264,7 @@ import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import { apiPropertyReviews } from '@/service/api/property.api.ts'
 
 const PropertyReviewsPage = () => {
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
+    const { __handleToAdd, __handleToEdit, __handleToTrash } =
         usePageFlowHandlerHook({
             basePath: propertyReviewsPath,
             pathFromKey: 'property-review-main',
@@ -278,6 +278,7 @@ const PropertyReviewsPage = () => {
             actions={{
                 add: __handleToAdd,
                 edit: __handleToEdit,
+                trash: __handleToTrash,
             }}
         />
     )

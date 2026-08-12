@@ -1,21 +1,9 @@
-import Image from 'rc-image'
-import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    TblLineFirst,
-    TblLineFirstPrimary,
-    TblLineSecond,
-} from '@/component/general/TablePartial.tsx'
 import {
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import usePropertyMainHook from '@/page/property/hook/usePropertyMain.hook.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
