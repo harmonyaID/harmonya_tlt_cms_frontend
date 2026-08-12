@@ -13,6 +13,8 @@ import {
 export const apiProperty = {
     ..._shapeObjectMethodCRUD(SrvPropertyCRUD),
 }
+export const updateProperty = (id, formRequest) =>
+    _shapeMethodPost(SrvPropertyCRUD.update(id), formRequest)
 
 export const uploadPhotosProperty = (propertyId, formRequest) =>
     _shapeMethodPost(

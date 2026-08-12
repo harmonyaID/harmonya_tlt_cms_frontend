@@ -7,7 +7,7 @@ const SelectBaseOptionStaticSourceType = (props: SelectBaseOptionProps) => {
 
     return (
         <SelectBaseOption
-            label="SourceType"
+            // label="SourceType"
             name="sourceTypeId"
             selectEmpty="- Select Source Type -"
             {...props}

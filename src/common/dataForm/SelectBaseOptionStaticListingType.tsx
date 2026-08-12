@@ -8,7 +8,7 @@ const SelectBaseOptionStaticListingType = (props: SelectBaseOptionProps) => {
     return (
         <SelectBaseOption
             name="listingTypeId"
-            selectEmpty="- Select Listing -"
+            selectEmpty="- Select Listing Type -"
             {...props}
             listStore={__list}
             isLoadingStore={__isLoading}

@@ -13,8 +13,7 @@ import {
     propertyMapInitForm,
 } from '@/page/property/param/propertyMainForm.param.ts'
 import propertyPath from '@/path/property.path.ts'
-import { apiBlogContent } from '@/service/api/contentManage.api.ts'
-import { apiProperty } from '@/service/api/property.api.ts'
+import { apiProperty, updateProperty } from '@/service/api/property.api.ts'
 
 const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const { id } = useParams()
@@ -54,7 +53,7 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             nestedForm._handleArrAddMulti('tagIds', [checkData.id])
 
             // @ts-ignore
-            setListTags((prevState) => [...prevState, ...newTag])
+            setListTags((prevState) => [...prevState, checkData])
         }
     }
 
@@ -75,19 +74,27 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     // START AMENITIES
     const [listAmenities, setListAmenities] = useState<any[]>([])
 
-    const _handleAmenitiesChoose = () => {}
+    const _handleAmenitiesChoose = (newAmenity) => {
+        if (newAmenity && newAmenity.id) {
+            nestedForm._handleArrAddMulti('amenityIds', [newAmenity.id])
+            // @ts-ignore
+            setListAmenities((prevState) => [...prevState, newAmenity])
+        }
+    }
 
-    const _handleAmenitiesRemove = (dataTag) => {
+    const _handleAmenitiesRemove = (passData) => {
         setFormRequest((prev) => {
             const newState = { ...prev }
             newState.amenityIds = newState.amenityIds.filter(
-                (tagId) => tagId !== dataTag.id,
+                (amenityId) => amenityId !== passData.id,
             )
 
             return newState
         })
 
-        setListAmenities((prev) => prev.filter((tag) => tag.id !== dataTag.id))
+        setListAmenities((prev) =>
+            prev.filter((data) => data.id !== passData.id),
+        )
     }
     // END AMENITIES
 
@@ -106,10 +113,17 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     tagIds: !isEmpty(res.tags)
                         ? res.tags.map((vm) => vm.id)
                         : [],
+                    amenityIds: !isEmpty(res.amenityIds)
+                        ? res.amenityIds.map((vm) => vm.id)
+                        : [],
                 })
 
                 if (res?.tags && res?.tags.length) {
                     setListTags(res?.tags)
+                }
+
+                if (res?.amenities && res?.amenities.length) {
+                    setListAmenities(res?.amenities)
                 }
 
                 // if (res?.thumbnail) {
@@ -132,7 +146,7 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         return __handleSubmit({
             apiCall: () =>
                 isEdit
-                    ? apiProperty.update(id, formRequest)
+                    ? updateProperty(id, formRequest)
                     : apiProperty.add(formRequest),
             setIsLoading,
             isDirectToDetail: true,
@@ -152,6 +166,12 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleTagRemove: _handleTagRemove,
         __listTags: listTags,
         __setListTags: setListTags,
+
+        // Amenities
+        __listAmenities: listAmenities,
+        __listAmenitiesIds: listAmenities?.map((vm) => vm.id) || [],
+        __handleAmenitiesChoose: _handleAmenitiesChoose,
+        __handleAmenitiesRemove: _handleAmenitiesRemove,
 
         // SEO
         __seoThumbnail: seoThumbnail,

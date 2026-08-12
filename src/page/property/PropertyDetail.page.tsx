@@ -136,7 +136,7 @@ const PropertyDetailPage = () => {
                                     </div>
                                 </h5>
 
-                                <div className="hstack gap-3">
+                                <div className="hstack gap-2 flex-wrap">
                                     {__detail?.tags
                                         ? __detail?.tags.map((tag) => {
                                               return (
@@ -248,7 +248,7 @@ const PropertyDetailPage = () => {
                                                             ),
                                                             objectTabContent(
                                                                 'Tags',
-                                                                <div className="hstack gap-3">
+                                                                <div className="hstack gap-2 flex-wrap p-2 rounded-2 bg-neutral-600">
                                                                     {__detail?.tags
                                                                         ? __detail?.tags.map(
                                                                               (
@@ -263,6 +263,31 @@ const PropertyDetailPage = () => {
                                                                                               tag.name
                                                                                           }
                                                                                           className="text-bg-neutral-500"
+                                                                                          inTable
+                                                                                      />
+                                                                                  )
+                                                                              },
+                                                                          )
+                                                                        : '-'}
+                                                                </div>,
+                                                            ),
+                                                            objectTabContent(
+                                                                'Amenities',
+                                                                <div className="hstack gap-2 flex-wrap p-3 rounded-2 bg-neutral-600">
+                                                                    {__detail?.amenities
+                                                                        ? __detail?.amenities.map(
+                                                                              (
+                                                                                  dataBadge,
+                                                                              ) => {
+                                                                                  return (
+                                                                                      <BadgeStatusGeneral
+                                                                                          key={
+                                                                                              dataBadge.name
+                                                                                          }
+                                                                                          value={
+                                                                                              dataBadge.name
+                                                                                          }
+                                                                                          className="text-bg-tint-500"
                                                                                           inTable
                                                                                       />
                                                                                   )

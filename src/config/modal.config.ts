@@ -83,3 +83,15 @@ export const MDWebConfigSettingUpdate = 'modalWebConfigSettingUpdate'
 
 // General Setting
 export const MDGuestyConfigForm = 'modalGuestyConfigForm'
+
+// Property Setting
+export const MDPropertySettingAmenities = 'modalPropertySettingAmenities'
+
+export const MDPropertySettingAmenitiesRemove =
+    'modalPropertySettingAmenitiesRemove'
+
+export const MDPropertySettingAmenitiesCategory =
+    'modalPropertySettingAmenitiesCategory'
+
+export const MDPropertySettingAmenitiesCategoryRemove =
+    'modalPropertySettingAmenitiesCategoryRemove'
