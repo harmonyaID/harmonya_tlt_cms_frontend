@@ -5,6 +5,7 @@ import { BtnCircleEdit, BtnCircleRemove, BtnCircleRestore, BtnCircleX } from '@/
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 
 const UserTable = ({
     isTrash = false,
@@ -95,27 +96,15 @@ const UserTable = ({
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
                                             {isTrash ? (
-                                                <>
-                                                    <BtnCircleX
-                                                        actions={{
-                                                            click: () => {
-                                                                actions?.__handleChoosePermanentRemove(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-
-                                                    <BtnCircleRestore
-                                                        actions={{
-                                                            click: () => {
-                                                                actions?.__handleChooseRestore(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-                                                </>
+                                                <TrashActionButtons
+                                                    selected={vm}
+                                                    actions={{
+                                                        restore:
+                                                            actions?.__handleChooseRestore,
+                                                        permanentRemove:
+                                                            actions?.__handleChoosePermanentRemove,
+                                                    }}
+                                                />
                                             ) : (
                                                 <>
                                                     <div className="dropdown me-1">

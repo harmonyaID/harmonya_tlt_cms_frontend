@@ -1,7 +1,7 @@
 import PropertyReview from '@/common/dataFeature/propertyReview/PropertyReview.tsx'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import propertyReviewsPath from '@/path/propertyReviews.path.ts'
-import { apiPropertyReviews } from '@/service/api/property.api.ts'
+import { apiPropertyReviews, getPropertyReviewsTrash } from '@/service/api/property.api.ts'
 
 const PropertyTabReview = ({
     propertyId,
@@ -16,10 +16,12 @@ const PropertyTabReview = ({
 
     return (
         <PropertyReview
+            isTab
             isDetailProperty
             api={{
                 list: (search) =>
                     apiPropertyReviews.list({ ...search, propertyId }),
+                trash: getPropertyReviewsTrash
             }}
             actions={{
                 add: __handleToAdd,

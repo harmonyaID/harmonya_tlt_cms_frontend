@@ -1,9 +1,8 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import { apiProperty } from '@/service/api/property.api.ts'
 import propertyPath from '@/path/property.path.ts'
 
-const usePropertyMainHook = () => {
+const usePropertyMainHook = ({ urlAPI }: { urlAPI: any }) => {
     const {
         __list,
         __isLoading,
@@ -14,7 +13,7 @@ const usePropertyMainHook = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiProperty.list,
+        urlAPI: urlAPI,
         isHideSidebar: true,
         advancedSearch: {
             page: 1,
@@ -24,11 +23,16 @@ const usePropertyMainHook = () => {
         },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
-        usePageFlowHandlerHook({
-            basePath: propertyPath,
-            pathFromKey: 'property-main',
-        })
+    const {
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
+    } = usePageFlowHandlerHook({
+        basePath: propertyPath,
+        pathFromKey: 'property-main',
+    })
 
     return {
         // ---- List Data ----
@@ -45,6 +49,8 @@ const usePropertyMainHook = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
     }
 }
 

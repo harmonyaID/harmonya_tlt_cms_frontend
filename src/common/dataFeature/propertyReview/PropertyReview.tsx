@@ -6,7 +6,7 @@ import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import {
     BtnCircleEdit,
-    BtnCircleRemove,
+    BtnCircleRemove, BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
@@ -27,27 +27,56 @@ import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
-import { apiPropertyReviews } from '@/service/api/property.api.ts'
+import {
+    apiPropertyReviews,
+    permanentDeleteProperty, permanentDeletePropertyReviews,
+    restoreProperty, restorePropertyReviews,
+} from '@/service/api/property.api.ts'
+import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
+import propertyReviewsPath from '@/path/propertyReviews.path.ts'
+import { useEffect, useState } from 'react'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 
 const PropertyReview = ({
+    title="Property Reviews",
     isDetailProperty = false,
+    isTab = false,
+    isTrash = false,
     api = {
         list: (passSearch) => {},
+        trash: (passSearch) => {},
+        main: (passSearch) => {},
     },
     actions = {
+        main: () => {},
         add: () => {},
         edit: () => {},
+        trash: () => {},
     },
 }: {
+    title?: string
     isDetailProperty?: boolean
+    isTab?: boolean
+    isTrash?: boolean
     api?: {
         list?: any
+        trash?: any
+        main?: any
     }
     actions?: {
-        add: () => void
-        edit: (pass?: any) => void
+        main?: () => void
+        add?: () => void
+        edit?: (pass?: any) => void
+        trash?: () => void
+
     }
 }) => {
+    const [isShowTrash, setShowTrash] = useState(false)
+    const [urlAPI, setUrlAPI] = useState(
+        isTrash ? () => api.trash : () => api.list)
+
     const {
         __list,
         __isLoading,
@@ -58,7 +87,7 @@ const PropertyReview = ({
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: api.list,
+        urlAPI: urlAPI,
         advancedSearch: {
             page: 1,
         },
@@ -84,15 +113,68 @@ const PropertyReview = ({
         },
     })
 
+    const {
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: restorePropertyReviews,
+        urlAPIPermanentRemove: permanentDeletePropertyReviews,
+        actions: {
+            onSuccess: (vm) => __actionRemove(vm.id),
+        },
+    })
+
+    const _handleToTrash = () => {
+        if(isTab){
+            setShowTrash(true)
+            setUrlAPI(() => api.trash)
+            return
+        }
+
+        actions.trash()
+    }
+
+    const _handleBack = () => {
+        if(isTab){
+            setShowTrash(false)
+            setUrlAPI(() => api.list)
+            return
+        }
+
+        actions.main()
+    }
+
+    useEffect(() => {
+        __actionPagination(1)
+    }, [isShowTrash])
+
     return (
         <>
             <CardListData
-                title="Property Reviews"
+                title={title}
                 className={isDetailProperty ? 'p-0' : ''}
                 componentAction={
-                    <BtnPrimary onClick={() => actions.add()}>
-                        Add New
-                    </BtnPrimary>
+                    isTrash || isShowTrash ? (
+                        <BtnPrimary isOutline handle={() => _handleBack()}>
+                            Back
+                        </BtnPrimary>
+                    ) : (
+                        <div className="hstack gap-2">
+                            <BtnDanger
+                                isOutline
+                                handle={() => _handleToTrash()}>
+                                Trash
+                            </BtnDanger>
+                            <BtnPrimary onClick={() => actions.add()}>
+                                Add New
+                            </BtnPrimary>
+                        </div>
+                    )
                 }>
                 <FilterBarBasic
                     formRequest={__search}
@@ -161,26 +243,42 @@ const PropertyReview = ({
                                         </td>
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
-                                                <BtnCircleRemove
-                                                    actions={{
-                                                        remove: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleChooseRemove(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
+                                                {isTrash || isShowTrash ? (
+                                                    <TrashActionButtons
+                                                        selected={vm}
+                                                        actions={{
+                                                            restore:
+                                                                __handleChooseRestore,
+                                                            permanentRemove:
+                                                                __handleChoosePermanentRemove,
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        <BtnCircleRemove
+                                                            actions={{
+                                                                remove: (e) => {
+                                                                    e.stopPropagation()
+                                                                    _handleChooseRemove(
+                                                                        vm,
+                                                                    )
+                                                                },
+                                                            }}
+                                                        />
 
-                                                <BtnCircleEdit
-                                                    title="Edit Data"
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            actions.edit(vm.id)
-                                                        },
-                                                    }}
-                                                />
+                                                        <BtnCircleEdit
+                                                            title="Edit Data"
+                                                            actions={{
+                                                                edit: (e) => {
+                                                                    e.stopPropagation()
+                                                                    actions.edit(
+                                                                        vm.id,
+                                                                    )
+                                                                },
+                                                            }}
+                                                        />
+                                                    </>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
@@ -261,6 +359,15 @@ const PropertyReview = ({
                         ]}
                     />
                 </OffCanvasGeneral>
+
+                <TrashConfirmModals
+                    name={__dataRestore?.name || __dataPermanentRemove?.name}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove,
+                    }}
+                />
             </CreatePortalLayout>
         </>
     )

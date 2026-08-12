@@ -8,6 +8,10 @@ const PropertyReviewsPage = lazy(
     () => import('@/page/propertyReviews/PropertyReviews.page.tsx'),
 )
 
+const PropertyReviewsTrashPage = lazy(
+    () => import('@/page/propertyReviews/PropertyReviewsTrash.page.tsx'),
+)
+
 const PropertyReviewsAddPage = lazy(
     () => import('@/page/propertyReviews/PropertyReviewsAdd.page.tsx'),
 )
@@ -47,6 +51,17 @@ const PropertyReviewsRoute = () => {
                             titleNavbar={titleNavbar}
                             isCheckPermission={false}>
                             <PropertyReviewsAddPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    index
+                    path={propertyReviewsPath.trash}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar={titleNavbar}
+                            isCheckPermission={false}>
+                            <PropertyReviewsTrashPage />
                         </SuspenseLayout>
                     }
                 />
