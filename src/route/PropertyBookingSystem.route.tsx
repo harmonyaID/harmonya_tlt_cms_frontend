@@ -1,7 +1,7 @@
-import { Route } from 'react-router'
-import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
-import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import { lazy } from 'react'
+import { Route } from 'react-router'
+import Page404Layout from '@/component/layout/Page404.layout.tsx'
+import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
 import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
 
 const PropertyBookingMainPage = lazy(

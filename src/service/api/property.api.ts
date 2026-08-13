@@ -6,6 +6,7 @@ import {
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
     SrvPropertyCRUD,
+    SrvPropertyInquiryCRUD,
     SrvPropertyPhotosCreate,
     SrvPropertyPhotosRemove,
     SrvPropertyRestore,
@@ -56,3 +57,8 @@ export const permanentDeletePropertyReviews = (id: string | number) =>
 
 export const restorePropertyReviews = (id: string | number) =>
     _shapeMethodPost(SrvPropertyReviewsRestore(id))
+
+// Property Inquiry
+export const apiPropertyInquiryCRUD = {
+    ..._shapeObjectMethodCRUD(SrvPropertyInquiryCRUD),
+}

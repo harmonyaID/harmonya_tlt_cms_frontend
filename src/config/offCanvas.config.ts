@@ -13,3 +13,6 @@ export const OSBoatTypeDetail = 'offCanvasOSBoatTypeDetail'
 export const OCPropertyReviewDetail = 'offCanvasPropertyReviewDetail'
 
 export const OCWebContactFormDetail = 'offCanvasWebContactFormDetail'
+
+// Property Inquiry
+export const OCPropertyInquiryDetail = 'offCanvasPropertyInquiryDetail'

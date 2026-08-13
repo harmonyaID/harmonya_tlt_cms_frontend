@@ -17,6 +17,11 @@ export const SrvPropertyTrashWithId = (id: string | number = ''): string =>
 export const SrvPropertyRestore = (id: string | number = ''): string =>
     baseAPIProperty + '/trash/' + id + '/restore'
 
+// Property Inquiry
+export const SrvPropertyInquiryCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPIProperty + '/inquiry-forms',
+)
+
 // Reviews Property
 const baseAPIPropertyReviews = baseAPIProperty + '/reviews'
 export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(

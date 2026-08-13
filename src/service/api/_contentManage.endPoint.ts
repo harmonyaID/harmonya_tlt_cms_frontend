@@ -25,13 +25,28 @@ export const SrvBlogRestore = (id: string | number = ''): string =>
     baseAPIBlog + '/trash/' + id + '/restore'
 
 // Experiences
-export const SrvExperiencesContentCRUD = objectPathEndPointAPI(
-    baseAPI + '/experiences',
-)
+const baseAPIExperience = baseAPI + '/experiences'
+export const SrvExperiencesContentCRUD = objectPathEndPointAPI(baseAPIExperience)
 
-export const SrvExpInquiryFormCRUD = objectPathEndPointAPI(
-    baseAPI + '/experiences/inquiry-forms',
-)
+export const SrvExperienceContentTrash = baseAPIExperience + '/trash'
+
+export const SrvExperienceContentTrashWithId = (id: string | number = ''): string =>
+    baseAPIExperience + '/trash/' + id
+
+export const SrvExperienceContentRestore = (id: string | number = ''): string =>
+    baseAPIExperience + '/trash/' + id + '/restore'
+
+
+const baseAPIInquiryForm = baseAPI + '/experiences/inquiry-forms'
+export const SrvExpInquiryFormCRUD = objectPathEndPointAPI(baseAPIInquiryForm)
+
+export const SrvExpInquiryFormTrash = baseAPIInquiryForm + '/trash'
+
+export const SrvExpInquiryFormTrashWithId = (id: string | number = ''): string =>
+    baseAPIInquiryForm + '/trash/' + id
+
+export const SrvExpInquiryFormRestore = (id: string | number = ''): string =>
+    baseAPIInquiryForm + '/trash/' + id + '/restore'
 
 export const SrvExpInquiryFormUpdateStatus = (id) =>
     SrvExpInquiryFormCRUD.main + '/' + id + '/status'

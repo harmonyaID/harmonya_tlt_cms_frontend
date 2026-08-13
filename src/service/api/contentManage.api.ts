@@ -3,8 +3,14 @@ import {
     SrvBlogRestore,
     SrvBlogTrash,
     SrvBlogTrashWithId,
+    SrvExperienceContentRestore,
+    SrvExperienceContentTrash,
+    SrvExperienceContentTrashWithId,
     SrvExperiencesContentCRUD,
     SrvExpInquiryFormCRUD,
+    SrvExpInquiryFormRestore,
+    SrvExpInquiryFormTrash,
+    SrvExpInquiryFormTrashWithId,
     SrvExpInquiryFormUpdateStatus,
     SrvHomePageContent,
     SrvHomePageContentCRUD,
@@ -50,9 +56,30 @@ export const apiExperienceContent = {
     ..._shapeObjectMethodCRUD(SrvExperiencesContentCRUD),
 }
 
+export const getExperienceContentTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvExperienceContentTrash, search)
+
+export const permanentDeleteExperienceContent = (id: string | number) =>
+    _shapeMethodDel(SrvExperienceContentTrashWithId(id))
+
+export const restoreExperienceContent = (id: string | number) =>
+    _shapeMethodPost(SrvExperienceContentRestore(id))
+
+
 export const apiExpInquiryForm = {
     ..._shapeObjectMethodCRUD(SrvExpInquiryFormCRUD),
 }
+
+export const getExpInquiryFormTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvExpInquiryFormTrash, search)
+
+export const permanentDeleteExpInquiryForm = (id: string | number) =>
+    _shapeMethodDel(SrvExpInquiryFormTrashWithId(id))
+
+export const restoreExpInquiryForm = (id: string | number) =>
+    _shapeMethodPost(SrvExpInquiryFormRestore(id))
+
+
 
 export const updateStatusExpInquiryForm = (id, formRequest) =>
     _shapeMethodPatch(SrvExpInquiryFormUpdateStatus(id), formRequest)

@@ -56,9 +56,8 @@ import dashboardPath from '@/path/dashboard.path'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import experienceInquiryFormPath from '@/path/experienceInquiryForm.path.ts'
 import experienceTypePath from '@/path/experienceType.path.ts'
-import pagePath from '@/path/page.path'
 import propertyPath from '@/path/property.path.ts'
-import propertyBookingSystemPath from '@/path/propertyBookingSystem.path.ts'
+import propertyInquiryPath from '@/path/propertyInquiry.path.ts'
 import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
 import {
@@ -340,9 +339,9 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="">
                 <LinkMenu
-                    name="Booking System"
+                    name="Property Inquiry"
                     icon={<CalendarTick variant="Bulk" />}
-                    to={propertyBookingSystemPath.main}
+                    to={propertyInquiryPath.main}
                 />
             </li>
             <li className="">

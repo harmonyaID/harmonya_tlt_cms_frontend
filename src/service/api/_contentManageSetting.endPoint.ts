@@ -35,17 +35,27 @@ export const SrvBlogCategoryCRUD = objectPathEndPointAPI(
 export const SrvBlogTagCRUD = objectPathEndPointAPI(baseAPI + '/blogs/tags')
 
 // Contain Experiences Setting
-export const SrvExperienceTypeCRUD = objectPathEndPointAPI(
-    baseAPI + '/experiences/types',
-)
+const baseAPIExperienceType = baseAPI + '/experiences/types'
+export const SrvExperienceTypeCRUD = objectPathEndPointAPI(baseAPIExperienceType)
+export const SrvExperienceTypeTrash = baseAPIExperienceType + '/trash'
+export const SrvExperienceTypeTrashWithId = (id: string | number = ''): string =>
+    baseAPIExperienceType + '/trash/' + id
+export const SrvExperienceTypeRestore = (id: string | number = ''): string =>
+    baseAPIExperienceType + '/trash/' + id + '/restore'
 
 export const SrvExperienceCategoryCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/categories',
 )
 
+const baseAPIExperienceArea = baseAPI + '/experiences/areas'
 export const SrvExperienceAreaCRUD = objectPathEndPointAPI(
-    baseAPI + '/experiences/areas',
+    baseAPIExperienceArea
 )
+export const SrvExperienceAreaTrash = baseAPIExperienceArea + '/trash'
+export const SrvExperienceAreaTrashWithId = (id: string | number = ''): string =>
+    baseAPIExperienceArea + '/trash/' + id
+export const SrvExperienceAreaRestore = (id: string | number = ''): string =>
+    baseAPIExperienceArea + '/trash/' + id + '/restore'
 
 export const SrvExperienceInquiryFormsCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/inquiry-forms',

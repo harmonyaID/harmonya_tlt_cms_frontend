@@ -38,6 +38,8 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
             pathFromKey: restored.from,
         })
 
+    const [previewDataFiles, setPreviewDataFiles] = useState<any>({})
+
     const [formRequest, setFormRequest] = useState<any>({ ...initForm })
 
     const [isLoading, setIsLoading] = useState(false)
@@ -52,6 +54,31 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
     }
     // END SEO
+
+    // START PREVIEW DATA FILES
+    const _handleUploadFile = (section, name, value = '') => {
+        setPreviewDataFiles((prevState) => {
+            const newState = { ...prevState }
+            // newState[section][name] = value
+            const newDataState = {
+                [section]: {
+                    [name]: value,
+                },
+                ...prevState,
+            }
+
+            return newDataState
+            // return newState
+        })
+
+        setFormRequest((prevState) => {
+            const newState = { ...prevState }
+            newState.value[section][name] = value
+
+            return newState
+        })
+    }
+    // END PREVIEW DATA FILES
 
     const dataDetail = useDetailFormRequestHook({
         // urlAPI: () => apiHomePageContent.detail(id),
@@ -94,6 +121,9 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
         __handleArrToggle: nestedForm._handleArrToggle,
         __handleArrChange: nestedForm._handleArrChange,
         __handleChangeWithParent: nestedForm._handleChangeWithParent,
+
+        // Input File
+        __handleUploadFile: _handleUploadFile,
 
         // SEO
         __seoThumbnail: seoThumbnail,
