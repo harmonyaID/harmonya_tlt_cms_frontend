@@ -3,7 +3,7 @@ import usePageFlowHandlerHook from "@/hook/usePageFlowHandler.hook.ts";
 import experienceTypePath from "@/path/experienceType.path.ts";
 import {apiExperienceType} from "@/service/api/contentManageSetting.api.ts";
 
-const useExpTypeMainHook = () => {
+const useExpTypeMainHook = ({ urlAPI }: { urlAPI: any }) => {
     const {
         __list,
         __search,
@@ -16,10 +16,10 @@ const useExpTypeMainHook = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: (passData) => apiExperienceType.list({ ...passData }),
+        urlAPI: (passData) => urlAPI({ ...passData }),
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
+    const { __handleToAdd, __handleToEdit, __handleToDetail, __handleToTrash, __handleToMain } =
         usePageFlowHandlerHook({
             basePath: experienceTypePath,
             pathFromKey: 'ex-type-main',
@@ -40,6 +40,8 @@ const useExpTypeMainHook = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
     }
 }
 

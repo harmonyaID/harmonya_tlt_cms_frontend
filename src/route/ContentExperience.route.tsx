@@ -12,6 +12,9 @@ const mainPath = contentExperiencePath.main
 const ContentExperiencePage = lazy(
     () => import('@/page/contentExperience/ContentExperience.page.tsx'),
 )
+const ContentExperienceTrashPage = lazy(
+    () => import('@/page/contentExperience/ContentExperienceTrash.page.tsx'),
+)
 const ContentExperienceAddPage = lazy(
     () => import('@/page/contentExperience/ContentExperienceAdd.page.tsx'),
 )
@@ -27,9 +30,16 @@ const ExpInquiryFormPage = lazy(
     () => import('@/page/experienceInquiryForm/ExpInquiryForm.page.tsx'),
 )
 
+const ExpInquiryFormTrashPage = lazy(
+    () => import('@/page/experienceInquiryForm/ExpInquiryFormTrash.page.tsx'),
+)
+
 // Type
 const ExperienceTypePage = lazy(
     () => import('@/page/experienceType/ExpType.page.tsx'),
+)
+const ExperienceTypeTrashPage = lazy(
+    () => import('@/page/experienceType/ExpTypeTrash.page.tsx'),
 )
 const ExperienceTypeAddPage = lazy(
     () => import('@/page/experienceType/ExpTypeAdd.page.tsx'),
@@ -41,6 +51,9 @@ const ExperienceTypeEditPage = lazy(
 // Area
 const ExperienceAreaPage = lazy(
     () => import('@/page/experienceArea/ExperienceArea.page.tsx'),
+)
+const ExperienceAreaTrashPage = lazy(
+    () => import('@/page/experienceArea/ExperienceAreaTrash.page.tsx'),
 )
 const ExperienceAreaAddPage = lazy(
     () => import('@/page/experienceArea/ExperienceAreaAdd.page.tsx'),
@@ -64,6 +77,17 @@ const ContentExperienceRoute = () => (
                         titleNavbar="Experience"
                         isCheckPermission={false}>
                         <ContentExperiencePage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={contentExperiencePath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience"
+                        isCheckPermission={false}>
+                        <ContentExperienceTrashPage />
                     </SuspenseLayout>
                 }
             />
@@ -116,6 +140,17 @@ const ContentExperienceRoute = () => (
                     </SuspenseLayout>
                 }
             />
+
+            <Route
+                path={experienceInquiryFormPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleInquiryForm}
+                        isCheckPermission={false}>
+                        <ExpInquiryFormTrashPage />
+                    </SuspenseLayout>
+                }
+            />
         </Route>
 
         <Route path={experienceTypePath.main}>
@@ -127,6 +162,17 @@ const ContentExperienceRoute = () => (
                         titleNavbar={titleType}
                         isCheckPermission={false}>
                         <ExperienceTypePage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={experienceTypePath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleType}
+                        isCheckPermission={false}>
+                        <ExperienceTypeTrashPage />
                     </SuspenseLayout>
                 }
             />
@@ -168,6 +214,16 @@ const ContentExperienceRoute = () => (
                         titleNavbar={titleArea}
                         isCheckPermission={false}>
                         <ExperienceAreaPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                path={experienceAreaPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleArea}
+                        isCheckPermission={false}>
+                        <ExperienceAreaTrashPage />
                     </SuspenseLayout>
                 }
             />

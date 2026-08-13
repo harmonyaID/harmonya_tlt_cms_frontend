@@ -4,21 +4,11 @@ import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnCircleDetail,
-    BtnCircleEdit,
-    BtnCircleRemove,
+import {BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import { BoxImage } from '@/component/general/Image.tsx'
-import Pagination from '@/component/general/Pagination.tsx'
 import RenderHtml from '@/component/general/RenderHtml.tsx'
-import {
-    TblLineFirstPrimary,
-    TblLineSecond,
-} from '@/component/general/TablePartial.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
 import OffCanvasGeneral from '@/component/offCanvas/OffCanvasGeneral.tsx'
@@ -26,14 +16,16 @@ import { MDExCategoryRemove } from '@/config/modal.config.ts'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTabContent } from '@/config/objectNavTab.config.ts'
 import { OCGeneralPreviewDetail } from '@/config/offCanvas.config.ts'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useExpTypeDetailOffCanvasHook from '@/page/experienceType/hook/useExpTypeDetailOffCanvas.hook.ts'
 import useExpTypeMainHook from '@/page/experienceType/hook/useExpTypeMain.hook.ts'
-import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
+import {
+    apiExperienceArea,
+    apiExperienceType,
+} from '@/service/api/contentManageSetting.api.ts'
+import ExpTypeTable from '@/page/experienceType/component/ExpTypeTable.tsx'
 
 const ExperienceAreaPage = () => {
     const {
@@ -48,7 +40,8 @@ const ExperienceAreaPage = () => {
 
         __handleToAdd,
         __handleToEdit,
-    } = useExpTypeMainHook()
+        __handleToTrash,
+    } = useExpTypeMainHook({ urlAPI: apiExperienceType.list })
 
     const {
         __detail,
@@ -74,9 +67,14 @@ const ExperienceAreaPage = () => {
             <CardListData
                 title="Type"
                 componentAction={
-                    <BtnPrimary onClick={() => __handleToAdd()}>
-                        Add New
-                    </BtnPrimary>
+                    <div className="hstack gap-2">
+                        <BtnDanger isOutline handle={() => __handleToTrash()}>
+                            Trash
+                        </BtnDanger>
+                        <BtnPrimary onClick={() => __handleToAdd()}>
+                            Add New
+                        </BtnPrimary>
+                    </div>
                 }>
                 <FilterBarBasic
                     formRequest={__search}
@@ -88,108 +86,17 @@ const ExperienceAreaPage = () => {
                     }}
                 />
 
-                <div className="row overflow-y position-relative">
-                    <div className="col-md-12">
-                        <TableThemeLogic
-                            isLoading={__isLoading}
-                            isNoWrap
-                            ths={[
-                                // {
-                                //     content: 'Area',
-                                //     className: 'max-w-200px',
-                                // },
-                                'Name',
-                                'Featured Image',
-                                'Banner',
-                                // 'Description',
-                                '',
-                            ]}
-                            tds={__list}>
-                            {__list.map((vm, index) => {
-                                return (
-                                    <tr
-                                        key={index}
-                                        // onClick={(e) => {
-                                        //     e.stopPropagation()
-                                        //     __handleChooseDetail(vm)
-                                        // }}
-                                        // title="Preview Detail"
-                                        // className="cursor-pointer"
-                                    >
-                                        <td>
-                                            <TblLineFirstPrimary
-                                                value={vm?.name || ''}
-                                            />
-                                        </td>
-                                        <td>
-                                            <BoxImage src={vm.featuredImage} />
-                                        </td>
-                                        <td>
-                                            <BoxImage src={vm.banner} />
-                                        </td>
-                                        {/*<td>*/}
-                                        {/*    {vm.description ? (*/}
-                                        {/*        <RenderHtml*/}
-                                        {/*            html={vm.description}*/}
-                                        {/*        />*/}
-                                        {/*    ) : (*/}
-                                        {/*        '-'*/}
-                                        {/*    )}*/}
-                                        {/*</td>*/}
-                                        <td>
-                                            <div className="hstack gap-2 justify-content-end">
-                                                <BtnCircleRemove
-                                                    actions={{
-                                                        remove: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleChooseRemove(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-
-                                                <BtnCircleEdit
-                                                    title="Edit Data"
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            __handleToEdit(
-                                                                vm.id,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-
-                                                <BtnCircleDetail
-                                                    actions={{
-                                                        onClick: (e) => {
-                                                            e.stopPropagation()
-                                                            __handleChooseDetail(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
-                        </TableThemeLogic>
-                    </div>
-                </div>
-
-                {isShowPagination(__isLoading, __list, __pagination) ? (
-                    <Pagination
-                        onMove={(step) => __actionPagination(step)}
-                        className="mt-2"
-                        pagination={configDefaultPagination(
-                            __pagination,
-                            'totalPage',
-                        )}
-                    />
-                ) : null}
+                <ExpTypeTable
+                    __list={__list}
+                    __isLoading={__isLoading}
+                    __pagination={__pagination}
+                    actions={{
+                        __handleChooseRemove: _handleChooseRemove,
+                        __actionPagination: __actionPagination,
+                        __handleChooseDetail: __handleChooseDetail,
+                        __handleToEdit: __handleToEdit,
+                    }}
+                />
             </CardListData>
 
             <CreatePortalLayout>
