@@ -1,27 +1,30 @@
+import { useEffect, useState } from 'react'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import CardPreview from '@/component/card/CardPreview.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
+import Pagination from '@/component/general/Pagination.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
-import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
-import { useEffect, useState } from 'react'
-import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
-import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
-import { permanentDeleteBoat, restoreBoat } from '@/service/api/boatManage.api.ts'
-import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useChooseData from '@/hook/useChooseData.hook.ts'
+import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
+import {
+    permanentDeleteBoat,
+    restoreBoat,
+} from '@/service/api/boatManage.api.ts'
 
 const initForm = {
     name: '',
@@ -46,13 +49,14 @@ const TabSimpleSettingCRUD = ({
     isAdd = true,
     isEdit = true,
     isRemove = true,
+    isAutoSearch = false,
 }: {
     title: string
     apiCRUD: any
     apiTrash?: {
-        list: any,
-        restore: any,
-        delete: any,
+        list: any
+        restore: any
+        delete: any
     }
     idModal?: string
     placeholder?: string
@@ -60,6 +64,7 @@ const TabSimpleSettingCRUD = ({
     isAdd?: boolean
     isEdit?: boolean
     isRemove?: boolean
+    isAutoSearch?: boolean
 }) => {
     const idModalAdd = idModal + 'Add'
     const idModalRemove = idModal + 'Remove'
@@ -75,11 +80,13 @@ const TabSimpleSettingCRUD = ({
         __actionUpdate,
         __pagination,
         __actionPagination,
+        __actionRemoveAll,
     } = useDataListHook({
         urlAPI: (passData) => urlAPI?.(isSearch ? passData : { page: 0 }),
         advancedSearch: {
             page: 0,
         },
+        isAutoSearch,
     })
 
     const {
@@ -130,17 +137,20 @@ const TabSimpleSettingCRUD = ({
 
     const _handleShowTrash = () => {
         setIsShowTrash(true)
-        if(apiTrash?.list) {
+        if (apiTrash?.list) {
             setUrlAPI(() => apiTrash.list)
+            // __actionPagination(1)
         }
     }
 
     const _handleShowList = () => {
         setIsShowTrash(false)
         setUrlAPI(() => apiCRUD.list)
+        // __actionPagination(1)
     }
 
     useEffect(() => {
+        __actionRemoveAll()
         __actionPagination(1)
     }, [urlAPI])
 

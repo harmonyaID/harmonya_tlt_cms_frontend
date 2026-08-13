@@ -23,8 +23,9 @@ export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPIPropertyReviews,
 )
 export const SrvPropertyReviewsTrash = baseAPIPropertyReviews + '/trash'
-export const SrvPropertyReviewsTrashWithId = (id: string | number = ''): string =>
-    baseAPIPropertyReviews + '/trash/' + id
+export const SrvPropertyReviewsTrashWithId = (
+    id: string | number = '',
+): string => baseAPIPropertyReviews + '/trash/' + id
 export const SrvPropertyReviewsRestore = (id: string | number = ''): string =>
     baseAPIPropertyReviews + '/trash/' + id + '/restore'
 
@@ -38,16 +39,15 @@ export const SrvPropertyTypeTrashWithId = (id: string | number = ''): string =>
 export const SrvPropertyTypeRestore = (id: string | number = ''): string =>
     baseAPIPropertyType + '/trash/' + id + '/restore'
 
-
 const baseAPIBedType = baseAPIProperty + '/bed-types'
 export const SrvPropertyBedTypeCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPIBedType)
 export const SrvPropertyBedTypeTrash = baseAPIBedType + '/trash'
-export const SrvPropertyBedTypeTrashWithId = (id: string | number = ''): string =>
-    baseAPIBedType + '/trash/' + id
+export const SrvPropertyBedTypeTrashWithId = (
+    id: string | number = '',
+): string => baseAPIBedType + '/trash/' + id
 export const SrvPropertyBedTypeRestore = (id: string | number = ''): string =>
     baseAPIBedType + '/trash/' + id + '/restore'
-
 
 const baseAPIRoomType = baseAPIProperty + '/room-types'
 export const SrvPropertyRoomTypeCRUD: SrvWithFeature =
@@ -59,16 +59,14 @@ export const SrvPropertyRoomTypeTrashWithId = (
 export const SrvPropertyRoomTypeRestore = (id: string | number = ''): string =>
     baseAPIRoomType + '/trash/' + id + '/restore'
 
-
-const baseAPITag = baseAPIProperty + '/tag'
-export const SrvPropertyTagCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPITag)
+const baseAPITag = baseAPIProperty + '/tags'
+export const SrvPropertyTagCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPITag)
 export const SrvPropertyTagTrash = baseAPITag + '/trash'
-export const SrvPropertyTagTrashWithId = (
-    id: string | number = '',
-): string => baseAPITag + '/trash/' + id
+export const SrvPropertyTagTrashWithId = (id: string | number = ''): string =>
+    baseAPITag + '/trash/' + id
 export const SrvPropertyTagRestore = (id: string | number = ''): string =>
     baseAPITag + '/trash/' + id + '/restore'
-
 
 // Setting Static
 const baseAPIDataStatic =
