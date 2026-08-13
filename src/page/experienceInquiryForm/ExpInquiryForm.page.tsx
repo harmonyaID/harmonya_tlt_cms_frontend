@@ -61,12 +61,7 @@ const ExpInquiryFormPage = () => {
     return (
         <>
             <CardListData
-                title="Inquiry Form"
-                componentAction={
-                    <BtnDanger isOutline onClick={() => __handleToTrash()}>
-                        Trash
-                    </BtnDanger>
-                }>
+                title="Inquiry Form">
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
