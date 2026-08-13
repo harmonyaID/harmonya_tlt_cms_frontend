@@ -5,7 +5,7 @@ import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import experienceAreaPath from '@/path/experienceArea.path.ts'
+import experienceTypePath from '@/path/experienceType.path.ts'
 import { apiExperienceType } from '@/service/api/contentManageSetting.api.ts'
 
 const initForm = {
@@ -38,7 +38,7 @@ const useExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const { __handleSubmit, __handleCancel, __handleToMain } =
         usePageFlowHandlerHook({
-            basePath: experienceAreaPath,
+            basePath: experienceTypePath,
             pathFromKey: restored.from,
         })
 
