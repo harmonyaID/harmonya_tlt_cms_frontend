@@ -3,7 +3,7 @@ import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 
-const useContentExHook = () => {
+const useContentExHook = ({ urlAPI }: { urlAPI: any }) => {
     const {
         __list,
         __isLoading,
@@ -14,7 +14,7 @@ const useContentExHook = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: apiExperienceContent.list,
+        urlAPI: urlAPI,
         advancedSearch: {
             page: 1,
             // limit: 10,
@@ -23,11 +23,16 @@ const useContentExHook = () => {
         },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
-        usePageFlowHandlerHook({
-            basePath: contentExperiencePath,
-            pathFromKey: 'ex-main',
-        })
+    const {
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToMain,
+        __handleToTrash,
+    } = usePageFlowHandlerHook({
+        basePath: contentExperiencePath,
+        pathFromKey: 'ex-main',
+    })
 
     return {
         // ---- List Data ----
@@ -44,6 +49,8 @@ const useContentExHook = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToMain,
+        __handleToTrash,
     }
 }
 

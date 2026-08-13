@@ -12,6 +12,9 @@ const mainPath = contentExperiencePath.main
 const ContentExperiencePage = lazy(
     () => import('@/page/contentExperience/ContentExperience.page.tsx'),
 )
+const ContentExperienceTrashPage = lazy(
+    () => import('@/page/contentExperience/ContentExperienceTrash.page.tsx'),
+)
 const ContentExperienceAddPage = lazy(
     () => import('@/page/contentExperience/ContentExperienceAdd.page.tsx'),
 )
@@ -64,6 +67,17 @@ const ContentExperienceRoute = () => (
                         titleNavbar="Experience"
                         isCheckPermission={false}>
                         <ContentExperiencePage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={contentExperiencePath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Experience"
+                        isCheckPermission={false}>
+                        <ContentExperienceTrashPage />
                     </SuspenseLayout>
                 }
             />
