@@ -52,6 +52,9 @@ const ExperienceTypeEditPage = lazy(
 const ExperienceAreaPage = lazy(
     () => import('@/page/experienceArea/ExperienceArea.page.tsx'),
 )
+const ExperienceAreaTrashPage = lazy(
+    () => import('@/page/experienceArea/ExperienceAreaTrash.page.tsx'),
+)
 const ExperienceAreaAddPage = lazy(
     () => import('@/page/experienceArea/ExperienceAreaAdd.page.tsx'),
 )
@@ -211,6 +214,16 @@ const ContentExperienceRoute = () => (
                         titleNavbar={titleArea}
                         isCheckPermission={false}>
                         <ExperienceAreaPage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                path={experienceAreaPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleArea}
+                        isCheckPermission={false}>
+                        <ExperienceAreaTrashPage />
                     </SuspenseLayout>
                 }
             />

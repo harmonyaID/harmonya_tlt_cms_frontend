@@ -3,7 +3,7 @@ import usePageFlowHandlerHook from "@/hook/usePageFlowHandler.hook.ts";
 import experienceAreaPath from "@/path/experienceArea.path.ts";
 import {apiExperienceArea} from "@/service/api/contentManageSetting.api.ts";
 
-const useExperienceAreaMain = () => {
+const useExperienceAreaMain = ({ urlAPI }: { urlAPI: any }) => {
     const {
         __list,
         __search,
@@ -16,10 +16,10 @@ const useExperienceAreaMain = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: (passData) => apiExperienceArea.list({ ...passData }),
+        urlAPI: (passData) => urlAPI({ ...passData }),
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
+    const { __handleToAdd, __handleToEdit, __handleToDetail, __handleToMain, __handleToTrash } =
         usePageFlowHandlerHook({
             basePath: experienceAreaPath,
             pathFromKey: 'ex-area-main',
@@ -40,6 +40,8 @@ const useExperienceAreaMain = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToMain,
+        __handleToTrash,
     }
 }
 

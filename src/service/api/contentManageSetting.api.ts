@@ -8,6 +8,9 @@ import {
     SrvBlogTagCRUD,
     SrvComponentContactFormTypeCRUD,
     SrvExperienceAreaCRUD,
+    SrvExperienceAreaRestore,
+    SrvExperienceAreaTrash,
+    SrvExperienceAreaTrashWithId,
     SrvExperienceCategoryCRUD,
     SrvExperienceInquiryFormsCRUD,
     SrvExperienceTypeCRUD,
@@ -69,6 +72,12 @@ export const apiExperienceCategory = {
 export const apiExperienceArea = {
     ..._shapeObjectMethodCRUD(SrvExperienceAreaCRUD),
 }
+export const getExperienceAreaTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvExperienceAreaTrash, search)
+export const permanentDeleteExperienceArea = (id: string | number) =>
+    _shapeMethodDel(SrvExperienceAreaTrashWithId(id))
+export const restoreExperienceArea = (id: string | number) =>
+    _shapeMethodPost(SrvExperienceAreaRestore(id))
 
 export const apiExperienceInquiryForm = {
     ..._shapeObjectMethodCRUD(SrvExperienceInquiryFormsCRUD),

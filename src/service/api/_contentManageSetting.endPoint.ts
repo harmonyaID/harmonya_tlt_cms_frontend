@@ -47,9 +47,15 @@ export const SrvExperienceCategoryCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/categories',
 )
 
+const baseAPIExperienceArea = baseAPI + '/experiences/areas'
 export const SrvExperienceAreaCRUD = objectPathEndPointAPI(
-    baseAPI + '/experiences/areas',
+    baseAPIExperienceArea
 )
+export const SrvExperienceAreaTrash = baseAPIExperienceArea + '/trash'
+export const SrvExperienceAreaTrashWithId = (id: string | number = ''): string =>
+    baseAPIExperienceArea + '/trash/' + id
+export const SrvExperienceAreaRestore = (id: string | number = ''): string =>
+    baseAPIExperienceArea + '/trash/' + id + '/restore'
 
 export const SrvExperienceInquiryFormsCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/inquiry-forms',
