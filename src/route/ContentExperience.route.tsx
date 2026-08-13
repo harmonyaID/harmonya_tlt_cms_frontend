@@ -30,6 +30,10 @@ const ExpInquiryFormPage = lazy(
     () => import('@/page/experienceInquiryForm/ExpInquiryForm.page.tsx'),
 )
 
+const ExpInquiryFormTrashPage = lazy(
+    () => import('@/page/experienceInquiryForm/ExpInquiryFormTrash.page.tsx'),
+)
+
 // Type
 const ExperienceTypePage = lazy(
     () => import('@/page/experienceType/ExpType.page.tsx'),
@@ -127,6 +131,17 @@ const ContentExperienceRoute = () => (
                         titleNavbar={titleInquiryForm}
                         isCheckPermission={false}>
                         <ExpInquiryFormPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={experienceInquiryFormPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleInquiryForm}
+                        isCheckPermission={false}>
+                        <ExpInquiryFormTrashPage />
                     </SuspenseLayout>
                 }
             />

@@ -3,7 +3,7 @@ import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import experienceInquiryFormPath from '@/path/experienceInquiryForm.path.ts'
 import { apiExpInquiryForm } from '@/service/api/contentManage.api.ts'
 
-const useExpInquiryMainHook = () => {
+const useExpInquiryMainHook = ({ urlAPI }: { urlAPI: any }) => {
     const {
         __list,
         __search,
@@ -16,14 +16,19 @@ const useExpInquiryMainHook = () => {
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: (passData) => apiExpInquiryForm.list({ ...passData }),
+        urlAPI: (passData) => urlAPI({ ...passData }),
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail } =
-        usePageFlowHandlerHook({
-            basePath: experienceInquiryFormPath,
-            pathFromKey: 'ex-inquiry-form',
-        })
+    const {
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
+    } = usePageFlowHandlerHook({
+        basePath: experienceInquiryFormPath,
+        pathFromKey: 'ex-inquiry-form',
+    })
 
     return {
         // ---- List Data ----
@@ -40,6 +45,8 @@ const useExpInquiryMainHook = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
     }
 }
 
