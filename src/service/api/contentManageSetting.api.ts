@@ -1,5 +1,6 @@
 import {
-    _shapeMethodGet,
+    _shapeMethodDel,
+    _shapeMethodGet, _shapeMethodGetSearch, _shapeMethodPost,
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
@@ -10,12 +11,20 @@ import {
     SrvExperienceCategoryCRUD,
     SrvExperienceInquiryFormsCRUD,
     SrvExperienceTypeCRUD,
+    SrvExperienceTypeRestore,
+    SrvExperienceTypeTrash,
+    SrvExperienceTypeTrashWithId,
     SrvFAQCRUD,
     SrvLanguageCRUD,
     SrvMediaPartnerCRUD,
     SrvTLTReviewCRUD,
     SrvWebContactFormCRUD,
 } from '@/service/api/_contentManageSetting.endPoint'
+import {
+    SrvBoatTypeRestore,
+    SrvBoatTypeTrash,
+    SrvBoatTypeTrashWithId,
+} from '@/service/api/_boatManage.endPoint.ts'
 
 export const apiLanguage = { ..._shapeObjectMethodCRUD(SrvLanguageCRUD) }
 
@@ -46,6 +55,12 @@ export const apiBlogTag = { ..._shapeObjectMethodCRUD(SrvBlogTagCRUD) }
 export const apiExperienceType = {
     ..._shapeObjectMethodCRUD(SrvExperienceTypeCRUD),
 }
+export const getExperienceTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvExperienceTypeTrash, search)
+export const permanentDeleteExperienceType = (id: string | number) =>
+    _shapeMethodDel(SrvExperienceTypeTrashWithId(id))
+export const restoreExperienceType = (id: string | number) =>
+    _shapeMethodPost(SrvExperienceTypeRestore(id))
 
 export const apiExperienceCategory = {
     ..._shapeObjectMethodCRUD(SrvExperienceCategoryCRUD),

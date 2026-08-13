@@ -35,9 +35,13 @@ export const SrvBlogCategoryCRUD = objectPathEndPointAPI(
 export const SrvBlogTagCRUD = objectPathEndPointAPI(baseAPI + '/blogs/tags')
 
 // Contain Experiences Setting
-export const SrvExperienceTypeCRUD = objectPathEndPointAPI(
-    baseAPI + '/experiences/types',
-)
+const baseAPIExperienceType = baseAPI + '/experiences/types'
+export const SrvExperienceTypeCRUD = objectPathEndPointAPI(baseAPIExperienceType)
+export const SrvExperienceTypeTrash = baseAPIExperienceType + '/trash'
+export const SrvExperienceTypeTrashWithId = (id: string | number = ''): string =>
+    baseAPIExperienceType + '/trash/' + id
+export const SrvExperienceTypeRestore = (id: string | number = ''): string =>
+    baseAPIExperienceType + '/trash/' + id + '/restore'
 
 export const SrvExperienceCategoryCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/categories',

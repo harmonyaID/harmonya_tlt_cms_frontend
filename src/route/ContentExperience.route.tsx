@@ -38,6 +38,9 @@ const ExpInquiryFormTrashPage = lazy(
 const ExperienceTypePage = lazy(
     () => import('@/page/experienceType/ExpType.page.tsx'),
 )
+const ExperienceTypeTrashPage = lazy(
+    () => import('@/page/experienceType/ExpTypeTrash.page.tsx'),
+)
 const ExperienceTypeAddPage = lazy(
     () => import('@/page/experienceType/ExpTypeAdd.page.tsx'),
 )
@@ -156,6 +159,17 @@ const ContentExperienceRoute = () => (
                         titleNavbar={titleType}
                         isCheckPermission={false}>
                         <ExperienceTypePage />
+                    </SuspenseLayout>
+                }
+            />
+            <Route
+                index
+                path={experienceTypePath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleType}
+                        isCheckPermission={false}>
+                        <ExperienceTypeTrashPage />
                     </SuspenseLayout>
                 }
             />
