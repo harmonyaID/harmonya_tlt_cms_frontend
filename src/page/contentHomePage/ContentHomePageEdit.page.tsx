@@ -4,6 +4,7 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormTextEditor from '@/component/form/FormTextEditor.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
@@ -29,6 +30,9 @@ const ContentHomePageEditPage = () => {
         __handleArrToggle,
         __handleArrChange,
         __handleChangeWithParent,
+
+        // Input File
+        __handleUploadFile,
 
         // SEO
         __seoThumbnail,
@@ -114,7 +118,50 @@ const ContentHomePageEditPage = () => {
                                             </GeneralRowForm>
 
                                             <GeneralRowForm
-                                                label="Background"
+                                                label="Background Image"
+                                                isRequired>
+                                                <FormUploadFile
+                                                    label="Thumbnail"
+                                                    name="videoThumbnail"
+                                                    required
+                                                    isUseHook={false}
+                                                    isPreview={false}
+                                                    accept="image/*"
+                                                    actions={{
+                                                        onChange: (
+                                                            _,
+                                                            newFiles,
+                                                        ) => {
+                                                            const img =
+                                                                new Image()
+                                                            const objectUrl =
+                                                                URL.createObjectURL(
+                                                                    newFiles,
+                                                                )
+
+                                                            img.onload = () => {
+                                                                __handleUploadFile(
+                                                                    'SECTION1',
+                                                                    'videoThumbnail',
+                                                                    newFiles,
+                                                                )
+                                                            }
+
+                                                            img.src = objectUrl
+                                                        },
+                                                        handleDataFiles: (
+                                                            newDataFiles,
+                                                        ) => {
+                                                            // __setPreviewThumbnail(
+                                                            //     newDataFiles.url,
+                                                            // )
+                                                        },
+                                                    }}
+                                                />
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm
+                                                label="Video Thumbnail"
                                                 isRequired></GeneralRowForm>
 
                                             <GeneralRowForm

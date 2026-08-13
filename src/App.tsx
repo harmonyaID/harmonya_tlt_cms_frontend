@@ -1,25 +1,24 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import Page404Layout from '@/component/layout/Page404.layout'
 import SuspenseLayout from '@/component/layout/Suspense.layout'
+import ErrorBoundary from '@/component/wrapping/ErrorBoundary.tsx'
 import MainLayoutWrap from '@/component/wrapping/MainLayout.wrap'
 import dashboardPath from '@/path/dashboard.path'
 // Routes
-import PrivateSingleRoute from '@/route/PrivateSingle.route.tsx'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router'
 import AuthRoute from '@/route/Auth.route.tsx'
-import UserRoute from '@/route/User.route.tsx'
+import BoatManagementRoute from '@/route/BoatManagement.route.tsx'
 import ContentAllPageRoute from '@/route/ContentAllPages.route.tsx'
 import ContentBlogRoute from '@/route/ContentBlog.route.tsx'
-import ContentHomePageRoute from '@/route/ContentHomePage.route.tsx'
-import ContentSettingRoute from '@/route/ContentSetting.route.tsx'
-import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
-import BoatManagementRoute from '@/route/BoatManagement.route.tsx'
 import ContentExperienceRoute from '@/route/ContentExperience.route.tsx'
-import PropertyBookingSystemRoute from '@/route/PropertyBookingSystem.route.tsx'
-import PropertyRoute from '@/route/Property.route.tsx'
-import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
+import ContentHomePageRoute from '@/route/ContentHomePage.route.tsx'
 import ContentMenuRoute from '@/route/ContentMenu.route.tsx'
-import ErrorBoundary from '@/component/wrapping/ErrorBoundary.tsx'
+import ContentSettingRoute from '@/route/ContentSetting.route.tsx'
+import PrivateSingleRoute from '@/route/PrivateSingle.route.tsx'
+import PropertyRoute from '@/route/Property.route.tsx'
 import PropertyReviewsRoute from '@/route/PropertyReviews.route.tsx'
+import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
+import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
+import UserRoute from '@/route/User.route.tsx'
 
 const App = () => {
     return (
@@ -37,7 +36,6 @@ const App = () => {
                         {ContentSettingRoute()}
                         {BoatManagementRoute()}
                         {PropertyRoute()}
-                        {PropertyBookingSystemRoute()}
                         {PropertyReviewsRoute()}
                         {PropertySettingRoute()}
                         {SystemManagementRoute()}

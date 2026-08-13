@@ -1,12 +1,15 @@
-import propertyPath from '@/path/property.path.ts'
-import { Route } from 'react-router'
-import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
-import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import { lazy } from 'react'
+import { Route } from 'react-router'
+import Page404Layout from '@/component/layout/Page404.layout.tsx'
+import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
+import propertyPath from '@/path/property.path.ts'
+import propertyInquiryPath from '@/path/propertyInquiry.path.ts'
 
 const PropertyMainPage = lazy(() => import('@/page/property/Property.page.tsx'))
 
-const PropertyTrashPage = lazy(() => import('@/page/property/PropertyTrash.page.tsx'))
+const PropertyTrashPage = lazy(
+    () => import('@/page/property/PropertyTrash.page.tsx'),
+)
 
 const PropertyAddPage = lazy(
     () => import('@/page/property/PropertyAdd.page.tsx'),
@@ -20,15 +23,18 @@ const PropertyDetailPage = lazy(
     () => import('@/page/property/PropertyDetail.page.tsx'),
 )
 
-const propertyMainPath = propertyPath.main
+// Property Inquiry
+const PropertyInquiryMainPage = lazy(
+    () => import('@/page/propertyInquiry/PropertyInquiry.page.tsx'),
+)
 
 const PropertyRoute = () => {
     return (
         <>
-            <Route path={propertyMainPath}>
+            <Route path={propertyPath.main}>
                 <Route
                     index
-                    path={propertyMainPath}
+                    path={propertyPath.main}
                     element={
                         <SuspenseLayout
                             titleNavbar="Property"
@@ -84,7 +90,25 @@ const PropertyRoute = () => {
 
                 <Route
                     path="*"
-                    element={<Page404Layout to={propertyMainPath} />}
+                    element={<Page404Layout to={propertyPath.main} />}
+                />
+            </Route>
+
+            <Route path={propertyInquiryPath.main}>
+                <Route
+                    index
+                    path={propertyInquiryPath.main}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Inquiry"
+                            isCheckPermission={false}>
+                            <PropertyInquiryMainPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    path="*"
+                    element={<Page404Layout to={propertyInquiryPath.main} />}
                 />
             </Route>
         </>
