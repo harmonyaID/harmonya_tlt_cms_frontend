@@ -2,6 +2,7 @@ import ReactJson from '@microlink/react-json-view'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import ContentMedia from '@/component/general/ContentMedia.tsx'
 import PreElement from '@/component/general/PreElement.tsx'
 import PreviewJson from '@/component/general/PreviewJson.tsx'
 import SEOPreviewPublic from '@/component/general/SEOPreviewPublic.tsx'
@@ -32,12 +33,13 @@ const SectionPreviewSEOInformation = ({
         objectTabContent(
             'Meta Image',
             seo?.thumbnail ? (
-                <PreviewFileModalLogic
-                    dataUrl={seo?.thumbnail?.toString()}
-                    dataBy="file"
-                    dataFile={seo?.thumbnail}
-                    classNameWidth="w-100 max-h-148px"
-                />
+                // <PreviewFileModalLogic
+                //     dataUrl={seo?.thumbnail?.toString()}
+                //     dataBy="file"
+                //     dataFile={seo?.thumbnail}
+                //     classNameWidth="w-100 max-h-148px"
+                // />
+                <ContentMedia src={seo?.thumbnail?.toString()} type="image" />
             ) : (
                 '-'
             ),

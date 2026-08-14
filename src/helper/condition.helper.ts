@@ -46,3 +46,11 @@ export const isLoadingAndDetail = (isLoading?: boolean | any, detail = {}) => {
 export const viewData = (data) => {
     return !isEmpty(data) ? data : '-'
 }
+
+export const isToBoolean = (value: string) => {
+    if (typeof value === 'boolean') {
+        return value
+    }
+
+    return String(value).toLowerCase() === 'true'
+}

@@ -278,6 +278,9 @@ export interface FormUploadFileProps extends InputHTMLAttributes<HTMLInputElemen
     idAreaUpload?: string
     idBtnPaste?: string
     dataPreviewBy?: string
+
+    isPreviewVideo?: boolean
+    classNameLayoutVideo?: string
 }
 
 export interface LayoutImageAndDocumentProps {
@@ -290,6 +293,11 @@ export interface LayoutImageAndDocumentProps {
         name: string
         size: number | any
         type: string
+    }
+    dataFile?: {
+        name?: string
+        size?: number | any
+        type?: string
     }
     passIndex: any
 }

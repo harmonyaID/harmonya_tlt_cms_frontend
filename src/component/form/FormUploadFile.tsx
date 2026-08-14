@@ -23,6 +23,7 @@ import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import IconWORD from '@/asset/image/icon/flat-doc-icon.png'
 import IconPDF from '@/asset/image/icon/flat-pdf-icon.svg'
 import IconEXCEL from '@/asset/image/icon/flat-xls-icon.png'
+import { RenderPreviewVideo } from '@/component/general/PreviewVideo.tsx'
 import {
     checkFileTypeFromUrl,
     IS_TYPE_FILE_EXCEL,
@@ -31,6 +32,7 @@ import {
 } from '@/config/objectList.config'
 import { useHookContextForm } from '@/context/Form.context'
 import { eventUploadFile } from '@/helper/actionEvent.helper'
+import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import { notifyError } from '@/helper/base/notifyGeneral.helper'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
 import { BtnCircleRemove, BtnPrimary } from '../general/Button'
@@ -81,6 +83,9 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
 
         dataPreviewBy = 'url',
         classNameLayoutImage = '',
+
+        isPreviewVideo = false,
+        classNameLayoutVideo,
     } = props
 
     const idInput = id || uniqueId
@@ -360,26 +365,26 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
     }) => {
         return (
             <div
-                className={
-                    'position-relative overflow-hidden border border-neutral-400 b-rad-8 mt-2' +
-                    (classNameLayoutImage ? ` ${classNameLayoutImage}` : '')
-                }>
+                className={joinClassNameHelper(
+                    'position-relative overflow-hidden border border-neutral-400 b-rad-8 mt-2',
+                    classNameLayoutImage,
+                )}>
                 <div
                     className="wp-img-preview"
                     onClick={() => _handlePreviewDetailImage(true, passIndex)}>
                     <HoverZoom />
 
-                    {/*<Image*/}
-                    {/*    src={_handleRenderIcon(dataImage)}*/}
-                    {/*    alt={dataImage?.name || ''}*/}
-                    {/*    fallback={ImgGeneralDefault}*/}
-                    {/*    className="data-img data-img-contain"*/}
-                    {/*/>*/}
+                    <Image
+                        src={_handleRenderIcon(dataImage)}
+                        alt={dataImage?.name || ''}
+                        fallback={ImgGeneralDefault}
+                        className="data-img data-img-contain object-fit-contain"
+                    />
                 </div>
 
                 <BtnCircleRemove
-                    className="btn-icon-remove-top-right z-index-999"
-                    action={{
+                    className="btn-icon-remove-top-right z-2"
+                    actions={{
                         remove: () => _handleRemove(passIndex),
                     }}
                 />
@@ -394,12 +399,12 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
         return (
             <div className="box-preview-file mt-2">
                 <div className="data-icon cursor-pointer">
-                    {/*<Image*/}
-                    {/*    src={_handleRenderIcon(dataDocument)}*/}
-                    {/*    alt={dataDocument?.name || ''}*/}
-                    {/*    fallback={ImgGeneralDefault}*/}
-                    {/*    className="object-fit-contain"*/}
-                    {/*/>*/}
+                    <Image
+                        src={_handleRenderIcon(dataDocument)}
+                        alt={dataDocument?.name || ''}
+                        fallback={ImgGeneralDefault}
+                        className="object-fit-contain"
+                    />
                 </div>
 
                 <div className="wp-content-file overflow-hidden">
@@ -426,13 +431,38 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
                         </button>
 
                         <button
-                            className="btn btn-sm text-danger-200 p-0 mt-0"
+                            className="btn btn-sm text-danger-200 p-0 mt-0 z-2"
                             onClick={() => _handleRemove(passIndex)}
                             type="button">
                             <Trash variant="Bold" size="16" />
                         </button>
                     </div>
                 </div>
+            </div>
+        )
+    }
+
+    const LayoutVideo = ({
+        dataFile,
+        passIndex,
+    }: LayoutImageAndDocumentProps) => {
+        return (
+            <div
+                className={joinClassNameHelper(
+                    'position-relative overflow-hidden border border-neutral-400 b-rad-8 mt-2',
+                    classNameLayoutImage || classNameLayoutVideo,
+                )}>
+                {dataFile && dataFile[dataPreviewBy] ? (
+                    <RenderPreviewVideo src={dataFile[dataPreviewBy]} />
+                ) : (
+                    <h5 className="">No File Available</h5>
+                )}
+                <BtnCircleRemove
+                    className="btn-icon-remove-top-right z-2"
+                    actions={{
+                        remove: () => _handleRemove(passIndex),
+                    }}
+                />
             </div>
         )
     }
@@ -550,6 +580,11 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
                                 isGeneralFile ? (
                                     <LayoutDocument
                                         dataDocument={previewFiles[0]}
+                                        passIndex={0}
+                                    />
+                                ) : isPreviewVideo ? (
+                                    <LayoutVideo
+                                        dataFile={previewFiles[0]}
                                         passIndex={0}
                                     />
                                 ) : (
