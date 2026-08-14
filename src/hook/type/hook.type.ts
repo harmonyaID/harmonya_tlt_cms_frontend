@@ -87,6 +87,7 @@ export interface UploadFileFormRequest {
     isLoadData?: boolean
     withDeleted?: boolean
     isMulti?: boolean
+    externalFormRequest?: object
 }
 
 // Search Form Request

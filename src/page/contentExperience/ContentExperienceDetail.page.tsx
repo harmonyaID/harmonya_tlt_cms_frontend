@@ -137,8 +137,8 @@ const ContentExperienceDetailPage = () => {
                             ),
                             objectTab('General', 'tabGeneral'),
                             objectTab('Photos', 'tabPhotos'),
-                            objectTab('Photos Promotion', 'tabPhotoPromotion'),
-                            objectTab('Inquiry Form', 'tabInquiryForm'),
+                            objectTab('Catalogs', 'tabCatalogs'),
+                            // objectTab('Inquiry Form', 'tabInquiryForm'),
                             objectTab('SEO Information', 'tabSEOInformation'),
                         ]}
                         tabContents={[
@@ -305,15 +305,17 @@ const ContentExperienceDetailPage = () => {
                                 </>,
                             ),
                             objectTabContent(
-                                'Photos Promotion',
+                                'Catalogs',
                                 <>
-                                    {!isEmpty(__detail.promoPhotos) ? (
+                                    {!isEmpty(__detail.catalogs) ? (
                                         <>
                                             <PreviewFileModalMultiLogic
-                                                dataFiles={__detail.promoPhotos}
+                                                dataFiles={__detail.catalogs}
                                                 classNameColumnPreview="col-md-3"
                                                 dataBy="file"
-                                                isDescription={false}
+                                                isDescription
+                                                labelDescription="Name"
+                                                keyDescription="name"
                                                 classNameWrapImg="max-h-120-px"
                                             />
                                         </>
@@ -322,10 +324,10 @@ const ContentExperienceDetailPage = () => {
                                     )}
                                 </>,
                             ),
-                            objectTabContent(
-                                'Inquiry Form',
-                                <TabInquiryForm experienceId={__detail.id} />,
-                            ),
+                            // objectTabContent(
+                            //     'Inquiry Form',
+                            //     <TabInquiryForm experienceId={__detail.id} />,
+                            // ),
                             objectTabContent(
                                 'SEO Information',
                                 <SectionPreviewSEOInformation

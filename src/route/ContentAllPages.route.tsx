@@ -16,9 +16,7 @@ const ContentAllPageRoute = () => (
             index
             path={mainPath}
             element={
-                <SuspenseLayout
-                    titleNavbar="All Pages"
-                    isCheckPermission={false}>
+                <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
                     <ContentAllPagesPage />
                 </SuspenseLayout>
             }

@@ -3,12 +3,14 @@ import { isEmpty } from 'lodash'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
-import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
+import { BadgeStatusGeneral, BadgeYesOrNo } from '@/component/general/Badge.tsx'
 import { BtnPrimary } from '@/component/general/Button.tsx'
 import ContentMedia from '@/component/general/ContentMedia.tsx'
+import PreviewEmbedMap from '@/component/general/PreviewEmbedMap.tsx'
 import RenderHtml from '@/component/general/RenderHtml.tsx'
 import { MediaNotAvailable } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
@@ -17,6 +19,7 @@ import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData
 import { localeOption } from '@/config/locale.config.ts'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
+import { isToBoolean } from '@/helper/condition.helper.ts'
 import TabListContent from '@/page/contentHomePage/component/TabListContent.tsx'
 import useHomePageMainHook from '@/page/contentHomePage/hook/useHomePageMain.hook.ts'
 
@@ -104,9 +107,11 @@ const ContentHomePagePage = () => {
                                 isShow
                                 id="section-01">
                                 <HorizontalLoopDataLogic
+                                    isNoPadding
                                     config={{
                                         contentColumn: 'col-md-9',
                                     }}
+                                    className="vstack gap-4"
                                     list={[
                                         objectListDetail(
                                             'Content',
@@ -115,7 +120,7 @@ const ContentHomePagePage = () => {
                                             />,
                                         ),
                                         objectListDetail(
-                                            'Background Image',
+                                            'Video Thumbnail',
                                             <ContentMedia
                                                 src={SECTION1.videoThumbnail}
                                                 type="image"
@@ -126,6 +131,14 @@ const ContentHomePagePage = () => {
                                             <ContentMedia
                                                 src={SECTION1.backgroundVideo}
                                                 type="video"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Preview Video ?',
+                                            <TextTrueOrFalse
+                                                value={isToBoolean(
+                                                    SECTION1.isVideo,
+                                                )}
                                             />,
                                         ),
                                         objectListDetail(
@@ -226,7 +239,7 @@ const ContentHomePagePage = () => {
                                             />,
                                         ),
                                         objectListDetail(
-                                            'Background Image',
+                                            'Map Image',
                                             <ContentMedia
                                                 src={SECTION2.mapImage}
                                                 type="image"
@@ -245,7 +258,7 @@ const ContentHomePagePage = () => {
                                     }}
                                     list={[
                                         objectListDetail(
-                                            'Background Image',
+                                            'Banner Image',
                                             <ContentMedia
                                                 src={SECTION2.image}
                                                 type="image"
@@ -541,24 +554,10 @@ const ContentHomePagePage = () => {
                                     }}
                                     list={[
                                         objectListDetail(
-                                            'Logo',
-                                            <ContentMedia
-                                                src={SECTION9.logo}
-                                                type="image"
-                                            />,
-                                        ),
-                                        objectListDetail(
                                             'Content',
                                             <RenderHtml
                                                 className="p-3 bg-neutral-400"
                                                 html={SECTION9.content}
-                                            />,
-                                        ),
-                                        objectListDetail(
-                                            'Background Image',
-                                            <ContentMedia
-                                                src={SECTION9.backgroundImage}
-                                                type="image"
                                             />,
                                         ),
                                         objectListDetail(
@@ -574,21 +573,42 @@ const ContentHomePagePage = () => {
                                             />,
                                         ),
                                         objectListDetail(
-                                            'Images',
-                                            <div className="vstack gap-3">
-                                                {!isEmpty(SECTION9.images)
-                                                    ? SECTION9.images.map(
-                                                          (item, idx) => (
-                                                              <ContentMedia
-                                                                  src={item}
-                                                                  type="image"
-                                                                  key={idx}
-                                                              />
-                                                          ),
-                                                      )
-                                                    : null}
-                                            </div>,
+                                            'Logo',
+                                            <ContentMedia
+                                                src={SECTION9.logo}
+                                                type="image"
+                                            />,
                                         ),
+                                        objectListDetail(
+                                            'Background Image',
+                                            <ContentMedia
+                                                src={SECTION9.backgroundImage}
+                                                type="image"
+                                            />,
+                                        ),
+                                        objectListDetail(
+                                            'Image',
+                                            <ContentMedia
+                                                src={SECTION9.image}
+                                                type="image"
+                                            />,
+                                        ),
+                                        // objectListDetail(
+                                        //     'Images',
+                                        //     <div className="vstack gap-3">
+                                        //         {!isEmpty(SECTION9.images)
+                                        //             ? SECTION9.images.map(
+                                        //                   (item, idx) => (
+                                        //                       <ContentMedia
+                                        //                           src={item}
+                                        //                           type="image"
+                                        //                           key={idx}
+                                        //                       />
+                                        //                   ),
+                                        //               )
+                                        //             : null}
+                                        //     </div>,
+                                        // ),
                                     ]}
                                 />
                             </CardDropdown>
@@ -648,11 +668,23 @@ const ContentHomePagePage = () => {
                                         objectListDetail(
                                             'Gmaps Embed',
                                             SECTION11.gmapsEmbed ? (
-                                                <a
-                                                    href={SECTION11.gmapsEmbed}
-                                                    target="_blank">
-                                                    {SECTION11.gmapsEmbed}
-                                                </a>
+                                                <>
+                                                    <a
+                                                        href={
+                                                            SECTION11.gmapsEmbed
+                                                        }
+                                                        target="_blank">
+                                                        Preview Detail
+                                                        {/*{SECTION11.gmapsEmbed}*/}
+                                                    </a>
+
+                                                    <PreviewEmbedMap
+                                                        src={
+                                                            SECTION11.gmapsEmbed
+                                                        }
+                                                        className="mt-2"
+                                                    />
+                                                </>
                                             ) : (
                                                 '-'
                                             ),
@@ -697,13 +729,6 @@ const ContentHomePagePage = () => {
                                             />,
                                         ),
                                         objectListDetail(
-                                            'Background Image',
-                                            <ContentMedia
-                                                src={SECTION13.background}
-                                                type="image"
-                                            />,
-                                        ),
-                                        objectListDetail(
                                             'Input Placeholder',
                                             <RenderHtml
                                                 html={
@@ -717,6 +742,13 @@ const ContentHomePagePage = () => {
                                                 html={SECTION13.buttonText}
                                             />,
                                         ),
+                                        objectListDetail(
+                                            'Background Image',
+                                            <ContentMedia
+                                                src={SECTION13.background}
+                                                type="image"
+                                            />,
+                                        ),
                                     ]}
                                 />
                             </CardDropdown>
@@ -724,54 +756,10 @@ const ContentHomePagePage = () => {
                             <CardDropdown
                                 title="SEO Information"
                                 id="section-seo-info">
-                                <div className="pb-3">
-                                    <p className="mb-2 text-neutral-100">
-                                        Thumbnail
-                                    </p>
-
-                                    <PreviewFileModalLogic
-                                        dataUrl={seo?.thumbnail?.toString()}
-                                        dataBy="file"
-                                        dataFile={seo?.thumbnail}
-                                        classNameWidth="w-100 max-h-148px"
-                                    />
-                                </div>
-
-                                <VerticalLoopDataLogic
-                                    list={[
-                                        objectListDetail(
-                                            'Title',
-                                            seo?.title || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Slug',
-                                            seo?.slug || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Canonical Url',
-                                            seo?.canonicalUrl || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Description',
-                                            seo?.description || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Meta Keyword',
-                                            seo?.metaKeyword || '-',
-                                        ),
-                                        objectListDetail(
-                                            'Robot Follow',
-                                            <TextTrueOrFalse
-                                                value={seo?.robotFollow}
-                                            />,
-                                        ),
-                                        objectListDetail(
-                                            'Robot Index',
-                                            <TextTrueOrFalse
-                                                value={seo?.robotIndex}
-                                            />,
-                                        ),
-                                    ]}
+                                <SectionPreviewSEOInformation
+                                    isTitle={false}
+                                    classNameColumn="col-md-12"
+                                    seo={__detail.seo}
                                 />
                             </CardDropdown>
                         </div>
@@ -784,7 +772,9 @@ const ContentHomePagePage = () => {
                                     list={[
                                         objectListDetail(
                                             'Locale',
-                                            __detail.locale,
+                                            <span className="text-uppercase">
+                                                {__detail.locale}
+                                            </span>,
                                         ),
                                         objectListDetail(
                                             'Created At',

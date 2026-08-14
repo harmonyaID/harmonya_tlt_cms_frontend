@@ -1243,7 +1243,8 @@ pre {
    transition: opacity 0.3s;
    height: 100%;
    width: 100%;
-   z-index: 998;
+   //z-index: 998;
+   z-index: 1;
 
    &:hover {
       opacity: 1;

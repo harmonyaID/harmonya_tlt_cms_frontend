@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
 import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
+import setNestedValue from '@/helper/setNestedValue.helper.ts'
+import { setRemoveNestedArray } from '@/helper/setRemoveNestedValue.helper.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
@@ -56,29 +58,43 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
     // END SEO
 
     // START PREVIEW DATA FILES
-    const _handleUploadFile = (section, name, value = '') => {
+    const _handleUploadFile = (section: string, name: string, value = '') => {
         setPreviewDataFiles((prevState) => {
             const newState = { ...prevState }
-            // newState[section][name] = value
-            const newDataState = {
-                [section]: {
-                    [name]: value,
-                },
-                ...prevState,
+            newState[section] = {
+                ...newState[section],
+                [name]: value,
             }
 
-            return newDataState
-            // return newState
+            return newState
         })
 
         setFormRequest((prevState) => {
             const newState = { ...prevState }
-            newState.value[section][name] = value
+
+            newState.value[section] = {
+                ...newState.value[section],
+                [name]: value,
+            }
 
             return newState
         })
     }
     // END PREVIEW DATA FILES
+
+    // START SECTION NESTED FORM
+    const _handleSectionInput = (name, value = '') => {
+        setFormRequest((prevState) =>
+            setNestedValue(prevState, 'value.' + name, value),
+        )
+    }
+
+    const _handleSectionRemoveNested = (name, index) => {
+        setFormRequest((prevState) =>
+            setRemoveNestedArray(prevState, 'value.' + name, index),
+        )
+    }
+    // END SECTION NESTED FORM
 
     const dataDetail = useDetailFormRequestHook({
         // urlAPI: () => apiHomePageContent.detail(id),
@@ -99,12 +115,16 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
 
     const _handleSubmit = () => {
         return __handleSubmit({
-            apiCall: () => apiHomePageContent.updateWithData(id, formRequest),
+            apiCall: () =>
+                apiHomePageContent.updateWithData(
+                    dataDetail?.__detailFormRequest?.id,
+                    formRequest,
+                ),
             setIsLoading,
-            isDirectToDetail: true,
-            // callBack: () => {
-            //     __handleToMain()
-            // },
+            isDirectToDetail: false,
+            callBack: () => {
+                __handleToDetail(id)
+            },
         })
     }
 
@@ -117,10 +137,13 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
 
         // Chang Form
         __setFormRequest: setFormRequest,
-        __handleChange: nestedForm._handleChange,
-        __handleArrToggle: nestedForm._handleArrToggle,
-        __handleArrChange: nestedForm._handleArrChange,
-        __handleChangeWithParent: nestedForm._handleChangeWithParent,
+        __handleChange: nestedForm.__handleChange,
+        __handleArrToggle: nestedForm.__handleArrToggle,
+        __handleArrChange: nestedForm.__handleArrChange,
+        __handleChangeWithParent: nestedForm.__handleChangeWithParent,
+
+        __handleSectionInput: _handleSectionInput,
+        __handleSectionRemoveNested: _handleSectionRemoveNested,
 
         // Input File
         __handleUploadFile: _handleUploadFile,

@@ -176,6 +176,7 @@ export interface FooterSubmitProps {
 // Horizontal Data Preview
 export interface HorizontalDataPreviewProps {
     title?: string
+    className?: string
     content?: ReactNode
     isLayoutContentDefault?: boolean
     isLayoutTitleDefault?: boolean
@@ -183,6 +184,7 @@ export interface HorizontalDataPreviewProps {
     classNameTitleColumn?: string
     classNameContentColumn?: string
     isLast?: boolean
+    isNoPadding?: boolean
 }
 
 // Icon Button

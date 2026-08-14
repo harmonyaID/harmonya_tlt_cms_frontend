@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import Card from '@/component/card/Card.tsx'
 import { Image } from 'iconsax-react'
+import Card from '@/component/card/Card.tsx'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import {
     BadgeRequiredProps,

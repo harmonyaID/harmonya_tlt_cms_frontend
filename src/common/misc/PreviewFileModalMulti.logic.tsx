@@ -34,6 +34,8 @@ const PreviewFileModalMultiLogic = ({
     classNameWrapImg = '',
     children = null,
     isDescription = true,
+    labelDescription = 'Description',
+    keyDescription = 'description',
 }: PreviewFileModalMultiLogicProps) => {
     const [visible, setVisible] = useState<boolean>(false)
     const [current, setCurrent] = useState<number>(0)
@@ -176,10 +178,11 @@ const PreviewFileModalMultiLogic = ({
                                                   <VerticalDataPreview
                                                       className="p-3"
                                                       {...objectListDetail(
-                                                          'Description',
+                                                          labelDescription,
                                                           <TextMoreLess>
-                                                              {vm.description ||
-                                                                  '-'}
+                                                              {vm[
+                                                                  keyDescription
+                                                              ] || '-'}
                                                           </TextMoreLess>,
                                                       )}
                                                   />
