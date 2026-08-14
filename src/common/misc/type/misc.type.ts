@@ -183,6 +183,8 @@ export interface PreviewFileModalMultiLogicProps {
     classNameWrapImg?: string
     children?: ReactNode
     isDescription?: boolean
+    labelDescription?: string
+    keyDescription?: string
 }
 
 export interface IframeLayoutProps {

@@ -20,7 +20,7 @@ const ContentHomePageRoute = () => (
             path={mainPath}
             element={
                 <SuspenseLayout
-                    titleNavbar="Home Page"
+                    titleNavbar="Homepage"
                     isCheckPermission={false}>
                     <ContentHomePage />
                 </SuspenseLayout>
@@ -31,7 +31,7 @@ const ContentHomePageRoute = () => (
             path={contentHomePagePath.detail()}
             element={
                 <SuspenseLayout
-                    titleNavbar="Home Page"
+                    titleNavbar="Homepage"
                     isCheckPermission={false}>
                     <ContentHomePage />
                 </SuspenseLayout>
@@ -43,7 +43,7 @@ const ContentHomePageRoute = () => (
             path={contentHomePagePath.edit()}
             element={
                 <SuspenseLayout
-                    titleNavbar="Home Page"
+                    titleNavbar="Homepage"
                     isCheckPermission={false}>
                     <ContentHomePageEdit />
                 </SuspenseLayout>

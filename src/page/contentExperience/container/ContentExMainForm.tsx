@@ -18,6 +18,7 @@ import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
+import useUploadFileFormRequestHook from '@/hook/useUploadFileFormRequest.hook.ts'
 import useContentExMainFormHook from '@/page/contentExperience/hook/useContentExMainForm.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
@@ -68,12 +69,25 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     } = useFormDataFilesHook(__formRequest, __setFormRequest, 'photos')
 
     // Catalogs Photo
+    // const {
+    //     // __dataFiles: __dataFilesCatalogs,
+    //     __actionAddFiles: __actionAddFilesCatalogs,
+    //     __actionSetDataFiles: __actionSetDataFilesCatalogs,
+    //     __actionRemoveDataFile: __actionRemoveDataFileCatalogs,
+    // } = useUploadFileFormRequestHook(__formRequest, __setFormRequest, 'catalogs')
+
     const {
         __dataFiles: __dataFilesCatalogs,
-        __actionAddFiles: __actionAddFilesCatalogs,
-        __actionSetDataFiles: __actionSetDataFilesCatalogs,
-        __actionRemoveDataFile: __actionRemoveDataFileCatalogs,
-    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'catalogs')
+        __handleAddFiles: __actionAddFilesCatalogs,
+        __handleSetDataFiles: __actionSetDataFilesCatalogs,
+        __handleRemoveDataFile: __actionRemoveDataFileCatalogs,
+    } = useUploadFileFormRequestHook({
+        formRequest: __formRequest,
+        setFormRequest: __setFormRequest,
+        keyFormRequest: 'catalogs',
+        externalFormRequest: { name: '' },
+        withMimeType: true,
+    })
 
     // List Option Type
     const { __list: typeList, __isLoading: isTypeLoading } = useDataListHook({
@@ -249,42 +263,70 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             </GeneralRowForm>
                                         </WrapFormContext>
 
-                                        <WrapFormContext
-                                            formRequest={__formRequest}
-                                            actions={{
-                                                change: __handleChange,
-                                                handleAddFiles:
-                                                    __actionAddFilesCatalogs,
-                                                handleSetDataFiles:
-                                                    __actionSetDataFilesCatalogs,
-                                                handleRemoveDataFile:
-                                                    __actionRemoveDataFileCatalogs,
-                                                handleArrChange:
-                                                    __handleArrChange,
-                                            }}>
-                                            <GeneralRowForm
-                                                label="Catalogs"
-                                                isRequired>
+                                        {/*<WrapFormContext*/}
+                                        {/*    formRequest={__formRequest}*/}
+                                        {/*    actions={{*/}
+                                        {/*        change: __handleChange,*/}
+                                        {/*        handleAddFiles:*/}
+                                        {/*            __actionAddFilesCatalogs,*/}
+                                        {/*        handleSetDataFiles:*/}
+                                        {/*            __actionSetDataFilesCatalogs,*/}
+                                        {/*        handleRemoveDataFile:*/}
+                                        {/*            __actionRemoveDataFileCatalogs,*/}
+                                        {/*        handleArrChange:*/}
+                                        {/*            __handleArrChange,*/}
+                                        {/*    }}>*/}
+                                        {/*    <GeneralRowForm*/}
+                                        {/*        label="Catalogs"*/}
+                                        {/*        isRequired>*/}
+                                        {/*        <FormUploadFileWithActionPreviewLogic*/}
+                                        {/*            formName="catalogs"*/}
+                                        {/*            dataFiles={*/}
+                                        {/*                __dataFilesCatalogs*/}
+                                        {/*            }*/}
+                                        {/*            formRequest={__formRequest}*/}
+                                        {/*            nameInput="description"*/}
+                                        {/*            isUseInputDesc*/}
+                                        {/*            actions={{*/}
+                                        {/*                handleAddFiles:*/}
+                                        {/*                    __actionAddFilesCatalogs,*/}
+                                        {/*                handleSetDataFiles:*/}
+                                        {/*                    __actionSetDataFilesCatalogs,*/}
+                                        {/*                handleRemoveDataFile:*/}
+                                        {/*                    __actionRemoveDataFileCatalogs,*/}
+                                        {/*                handleArrChange:*/}
+                                        {/*                    __handleArrChange,*/}
+                                        {/*            }}*/}
+                                        {/*        />*/}
+                                        {/*    </GeneralRowForm>*/}
+                                        {/*</WrapFormContext>*/}
+
+                                        <GeneralRowForm label="Catalogs">
+                                            <WrapFormContext
+                                                formRequest={__formRequest}
+                                                actions={{
+                                                    handleAddFiles:
+                                                        __actionAddFilesCatalogs,
+                                                    handleSetDataFiles:
+                                                        __actionSetDataFilesCatalogs,
+                                                    handleRemoveDataFile:
+                                                        __actionRemoveDataFileCatalogs,
+                                                    handleArrChange:
+                                                        __handleArrChange,
+                                                }}>
                                                 <FormUploadFileWithActionPreviewLogic
                                                     formName="catalogs"
                                                     dataFiles={
                                                         __dataFilesCatalogs
                                                     }
+                                                    subTitle="Pdf Files"
+                                                    accept="application/pdf"
                                                     formRequest={__formRequest}
-                                                    nameInput="nameInput"
-                                                    actions={{
-                                                        handleAddFiles:
-                                                            __actionAddFilesCatalogs,
-                                                        handleSetDataFiles:
-                                                            __actionSetDataFilesCatalogs,
-                                                        handleRemoveDataFile:
-                                                            __actionRemoveDataFileCatalogs,
-                                                        handleArrChange:
-                                                            __handleArrChange,
-                                                    }}
+                                                    nameInput="name"
+                                                    isUseInputDesc
                                                 />
-                                            </GeneralRowForm>
-                                        </WrapFormContext>
+                                            </WrapFormContext>
+                                        </GeneralRowForm>
                                     </CardDropdown>
 
                                     <SectionFormSEOInfo

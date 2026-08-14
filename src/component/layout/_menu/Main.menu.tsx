@@ -240,14 +240,14 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             <MenuSection name="Content Management" />
             <li className="submenu-dropdown">
                 <LinkMenu
-                    name="Home Page"
+                    name="Homepage"
                     icon={<Home3 variant="Bulk" />}
                     to={contentHomePagePath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
-                    name="All Pages"
+                    name="Pages"
                     icon={<TaskSquare variant="Bulk" />}
                     to={contentAllPagesPath.main}
                 />
@@ -291,13 +291,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     to={contentExperiencePath.main}
                 />
             </li>
-            <li className="">
-                <LinkMenu
-                    name="Inquiry Form"
-                    icon={<MessageQuestion variant="Bulk" />}
-                    to={experienceInquiryFormPath.main}
-                />
-            </li>
+            {/*<li className="">*/}
+            {/*    <LinkMenu*/}
+            {/*        name="Inquiry Form"*/}
+            {/*        icon={<MessageQuestion variant="Bulk" />}*/}
+            {/*        to={experienceInquiryFormPath.main}*/}
+            {/*    />*/}
+            {/*</li>*/}
             <li className="">
                 <LinkMenu
                     name="Type"
