@@ -11,7 +11,7 @@ import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTabContent } from '@/config/objectNavTab.config.ts'
 
 const SectionPreviewSEOInformation = ({
-    seo,
+    seo = {},
     classNameColumn = 'col-md-12',
     isTitle = true,
     variant = 'horizontal',

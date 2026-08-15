@@ -46,7 +46,7 @@ const SectionFormSEOInfo = ({
                                 <FormInput
                                     name="title"
                                     // required
-                                    value={__formRequest.seo.title}
+                                    value={__formRequest?.seo?.title || ''}
                                     placeholder="e.g Best Beach Clubs in Nusa Lembongan"
                                     actions={{
                                         onChange: (name, value) => {
@@ -205,7 +205,7 @@ const SectionFormSEOInfo = ({
                                 name="schemaMarkup"
                                 label="Schema Markup"
                                 secondLabel="SEO Meta AI Schema Markup"
-                                value={__formRequest.seo.structuredData}
+                                value={__formRequest?.seo?.structuredData || ''}
                                 onChange={(name, value) =>
                                     __handleChangeWithParent(name, value, 'seo')
                                 }

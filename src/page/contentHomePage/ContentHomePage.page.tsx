@@ -759,7 +759,7 @@ const ContentHomePagePage = () => {
                                 <SectionPreviewSEOInformation
                                     isTitle={false}
                                     classNameColumn="col-md-12"
-                                    seo={__detail.seo}
+                                    seo={__detail?.seo || {}}
                                 />
                             </CardDropdown>
                         </div>
