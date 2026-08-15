@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
+import { isEmpty } from 'lodash'
 import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
@@ -31,7 +32,7 @@ const initMapForm = (passData) => {
         mapImage: '',
         photos: [],
         deletePhotoIds: [],
-        catalogs: [],
+        catalogs: !isEmpty(passData.catalogs) ? passData.catalogs : [],
         deleteCatalogIds: [],
         seo: { ...mapSEOFormConfig(passData?.seo || {}) },
     }

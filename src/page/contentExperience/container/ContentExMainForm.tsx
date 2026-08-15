@@ -87,6 +87,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         keyFormRequest: 'catalogs',
         externalFormRequest: { name: '' },
         withMimeType: true,
+        isLoadData: !__isLoadingDetail,
     })
 
     // List Option Type
