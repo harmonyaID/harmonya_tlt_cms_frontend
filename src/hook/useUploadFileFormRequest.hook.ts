@@ -334,6 +334,8 @@ const useUploadFileFormRequestHook = ({
     const _handleInitialData = (attachments = []) => {
         _generateInitialID(generateUploadFileUniqueID('initial-upload'))
 
+        console.log('attachments: ', attachments)
+
         setFormRequest((prevState) => {
             const newFormRequest = { ...prevState }
 
@@ -369,11 +371,14 @@ const useUploadFileFormRequestHook = ({
                 }
             })
 
+            console.log('newPrevState: ', newPrevState)
+
             return newPrevState
         })
     }
 
     useEffect(() => {
+        console.log('isLoadData: ', isLoadData)
         if (isLoadData) {
             _handleInitialData(formRequest[keyFormRequest])
         } else {
