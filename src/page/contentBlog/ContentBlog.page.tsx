@@ -1,5 +1,4 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import {
     BtnDanger,
@@ -12,6 +11,7 @@ import useContentBlogMainHook from '@/page/contentBlog/hook/useContentBlogMain.h
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 import ContentBlogTable from '@/page/contentBlog/component/ContentBlogTable.tsx'
+import ContentBlogFilter from '@/page/contentBlog/component/ContentBlogFilter.tsx'
 
 const ContentBlogPage = () => {
     const {
@@ -24,6 +24,8 @@ const ContentBlogPage = () => {
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
         __handleToAdd,
@@ -56,14 +58,15 @@ const ContentBlogPage = () => {
                         </BtnPrimary>
                     </div>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    // isDateRange
+                <ContentBlogFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 

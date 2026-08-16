@@ -53,7 +53,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = useContentBlogMainForm({ isEdit })
-console.log(__formRequest.content)
+
     return (
         <>
             <NavBreadcrumb
