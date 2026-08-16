@@ -1,8 +1,9 @@
+import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
 import SelectOptionBlogCategory from '@/common/dataForm/SelectOptionBlogCategory.tsx'
 import SelectOptionBlogTag from '@/common/dataForm/SelectOptionBlogTag.tsx'
-import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
+import SelectOptionUserRole from '@/common/dataForm/SelectOptionUserRole.tsx'
 
-const ContentBlogFilter = ({
+const UserFilter = ({
     __search,
     __isLoading,
     actions,
@@ -22,7 +23,7 @@ const ContentBlogFilter = ({
             formRequest={__search}
             isUseSearch={true}
             isUsePrevState
-            placeholderSearch="e.g Mindful Travel"
+            placeholderSearch="e.g John Smith"
             isAdvance={false}
             actions={{
                 change: actions.__actionChange,
@@ -37,19 +38,11 @@ const ContentBlogFilter = ({
             baseContent={
                 <>
                     <div className="col-md-4 col-lg-2">
-                        <SelectOptionBlogCategory
-                            isUseHook
-                            name="categoryIds"
-                            className="mb-lg-0 mb-2"
-                            label="Category"
-                        />
-                    </div>
-                    <div className="col-md-4 col-lg-2">
-                        <SelectOptionBlogTag
-                            name="tagIds"
+                        <SelectOptionUserRole
+                            name="roleIds"
                             isUseHook
                             className="mb-lg-0 mb-2"
-                            label="Tag"
+                            label="Role"
                         />
                     </div>
                 </>
@@ -58,4 +51,4 @@ const ContentBlogFilter = ({
     )
 }
 
-export default ContentBlogFilter
+export default UserFilter

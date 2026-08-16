@@ -38,6 +38,7 @@ const BoatFilter = ({
                     <div className="col-md-4 col-lg-2">
                         <SelectOptionBoatType
                             name="typeIds"
+                            isUseHook
                             className="mb-lg-0 mb-2"
                             label="Type"
                         />

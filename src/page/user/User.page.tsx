@@ -1,10 +1,7 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
     MDSUserSettingPermission,
@@ -26,6 +23,8 @@ import UserModalUpdateSuperAdmin from '@/page/user/container/UserModalUpdateSupe
 import userPath from '@/path/user.path.ts'
 import { apiStaff } from '@/service/api/staff.api.ts'
 import UserTable from '@/page/user/component/UserTable.tsx'
+import moment from 'moment'
+import UserFilter from '@/page/user/component/UserFilter.tsx'
 
 const UserPage = () => {
     const {
@@ -33,7 +32,10 @@ const UserPage = () => {
         __isLoading,
         __pagination,
         __search,
+        __isUseSearch,
         __actionPagination,
+        __setSearch,
+        __actionSetIsUseSearch,
         __actionRemove,
         __actionUpdate,
         __actionChange,
@@ -41,17 +43,20 @@ const UserPage = () => {
     } = useDataListHook({
         urlAPI: apiStaff.list,
         advancedSearch: {
-            page: 1,
-            limit: 10,
-            typeIds: [],
-            categoryIds: [],
+            fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+            toDate: moment().format('DD/MM/YYYY'),
+            roleIds: [],
+            limit: 50,
         },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToTrash } = usePageFlowHandlerHook({
-        basePath: userPath,
-        pathFromKey: 'user-main',
-    })
+    const { __handleToAdd, __handleToEdit, __handleToTrash } =
+        usePageFlowHandlerHook({
+            basePath: userPath,
+            pathFromKey: userPath.main,
+            search: __search,
+            isUseSearch: __isUseSearch,
+        })
 
     const {
         __data: dataForRemove,
@@ -118,23 +123,24 @@ const UserPage = () => {
             <CardListData
                 title="Staff"
                 componentAction={
-                <div className="hstack gap-2">
-                    <BtnDanger isOutline handle={() => __handleToTrash()}>
-                        Trash
-                    </BtnDanger>
-                    <BtnPrimary onClick={() => __handleToAdd()}>
-                        Add New
-                    </BtnPrimary>
-                </div>
+                    <div className="hstack gap-2">
+                        <BtnDanger isOutline handle={() => __handleToTrash()}>
+                            Trash
+                        </BtnDanger>
+                        <BtnPrimary onClick={() => __handleToAdd()}>
+                            Add New
+                        </BtnPrimary>
+                    </div>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g Arbi TLT"
-                    isDateRange={false}
+                <UserFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 
@@ -144,7 +150,8 @@ const UserPage = () => {
                     __pagination={__pagination}
                     actions={{
                         __actionPagination: __actionPagination,
-                        __handleChooseForUpdateActivation: _handleChooseForUpdateActivation,
+                        __handleChooseForUpdateActivation:
+                            _handleChooseForUpdateActivation,
                         __handleChooseForPermission: _handleChooseForPermission,
                         __handleChooseForRole: _handleChooseForRole,
                         __handleChooseForUpdatePW: _handleChooseForUpdatePW,
