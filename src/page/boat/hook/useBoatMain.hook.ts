@@ -2,13 +2,30 @@ import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
+import moment from 'moment/moment'
 
-const useBoatMain = ({ urlAPI }: { urlAPI: any }) => {
+const boatFilterParam = () => ({
+    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    toDate: moment().format('DD/MM/YYYY'),
+    typeIds: [],
+    limit: 50,
+})
+
+const useBoatMain = ({
+    urlAPI,
+    isTrash = false,
+}: {
+    urlAPI: any
+    isTrash?: boolean
+}) => {
     const {
         __list,
         __isLoading,
         __pagination,
         __search,
+        __isUseSearch,
+        __actionSetIsUseSearch,
+        __setSearch,
         __actionPagination,
         __actionRemove,
         __actionChange,
@@ -16,19 +33,21 @@ const useBoatMain = ({ urlAPI }: { urlAPI: any }) => {
     } = useDataListHook({
         urlAPI: urlAPI,
         // isHideSidebar: true,
-        advancedSearch: {
-            page: 1,
-            // limit: 10,
-            // typeIds: [],
-            // categoryIds: [],
-        },
+        advancedSearch: { ...boatFilterParam() },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail, __handleToMain, __handleToTrash } =
-        usePageFlowHandlerHook({
-            basePath: boatPath,
-            pathFromKey: 'boat-main',
-        })
+    const {
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToMain,
+        __handleToTrash,
+    } = usePageFlowHandlerHook({
+        basePath: boatPath,
+        pathFromKey: isTrash ? boatPath.trash : boatPath.main,
+        search: __search,
+        isUseSearch: __isUseSearch,
+    })
 
     return {
         // ---- List Data ----
@@ -36,10 +55,12 @@ const useBoatMain = ({ urlAPI }: { urlAPI: any }) => {
         __isLoading,
         __pagination,
         __search,
-        __actionPagination,
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionPagination,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
         __handleToAdd,

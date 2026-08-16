@@ -12,7 +12,13 @@ const contentBlogFilterParam = () => ({
     limit: 50,
 })
 
-const useContentBlogMainHook = ({urlAPI, isTrash = false}:{urlAPI: any, isTrash?: boolean}) => {
+const useContentBlogMainHook = ({
+    urlAPI,
+    isTrash = false,
+}: {
+    urlAPI: any
+    isTrash?: boolean
+}) => {
     const {
         __list,
         __isLoading,
@@ -30,13 +36,18 @@ const useContentBlogMainHook = ({urlAPI, isTrash = false}:{urlAPI: any, isTrash?
         advancedSearch: { ...contentBlogFilterParam() },
     })
 
-    const { __handleToAdd, __handleToEdit, __handleToDetail, __handleToTrash, __handleToMain } =
-        usePageFlowHandlerHook({
-            search: __search,
-            basePath: contentBlogPath,
-            isUseSearch: __isUseSearch,
-            pathFromKey: isTrash ? contentBlogPath.trash : contentBlogPath.main,
-        })
+    const {
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
+    } = usePageFlowHandlerHook({
+        search: __search,
+        basePath: contentBlogPath,
+        isUseSearch: __isUseSearch,
+        pathFromKey: isTrash ? contentBlogPath.trash : contentBlogPath.main,
+    })
 
     return {
         // ---- List Data ----

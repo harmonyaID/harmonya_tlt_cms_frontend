@@ -1,17 +1,14 @@
 import useBoatMain from '@/page/boat/hook/useBoatMain.hook.ts'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { MDGeneralRemove } from '@/config/modal.config.ts'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import BoatTable from '@/page/boat/component/BoatTable.tsx'
+import BoatFilter from '@/page/boat/component/BoatFilter.tsx'
 
 const BoatPage = () => {
     const {
@@ -24,6 +21,8 @@ const BoatPage = () => {
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
         __handleToAdd,
@@ -60,16 +59,18 @@ const BoatPage = () => {
                         </BtnPrimary>
                     </div>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
+                <BoatFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
+
                 <BoatTable
                     __list={__list}
                     __isLoading={__isLoading}
