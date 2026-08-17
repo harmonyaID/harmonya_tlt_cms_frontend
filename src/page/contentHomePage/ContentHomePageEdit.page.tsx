@@ -193,18 +193,13 @@ const ContentHomePageEditPage = () => {
                                                 <GeneralRowForm
                                                     label="Content"
                                                     isRequired>
-                                                    <FormTextEditor
+                                                    <FormInputTextEditor
+                                                        sectionName="SECTION1"
+                                                        name="content"
                                                         value={
                                                             SECTION1?.content ||
                                                             ''
                                                         }
-                                                        actions={{
-                                                            onChange: (value) =>
-                                                                __handleSectionInput(
-                                                                    'SECTION1.content',
-                                                                    value,
-                                                                ),
-                                                        }}
                                                         required
                                                     />
                                                 </GeneralRowForm>

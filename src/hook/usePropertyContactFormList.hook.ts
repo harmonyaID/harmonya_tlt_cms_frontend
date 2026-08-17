@@ -1,11 +1,11 @@
-import { MDPropertyInquiryRemove } from '@/config/modal.config.ts'
+import { MDPropertyFormRequestRemove } from '@/config/modal.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
-import usePropertyDetailOffCanvasHook from '@/hook/usePropertyDetailOffCanvas.hook.ts'
-import { apiPropertyInquiryCRUD } from '@/service/api/property.api.ts'
+import usePropertyContactFormDetailOffCanvasHook from '@/hook/usePropertyContactFormDetailOffCanvas.hook.ts'
+import { apiPropertyContactFormCRUD } from '@/service/api/property.api.ts'
 
-const usePropertyInquiryList = (
+const usePropertyContactFormList = (
     {
         propertyId,
     }: {
@@ -24,7 +24,7 @@ const usePropertyInquiryList = (
         __actionChange,
         __actionClear,
     } = useDataListHook({
-        urlAPI: (passData) => apiPropertyInquiryCRUD.list({ ...passData }),
+        urlAPI: (passData) => apiPropertyContactFormCRUD.list({ ...passData }),
         advancedSearch: {
             propertyId,
         },
@@ -36,7 +36,7 @@ const usePropertyInquiryList = (
         __setData: __handleSetDataForRemove,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDPropertyInquiryRemove, false),
+            nextStep: () => actionModal(MDPropertyFormRequestRemove, false),
         },
     })
 
@@ -46,7 +46,7 @@ const usePropertyInquiryList = (
         __handleChooseDetail,
         __handleSetDetail,
         __handleCloseDetail,
-    } = usePropertyDetailOffCanvasHook()
+    } = usePropertyContactFormDetailOffCanvasHook()
 
     return {
         // List
@@ -75,4 +75,4 @@ const usePropertyInquiryList = (
     }
 }
 
-export default usePropertyInquiryList
+export default usePropertyContactFormList

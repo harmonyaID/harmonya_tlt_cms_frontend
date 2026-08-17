@@ -29,7 +29,7 @@ const TabSettingStatic = ({ title, apiList }) => (
     />
 )
 
-const PropertyStaticSettingPage = () => {
+const PropertyComponentSettingPage = () => {
     const UNIT_TYPE = 'Unit Type'
     const LISTING_TYPE = 'Listing Type'
     const MEDIA_PARTNER_TYPE = 'Media Partner Type'
@@ -37,7 +37,7 @@ const PropertyStaticSettingPage = () => {
 
     return (
         <>
-            <PageTitle title="Static Setting" className="pb-4" />
+            <PageTitle title="Component Setting" className="pb-4" />
 
             <CardNavTab
                 tabs={[
@@ -145,4 +145,4 @@ const PropertyStaticSettingPage = () => {
     )
 }
 
-export default PropertyStaticSettingPage
+export default PropertyComponentSettingPage

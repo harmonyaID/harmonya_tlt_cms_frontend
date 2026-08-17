@@ -22,6 +22,11 @@ export const SrvPropertyInquiryCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPIProperty + '/inquiry-forms',
 )
 
+// Property Contact Form
+export const SrvPropertyContactFormCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPIProperty + '/contact-forms',
+)
+
 // Reviews Property
 const baseAPIPropertyReviews = baseAPIProperty + '/reviews'
 export const SrvPropertyReviewCRUD: SrvWithFeature = objectPathEndPointAPI(

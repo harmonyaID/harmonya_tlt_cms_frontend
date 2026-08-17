@@ -17,6 +17,12 @@ import {
     TblLineSecond,
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
+import OffCanvasGeneral from '@/component/offCanvas/OffCanvasGeneral.tsx'
+import { MDExCategoryRemove } from '@/config/modal.config.ts'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import { OCPropertyInquiryDetail } from '@/config/offCanvas.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import {
     formatDateByTlt,
@@ -24,17 +30,11 @@ import {
 } from '@/helper/actionFormatDate.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import { viewData } from '@/helper/condition.helper.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { MDExCategoryRemove } from '@/config/modal.config.ts'
-import OffCanvasGeneral from '@/component/offCanvas/OffCanvasGeneral.tsx'
-import { OCPropertyInquiryDetail } from '@/config/offCanvas.config.ts'
-import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
-import { objectListDetail } from '@/config/objectList.config.ts'
-import usePropertyInquiryList from '@/hook/usePropertyInquiryList.hook.ts'
+import usePropertyContactFormList from '@/hook/usePropertyContactFormList.hook.ts'
 import propertyPath from '@/path/property.path.ts'
 import { apiPropertyInquiryCRUD } from '@/service/api/property.api.ts'
 
-const PropertyInquiryPage = () => {
+const PropertyContactFormPage = () => {
     const {
         // List
         __list,
@@ -59,11 +59,11 @@ const PropertyInquiryPage = () => {
         __handleChooseDetail,
         __handleSetDetail,
         __handleCloseDetail,
-    } = usePropertyInquiryList()
+    } = usePropertyContactFormList()
 
     return (
         <>
-            <CardListData title="Property Inquiry">
+            <CardListData title="Property Contact Form">
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
@@ -302,4 +302,4 @@ const PropertyInquiryPage = () => {
     )
 }
 
-export default PropertyInquiryPage
+export default PropertyContactFormPage

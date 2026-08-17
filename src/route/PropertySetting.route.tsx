@@ -1,8 +1,8 @@
-import propertySettingPath from '@/path/propertySetting.path.ts'
-import { Route } from 'react-router'
-import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
-import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import { lazy } from 'react'
+import { Route } from 'react-router'
+import Page404Layout from '@/component/layout/Page404.layout.tsx'
+import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
+import propertySettingPath from '@/path/propertySetting.path.ts'
 
 const generalSettingPath = propertySettingPath.general
 const integrationSettingPath = propertySettingPath.integration
@@ -17,7 +17,7 @@ const PropertyIntegrationSettingPage = lazy(
 )
 const PropertyStaticSettingPage = lazy(
     () =>
-        import('@/page/propertySetting/static/PropertyStaticSetting.page.tsx'),
+        import('@/page/propertySetting/component/PropertyComponentSetting.page.tsx'),
 )
 
 const PropertySettingRoute = () => {
@@ -61,13 +61,13 @@ const PropertySettingRoute = () => {
                 />
             </Route>
 
-            <Route path={propertySettingPath.static}>
+            <Route path={propertySettingPath.component}>
                 <Route
                     index
-                    path={propertySettingPath.static}
+                    path={propertySettingPath.component}
                     element={
                         <SuspenseLayout
-                            titleNavbar="Static Setting"
+                            titleNavbar="Component Setting"
                             isCheckPermission={false}>
                             <PropertyStaticSettingPage />
                         </SuspenseLayout>
@@ -76,7 +76,9 @@ const PropertySettingRoute = () => {
 
                 <Route
                     path="*"
-                    element={<Page404Layout to={propertySettingPath.static} />}
+                    element={
+                        <Page404Layout to={propertySettingPath.component} />
+                    }
                 />
             </Route>
         </>

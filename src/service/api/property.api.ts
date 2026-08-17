@@ -5,6 +5,7 @@ import {
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
+    SrvPropertyContactFormCRUD,
     SrvPropertyCRUD,
     SrvPropertyInquiryCRUD,
     SrvPropertyPhotosCreate,
@@ -61,4 +62,9 @@ export const restorePropertyReviews = (id: string | number) =>
 // Property Inquiry
 export const apiPropertyInquiryCRUD = {
     ..._shapeObjectMethodCRUD(SrvPropertyInquiryCRUD),
+}
+
+// Property Contact Form
+export const apiPropertyContactFormCRUD = {
+    ..._shapeObjectMethodCRUD(SrvPropertyContactFormCRUD),
 }

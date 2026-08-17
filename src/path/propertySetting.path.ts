@@ -4,7 +4,7 @@ const propertySettingPath = {
     main,
     general: main + '/general',
     integration: main + '/integration',
-    static: main + '/static',
+    component: main + '/component',
 }
 
 export default propertySettingPath

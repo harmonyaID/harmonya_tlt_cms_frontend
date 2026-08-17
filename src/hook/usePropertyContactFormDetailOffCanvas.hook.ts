@@ -2,9 +2,9 @@ import { OCPropertyInquiryDetail } from '@/config/offCanvas.config.ts'
 import actionOffCanvas from '@/helper/actionOffCanvas.helper.ts'
 import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
-import { apiPropertyInquiryCRUD } from '@/service/api/property.api.ts'
+import { apiPropertyContactFormCRUD } from '@/service/api/property.api.ts'
 
-const usePropertyDetailOffCanvasHook = () => {
+const usePropertyContactFormDetailOffCanvasHook = () => {
     const {
         __data: dataForDetail,
         __handleChooseAndNextStep: __handleChooseDetail,
@@ -19,7 +19,7 @@ const usePropertyDetailOffCanvasHook = () => {
     const isAutoGet: boolean = id ? true : false
 
     const { __detail, __isLoading: __isLoadingDetail } = useDataDetailHook({
-        urlAPI: () => apiPropertyInquiryCRUD.detail(id),
+        urlAPI: () => apiPropertyContactFormCRUD.detail(id),
         triggerBy: id,
         isAutoGet: isAutoGet,
     })
@@ -38,4 +38,4 @@ const usePropertyDetailOffCanvasHook = () => {
     }
 }
 
-export default usePropertyDetailOffCanvasHook
+export default usePropertyContactFormDetailOffCanvasHook

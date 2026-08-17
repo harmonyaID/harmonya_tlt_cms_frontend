@@ -96,5 +96,5 @@ export const MDPropertySettingAmenitiesCategory =
 export const MDPropertySettingAmenitiesCategoryRemove =
     'modalPropertySettingAmenitiesCategoryRemove'
 
-// Property Inquiry
-export const MDPropertyInquiryRemove = 'modalPropertyInquiryRemove'
+// Property Form Request
+export const MDPropertyFormRequestRemove = 'modalPropertyInquiryRemove'

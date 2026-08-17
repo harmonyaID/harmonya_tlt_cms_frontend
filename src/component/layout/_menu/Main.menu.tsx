@@ -54,10 +54,9 @@ import contentMenuPath from '@/path/contentMenu.path.ts'
 import contentSettingPath from '@/path/contentSetting.path.ts'
 import dashboardPath from '@/path/dashboard.path'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
-import experienceInquiryFormPath from '@/path/experienceInquiryForm.path.ts'
 import experienceTypePath from '@/path/experienceType.path.ts'
 import propertyPath from '@/path/property.path.ts'
-import propertyInquiryPath from '@/path/propertyInquiry.path.ts'
+import propertyContactFormPath from '@/path/propertyContactForm.path.ts'
 import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
 import {
@@ -339,9 +338,9 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="">
                 <LinkMenu
-                    name="Property Inquiry"
+                    name="Property Contact Form"
                     icon={<CalendarTick variant="Bulk" />}
-                    to={propertyInquiryPath.main}
+                    to={propertyContactFormPath.main}
                 />
             </li>
             <li className="">
@@ -367,8 +366,8 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                             propertySettingPath.integration,
                         ),
                         _configParamSubMenu(
-                            'Static',
-                            propertySettingPath.static,
+                            'Component',
+                            propertySettingPath.component,
                         ),
                     ]}
                 />
