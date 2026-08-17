@@ -9,7 +9,6 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
@@ -22,6 +21,7 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
 import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -134,8 +134,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
-                                        <GeneralRowForm
-                                            label="Custom Informations">
+                                        <GeneralRowForm label="Custom Informations">
                                             {__formRequest.customInformations.map(
                                                 (vm, index) => {
                                                     const order = index + 1
@@ -223,20 +222,10 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             </BtnPrimary>
                                         </GeneralRowForm>
 
-                                        <GeneralRowForm
-                                            label="Description">
-                                            <FormTextEditor
-                                                value={
-                                                    __formRequest.description
-                                                }
-                                                actions={{
-                                                    onChange: (value) =>
-                                                        __handleChange(
-                                                            'description',
-                                                            value,
-                                                        ),
-                                                }}
-                                                required
+                                        <GeneralRowForm label="Description">
+                                            <FormTinyMCE
+                                                name="description"
+                                                isSimple
                                             />
                                         </GeneralRowForm>
 
@@ -258,8 +247,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
-                                        <GeneralRowForm
-                                            label="Price File">
+                                        <GeneralRowForm label="Price File">
                                             <FormUploadFile
                                                 name="priceFile"
                                                 nameFileDefault="Price"
@@ -346,8 +334,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 __actionRemoveDataFilePromo,
                                             handleArrChange: __handleArrChange,
                                         }}>
-                                        <GeneralRowForm
-                                            label="Promo Photos">
+                                        <GeneralRowForm label="Promo Photos">
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}
                                                 formName="promoPhotos"

@@ -30,12 +30,19 @@ import CustomCSS from '@/asset/theme/custom/_tinymce-editor.scss?url'
 import { FormInputProps } from '@/component/form/type/componentForm.type.ts'
 import { useHookContextForm } from '@/context/Form.context.tsx'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook.ts'
+import { isEmpty } from 'lodash'
 
 const FormTinyMCE = ({
-    placeholder = "Write your content here...",
+    placeholder = 'Write your content here...',
     height = 500,
+    isUseHook = true,
+    isSimple = false,
     ...props
-}: FormInputProps & {height?: number}) => {
+}: FormInputProps & {
+    height?: number
+    isUseHook?: boolean
+    isSimple?: boolean
+}) => {
     const ctx = useHookContextForm()
     const [initialValue, setInitialValue] = useState('')
 
@@ -49,14 +56,36 @@ const FormTinyMCE = ({
     const editorRef = useRef(null)
 
     const _handleChange = (content: string) => {
-        ctx.__handleChange(props.name, content || '')
+        if (!isEmpty(ctx.__value) && isUseHook) {
+            ctx.__handleChange(props.name, content || '')
+        } else {
+            props.actions?.onChange?.(props.name, content)
+        }
     }
 
     useEffect(() => {
         setInitialValue(dataValue)
     }, [])
 
-    return (
+    return isSimple ? (
+        <Editor
+            licenseKey="gpl"
+            onInit={(_, editor) => (editorRef.current = editor)}
+            initialValue={initialValue}
+            onEditorChange={_handleChange}
+            init={{
+                height: 200,
+                menubar: false,
+                plugins: 'lists link',
+                toolbar:
+                    'bold italic underline strikethrough | bullist numlist | link | undo redo',
+                branding: false,
+                statusbar: false,
+                resize: false,
+                placeholder: placeholder,
+            }}
+        />
+    ) : (
         <Editor
             licenseKey="gpl"
             onInit={(_, editor) => (editorRef.current = editor)}
@@ -66,6 +95,8 @@ const FormTinyMCE = ({
                 height: height,
                 menubar: true,
                 promotion: false,
+                branding: false,
+                statusbar: false,
                 file_picker_types: 'image',
                 help_accessibility: false,
                 placeholder: placeholder,
@@ -143,12 +174,21 @@ const FormTinyMCE = ({
                         block: 'div',
                         classes: 'info-block',
                         wrapper: true,
+                        preview: 'Info',
                     },
                     {
                         title: 'Warning',
                         block: 'div',
                         classes: 'warning-block',
                         wrapper: true,
+                        preview: 'Warning',
+                    },
+                    {
+                        title: 'Danger',
+                        block: 'div',
+                        classes: 'danger-block',
+                        wrapper: true,
+                        preview: 'Danger',
                     },
                 ],
             }}

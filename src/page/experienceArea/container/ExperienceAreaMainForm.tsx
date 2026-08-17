@@ -4,9 +4,6 @@ import SelectBaseOptionExpType from '@/common/dataForm/SelectBaseOptionExpType.t
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
-import FormSelectOption from '@/component/form/FormSelectOption.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
@@ -20,6 +17,7 @@ import { isLoadingAndDetail } from '@/helper/condition.helper.ts'
 import useExpAreaMainForm from '@/page/experienceArea/hook/useExpAreaMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -101,19 +99,10 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
 
                                         <GeneralRowForm label="Description">
-                                            <FormTextEditor
-                                                value={
-                                                    __formRequest.description
-                                                }
+                                            <FormTinyMCE
+                                                name="description"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
-                                                actions={{
-                                                    onChange: (value) =>
-                                                        __handleChange(
-                                                            'description',
-                                                            value,
-                                                        ),
-                                                }}
-                                                required
+                                                isSimple
                                             />
                                         </GeneralRowForm>
 
