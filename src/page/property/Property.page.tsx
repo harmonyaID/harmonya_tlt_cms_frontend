@@ -1,10 +1,7 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { MDGeneralRemove } from '@/config/modal.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
@@ -12,6 +9,7 @@ import useChooseData from '@/hook/useChooseData.hook.ts'
 import usePropertyMainHook from '@/page/property/hook/usePropertyMain.hook.ts'
 import { apiProperty } from '@/service/api/property.api.ts'
 import PropertyTable from '@/page/property/component/PropertyTable.tsx'
+import PropertyFilter from '@/page/property/component/PropertyFilter.tsx'
 
 const PropertyPage = () => {
     const {
@@ -20,6 +18,8 @@ const PropertyPage = () => {
         __isLoading,
         __pagination,
         __search,
+        __actionSetIsUseSearch,
+        __setSearch,
         __actionPagination,
         __actionRemove,
         __actionChange,
@@ -30,7 +30,7 @@ const PropertyPage = () => {
         __handleToEdit,
         __handleToDetail,
         __handleToTrash,
-    } = usePropertyMainHook({urlAPI: apiProperty.list})
+    } = usePropertyMainHook({ urlAPI: apiProperty.list })
 
     const {
         __data: dataForRemove,
@@ -60,13 +60,15 @@ const PropertyPage = () => {
                         </BtnPrimary>
                     </div>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                <PropertyFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 

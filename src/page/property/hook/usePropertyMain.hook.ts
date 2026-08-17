@@ -1,13 +1,35 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import propertyPath from '@/path/property.path.ts'
+import moment from 'moment'
 
-const usePropertyMainHook = ({ urlAPI }: { urlAPI: any }) => {
+const propertyFilterParam = () => ({
+    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    toDate: moment().format('DD/MM/YYYY'),
+    typeIds: [],
+    tagIds: [],
+    sourceTypeIds: [],
+    amenitiesCategoryIds: [],
+    occupancyFrom: '',
+    occupancyTo: '',
+    limit: 50,
+})
+
+const usePropertyMainHook = ({
+    urlAPI,
+    isTrash,
+}: {
+    urlAPI: any
+    isTrash?: boolean
+}) => {
     const {
         __list,
         __isLoading,
         __pagination,
         __search,
+        __isUseSearch,
+        __actionSetIsUseSearch,
+        __setSearch,
         __actionPagination,
         __actionRemove,
         __actionChange,
@@ -15,12 +37,7 @@ const usePropertyMainHook = ({ urlAPI }: { urlAPI: any }) => {
     } = useDataListHook({
         urlAPI: urlAPI,
         isHideSidebar: true,
-        advancedSearch: {
-            page: 1,
-            // limit: 10,
-            // typeIds: [],
-            // categoryIds: [],
-        },
+        advancedSearch: { ...propertyFilterParam() },
     })
 
     const {
@@ -31,7 +48,9 @@ const usePropertyMainHook = ({ urlAPI }: { urlAPI: any }) => {
         __handleToMain,
     } = usePageFlowHandlerHook({
         basePath: propertyPath,
-        pathFromKey: 'property-main',
+        pathFromKey: isTrash ? propertyPath.trash : propertyPath.main,
+        search: __search,
+        isUseSearch: __isUseSearch,
     })
 
     return {
@@ -40,10 +59,12 @@ const usePropertyMainHook = ({ urlAPI }: { urlAPI: any }) => {
         __isLoading,
         __pagination,
         __search,
-        __actionPagination,
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionPagination,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
         __handleToAdd,
