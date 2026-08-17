@@ -7,8 +7,6 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import JsonEditorForm from '@/component/form/FormJsonEditor.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
@@ -53,7 +51,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = useContentBlogMainForm({ isEdit })
-console.log(__formRequest.content)
+
     return (
         <>
             <NavBreadcrumb

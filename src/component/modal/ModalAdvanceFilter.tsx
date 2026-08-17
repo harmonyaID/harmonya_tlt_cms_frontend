@@ -65,6 +65,7 @@ const ModalAdvanceFilter: FC<ModalAdvanceFilterProps> = (props) => {
             isCentered={false}
             zIndex={1050}
             width={width}
+            isScrollable={false}
             classNameModalDialog={classNameModalDialog}>
             <FormWrap
                 actions={{

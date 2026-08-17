@@ -1,6 +1,5 @@
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {BtnDanger,
+import {
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import useContentBlogMainHook from '@/page/contentBlog/hook/useContentBlogMain.hook.ts'
@@ -9,6 +8,7 @@ import ContentBlogTable from '@/page/contentBlog/component/ContentBlogTable.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import { getBlogTrash, permanentDeleteBlog, restoreBlog } from '@/service/api/contentManage.api.ts'
+import ContentBlogFilter from '@/page/contentBlog/component/ContentBlogFilter.tsx'
 
 const ContentBlogTrashPage = () => {
     const {
@@ -21,10 +21,12 @@ const ContentBlogTrashPage = () => {
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
-        __handleToMain
-    } = useContentBlogMainHook({urlAPI: getBlogTrash})
+        __handleToMain,
+    } = useContentBlogMainHook({ urlAPI: getBlogTrash, isTrash:true })
 
     const {
         __isLoadingTrash,
@@ -51,14 +53,15 @@ const ContentBlogTrashPage = () => {
                         Back
                     </BtnPrimary>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    // isDateRange
+                <ContentBlogFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 

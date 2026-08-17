@@ -1,16 +1,20 @@
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import userPath from '@/path/user.path.ts'
-import { apiStaff, getStaffTrash, permanentDeleteStaff, restoreStaff } from '@/service/api/staff.api.ts'
+import {
+    apiStaff,
+    getStaffTrash,
+    permanentDeleteStaff,
+    restoreStaff,
+} from '@/service/api/staff.api.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import UserTable from '@/page/user/component/UserTable.tsx'
+import UserFilter from '@/page/user/component/UserFilter.tsx'
+import moment from 'moment/moment'
 
 const UserTrashPage = () => {
     const {
@@ -18,6 +22,9 @@ const UserTrashPage = () => {
         __isLoading,
         __pagination,
         __search,
+        __setSearch,
+        __isUseSearch,
+        __actionSetIsUseSearch,
         __actionPagination,
         __actionRemove,
         __actionChange,
@@ -25,16 +32,18 @@ const UserTrashPage = () => {
     } = useDataListHook({
         urlAPI: getStaffTrash,
         advancedSearch: {
-            page: 1,
-            limit: 10,
-            typeIds: [],
-            categoryIds: [],
+            fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+            toDate: moment().format('DD/MM/YYYY'),
+            roleIds: [],
+            limit: 50,
         },
     })
 
     const { __handleToMain } = usePageFlowHandlerHook({
         basePath: userPath,
-        pathFromKey: 'user-main',
+        pathFromKey: userPath.trash,
+        search: __search,
+        isUseSearch: __isUseSearch,
     })
 
     const {
@@ -56,20 +65,21 @@ const UserTrashPage = () => {
     return (
         <>
             <CardListData
-                title="Staff"
+                title="User Trash"
                 componentAction={
                     <BtnPrimary isOutline onClick={() => __handleToMain()}>
                         Back
                     </BtnPrimary>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g Arbi TLT"
-                    isDateRange={false}
+                <UserFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 
@@ -80,8 +90,9 @@ const UserTrashPage = () => {
                     __isLoading={__isLoading}
                     actions={{
                         __actionPagination: __actionPagination,
-                        __handleChoosePermanentRemove: __handleChoosePermanentRemove,
-                        __handleChooseRestore: __handleChooseRestore
+                        __handleChoosePermanentRemove:
+                            __handleChoosePermanentRemove,
+                        __handleChooseRestore: __handleChooseRestore,
                     }}
                 />
             </CardListData>

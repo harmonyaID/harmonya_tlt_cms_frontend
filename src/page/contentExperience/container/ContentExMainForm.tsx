@@ -6,8 +6,6 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
@@ -27,6 +25,7 @@ import {
     apiExperienceCategory,
     apiExperienceType,
 } from '@/service/api/contentManageSetting.api.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -223,18 +222,9 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <GeneralRowForm
                                                 label="Description"
                                                 isRequired>
-                                                <FormTextEditor
-                                                    value={
-                                                        __formRequest.description
-                                                    }
-                                                    actions={{
-                                                        onChange: (value) =>
-                                                            __handleChange(
-                                                                'description',
-                                                                value,
-                                                            ),
-                                                    }}
-                                                    required
+                                                <FormTinyMCE
+                                                    name="description"
+                                                    isSimple
                                                 />
                                             </GeneralRowForm>
                                         </WrapFormContext>

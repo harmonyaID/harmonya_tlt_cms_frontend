@@ -3,7 +3,6 @@ import SelectBaseOptionExpType from '@/common/dataForm/SelectBaseOptionExpType.t
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
@@ -15,6 +14,7 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import { isLoadingAndDetail } from '@/helper/condition.helper.ts'
 import useExpTypeMainForm from '@/page/experienceType/hook/useExpTypeMainForm.hook.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -87,19 +87,10 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
 
                                         <GeneralRowForm label="Description">
-                                            <FormTextEditor
-                                                value={
-                                                    __formRequest.description
-                                                }
+                                            <FormTinyMCE
+                                                name="description"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
-                                                actions={{
-                                                    onChange: (value) =>
-                                                        __handleChange(
-                                                            'description',
-                                                            value,
-                                                        ),
-                                                }}
-                                                required
+                                                isSimple
                                             />
                                         </GeneralRowForm>
 

@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 
 body {
-  font-family: Helvetica, Arial, sans-serif; font-size: 14px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 .info-block {
@@ -39,4 +40,15 @@ p {
   color: rgba(127, 29, 29, 1);
   border-left: 4px solid hsl(0 72% 51%);
   border-radius: 6px;
+}
+
+.tox .tox-collection__item .info-block,
+.tox .tox-collection__item .warning-block {
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-left: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
 }

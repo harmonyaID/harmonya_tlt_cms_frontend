@@ -1,15 +1,22 @@
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import useContentExHook from '@/page/contentExperience/hook/useContentEx.hook.ts'
-import { apiExperienceContent, getExperienceContentTrash, permanentDeleteExperienceContent, restoreExperienceContent } from '@/service/api/contentManage.api.ts'
+import {
+    apiExperienceContent,
+    getExperienceContentTrash,
+    permanentDeleteExperienceContent,
+    restoreExperienceContent,
+} from '@/service/api/contentManage.api.ts'
 import ContentExperienceTable from '@/page/contentExperience/component/ContentExperienceTable.tsx'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
-import { permanentDeleteBoat, restoreBoat } from '@/service/api/boatManage.api.ts'
+import {
+    permanentDeleteBoat,
+    restoreBoat,
+} from '@/service/api/boatManage.api.ts'
+import ContentExperienceFilter from '@/page/contentExperience/component/ContentExperienceFilter.tsx'
 
 const ContentExperienceTrashPage = () => {
     const {
@@ -22,10 +29,12 @@ const ContentExperienceTrashPage = () => {
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
-        __handleToMain
-    } = useContentExHook({ urlAPI: getExperienceContentTrash })
+        __handleToMain,
+    } = useContentExHook({ urlAPI: getExperienceContentTrash, isTrash: true })
 
     const {
         __isLoadingTrash,
@@ -52,13 +61,15 @@ const ContentExperienceTrashPage = () => {
                         Back
                     </BtnPrimary>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                <ContentExperienceFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 

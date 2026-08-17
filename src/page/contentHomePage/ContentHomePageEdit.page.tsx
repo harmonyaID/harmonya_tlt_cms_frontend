@@ -5,7 +5,7 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
@@ -123,9 +123,22 @@ const ContentHomePageEditPage = () => {
         ...other
     }: InputCustomProps) => {
         return (
-            <FormTextEditor
-                {...other}
-                value={value || ''}
+            // <FormTextEditor
+            //     {...other}
+            //     value={value || ''}
+            //     actions={{
+            //         onChange: (passValue) =>
+            //             __handleSectionInput(
+            //                 sectionName ? sectionName + '.' + name : name,
+            //                 passValue,
+            //             ),
+            //     }}
+            //     required
+            // />
+            <FormTinyMCE
+                name={sectionName ? sectionName + '.' + name : name}
+                isUseHook
+                isSimple
                 actions={{
                     onChange: (passValue) =>
                         __handleSectionInput(
@@ -133,7 +146,6 @@ const ContentHomePageEditPage = () => {
                             passValue,
                         ),
                 }}
-                required
             />
         )
     }
@@ -193,14 +205,9 @@ const ContentHomePageEditPage = () => {
                                                 <GeneralRowForm
                                                     label="Content"
                                                     isRequired>
-                                                    <FormInputTextEditor
-                                                        sectionName="SECTION1"
-                                                        name="content"
-                                                        value={
-                                                            SECTION1?.content ||
-                                                            ''
-                                                        }
-                                                        required
+                                                    <FormTinyMCE
+                                                        name="SECTION1.content"
+                                                        isSimple
                                                     />
                                                 </GeneralRowForm>
 

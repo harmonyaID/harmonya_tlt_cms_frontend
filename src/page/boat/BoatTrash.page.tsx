@@ -1,14 +1,17 @@
 import useBoatMain from '@/page/boat/hook/useBoatMain.hook.ts'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { apiBoat, getBoatTrash, permanentDeleteBoat, restoreBoat } from '@/service/api/boatManage.api.ts'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import {
+    apiBoat,
+    getBoatTrash,
+    permanentDeleteBoat,
+    restoreBoat,
+} from '@/service/api/boatManage.api.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import BoatTable from '@/page/boat/component/BoatTable.tsx'
+import BoatFilter from '@/page/boat/component/BoatFilter.tsx'
 
 const BoatTrashPage = () => {
     const {
@@ -21,11 +24,12 @@ const BoatTrashPage = () => {
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
-        __handleToMain
-    } = useBoatMain({ urlAPI: getBoatTrash })
-
+        __handleToMain,
+    } = useBoatMain({ urlAPI: getBoatTrash, isTrash: true })
 
     const {
         __isLoadingTrash,
@@ -38,9 +42,9 @@ const BoatTrashPage = () => {
     } = useTrash({
         urlAPIRestore: restoreBoat,
         urlAPIPermanentRemove: permanentDeleteBoat,
-        actions:{
+        actions: {
             onSuccess: (boat) => __actionRemove(boat.id),
-        }
+        },
     })
 
     return (
@@ -52,16 +56,18 @@ const BoatTrashPage = () => {
                         Back
                     </BtnPrimary>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
+                <BoatFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
+
                 <BoatTable
                     isTrash={true}
                     __list={__list}

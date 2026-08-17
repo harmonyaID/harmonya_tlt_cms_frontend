@@ -1,9 +1,7 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import { BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { MDGeneralRemove } from '@/config/modal.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
@@ -11,6 +9,7 @@ import useChooseData from '@/hook/useChooseData.hook.ts'
 import useContentExHook from '@/page/contentExperience/hook/useContentEx.hook.ts'
 import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 import ContentExperienceTable from '@/page/contentExperience/component/ContentExperienceTable.tsx'
+import ContentExperienceFilter from '@/page/contentExperience/component/ContentExperienceFilter.tsx'
 
 const ContentExperiencePage = () => {
     const {
@@ -23,12 +22,14 @@ const ContentExperiencePage = () => {
         __actionRemove,
         __actionChange,
         __actionClear,
+        __setSearch,
+        __actionSetIsUseSearch,
 
         // ---- Change Page ----
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
-        __handleToTrash
+        __handleToTrash,
     } = useContentExHook({ urlAPI: apiExperienceContent.list })
 
     const {
@@ -59,13 +60,15 @@ const ContentExperiencePage = () => {
                         </BtnPrimary>
                     </div>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                <ContentExperienceFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 

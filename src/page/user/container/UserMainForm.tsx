@@ -47,7 +47,7 @@ const UserMainForm = ({
             {!isEditProfile ? (
                 <NavBreadcrumb
                     navs={[
-                        objectNavBread('Staff', {
+                        objectNavBread('User', {
                             url: userPath.main,
                             state: __pageStateDataSearch,
                         }),
@@ -71,7 +71,7 @@ const UserMainForm = ({
                             title={
                                 isEditProfile
                                     ? 'Edit Profile'
-                                    : 'Staff Information'
+                                    : 'User Information'
                             }>
                             <div className="row">
                                 <div className="col-md-8">

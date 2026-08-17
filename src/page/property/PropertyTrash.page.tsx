@@ -1,14 +1,17 @@
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import usePropertyMainHook from '@/page/property/hook/usePropertyMain.hook.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
-import { getPropertyTrash, permanentDeleteProperty, restoreProperty } from '@/service/api/property.api.ts'
+import {
+    getPropertyTrash,
+    permanentDeleteProperty,
+    restoreProperty,
+} from '@/service/api/property.api.ts'
 import PropertyTable from '@/page/property/component/PropertyTable.tsx'
+import PropertyFilter from '@/page/property/component/PropertyFilter.tsx'
 
 const PropertyTrashPage = () => {
     const {
@@ -17,15 +20,16 @@ const PropertyTrashPage = () => {
         __isLoading,
         __pagination,
         __search,
+        __actionSetIsUseSearch,
+        __setSearch,
         __actionPagination,
         __actionRemove,
         __actionChange,
         __actionClear,
 
         // ---- Change Page ----
-        __handleToMain
-    } = usePropertyMainHook({urlAPI: getPropertyTrash})
-
+        __handleToMain,
+    } = usePropertyMainHook({ urlAPI: getPropertyTrash, isTrash: true })
 
     const {
         __isLoadingTrash,
@@ -52,13 +56,15 @@ const PropertyTrashPage = () => {
                         Back
                     </BtnPrimary>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                <PropertyFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 
@@ -69,7 +75,8 @@ const PropertyTrashPage = () => {
                     __pagination={__pagination}
                     actions={{
                         __actionPagination: __actionPagination,
-                        __handleChoosePermanentRemove: __handleChoosePermanentRemove,
+                        __handleChoosePermanentRemove:
+                            __handleChoosePermanentRemove,
                         __handleChooseRestore: __handleChooseRestore,
                     }}
                 />
