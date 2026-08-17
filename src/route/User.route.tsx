@@ -21,7 +21,7 @@ const UserRoute = () => (
                 path={userPath.main}
                 element={
                     <SuspenseLayout
-                        titleNavbar="Staff"
+                        titleNavbar="User"
                         isCheckPermission={false}>
                         <UserPage />
                     </SuspenseLayout>
@@ -31,7 +31,7 @@ const UserRoute = () => (
                 path={userPath.trash}
                 element={
                     <SuspenseLayout
-                        titleNavbar="Staff Trash"
+                        titleNavbar="User Trash"
                         isCheckPermission={false}>
                         <UserTrashPage />
                     </SuspenseLayout>
@@ -41,7 +41,7 @@ const UserRoute = () => (
                 path={userPath.add}
                 element={
                     <SuspenseLayout
-                        titleNavbar="Staff"
+                        titleNavbar="User"
                         isCheckPermission={false}>
                         <UserAddPage />
                     </SuspenseLayout>
@@ -51,7 +51,7 @@ const UserRoute = () => (
                 path={userPath.edit()}
                 element={
                     <SuspenseLayout
-                        titleNavbar="Staff"
+                        titleNavbar="User"
                         isCheckPermission={false}>
                         <UserEditPage />
                     </SuspenseLayout>

@@ -121,7 +121,7 @@ const UserPage = () => {
     return (
         <>
             <CardListData
-                title="Staff"
+                title="User"
                 componentAction={
                     <div className="hstack gap-2">
                         <BtnDanger isOutline handle={() => __handleToTrash()}>

@@ -65,7 +65,7 @@ const UserTrashPage = () => {
     return (
         <>
             <CardListData
-                title="Staff Trash"
+                title="User Trash"
                 componentAction={
                     <BtnPrimary isOutline onClick={() => __handleToMain()}>
                         Back

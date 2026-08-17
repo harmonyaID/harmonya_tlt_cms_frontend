@@ -391,14 +391,14 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                 {/*/>*/}
 
                 <LinkMenu
-                    name="Staff"
+                    name="User"
                     icon={<Profile2User variant="Bulk" />}
                     to={userPath.main}
                 />
             </li>
             <li className="">
                 <LinkMenu
-                    name="Website Config"
+                    name="Website Setting"
                     icon={<GlobalEdit variant="Bulk" />}
                     to={smWebConfigPath.main}
                 />

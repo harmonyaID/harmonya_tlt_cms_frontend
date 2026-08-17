@@ -14,18 +14,18 @@ const SystemGeneralSettingPage = () => {
 
             <CardNavTab
                 tabs={[
-                    objectTab('Multi Language', 'tabMultiLanguage'),
-                    objectTab('Tlt Review', 'tabTltReview'),
-                    objectTab('Guesty Configuration', 'tabGuesty'),
+                    objectTab('Language', 'tabMultiLanguage'),
                     objectTab('Notification', 'tabNotification'),
                     objectTab('Newsletter', 'tabNewsletter'),
+                    objectTab('Tlt Review', 'tabTltReview'),
+                    objectTab('Guesty Configuration', 'tabGuesty'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabLanguage />),
-                    objectTabContent('', <TabTltReview />),
-                    objectTabContent('', <TabGuestyConfig />),
                     objectTabContent('', <TabNotificationConfig />),
                     objectTabContent('', <TabNewsletterConfig />),
+                    objectTabContent('', <TabTltReview />),
+                    objectTabContent('', <TabGuestyConfig />),
                 ]}
             />
         </>
