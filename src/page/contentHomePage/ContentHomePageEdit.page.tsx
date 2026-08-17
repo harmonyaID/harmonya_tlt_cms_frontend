@@ -5,7 +5,6 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormTextEditor from '@/component/form/FormTextEditor.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove } from '@/component/general/Button.tsx'
@@ -20,6 +19,7 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import useHomePageMainForm from '@/page/contentHomePage/hook/useHomePageMainForm.ts'
 import contentHomePagePath from '@/path/contentHomePage.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const defaultPropsFile = {
     isUseHook: false,
@@ -123,17 +123,21 @@ const ContentHomePageEditPage = () => {
         ...other
     }: InputCustomProps) => {
         return (
-            <FormTextEditor
-                {...other}
-                value={value || ''}
-                actions={{
-                    onChange: (passValue) =>
-                        __handleSectionInput(
-                            sectionName ? sectionName + '.' + name : name,
-                            passValue,
-                        ),
-                }}
-                required
+            // <FormTextEditor
+            //     {...other}
+            //     value={value || ''}
+            //     actions={{
+            //         onChange: (passValue) =>
+            //             __handleSectionInput(
+            //                 sectionName ? sectionName + '.' + name : name,
+            //                 passValue,
+            //             ),
+            //     }}
+            //     required
+            // />
+            <FormTinyMCE
+                name={sectionName ? sectionName + '.' + name : name}
+                isSimple
             />
         )
     }
@@ -193,19 +197,9 @@ const ContentHomePageEditPage = () => {
                                                 <GeneralRowForm
                                                     label="Content"
                                                     isRequired>
-                                                    <FormTextEditor
-                                                        value={
-                                                            SECTION1?.content ||
-                                                            ''
-                                                        }
-                                                        actions={{
-                                                            onChange: (value) =>
-                                                                __handleSectionInput(
-                                                                    'SECTION1.content',
-                                                                    value,
-                                                                ),
-                                                        }}
-                                                        required
+                                                    <FormTinyMCE
+                                                        name="SECTION1.content"
+                                                        isSimple
                                                     />
                                                 </GeneralRowForm>
 
