@@ -70,7 +70,7 @@ const ContentHomePageEditPage = () => {
         SECTION2 = {},
         SECTION3 = {},
         SECTION4 = {},
-        SECTION5 = {},
+        SECTION5 = [],
         SECTION6 = {},
         SECTION7 = {},
         SECTION8 = {},
@@ -810,85 +810,107 @@ const ContentHomePageEditPage = () => {
                                         <CardDropdown
                                             title="SECTION 5"
                                             id="section-05">
-                                            <WrapFormContext
-                                                formRequest={SECTION5}
-                                                actions={{
-                                                    change: (name, value) =>
-                                                        __handleSectionInput(
-                                                            'SECTION5.' + name,
-                                                            value,
-                                                        ),
-                                                }}>
-                                                <GeneralRowForm
-                                                    label="Content"
-                                                    isRequired>
-                                                    <FormInputTextEditor
-                                                        sectionName="SECTION5"
-                                                        name="content"
-                                                        value={
-                                                            SECTION5?.content ||
-                                                            ''
-                                                        }
-                                                        required
-                                                    />
-                                                </GeneralRowForm>
+                                            {SECTION5?.map((vm, index) => {
+                                                const sectionName =
+                                                    'SECTION5[' + index + ']'
 
-                                                <GeneralRowForm
-                                                    label="Label"
-                                                    isRequired>
-                                                    <FormInput
-                                                        // label="label"
-                                                        name="label"
-                                                        value={
-                                                            SECTION5.label || ''
-                                                        }
-                                                        required
-                                                        placeholder="e.g Limited Offer"
-                                                    />
-                                                </GeneralRowForm>
+                                                return (
+                                                    <div key={index}>
+                                                        <p className="fs-18 fw-medium">
+                                                            SLIDE {index + 1}
+                                                        </p>
+                                                        <WrapFormContext
+                                                            formRequest={vm}
+                                                            actions={{
+                                                                change: (
+                                                                    name,
+                                                                    value,
+                                                                ) =>
+                                                                    __handleSectionInput(
+                                                                        sectionName +
+                                                                            '.' +
+                                                                            name,
+                                                                        value,
+                                                                    ),
+                                                            }}>
+                                                            <GeneralRowForm
+                                                                label="Content"
+                                                                isRequired>
+                                                                <FormInputTextEditor
+                                                                    sectionName={
+                                                                        sectionName
+                                                                    }
+                                                                    name="content"
+                                                                    value={
+                                                                        vm?.content ||
+                                                                        ''
+                                                                    }
+                                                                    required
+                                                                />
+                                                            </GeneralRowForm>
 
-                                                <GeneralRowForm
-                                                    label="Action"
-                                                    isRequired>
-                                                    <div className="row">
-                                                        <div className="col-md-6">
-                                                            <FormInput
-                                                                label="Button Text"
-                                                                name="buttonText"
-                                                                value={
-                                                                    SECTION5.buttonText
+                                                            <GeneralRowForm
+                                                                label="Label"
+                                                                isRequired>
+                                                                <FormInput
+                                                                    // label="label"
+                                                                    name="label"
+                                                                    value={
+                                                                        vm.label ||
+                                                                        ''
+                                                                    }
+                                                                    required
+                                                                    placeholder="e.g Limited Offer"
+                                                                />
+                                                            </GeneralRowForm>
+
+                                                            <GeneralRowForm
+                                                                label="Action"
+                                                                isRequired>
+                                                                <div className="row">
+                                                                    <div className="col-md-6">
+                                                                        <FormInput
+                                                                            label="Button Text"
+                                                                            name="buttonText"
+                                                                            value={
+                                                                                vm.buttonText
+                                                                            }
+                                                                            required
+                                                                            placeholder="e.g Search"
+                                                                        />
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <FormInput
+                                                                            label="Button Link"
+                                                                            name="buttonLink"
+                                                                            value={
+                                                                                vm.buttonLink
+                                                                            }
+                                                                            required
+                                                                            placeholder="e.g #"
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </GeneralRowForm>
+                                                        </WrapFormContext>
+
+                                                        <GeneralRowForm
+                                                            label="Background"
+                                                            isRequired>
+                                                            <FormInputDataFileImage
+                                                                sectionName={
+                                                                    sectionName
                                                                 }
-                                                                required
-                                                                placeholder="e.g Search"
-                                                            />
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            <FormInput
-                                                                label="Button Link"
-                                                                name="buttonLink"
+                                                                name="background"
                                                                 value={
-                                                                    SECTION5.buttonLink
+                                                                    vm.background ||
+                                                                    ''
                                                                 }
-                                                                required
-                                                                placeholder="e.g #"
                                                             />
-                                                        </div>
+                                                        </GeneralRowForm>
                                                     </div>
-                                                </GeneralRowForm>
-                                            </WrapFormContext>
-
-                                            <GeneralRowForm
-                                                label="Background"
-                                                isRequired>
-                                                <FormInputDataFileImage
-                                                    sectionName="SECTION5"
-                                                    name="background"
-                                                    value={
-                                                        SECTION5.background ||
-                                                        ''
-                                                    }
-                                                />
-                                            </GeneralRowForm>
+                                                )
+                                            })}
                                         </CardDropdown>
 
                                         {/*SECTION 6*/}

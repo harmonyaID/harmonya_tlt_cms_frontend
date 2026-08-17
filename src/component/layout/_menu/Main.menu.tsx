@@ -23,6 +23,9 @@ import {
     CalendarTick,
     Star,
 
+    // Contact Form Management
+    MessageAdd1,
+
     // System Management
     GlobalEdit,
     Profile2User,
@@ -46,6 +49,10 @@ import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import boatPath from '@/path/boat.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
+import {
+    contactFormPath,
+    contactFormSettingPath,
+} from '@/path/contactFormManage.path.ts'
 import contentAllPagesPath from '@/path/contentAllPages.path.ts'
 import contentBlogPath from '@/path/contentBlog.path'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
@@ -386,6 +393,29 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                         _configParamSubMenu(
                             'Component',
                             propertySettingPath.component,
+                        ),
+                    ]}
+                />
+            </li>
+
+            <MenuSection name="Contact Form Management" />
+            <li className="">
+                <LinkMenu
+                    name="Contact Form"
+                    icon={<MessageAdd1 variant="Bulk" />}
+                    to={contactFormPath.main}
+                />
+            </li>
+            <li className="submenu-dropdown">
+                <LinkMenuDropdown
+                    name="Setting "
+                    to={contactFormSettingPath.main}
+                    icon={<Setting variant="Bulk" />}
+                    idControl="contact-form-setting"
+                    subMenus={[
+                        _configParamSubMenu(
+                            'Type',
+                            contactFormSettingPath.type.main,
                         ),
                     ]}
                 />

@@ -7,6 +7,7 @@ import dashboardPath from '@/path/dashboard.path'
 // Routes
 import AuthRoute from '@/route/Auth.route.tsx'
 import BoatManagementRoute from '@/route/BoatManagement.route.tsx'
+import ContactFormManageRoute from '@/route/ContactFormManage.route.tsx'
 import ContentAllPageRoute from '@/route/ContentAllPages.route.tsx'
 import ContentBlogRoute from '@/route/ContentBlog.route.tsx'
 import ContentExperienceRoute from '@/route/ContentExperience.route.tsx'
@@ -38,6 +39,7 @@ const App = () => {
                         {PropertyRoute()}
                         {PropertyReviewsRoute()}
                         {PropertySettingRoute()}
+                        {ContactFormManageRoute()}
                         {SystemManagementRoute()}
 
                         <Route
