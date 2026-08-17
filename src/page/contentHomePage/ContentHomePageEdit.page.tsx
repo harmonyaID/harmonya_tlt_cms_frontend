@@ -215,7 +215,7 @@ const ContentHomePageEditPage = () => {
                                                         sectionName="SECTION1"
                                                         name="content"
                                                         value={
-                                                            SECTION2?.content ||
+                                                            SECTION1?.content ||
                                                             ''
                                                         }
                                                         required
