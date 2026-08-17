@@ -1,8 +1,12 @@
-import { objectPathMenu, pathBasenameRoute } from '@/config/base/objectPath.config.js'
+import {
+    objectPathMenu,
+    pathBasenameRoute,
+} from '@/config/base/objectPath.config.js'
+import { experienceSetting } from '@/path/experienceManage.path.ts'
 
 const experienceTypePath = {
-    ...objectPathMenu('experience-type'),
-    trash: pathBasenameRoute('experience-type') + '/trash',
+    ...objectPathMenu(experienceSetting.default + '/type'),
+    trash: pathBasenameRoute(experienceSetting.default + '/type') + '/trash',
 }
 
 export default experienceTypePath

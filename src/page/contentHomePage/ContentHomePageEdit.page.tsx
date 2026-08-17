@@ -83,7 +83,7 @@ const ContentHomePageEditPage = () => {
         // @ts-ignore
     } = !__isLoadingDetail && !isEmpty(__detail) ? __formRequest.value : {}
 
-    console.log('__formRequest.seo: ', __formRequest.seo)
+    console.log('SECTION1: ', SECTION1)
 
     const FormInputDataFileImage = memo(
         ({
@@ -136,11 +136,13 @@ const ContentHomePageEditPage = () => {
             //     required
             // />
             <FormTinyMCE
+                {...other}
                 name={sectionName ? sectionName + '.' + name : name}
-                isUseHook
+                isUseHook={false}
                 isSimple
+                value={value || ''}
                 actions={{
-                    onChange: (passValue) =>
+                    onChange: (passName, passValue) =>
                         __handleSectionInput(
                             sectionName ? sectionName + '.' + name : name,
                             passValue,
@@ -205,9 +207,18 @@ const ContentHomePageEditPage = () => {
                                                 <GeneralRowForm
                                                     label="Content"
                                                     isRequired>
-                                                    <FormTinyMCE
-                                                        name="SECTION1.content"
-                                                        isSimple
+                                                    {/*<FormTinyMCE*/}
+                                                    {/*    name="SECTION1.content"*/}
+                                                    {/*    isSimple*/}
+                                                    {/*/>*/}
+                                                    <FormInputTextEditor
+                                                        sectionName="SECTION1"
+                                                        name="content"
+                                                        value={
+                                                            SECTION2?.content ||
+                                                            ''
+                                                        }
+                                                        required
                                                     />
                                                 </GeneralRowForm>
 

@@ -54,6 +54,7 @@ import contentMenuPath from '@/path/contentMenu.path.ts'
 import contentSettingPath from '@/path/contentSetting.path.ts'
 import dashboardPath from '@/path/dashboard.path'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
+import { experienceSetting } from '@/path/experienceManage.path.ts'
 import experienceTypePath from '@/path/experienceType.path.ts'
 import propertyPath from '@/path/property.path.ts'
 import propertyContactFormPath from '@/path/propertyContactForm.path.ts'
@@ -297,20 +298,37 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             {/*        to={experienceInquiryFormPath.main}*/}
             {/*    />*/}
             {/*</li>*/}
-            <li className="">
-                <LinkMenu
-                    name="Type"
-                    icon={<Flag variant="Bulk" />}
-                    to={experienceTypePath.main}
+
+            <li className="submenu-dropdown">
+                <LinkMenuDropdown
+                    name="Experience Setting"
+                    to={experienceSetting.main}
+                    icon={<Setting variant="Bulk" />}
+                    idControl="exp-setting"
+                    subMenus={[
+                        _configParamSubMenu('Type', experienceTypePath.main),
+                        _configParamSubMenu('Area', experienceAreaPath.main),
+                        // _configParamSubMenu(
+                        //     'Experience',
+                        //     contentSettingPath.experience,
+                        // ),
+                    ]}
                 />
             </li>
-            <li className="">
-                <LinkMenu
-                    name="Area"
-                    icon={<Map variant="Bulk" />}
-                    to={experienceAreaPath.main}
-                />
-            </li>
+            {/*<li className="">*/}
+            {/*    <LinkMenu*/}
+            {/*        name="Type"*/}
+            {/*        icon={<Flag variant="Bulk" />}*/}
+            {/*        to={experienceTypePath.main}*/}
+            {/*    />*/}
+            {/*</li>*/}
+            {/*<li className="">*/}
+            {/*    <LinkMenu*/}
+            {/*        name="Area"*/}
+            {/*        icon={<Map variant="Bulk" />}*/}
+            {/*        to={experienceAreaPath.main}*/}
+            {/*    />*/}
+            {/*</li>*/}
 
             <MenuSection name="Boat Management" />
             <li className="">
