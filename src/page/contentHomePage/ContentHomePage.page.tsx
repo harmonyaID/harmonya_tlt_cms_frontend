@@ -51,7 +51,7 @@ const ContentHomePagePage = () => {
         SECTION2 = {},
         SECTION3 = {},
         SECTION4 = {},
-        SECTION5 = {},
+        SECTION5 = [],
         SECTION6 = {},
         SECTION7 = {},
         SECTION8 = {},
@@ -388,44 +388,54 @@ const ContentHomePagePage = () => {
                             </CardDropdown>
 
                             <CardDropdown title="SECTION 5" id="section-05">
-                                <HorizontalLoopDataLogic
-                                    config={{
-                                        contentColumn: 'col-md-9',
-                                    }}
-                                    list={[
-                                        objectListDetail(
-                                            'Label',
-                                            <RenderHtml
-                                                html={SECTION5.label}
-                                            />,
-                                        ),
-                                        objectListDetail(
-                                            'Content',
-                                            <RenderHtml
-                                                html={SECTION5.content}
-                                            />,
-                                        ),
-                                        objectListDetail(
-                                            'Background Image',
-                                            <ContentMedia
-                                                src={SECTION5.background}
-                                                type="image"
-                                            />,
-                                        ),
-                                        objectListDetail(
-                                            'Button Text',
-                                            <RenderHtml
-                                                html={SECTION5.buttonText}
-                                            />,
-                                        ),
-                                        objectListDetail(
-                                            'Button Link',
-                                            <RenderHtml
-                                                html={SECTION5.buttonLink}
-                                            />,
-                                        ),
-                                    ]}
-                                />
+                                {SECTION5.map((vm, index) => {
+                                    return (
+                                        <div key={index}>
+                                            <p className="fs-18 fw-medium">
+                                                SLIDE {index + 1}
+                                            </p>
+
+                                            <HorizontalLoopDataLogic
+                                                config={{
+                                                    contentColumn: 'col-md-9',
+                                                }}
+                                                list={[
+                                                    objectListDetail(
+                                                        'Label',
+                                                        <RenderHtml
+                                                            html={vm.label}
+                                                        />,
+                                                    ),
+                                                    objectListDetail(
+                                                        'Content',
+                                                        <RenderHtml
+                                                            html={vm.content}
+                                                        />,
+                                                    ),
+                                                    objectListDetail(
+                                                        'Background Image',
+                                                        <ContentMedia
+                                                            src={vm.background}
+                                                            type="image"
+                                                        />,
+                                                    ),
+                                                    objectListDetail(
+                                                        'Button Text',
+                                                        <RenderHtml
+                                                            html={vm.buttonText}
+                                                        />,
+                                                    ),
+                                                    objectListDetail(
+                                                        'Button Link',
+                                                        <RenderHtml
+                                                            html={vm.buttonLink}
+                                                        />,
+                                                    ),
+                                                ]}
+                                            />
+                                        </div>
+                                    )
+                                })}
                             </CardDropdown>
 
                             <CardDropdown title="SECTION 6" id="section-06">
