@@ -275,13 +275,15 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
-                    name="Setting"
+                    name="Content Setting"
                     to={contentSettingPath.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="cm-setting"
                     subMenus={[
-                        _configParamSubMenu('Page', contentSettingPath.page),
+                        _configParamSubMenu('FAQ', contentSettingPath.faq),
                         _configParamSubMenu('Blog', contentSettingPath.blog),
+                        _configParamSubMenu('Offer', contentSettingPath.offer),
+                        _configParamSubMenu('Page', contentSettingPath.page),
                         // _configParamSubMenu(
                         //     'Experience',
                         //     contentSettingPath.experience,

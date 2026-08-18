@@ -10,12 +10,12 @@ const BlogSettingPage = () => (
 
         <CardNavTab
             tabs={[
-                objectTab('Tag', 'tabTag'),
                 objectTab('Category', 'tabCategory'),
+                objectTab('Tag', 'tabTag'),
             ]}
             tabContents={[
-                objectTabContent('', <TabBlogTag />),
                 objectTabContent('', <TabBlogCategory />),
+                objectTabContent('', <TabBlogTag />),
             ]}
         />
     </>
