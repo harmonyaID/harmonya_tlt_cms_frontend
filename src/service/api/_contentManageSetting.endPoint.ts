@@ -28,18 +28,31 @@ export const SrvComponentContactFormTypeCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPI + '/components/contact-form-types')
 
 // Contain Blog Setting
-export const SrvBlogCategoryCRUD = objectPathEndPointAPI(
-    baseAPI + '/blogs/categories',
-)
+const baseAPIBlogCategory = baseAPI + '/blogs/categories'
+export const SrvBlogCategoryCRUD = objectPathEndPointAPI(baseAPIBlogCategory)
+export const SrvBlogCategoryTrash = baseAPIBlogCategory + '/trash'
+export const SrvBlogCategoryTrashWithId = (id: string | number = ''): string =>
+    baseAPIBlogCategory + '/trash/' + id
+export const SrvBlogCategoryRestore = (id: string | number = ''): string =>
+    baseAPIBlogCategory + '/trash/' + id + '/restore'
 
-export const SrvBlogTagCRUD = objectPathEndPointAPI(baseAPI + '/blogs/tags')
+const baseAPIBlogTag = baseAPI + '/blogs/tags'
+export const SrvBlogTagCRUD = objectPathEndPointAPI(baseAPIBlogTag)
+export const SrvBlogTagTrash = baseAPIBlogTag + '/trash'
+export const SrvBlogTagTrashWithId = (id: string | number = ''): string =>
+    baseAPIBlogTag + '/trash/' + id
+export const SrvBlogTagRestore = (id: string | number = ''): string =>
+    baseAPIBlogTag + '/trash/' + id + '/restore'
 
 // Contain Experiences Setting
 const baseAPIExperienceType = baseAPI + '/experiences/types'
-export const SrvExperienceTypeCRUD = objectPathEndPointAPI(baseAPIExperienceType)
+export const SrvExperienceTypeCRUD = objectPathEndPointAPI(
+    baseAPIExperienceType,
+)
 export const SrvExperienceTypeTrash = baseAPIExperienceType + '/trash'
-export const SrvExperienceTypeTrashWithId = (id: string | number = ''): string =>
-    baseAPIExperienceType + '/trash/' + id
+export const SrvExperienceTypeTrashWithId = (
+    id: string | number = '',
+): string => baseAPIExperienceType + '/trash/' + id
 export const SrvExperienceTypeRestore = (id: string | number = ''): string =>
     baseAPIExperienceType + '/trash/' + id + '/restore'
 
@@ -49,11 +62,12 @@ export const SrvExperienceCategoryCRUD = objectPathEndPointAPI(
 
 const baseAPIExperienceArea = baseAPI + '/experiences/areas'
 export const SrvExperienceAreaCRUD = objectPathEndPointAPI(
-    baseAPIExperienceArea
+    baseAPIExperienceArea,
 )
 export const SrvExperienceAreaTrash = baseAPIExperienceArea + '/trash'
-export const SrvExperienceAreaTrashWithId = (id: string | number = ''): string =>
-    baseAPIExperienceArea + '/trash/' + id
+export const SrvExperienceAreaTrashWithId = (
+    id: string | number = '',
+): string => baseAPIExperienceArea + '/trash/' + id
 export const SrvExperienceAreaRestore = (id: string | number = ''): string =>
     baseAPIExperienceArea + '/trash/' + id + '/restore'
 
