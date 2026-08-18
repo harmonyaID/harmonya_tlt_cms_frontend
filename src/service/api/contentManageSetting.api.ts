@@ -1,11 +1,19 @@
 import {
     _shapeMethodDel,
-    _shapeMethodGet, _shapeMethodGetSearch, _shapeMethodPost,
+    _shapeMethodGet,
+    _shapeMethodGetSearch,
+    _shapeMethodPost,
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
     SrvBlogCategoryCRUD,
+    SrvBlogCategoryRestore,
+    SrvBlogCategoryTrash,
+    SrvBlogCategoryTrashWithId,
     SrvBlogTagCRUD,
+    SrvBlogTagRestore,
+    SrvBlogTagTrash,
+    SrvBlogTagTrashWithId,
     SrvComponentContactFormTypeCRUD,
     SrvExperienceAreaCRUD,
     SrvExperienceAreaRestore,
@@ -51,8 +59,20 @@ export const apiContactFormType = {
 export const apiBlogCategory = {
     ..._shapeObjectMethodCRUD(SrvBlogCategoryCRUD),
 }
+export const getBlogCategoryTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvBlogCategoryTrash, search)
+export const permanentDeleteBlogCategory = (id: string | number) =>
+    _shapeMethodDel(SrvBlogCategoryTrashWithId(id))
+export const restoreBlogCategory = (id: string | number) =>
+    _shapeMethodPost(SrvBlogCategoryRestore(id))
 
 export const apiBlogTag = { ..._shapeObjectMethodCRUD(SrvBlogTagCRUD) }
+export const getBlogTagTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvBlogTagTrash, search)
+export const permanentDeleteBlogTag = (id: string | number) =>
+    _shapeMethodDel(SrvBlogTagTrashWithId(id))
+export const restoreBlogTag = (id: string | number) =>
+    _shapeMethodPost(SrvBlogTagRestore(id))
 
 // Experience Setting
 export const apiExperienceType = {

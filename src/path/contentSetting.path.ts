@@ -4,6 +4,8 @@ const contentSettingPath = {
     main,
     page: main + '/page',
     blog: main + '/blog',
+    faq: main + '/faq',
+    offer: main + '/offer',
     experience: main + '/experience',
 }
 
