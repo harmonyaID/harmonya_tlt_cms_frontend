@@ -11,3 +11,12 @@ export const initSECTION3TabsItemParam = {
     buttonText: '',
     buttonLink: '',
 }
+
+// SECTION 5 FORM
+export const initSECTION5SlideParam = {
+    background: '',
+    buttonLink: '',
+    buttonText: '',
+    content: '',
+    label: '',
+}

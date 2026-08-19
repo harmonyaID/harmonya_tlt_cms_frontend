@@ -8,7 +8,7 @@ import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
-import { BtnCircleRemove } from '@/component/general/Button.tsx'
+import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import PreviewEmbedMap from '@/component/general/PreviewEmbedMap.tsx'
@@ -17,7 +17,12 @@ import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
+import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import useHomePageMainForm from '@/page/contentHomePage/hook/useHomePageMainForm.ts'
+import {
+    initSECTION3TabsItemParam,
+    initSECTION5SlideParam,
+} from '@/page/contentHomePage/param/homePageMainForm.param.ts'
 import contentHomePagePath from '@/path/contentHomePage.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
 
@@ -83,8 +88,6 @@ const ContentHomePageEditPage = () => {
         // @ts-ignore
     } = !__isLoadingDetail && !isEmpty(__detail) ? __formRequest.value : {}
 
-    console.log('SECTION1: ', SECTION1)
-
     const FormInputDataFileImage = memo(
         ({
             sectionName = '',
@@ -99,6 +102,7 @@ const ContentHomePageEditPage = () => {
 
                     {...other}
 
+                    isResetList
                     accept="image/*"
                     name={name}
                     value={value || ''}
@@ -113,6 +117,9 @@ const ContentHomePageEditPage = () => {
                     }}
                 />
             )
+        },
+        (prevProps, nextProps) => {
+            return prevProps.value === nextProps.value
         },
     )
 
@@ -442,7 +449,7 @@ const ContentHomePageEditPage = () => {
                                                         sectionName="SECTION2"
                                                         name="mapImage"
                                                         value={
-                                                            SECTION2.mapImage ||
+                                                            SECTION2?.mapImage ||
                                                             ''
                                                         }
                                                     />
@@ -456,7 +463,8 @@ const ContentHomePageEditPage = () => {
                                                         sectionName="SECTION2"
                                                         name="image"
                                                         value={
-                                                            SECTION2.image || ''
+                                                            SECTION2?.image ||
+                                                            ''
                                                         }
                                                     />
                                                 </GeneralRowForm>
@@ -531,164 +539,206 @@ const ContentHomePageEditPage = () => {
                                                 (tab, index) => {
                                                     const items =
                                                         tab?.items || []
+
+                                                    const itemsLength =
+                                                        items.length
+
+                                                    const isRemoveItem =
+                                                        itemsLength > 1
+
+                                                    const isLast =
+                                                        SECTION3.tabs.length ===
+                                                        index + 1
+
                                                     return (
-                                                        <GeneralRowForm
+                                                        <div
                                                             key={index}
-                                                            label={tab.tabName}
-                                                            isRequired>
-                                                            <WrapFormContext
-                                                                formRequest={
-                                                                    SECTION3
-                                                                        .tabs[
-                                                                        index
-                                                                    ]
+                                                            className={joinClassNameHelper(
+                                                                {
+                                                                    'pb-2 mb-4 border-bottom':
+                                                                        !isLast,
+                                                                },
+                                                            )}>
+                                                            <GeneralRowForm
+                                                                // key={index}
+                                                                label={
+                                                                    tab.tabName
                                                                 }
-                                                                actions={{
-                                                                    change: (
-                                                                        name,
-                                                                        value,
-                                                                    ) =>
-                                                                        __handleSectionInput(
-                                                                            'SECTION3.tabs[' +
-                                                                                index +
-                                                                                ']' +
-                                                                                name,
-                                                                            value,
-                                                                        ),
-                                                                }}>
-                                                                <FormInput
-                                                                    label="Tab Name"
-                                                                    name="tabName"
-                                                                    value={
-                                                                        tab.tabName
+                                                                isRequired>
+                                                                <WrapFormContext
+                                                                    formRequest={
+                                                                        SECTION3
+                                                                            .tabs[
+                                                                            index
+                                                                        ]
                                                                     }
-                                                                    required
-                                                                    placeholder="e.g Island Travel Tips"
-                                                                />
-                                                            </WrapFormContext>
+                                                                    actions={{
+                                                                        change: (
+                                                                            name,
+                                                                            value,
+                                                                        ) =>
+                                                                            __handleSectionInput(
+                                                                                'SECTION3.tabs[' +
+                                                                                    index +
+                                                                                    ']' +
+                                                                                    name,
+                                                                                value,
+                                                                            ),
+                                                                    }}>
+                                                                    <FormInput
+                                                                        label="Tab Name"
+                                                                        name="tabName"
+                                                                        value={
+                                                                            tab.tabName
+                                                                        }
+                                                                        required
+                                                                        placeholder="e.g Island Travel Tips"
+                                                                    />
+                                                                </WrapFormContext>
 
-                                                            <div className="vstack gap-3">
-                                                                {items.map(
-                                                                    (
-                                                                        item,
-                                                                        idx,
-                                                                    ) => {
-                                                                        return (
-                                                                            <div
-                                                                                className="card card-body"
-                                                                                key={
-                                                                                    idx
-                                                                                }>
-                                                                                <div className="row align-items-top pb-2">
-                                                                                    <div className="col-md">
-                                                                                        <h6 className="mb-0">
-                                                                                            Option{' '}
-                                                                                            {idx +
-                                                                                                1}
-                                                                                        </h6>
+                                                                <div className="vstack gap-3">
+                                                                    {items.map(
+                                                                        (
+                                                                            item,
+                                                                            idx,
+                                                                        ) => {
+                                                                            return (
+                                                                                <div
+                                                                                    className="card card-body"
+                                                                                    key={
+                                                                                        idx
+                                                                                    }>
+                                                                                    <div className="row align-items-top pb-2">
+                                                                                        <div className="col-md">
+                                                                                            <h6 className="mb-0">
+                                                                                                Option{' '}
+                                                                                                {idx +
+                                                                                                    1}
+                                                                                            </h6>
+                                                                                        </div>
+                                                                                        <div className="col-auto pb-2">
+                                                                                            {isRemoveItem ? (
+                                                                                                <BtnCircleRemove
+                                                                                                    actions={{
+                                                                                                        remove: () =>
+                                                                                                            __handleSectionRemoveNested(
+                                                                                                                'SECTION3.tabs[' +
+                                                                                                                    index +
+                                                                                                                    '].items',
+                                                                                                                idx,
+                                                                                                            ),
+                                                                                                    }}
+                                                                                                />
+                                                                                            ) : null}
+                                                                                        </div>
                                                                                     </div>
-                                                                                    <div className="col-auto pb-2">
-                                                                                        {/*<BtnCircleRemove*/}
-                                                                                        {/*    actions={{*/}
-                                                                                        {/*        remove: () =>*/}
-                                                                                        {/*            __handleSectionRemoveNested(*/}
-                                                                                        {/*                'SECTION3.tabs[' +*/}
-                                                                                        {/*                    index +*/}
-                                                                                        {/*                    '].items',*/}
-                                                                                        {/*                idx,*/}
-                                                                                        {/*            ),*/}
-                                                                                        {/*    }}*/}
-                                                                                        {/*/>*/}
-                                                                                    </div>
-                                                                                </div>
 
-                                                                                <WrapFormContext
-                                                                                    formRequest={
-                                                                                        SECTION3
-                                                                                            .tabs[
-                                                                                            index
-                                                                                        ]
-                                                                                    }
-                                                                                    actions={{
-                                                                                        change: (
-                                                                                            name,
-                                                                                            value,
-                                                                                        ) =>
-                                                                                            __handleSectionInput(
-                                                                                                'SECTION3.tabs[' +
-                                                                                                    index +
-                                                                                                    ']items[' +
-                                                                                                    idx +
-                                                                                                    ']' +
-                                                                                                    name,
+                                                                                    <WrapFormContext
+                                                                                        formRequest={
+                                                                                            SECTION3
+                                                                                                .tabs[
+                                                                                                index
+                                                                                            ]
+                                                                                        }
+                                                                                        actions={{
+                                                                                            change: (
+                                                                                                name,
                                                                                                 value,
-                                                                                            ),
-                                                                                    }}>
-                                                                                    <FormInput
-                                                                                        label="Title"
-                                                                                        name="title"
-                                                                                        value={
-                                                                                            item.title
-                                                                                        }
-                                                                                        required
-                                                                                        placeholder="e.g Island Travel Tips"
-                                                                                    />
+                                                                                            ) =>
+                                                                                                __handleSectionInput(
+                                                                                                    'SECTION3.tabs[' +
+                                                                                                        index +
+                                                                                                        ']items[' +
+                                                                                                        idx +
+                                                                                                        ']' +
+                                                                                                        name,
+                                                                                                    value,
+                                                                                                ),
+                                                                                        }}>
+                                                                                        <FormInput
+                                                                                            label="Title"
+                                                                                            name="title"
+                                                                                            value={
+                                                                                                item.title
+                                                                                            }
+                                                                                            required
+                                                                                            placeholder="e.g Island Travel Tips"
+                                                                                        />
 
-                                                                                    <FormTextArea
-                                                                                        label="Description"
-                                                                                        name="description"
-                                                                                        value={
-                                                                                            item.description
-                                                                                        }
-                                                                                        placeholder="e.g Placeholder text, edit with the ideal"
-                                                                                    />
+                                                                                        <FormTextArea
+                                                                                            label="Description"
+                                                                                            name="description"
+                                                                                            value={
+                                                                                                item.description
+                                                                                            }
+                                                                                            placeholder="e.g Placeholder text, edit with the ideal"
+                                                                                        />
 
-                                                                                    <div className="row">
-                                                                                        <div className="col-md-6">
-                                                                                            <FormInput
-                                                                                                label="Button Text"
-                                                                                                name="buttonText"
-                                                                                                value={
-                                                                                                    item.buttonText
-                                                                                                }
-                                                                                                required
-                                                                                                placeholder="e.g Search"
-                                                                                            />
+                                                                                        <div className="row">
+                                                                                            <div className="col-md-6">
+                                                                                                <FormInput
+                                                                                                    label="Button Text"
+                                                                                                    name="buttonText"
+                                                                                                    value={
+                                                                                                        item.buttonText
+                                                                                                    }
+                                                                                                    required
+                                                                                                    placeholder="e.g Search"
+                                                                                                />
+                                                                                            </div>
+                                                                                            <div className="col-md-6">
+                                                                                                <FormInput
+                                                                                                    label="Button Link"
+                                                                                                    name="buttonLink"
+                                                                                                    value={
+                                                                                                        item.buttonLink
+                                                                                                    }
+                                                                                                    required
+                                                                                                    placeholder="e.g #"
+                                                                                                />
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div className="col-md-6">
-                                                                                            <FormInput
-                                                                                                label="Button Link"
-                                                                                                name="buttonLink"
-                                                                                                value={
-                                                                                                    item.buttonLink
-                                                                                                }
-                                                                                                required
-                                                                                                placeholder="e.g #"
-                                                                                            />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </WrapFormContext>
+                                                                                    </WrapFormContext>
 
-                                                                                <FormInputDataFileImage
-                                                                                    sectionName="SECTION3"
-                                                                                    name={
-                                                                                        'tabs[' +
-                                                                                        index +
-                                                                                        '].items[' +
-                                                                                        idx +
-                                                                                        '].image'
-                                                                                    }
-                                                                                    value={
-                                                                                        item.image ||
-                                                                                        ''
-                                                                                    }
-                                                                                />
-                                                                            </div>
-                                                                        )
-                                                                    },
-                                                                )}
-                                                            </div>
-                                                        </GeneralRowForm>
+                                                                                    <FormInputDataFileImage
+                                                                                        sectionName="SECTION3"
+                                                                                        name={
+                                                                                            'tabs[' +
+                                                                                            index +
+                                                                                            '].items[' +
+                                                                                            idx +
+                                                                                            '].image'
+                                                                                        }
+                                                                                        value={
+                                                                                            item?.image ||
+                                                                                            ''
+                                                                                        }
+                                                                                    />
+                                                                                </div>
+                                                                            )
+                                                                        },
+                                                                    )}
+                                                                    <BtnPrimary
+                                                                        className="mt-2 w-100"
+                                                                        type="button"
+                                                                        // isOutline
+                                                                        onClick={() =>
+                                                                            __handleSectionInput(
+                                                                                'SECTION3.tabs[' +
+                                                                                    index +
+                                                                                    '].items[' +
+                                                                                    items.length +
+                                                                                    ']',
+                                                                                {
+                                                                                    ...initSECTION3TabsItemParam,
+                                                                                },
+                                                                            )
+                                                                        }>
+                                                                        Add New
+                                                                    </BtnPrimary>
+                                                                </div>
+                                                            </GeneralRowForm>
+                                                        </div>
                                                     )
                                                 },
                                             )}
@@ -794,7 +844,7 @@ const ContentHomePageEditPage = () => {
                                                                             '].image'
                                                                         }
                                                                         value={
-                                                                            item.image ||
+                                                                            item?.image ||
                                                                             ''
                                                                         }
                                                                     />
@@ -814,11 +864,43 @@ const ContentHomePageEditPage = () => {
                                                 const sectionName =
                                                     'SECTION5[' + index + ']'
 
+                                                const isLast =
+                                                    SECTION5.length ===
+                                                    index + 1
+
                                                 return (
-                                                    <div key={index}>
-                                                        <p className="fs-18 fw-medium">
-                                                            SLIDE {index + 1}
-                                                        </p>
+                                                    <div
+                                                        key={index}
+                                                        className={joinClassNameHelper(
+                                                            {
+                                                                'pb-2 mb-4 border-bottom':
+                                                                    !isLast,
+                                                            },
+                                                        )}>
+                                                        {/*<p className="fs-18 fw-medium">*/}
+                                                        {/*    SLIDE {index + 1}*/}
+                                                        {/*</p>*/}
+
+                                                        <div className="row align-items-top pb-2">
+                                                            <div className="col-md">
+                                                                <h6 className="mb-0">
+                                                                    SLIDE{' '}
+                                                                    {index + 1}
+                                                                </h6>
+                                                            </div>
+                                                            <div className="col-auto pb-2">
+                                                                <BtnCircleRemove
+                                                                    actions={{
+                                                                        remove: () =>
+                                                                            __handleSectionRemoveNested(
+                                                                                'SECTION5',
+                                                                                index,
+                                                                            ),
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        </div>
+
                                                         <WrapFormContext
                                                             formRequest={vm}
                                                             actions={{
@@ -911,6 +993,27 @@ const ContentHomePageEditPage = () => {
                                                     </div>
                                                 )
                                             })}
+
+                                            <div className="row justify-content-center">
+                                                <div className="col-md-4">
+                                                    <BtnPrimary
+                                                        className="mt-2 w-100"
+                                                        type="button"
+                                                        // isOutline
+                                                        onClick={() =>
+                                                            __handleSectionInput(
+                                                                'SECTION5[' +
+                                                                    SECTION5.length +
+                                                                    ']',
+                                                                {
+                                                                    ...initSECTION5SlideParam,
+                                                                },
+                                                            )
+                                                        }>
+                                                        Add New Slide
+                                                    </BtnPrimary>
+                                                </div>
+                                            </div>
                                         </CardDropdown>
 
                                         {/*SECTION 6*/}

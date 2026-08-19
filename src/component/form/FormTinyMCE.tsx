@@ -26,11 +26,11 @@ import 'tinymce/plugins/lists'
 import 'tinymce/plugins/searchreplace'
 import 'tinymce/plugins/table'
 import 'tinymce/plugins/wordcount'
+import { isEmpty } from 'lodash'
 import CustomCSS from '@/asset/theme/custom/_tinymce-editor.scss?url'
 import { FormInputProps } from '@/component/form/type/componentForm.type.ts'
 import { useHookContextForm } from '@/context/Form.context.tsx'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook.ts'
-import { isEmpty } from 'lodash'
 
 const FormTinyMCE = ({
     placeholder = 'Write your content here...',
@@ -63,15 +63,16 @@ const FormTinyMCE = ({
         }
     }
 
-    useEffect(() => {
-        setInitialValue(dataValue)
-    }, [])
+    // useEffect(() => {
+    //     setInitialValue(dataValue)
+    // }, [])
 
     return isSimple ? (
         <Editor
             licenseKey="gpl"
             onInit={(_, editor) => (editorRef.current = editor)}
-            initialValue={initialValue}
+            // initialValue={initialValue}
+            initialValue={dataValue}
             onEditorChange={_handleChange}
             init={{
                 height: 200,
