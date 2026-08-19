@@ -26,9 +26,23 @@ import {
     SrvExperienceTypeTrash,
     SrvExperienceTypeTrashWithId,
     SrvFAQCRUD,
+    SrvFAQRestore,
+    SrvFAQTrash,
+    SrvFAQTrashWithId,
+    SrvFAQTypeCRUD,
+    SrvFAQTypeRestore,
+    SrvFAQTypeTrash,
+    SrvFAQTypeTrashWithId,
     SrvLanguageCRUD,
     SrvMediaPartnerCRUD,
     SrvTLTReviewCRUD,
+    SrvTLTReviewRestore,
+    SrvTLTReviewTrash,
+    SrvTLTReviewTrashWithId,
+    SrvTLTTestimonialCRUD,
+    SrvTLTTestimonialRestore,
+    SrvTLTTestimonialTrash,
+    SrvTLTTestimonialTrashWithId,
     SrvWebContactFormCRUD,
 } from '@/service/api/_contentManageSetting.endPoint'
 import {
@@ -38,10 +52,6 @@ import {
 } from '@/service/api/_boatManage.endPoint.ts'
 
 export const apiLanguage = { ..._shapeObjectMethodCRUD(SrvLanguageCRUD) }
-
-export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }
-
-export const apiTLTReview = { ..._shapeObjectMethodCRUD(SrvTLTReviewCRUD) }
 
 export const apiMediaPartner = {
     ..._shapeObjectMethodCRUD(SrvMediaPartnerCRUD),
@@ -102,3 +112,39 @@ export const restoreExperienceArea = (id: string | number) =>
 export const apiExperienceInquiryForm = {
     ..._shapeObjectMethodCRUD(SrvExperienceInquiryFormsCRUD),
 }
+
+// Page Setting
+export const apiTLTReview = { ..._shapeObjectMethodCRUD(SrvTLTReviewCRUD) }
+export const getTLTReviewTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvTLTReviewTrash, search)
+export const permanentDeleteTLTReview = (id: string | number) =>
+    _shapeMethodDel(SrvTLTReviewTrashWithId(id))
+export const restoreTLTReview = (id: string | number) =>
+    _shapeMethodPost(SrvTLTReviewRestore(id))
+
+export const apiTLTTestimonial = {
+    ..._shapeObjectMethodCRUD(SrvTLTTestimonialCRUD),
+}
+export const getTLTTestimonialTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvTLTTestimonialTrash, search)
+export const permanentDeleteTLTTestimonial = (id: string | number) =>
+    _shapeMethodDel(SrvTLTTestimonialTrashWithId(id))
+export const restoreTLTTestimonial = (id: string | number) =>
+    _shapeMethodPost(SrvTLTTestimonialRestore(id))
+
+// FAQ Setting
+export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }
+export const getFAQTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvFAQTrash, search)
+export const permanentDeleteFAQ = (id: string | number) =>
+    _shapeMethodDel(SrvFAQTrashWithId(id))
+export const restoreFAQ = (id: string | number) =>
+    _shapeMethodPost(SrvFAQRestore(id))
+
+export const apiFAQType = { ..._shapeObjectMethodCRUD(SrvFAQTypeCRUD) }
+export const getFAQTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvFAQTypeTrash, search)
+export const permanentDeleteFAQType = (id: string | number) =>
+    _shapeMethodDel(SrvFAQTypeTrashWithId(id))
+export const restoreFAQType = (id: string | number) =>
+    _shapeMethodPost(SrvFAQTypeRestore(id))

@@ -5,7 +5,11 @@ import { apiExperienceType } from '@/service/api/contentManageSetting.api.ts'
 
 const SelectBaseOptionExpType = (props: SelectBaseOptionProps) => {
     const { __list, __isLoading } = useDataListHook({
-        urlAPI: ({ search }) => apiExperienceType.list({ search, page: 0 }),
+        urlAPI: ({ search }) =>
+            apiExperienceType.list(
+                { search, page: 0 },
+                'tcSelectBaseOptionExpType',
+            ),
     })
 
     return (

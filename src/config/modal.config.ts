@@ -21,11 +21,18 @@ export const MDGeneralPermanentRemove: string = 'modalGeneralPermanentRemove'
 export const MDPSTabFAQAdd = 'modalSettingPageFAQAdd'
 export const MDPSTabFAQRemove = 'modalSettingPageFAQRemove'
 
+export const MDPSTabFAQTypeAdd = 'modalSettingPageFAQTypeAdd'
+export const MDPSTabFAQTypeRemove = 'modalSettingPageFAQTypeRemove'
+
 export const MDPSTabLanguageAdd = 'modalSettingPageLanguageAdd'
 export const MDPSTabLanguageRemove = 'modalSettingPageLanguageRemove'
 
 export const MDPSTabTLTReviewAdd = 'modalSettingPageTLTReviewAdd'
 export const MDPSTabTLTReviewRemove = 'modalSettingPageTLTReviewRemove'
+
+export const MDPSTabTLTTestimonialAdd = 'modalSettingPageTLTTestimonialAdd'
+export const MDPSTabTLTTestimonialRemove =
+    'modalSettingPageTLTTestimonialRemove'
 
 export const MDPSTabMediaPartnerAdd = 'modalSettingPageMediaPartnerAdd'
 export const MDPSTabMediaPartnerRemove = 'modalSettingPageMediaPartnerRemove'
