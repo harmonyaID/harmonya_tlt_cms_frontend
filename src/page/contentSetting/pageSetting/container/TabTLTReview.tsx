@@ -1,10 +1,16 @@
 import {
     BtnCircleEdit,
     BtnCircleRemove,
+    BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiTLTReview } from '@/service/api/contentManageSetting.api.ts'
+import {
+    apiTLTReview,
+    getTLTReviewTrash,
+    permanentDeleteTLTReview,
+    restoreTLTReview,
+} from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
     MDPSTabFAQAdd,
@@ -38,8 +44,11 @@ import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
 import { WrapFormContext } from '@/context/Form.context.tsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
 const defaultIsActive = 1
 
@@ -65,6 +74,9 @@ const initMapForm = (passData) => ({
 })
 
 const TabTLTReview = () => {
+    const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
+    const [urlAPI, setUrlAPI] = useState(() => apiTLTReview.list)
+
     const {
         __list,
         __isLoading,
@@ -72,9 +84,10 @@ const TabTLTReview = () => {
         __actionAdd,
         __actionUpdate,
         __pagination,
+        __actionRemoveAll,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiTLTReview.list,
+        urlAPI: urlAPI,
     })
 
     const [lisPreviousPhotos, setLisPreviousPhotos] = useState([])
@@ -106,6 +119,32 @@ const TabTLTReview = () => {
     })
 
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
+
+    const {
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: restoreTLTReview,
+        urlAPIPermanentRemove: permanentDeleteTLTReview,
+        actions: {
+            onSuccess: (vm) => __actionRemove(vm.id),
+        },
+    })
+
+    const _handleShowTrash = () => {
+        setIsShowTrash(true)
+        setUrlAPI(() => getTLTReviewTrash)
+    }
+
+    const _handleShowList = () => {
+        setIsShowTrash(false)
+        setUrlAPI(() => apiTLTReview.list)
+    }
 
     // Start Edit Photos
     const _handleListPreviousPhotos = (passData) => {
@@ -169,16 +208,36 @@ const TabTLTReview = () => {
         },
     })
 
+    useEffect(() => {
+        __actionRemoveAll()
+        __actionPagination(1)
+    }, [urlAPI])
+
     return (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">TLT Review</h5>
+                    <h5 className="fs-18 fw-500">
+                        TLT Review {isShowTrash && 'Trash'}
+                    </h5>
                 </div>
                 <div className="col-auto">
-                    <BtnPrimary onClick={() => __actionAddModal()}>
-                        Add New
-                    </BtnPrimary>
+                    {isShowTrash ? (
+                        <BtnPrimary isOutline onClick={() => _handleShowList()}>
+                            Back
+                        </BtnPrimary>
+                    ) : (
+                        <div className="hstack gap-2">
+                            <BtnDanger
+                                isOutline
+                                handle={() => _handleShowTrash()}>
+                                Trash
+                            </BtnDanger>
+                            <BtnPrimary onClick={() => __actionAddModal()}>
+                                Add New
+                            </BtnPrimary>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -227,29 +286,43 @@ const TabTLTReview = () => {
                                         <td></td>
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
-                                                <BtnCircleRemove
-                                                    actions={{
-                                                        remove: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleChooseRemove(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                                <BtnCircleEdit
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleListPreviousPhotos(
-                                                                vm,
-                                                            )
-                                                            __actionUpdateModal(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
+                                                {isShowTrash ? (
+                                                    <TrashActionButtons
+                                                        selected={vm}
+                                                        actions={{
+                                                            permanentRemove:
+                                                                __handleChoosePermanentRemove,
+                                                            restore:
+                                                                __handleChooseRestore,
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        <BtnCircleRemove
+                                                            actions={{
+                                                                remove: (e) => {
+                                                                    e.stopPropagation()
+                                                                    _handleChooseRemove(
+                                                                        vm,
+                                                                    )
+                                                                },
+                                                            }}
+                                                        />
+                                                        <BtnCircleEdit
+                                                            actions={{
+                                                                edit: (e) => {
+                                                                    e.stopPropagation()
+                                                                    _handleListPreviousPhotos(
+                                                                        vm,
+                                                                    )
+                                                                    __actionUpdateModal(
+                                                                        vm,
+                                                                    )
+                                                                },
+                                                            }}
+                                                        />
+                                                    </>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
@@ -423,6 +496,15 @@ const TabTLTReview = () => {
                             __setDataFiles([])
                             setLisPreviousPhotos([])
                         },
+                    }}
+                />
+
+                <TrashConfirmModals
+                    name={__dataRestore?.name || __dataPermanentRemove?.name}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove,
                     }}
                 />
             </CreatePortalLayout>

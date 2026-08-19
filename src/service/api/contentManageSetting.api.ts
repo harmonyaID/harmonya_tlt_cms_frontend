@@ -29,6 +29,13 @@ import {
     SrvLanguageCRUD,
     SrvMediaPartnerCRUD,
     SrvTLTReviewCRUD,
+    SrvTLTReviewRestore,
+    SrvTLTReviewTrash,
+    SrvTLTReviewTrashWithId,
+    SrvTLTTestimonialCRUD,
+    SrvTLTTestimonialRestore,
+    SrvTLTTestimonialTrash,
+    SrvTLTTestimonialTrashWithId,
     SrvWebContactFormCRUD,
 } from '@/service/api/_contentManageSetting.endPoint'
 import {
@@ -40,8 +47,6 @@ import {
 export const apiLanguage = { ..._shapeObjectMethodCRUD(SrvLanguageCRUD) }
 
 export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }
-
-export const apiTLTReview = { ..._shapeObjectMethodCRUD(SrvTLTReviewCRUD) }
 
 export const apiMediaPartner = {
     ..._shapeObjectMethodCRUD(SrvMediaPartnerCRUD),
@@ -102,3 +107,22 @@ export const restoreExperienceArea = (id: string | number) =>
 export const apiExperienceInquiryForm = {
     ..._shapeObjectMethodCRUD(SrvExperienceInquiryFormsCRUD),
 }
+
+// Page Setting
+export const apiTLTReview = { ..._shapeObjectMethodCRUD(SrvTLTReviewCRUD) }
+export const getTLTReviewTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvTLTReviewTrash, search)
+export const permanentDeleteTLTReview = (id: string | number) =>
+    _shapeMethodDel(SrvTLTReviewTrashWithId(id))
+export const restoreTLTReview = (id: string | number) =>
+    _shapeMethodPost(SrvTLTReviewRestore(id))
+
+export const apiTLTTestimonial = {
+    ..._shapeObjectMethodCRUD(SrvTLTTestimonialCRUD),
+}
+export const getTLTTestimonialTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvTLTTestimonialTrash, search)
+export const permanentDeleteTLTTestimonial = (id: string | number) =>
+    _shapeMethodDel(SrvTLTTestimonialTrashWithId(id))
+export const restoreTLTTestimonial = (id: string | number) =>
+    _shapeMethodPost(SrvTLTTestimonialRestore(id))

@@ -11,10 +11,6 @@ export const SrvFAQCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/faqs',
 )
 
-export const SrvTLTReviewCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPI + '/tlt-reviews',
-)
-
 export const SrvMediaPartnerCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/media-partners',
 )
@@ -74,3 +70,24 @@ export const SrvExperienceAreaRestore = (id: string | number = ''): string =>
 export const SrvExperienceInquiryFormsCRUD = objectPathEndPointAPI(
     baseAPI + '/experiences/inquiry-forms',
 )
+
+// Content Page Setting
+const baseAPITLTReview = baseAPI + '/tlt-reviews'
+export const SrvTLTReviewCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPITLTReview)
+export const SrvTLTReviewTrash = baseAPITLTReview + '/trash'
+export const SrvTLTReviewTrashWithId = (id: string | number = ''): string =>
+    baseAPITLTReview + '/trash/' + id
+export const SrvTLTReviewRestore = (id: string | number = ''): string =>
+    baseAPITLTReview + '/trash/' + id + '/restore'
+
+const baseAPITLTTestimonial = baseAPI + '/tlt-testimonials'
+export const SrvTLTTestimonialCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPITLTTestimonial,
+)
+export const SrvTLTTestimonialTrash = baseAPITLTTestimonial + '/trash'
+export const SrvTLTTestimonialTrashWithId = (
+    id: string | number = '',
+): string => baseAPITLTTestimonial + '/trash/' + id
+export const SrvTLTTestimonialRestore = (id: string | number = ''): string =>
+    baseAPITLTTestimonial + '/trash/' + id + '/restore'
