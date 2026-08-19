@@ -17,6 +17,7 @@ import { NotAvailable } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import PropertyBoxInfo from '@/page/property/component/PropertyBoxInfo.tsx'
 import PropertySpaceInfo from '@/page/property/component/PropertySpaceInfo.tsx'
 import PropertyTitleInfo from '@/page/property/component/PropertyTitleInfo.tsx'
@@ -298,8 +299,9 @@ const PropertyDetailPage = () => {
                                                             ),
                                                             objectTabContent(
                                                                 'Created At',
-                                                                __detail?.createdAt ||
-                                                                    '-',
+                                                                formatDateTimeByTlt(
+                                                                    __detail?.createdAt,
+                                                                ) || '-',
                                                             ),
                                                         ]}
                                                     />
