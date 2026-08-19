@@ -83,7 +83,7 @@ const useHomePageMainForm = ({ isEdit = true }: { isEdit?: boolean } = {}) => {
     // END PREVIEW DATA FILES
 
     // START SECTION NESTED FORM
-    const _handleSectionInput = (name, value = '') => {
+    const _handleSectionInput = (name?: any, value: any = '') => {
         setFormRequest((prevState) =>
             setNestedValue(prevState, 'value.' + name, value),
         )
