@@ -30,6 +30,7 @@ import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 const defaultActive = '1'
 
 const initForm = {
+    typeId: 1,
     question: '',
     answer: '',
     order: '',
@@ -37,6 +38,7 @@ const initForm = {
 }
 
 const initMapForm = (passData) => ({
+    typeId: passData.typeId || 1,
     question: passData.question || '',
     answer: passData.answer || '',
     order: passData.order || '',
