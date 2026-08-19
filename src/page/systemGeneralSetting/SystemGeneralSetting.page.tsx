@@ -5,7 +5,6 @@ import TabGuestyConfig from '@/page/systemGeneralSetting/container/TabGuestyConf
 import TabLanguage from '@/page/systemGeneralSetting/container/TabLanguage.tsx'
 import TabNewsletterConfig from '@/page/systemGeneralSetting/container/TabNewsletterConfig.tsx'
 import TabNotificationConfig from '@/page/systemGeneralSetting/container/TabNotificationConfig.tsx'
-import TabTltReview from '@/page/systemGeneralSetting/container/TabTLTReview.tsx'
 
 const SystemGeneralSettingPage = () => {
     return (
@@ -17,14 +16,12 @@ const SystemGeneralSettingPage = () => {
                     objectTab('Language', 'tabMultiLanguage'),
                     objectTab('Notification', 'tabNotification'),
                     objectTab('Newsletter', 'tabNewsletter'),
-                    objectTab('Tlt Review', 'tabTltReview'),
                     objectTab('Guesty Configuration', 'tabGuesty'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabLanguage />),
                     objectTabContent('', <TabNotificationConfig />),
                     objectTabContent('', <TabNewsletterConfig />),
-                    objectTabContent('', <TabTltReview />),
                     objectTabContent('', <TabGuestyConfig />),
                 ]}
             />

@@ -1,68 +1,56 @@
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import {
-    apiFAQ,
-    apiFAQType,
-    getFAQTrash,
-    getFAQTypeTrash,
-    permanentDeleteFAQ,
-    permanentDeleteFAQType,
-    restoreFAQ,
-    restoreFAQType,
-} from '@/service/api/contentManageSetting.api.ts'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import {
+    apiFAQType,
+    apiTLTReview,
+    apiTLTTestimonial,
+    getFAQTypeTrash,
+    getTLTReviewTrash,
+    permanentDeleteFAQType,
+    restoreFAQType,
+} from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import { MDPSTabFAQAdd, MDPSTabFAQRemove } from '@/config/modal.config.ts'
+import {
+    MDPSTabFAQTypeAdd,
+    MDPSTabFAQTypeRemove,
+} from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import { TblLineFirst } from '@/component/general/TablePartial.tsx'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import Pagination from '@/component/general/Pagination.tsx'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
+import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import {
-    TblLineFirst,
-    TblLineSecond,
-    TblPointData,
-} from '@/component/general/TablePartial.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import SelectBaseOptionFAQType from '@/common/dataForm/SelectBaseOptionFAQType.tsx'
+import { APIResponse } from '@/type/resultAPI.ts'
+import { objectToFormData } from '@/helper/convertFormData.helper.ts'
 import { useEffect, useState } from 'react'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
-const defaultActive = '1'
-
 const initForm = {
-    typeId: 1,
-    question: '',
-    answer: '',
-    order: '',
-    isActive: defaultActive,
+    name: '',
+    order: '0',
 }
 
 const initMapForm = (passData) => ({
-    typeId: passData.typeId || 1,
-    question: passData.question || '',
-    answer: passData.answer || '',
-    order: passData.order || '',
-    isActive: passData.isActive || '0',
+    name: passData?.name || '',
+    order: passData?.order || '0',
 })
 
-const TabFAQ = () => {
+const TabFAQType = () => {
     const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
-    const [urlAPI, setUrlAPI] = useState(() => apiFAQ.list)
+    const [urlAPI, setUrlAPI] = useState(() => apiFAQType.list)
 
     const {
         __list,
@@ -90,23 +78,21 @@ const TabFAQ = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabFAQAdd,
-        modalRemoveId: MDPSTabFAQRemove,
+        modalId: MDPSTabFAQTypeAdd,
+        modalRemoveId: MDPSTabFAQTypeRemove,
+        //@ts-ignore
         emptyParam: { ...initForm },
-        mapDetailToFormRequest: initMapForm,
+        mapDetailToFormRequest: (passData) => {
+            const configParam = {
+                ...passData,
+                isActive: passData.isActive ? 1 : 0,
+            }
+
+            return initMapForm(configParam)
+        },
     })
 
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
-
-    const {
-        __data: dataForRemove,
-        __handleChooseAndNextStep: _handleChooseRemove,
-        __setData: _handleSetData,
-    } = useChooseData({
-        action: {
-            nextStep: () => actionModal(MDPSTabFAQRemove, false),
-        },
-    })
 
     const {
         __isLoadingTrash,
@@ -117,8 +103,8 @@ const TabFAQ = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: restoreFAQ,
-        urlAPIPermanentRemove: permanentDeleteFAQ,
+        urlAPIRestore: restoreFAQType,
+        urlAPIPermanentRemove: permanentDeleteFAQType,
         actions: {
             onSuccess: (vm) => __actionRemove(vm.id),
         },
@@ -126,13 +112,23 @@ const TabFAQ = () => {
 
     const _handleShowTrash = () => {
         setIsShowTrash(true)
-        setUrlAPI(() => getFAQTrash)
+        setUrlAPI(() => getFAQTypeTrash)
     }
 
     const _handleShowList = () => {
         setIsShowTrash(false)
-        setUrlAPI(() => apiFAQ.list)
+        setUrlAPI(() => apiFAQType.list)
     }
+
+    const {
+        __data: dataForRemove,
+        __handleChooseAndNextStep: _handleChooseRemove,
+        __setData: _handleSetData,
+    } = useChooseData({
+        action: {
+            nextStep: () => actionModal(MDPSTabFAQTypeRemove, false),
+        },
+    })
 
     useEffect(() => {
         __actionRemoveAll()
@@ -144,7 +140,7 @@ const TabFAQ = () => {
             <div className="row mb-4">
                 <div className="col-md">
                     <h5 className="fs-18 fw-500">
-                        FAQ {isShowTrash && 'Trash'}
+                        FAQ Type {isShowTrash && 'Trash'}
                     </h5>
                 </div>
                 <div className="col-auto">
@@ -172,61 +168,17 @@ const TabFAQ = () => {
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={[
-                            'Order',
-                            { content: 'FAQ', className: 'w-75' },
-                            'Type',
-                            'Info',
-                            '',
-                        ]}
+                        ths={['Order', 'Name', '']}
                         tds={__list}>
                         {__list
                             .sort((a, b) => Number(a.order) - Number(b.order))
                             .map((vm, index) => {
                                 return (
                                     <tr key={index}>
+                                        <td>{vm.order}</td>
                                         <td>
-                                            <TblLineFirst value={vm.order} />
+                                            <TblLineFirst value={vm.name} />
                                         </td>
-                                        <td>
-                                            <TblPointData title="Question">
-                                                {vm.question || '-'}
-                                            </TblPointData>
-                                            <TblPointData title="Answer">
-                                                {vm.answer || '-'}
-                                            </TblPointData>
-                                        </td>
-                                        <td>{vm.type?.name || '-'}</td>
-                                        <td>
-                                            <TblPointData title="Status Active">
-                                                {/*{vm.isActive || '-'}*/}
-                                                <TextTrueOrFalse
-                                                    value={vm.isActive}
-                                                />
-                                            </TblPointData>
-                                            <TblPointData title="Created At">
-                                                {vm.createdAt || '-'}
-                                            </TblPointData>
-                                        </td>
-                                        {/*<td>*/}
-                                        {/*    <AvatarInTable*/}
-                                        {/*        className="mt-1"*/}
-                                        {/*        {...(vm.createdBy*/}
-                                        {/*            ? {*/}
-                                        {/*                title: vm.createdBy,*/}
-                                        {/*            }*/}
-                                        {/*            : {})}*/}
-                                        {/*        subTitle={*/}
-                                        {/*            vm.createdAt*/}
-                                        {/*                ? vm.createdAt*/}
-                                        {/*                : '-'*/}
-                                        {/*        }*/}
-                                        {/*        isSmall*/}
-                                        {/*    />*/}
-                                        {/*    <TblLineSecond>*/}
-                                        {/*        {vm.createdAt}*/}
-                                        {/*    </TblLineSecond>*/}
-                                        {/*</td>*/}
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
                                                 {isShowTrash ? (
@@ -285,9 +237,9 @@ const TabFAQ = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabFAQRemove}
+                    id={MDPSTabFAQTypeRemove}
                     configHandle={{
-                        urlAPI: () => apiFAQ.delete(dataForRemove.id),
+                        urlAPI: () => apiFAQType.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -298,82 +250,41 @@ const TabFAQ = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabFAQAdd}
+                    id={MDPSTabFAQTypeAdd}
                     detail={__detailData}
-                    title="FAQ"
+                    title="FAQ Type"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
                         change: _handleChange,
                         toggleModal: __actionCloseModal,
                     }}
-                    placeholder="e.g Customer Staging"
+                    placeholder="e.g General"
                     isUseDefaultInput={false}
                     externalForm={
                         <>
-                            {/*{__isEdit ? (*/}
-                            {/*    <FormInput*/}
-                            {/*        label="Order"*/}
-                            {/*        name="order"*/}
-                            {/*        required*/}
-                            {/*        disabled*/}
-                            {/*    />*/}
-                            {/*) : (*/}
-                            {/*    <div className="">*/}
-                            {/*        <p className="fs-14">*/}
-                            {/*            Order : <b>{__formRequest.order}</b>*/}
-                            {/*        </p>*/}
-                            {/*    </div>*/}
-                            {/*)}*/}
-
-                            <SelectBaseOptionFAQType
-                                label="Type"
-                                name="typeId"
-                                isRequired
-                            />
-
                             <FormInput
                                 label="Order"
                                 name="order"
-                                required
-                                type="number"
-                                min="1"
-                                placeholder="e.g 1"
+                                isNumberOnly
                             />
-
                             <FormInput
-                                label="Question"
-                                name="question"
+                                label="Name"
+                                name="name"
                                 required
-                                placeholder="e.g Is Lembongan Good For Kids ?"
-                            />
-                            <FormTextArea
-                                label="Answer"
-                                name="answer"
-                                required
-                                placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
-                            />
-
-                            <FormRadioButtonMulti
-                                label="Active"
-                                name="isActive"
-                                checkBoxs={[
-                                    {
-                                        defaultValue: 0,
-                                        label: 'No',
-                                    },
-                                    {
-                                        defaultValue: 1,
-                                        label: 'Yes',
-                                    },
-                                ]}
+                                placeholder="e.g General"
                             />
                         </>
                     }
                     configHandle={{
-                        urlAPIAdd: () => apiFAQ.add(__formRequest),
-                        urlAPIUpdate: () => {
-                            return apiFAQ.update(__selectedId, __formRequest)
+                        urlAPIAdd: async (): Promise<APIResponse> => {
+                            return apiFAQType.add(__formRequest)
+                        },
+                        urlAPIUpdate: async (): Promise<APIResponse> => {
+                            return apiFAQType.update(
+                                __selectedId,
+                                __formRequest,
+                            )
                         },
                         initialForm: () =>
                             __setFormRequest(initMapForm(__detailData)),
@@ -382,10 +293,11 @@ const TabFAQ = () => {
                                 ? __actionUpdate(newData)
                                 : __actionAdd(newData, 'id', true)
                         },
-                        emptySelect: () =>
-                            __setFormRequest(() => ({
+                        emptySelect: () => {
+                            __setFormRequest({
                                 ...initForm,
-                            })),
+                            })
+                        },
                     }}
                 />
 
@@ -402,4 +314,4 @@ const TabFAQ = () => {
     )
 }
 
-export default TabFAQ
+export default TabFAQType

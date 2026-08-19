@@ -2,17 +2,14 @@ import SelectBaseOption from '@/common/dataForm/SelectBaseOption.tsx'
 import { SelectBaseOptionProps } from '@/common/dataForm/type/selectOption.type.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import {
-    apiExperienceArea,
     apiExperienceType,
+    apiFAQType,
 } from '@/service/api/contentManageSetting.api.ts'
 
-const SelectBaseOptionExpArea = (props: SelectBaseOptionProps) => {
+const SelectBaseOptionFAQType = (props: SelectBaseOptionProps) => {
     const { __list, __isLoading } = useDataListHook({
         urlAPI: ({ search }) =>
-            apiExperienceArea.list(
-                { search, page: 0 },
-                'tcSelectBaseOptionExpArea',
-            ),
+            apiFAQType.list({ search, page: 0 }, 'tcSelectBaseOptionFAQType'),
     })
 
     return (
@@ -25,4 +22,4 @@ const SelectBaseOptionExpArea = (props: SelectBaseOptionProps) => {
     )
 }
 
-export default SelectBaseOptionExpArea
+export default SelectBaseOptionFAQType

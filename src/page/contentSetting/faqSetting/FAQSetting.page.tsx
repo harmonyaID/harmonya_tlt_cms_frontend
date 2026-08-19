@@ -2,8 +2,7 @@ import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabFAQ from '@/page/contentSetting/faqSetting/container/TabFAQ.tsx'
-import { NotAvailable } from '@/component/general/TextDefault.tsx'
-import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
+import TabFAQType from '@/page/contentSetting/faqSetting/container/TabFAQType.tsx'
 
 const FAQSettingPage = () => {
     return (
@@ -17,7 +16,7 @@ const FAQSettingPage = () => {
                 ]}
                 tabContents={[
                     objectTabContent('', <TabFAQ />),
-                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <TabFAQType />),
                 ]}
             />
         </>
