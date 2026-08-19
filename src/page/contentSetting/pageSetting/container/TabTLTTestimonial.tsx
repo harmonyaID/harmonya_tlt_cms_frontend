@@ -7,17 +7,21 @@ import {
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import {
     apiTLTReview,
+    apiTLTTestimonial,
     getTLTReviewTrash,
+    getTLTTestimonialTrash,
     permanentDeleteTLTReview,
+    permanentDeleteTLTTestimonial,
     restoreTLTReview,
+    restoreTLTTestimonial,
 } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
     MDPSTabFAQAdd,
     MDPSTabFAQRemove,
     MDPSTabLanguageAdd,
-    MDPSTabTLTReviewAdd,
-    MDPSTabTLTReviewRemove,
+    MDPSTabTLTTestimonialAdd,
+    MDPSTabTLTTestimonialRemove,
 } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
@@ -49,6 +53,8 @@ import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import RenderHtml from '@/component/general/RenderHtml.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const defaultIsActive = 1
@@ -57,26 +63,26 @@ const initForm = {
     name: '',
     position: '',
     company: '',
-    rating: '1',
-    review: '',
+    order: '0',
+    testimonial: '',
     isActive: defaultIsActive,
-    photos: [],
+    photo: '',
 }
 
 const initMapForm = (passData) => ({
     name: passData?.name || '',
     position: passData?.position || '',
     company: passData?.company || '',
-    rating: passData?.rating || '1',
-    review: passData?.review || '',
+    order: passData?.order || '0',
+    testimonial: passData?.testimonial || '',
     isActive: passData?.isActive ? 1 : 0,
     deletePhotoIds: [],
-    photos: [],
+    photo: passData?.photo || '',
 })
 
-const TabTLTReview = () => {
+const TabTLTTestimonial = () => {
     const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
-    const [urlAPI, setUrlAPI] = useState(() => apiTLTReview.list)
+    const [urlAPI, setUrlAPI] = useState(() => apiTLTTestimonial.list)
 
     const {
         __list,
@@ -106,8 +112,8 @@ const TabTLTReview = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabTLTReviewAdd,
-        modalRemoveId: MDPSTabTLTReviewRemove,
+        modalId: MDPSTabTLTTestimonialAdd,
+        modalRemoveId: MDPSTabTLTTestimonialRemove,
         //@ts-ignore
         emptyParam: { ...initForm },
         mapDetailToFormRequest: (passData) => {
@@ -131,8 +137,8 @@ const TabTLTReview = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: restoreTLTReview,
-        urlAPIPermanentRemove: permanentDeleteTLTReview,
+        urlAPIRestore: restoreTLTTestimonial,
+        urlAPIPermanentRemove: permanentDeleteTLTTestimonial,
         actions: {
             onSuccess: (vm) => __actionRemove(vm.id),
         },
@@ -140,65 +146,13 @@ const TabTLTReview = () => {
 
     const _handleShowTrash = () => {
         setIsShowTrash(true)
-        setUrlAPI(() => getTLTReviewTrash)
+        setUrlAPI(() => getTLTTestimonialTrash)
     }
 
     const _handleShowList = () => {
         setIsShowTrash(false)
-        setUrlAPI(() => apiTLTReview.list)
+        setUrlAPI(() => apiTLTTestimonial.list)
     }
-
-    // Start Edit Photos
-    const _handleListPreviousPhotos = (passData) => {
-        if (passData?.photos?.length > 0) {
-            setLisPreviousPhotos(
-                passData.photos.map((photo) => ({
-                    ...photo,
-                    isDeleted: false,
-                })),
-            )
-        }
-    }
-
-    const _handleToggleDeletePrevPhotos = (passId: string | number) => {
-        __setFormRequest((prevState) => {
-            const newState = { ...prevState }
-
-            const photoIndex = newState['deletePhotoIds'].findIndex(
-                (id) => id === passId,
-            )
-
-            if (photoIndex > -1) {
-                newState['deletePhotoIds'].splice(photoIndex, 1)
-            } else {
-                newState['deletePhotoIds'].push(passId)
-            }
-
-            return newState
-        })
-
-        setLisPreviousPhotos((prevState) => {
-            const newState = [...prevState]
-
-            const index = newState.findIndex((vm) => vm.id === passId)
-            if (index > -1) {
-                newState[index].isDeleted = !newState[index].isDeleted
-            }
-
-            return newState
-        })
-    }
-    // End Edit Photos
-
-    // Start New Photos
-    const {
-        __dataFiles,
-        __setDataFiles,
-        __actionAddFiles,
-        __actionSetDataFiles,
-        __actionRemoveDataFile,
-    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'photos')
-    // End New Photos
 
     const {
         __data: dataForRemove,
@@ -206,7 +160,7 @@ const TabTLTReview = () => {
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDPSTabTLTReviewRemove, false),
+            nextStep: () => actionModal(MDPSTabTLTTestimonialRemove, false),
         },
     })
 
@@ -220,7 +174,7 @@ const TabTLTReview = () => {
             <div className="row mb-4">
                 <div className="col-md">
                     <h5 className="fs-18 fw-500">
-                        TLT Review {isShowTrash && 'Trash'}
+                        TLT Testimonial {isShowTrash && 'Trash'}
                     </h5>
                 </div>
                 <div className="col-auto">
@@ -249,11 +203,12 @@ const TabTLTReview = () => {
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
+                            'Order',
                             'Name',
                             'Company',
-                            'Review',
+                            'Testimonial',
                             'Active',
-                            'Photos',
+                            'Photo',
                             '',
                         ]}
                         tds={__list}>
@@ -262,6 +217,7 @@ const TabTLTReview = () => {
                             .map((vm, index) => {
                                 return (
                                     <tr key={index}>
+                                        <td>{vm.order}</td>
                                         <td>
                                             <TblLineFirst value={vm.name} />
                                             <TblLineSecond
@@ -271,14 +227,10 @@ const TabTLTReview = () => {
                                         <td>
                                             <TblLineSecond value={vm.company} />
                                         </td>
-                                        <td>
-                                            <TblPointData title="Rating">
-                                                {vm.rating || '-'}
-                                            </TblPointData>
-
-                                            <TblPointData title="Review">
-                                                {vm.review || '-'}
-                                            </TblPointData>
+                                        <td className="max-w-300px">
+                                            <RenderHtml
+                                                html={vm.testimonial || '-'}
+                                            />
                                         </td>
                                         <td>
                                             <TextTrueOrFalse
@@ -286,20 +238,10 @@ const TabTLTReview = () => {
                                             />
                                         </td>
                                         <td>
-                                            {vm.photos.length > 0 && (
-                                                <div className="hstack gap-2 flex-wrap">
-                                                    {vm.photos.map((photo) => (
-                                                        <PreviewFileModalLogic
-                                                            key={photo.id}
-                                                            classNameWidth="avatar-46"
-                                                            dataUrl={
-                                                                photo.photo ||
-                                                                ''
-                                                            }
-                                                        />
-                                                    ))}
-                                                </div>
-                                            )}
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.photo || ''}
+                                            />
                                         </td>
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
@@ -329,9 +271,6 @@ const TabTLTReview = () => {
                                                             actions={{
                                                                 edit: (e) => {
                                                                     e.stopPropagation()
-                                                                    _handleListPreviousPhotos(
-                                                                        vm,
-                                                                    )
                                                                     __actionUpdateModal(
                                                                         vm,
                                                                     )
@@ -362,9 +301,10 @@ const TabTLTReview = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabTLTReviewRemove}
+                    id={MDPSTabTLTTestimonialRemove}
                     configHandle={{
-                        urlAPI: () => apiTLTReview.delete(dataForRemove.id),
+                        urlAPI: () =>
+                            apiTLTTestimonial.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -375,9 +315,9 @@ const TabTLTReview = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabTLTReviewAdd}
+                    id={MDPSTabTLTTestimonialAdd}
                     detail={__detailData}
-                    title="TLT Review"
+                    title="TLT Testimonial"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -409,22 +349,17 @@ const TabTLTReview = () => {
                                 placeholder="e.g XYW Ltd"
                             />
 
-                            <FormInput
-                                label="Rating"
-                                name="rating"
-                                required
-                                placeholder="e.g XYW Ltd"
-                                type="number"
-                                min="0"
-                                max="5"
-                                isNumberOnly
-                            />
-
                             <FormTextArea
-                                label="Review"
-                                name="review"
+                                label="Testimonial"
+                                name="testimonial"
                                 required
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
+                            />
+
+                            <FormInput
+                                label="Order"
+                                name="order"
+                                isNumberOnly
                             />
 
                             <FormRadioButtonMulti
@@ -442,43 +377,16 @@ const TabTLTReview = () => {
                                 ]}
                             />
 
-                            {__isEdit && lisPreviousPhotos?.length ? (
-                                <FormEditFileLogic
-                                    dataFiles={lisPreviousPhotos.filter(
-                                        (vm) => !vm.isDeleted,
-                                    )}
-                                    dataBy="photo"
-                                    actions={{
-                                        remove: (data) =>
-                                            _handleToggleDeletePrevPhotos(
-                                                data.id,
-                                            ),
-                                        restore: () => {},
-                                    }}
-                                />
-                            ) : null}
-
-                            <WrapFormContext
-                                formRequest={__formRequest}
+                            <FormUploadFile
+                                name="photo"
+                                isUseHook={false}
+                                label="Photo"
+                                classNameLayoutImage="col-md-5"
+                                value={__formRequest.photo}
                                 actions={{
-                                    // change: __handleChange,
-                                    handleAddFiles: __actionAddFiles,
-                                    handleSetDataFiles: __actionSetDataFiles,
-                                    handleRemoveDataFile:
-                                        __actionRemoveDataFile,
-                                    // handleArrChange: __handleArrChange,
-                                }}>
-                                <FormUploadFileWithActionPreviewLogic
-                                    label="New Photos"
-                                    required
-                                    isUseInputDesc={false}
-                                    isUseDefaultLabel={false}
-                                    formName="photos"
-                                    // isEdit={isEdit}
-                                    dataFiles={__dataFiles}
-                                    formRequest={__formRequest}
-                                />
-                            </WrapFormContext>
+                                    onChange: _handleChange,
+                                }}
+                            />
                         </>
                     }
                     configHandle={{
@@ -486,15 +394,15 @@ const TabTLTReview = () => {
                             const dataForm = await objectToFormData({
                                 ...__formRequest,
                             })
-                            return apiTLTReview.addWithData(__formRequest)
+                            return apiTLTTestimonial.addWithData(dataForm)
                         },
                         urlAPIUpdate: async (): Promise<APIResponse> => {
                             const dataForm = await objectToFormData({
                                 ...__formRequest,
                             })
-                            return apiTLTReview.updateWithData(
+                            return apiTLTTestimonial.updateWithData(
                                 __selectedId,
-                                __formRequest,
+                                dataForm,
                             )
                         },
                         initialForm: () =>
@@ -503,14 +411,14 @@ const TabTLTReview = () => {
                             __isEdit
                                 ? __actionUpdate(newData)
                                 : __actionAdd(newData, 'id', true)
-                            __setDataFiles([])
+
                             setLisPreviousPhotos([])
                         },
                         emptySelect: () => {
                             __setFormRequest({
                                 ...initForm,
                             })
-                            __setDataFiles([])
+
                             setLisPreviousPhotos([])
                         },
                     }}
@@ -529,4 +437,4 @@ const TabTLTReview = () => {
     )
 }
 
-export default TabTLTReview
+export default TabTLTTestimonial

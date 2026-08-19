@@ -4,6 +4,7 @@ import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabFAQ from '@/page/contentSetting/faqSetting/container/TabFAQ.tsx'
 import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 import TabTLTReview from '@/page/contentSetting/pageSetting/container/TabTLTReview.tsx'
+import TabTLTTestimonial from '@/page/contentSetting/pageSetting/container/TabTLTTestimonial.tsx'
 
 const PageSettingPage = () => {
     return (
@@ -20,7 +21,7 @@ const PageSettingPage = () => {
                 tabContents={[
                     objectTabContent('', <PageComingSoonLayout />),
                     objectTabContent('', <TabTLTReview />),
-                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <TabTLTTestimonial />),
                     objectTabContent('', <PageComingSoonLayout />),
                 ]}
             />

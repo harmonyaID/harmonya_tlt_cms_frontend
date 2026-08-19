@@ -27,6 +27,10 @@ export const MDPSTabLanguageRemove = 'modalSettingPageLanguageRemove'
 export const MDPSTabTLTReviewAdd = 'modalSettingPageTLTReviewAdd'
 export const MDPSTabTLTReviewRemove = 'modalSettingPageTLTReviewRemove'
 
+export const MDPSTabTLTTestimonialAdd = 'modalSettingPageTLTTestimonialAdd'
+export const MDPSTabTLTTestimonialRemove =
+    'modalSettingPageTLTTestimonialRemove'
+
 export const MDPSTabMediaPartnerAdd = 'modalSettingPageMediaPartnerAdd'
 export const MDPSTabMediaPartnerRemove = 'modalSettingPageMediaPartnerRemove'
 
