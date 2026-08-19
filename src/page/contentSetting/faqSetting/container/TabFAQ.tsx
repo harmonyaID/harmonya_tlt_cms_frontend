@@ -1,8 +1,18 @@
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import { apiFAQ } from '@/service/api/contentManageSetting.api.ts'
+import {
+    apiFAQ,
+    apiFAQType,
+    getFAQTrash,
+    getFAQTypeTrash,
+    permanentDeleteFAQ,
+    permanentDeleteFAQType,
+    restoreFAQ,
+    restoreFAQType,
+} from '@/service/api/contentManageSetting.api.ts'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
+    BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
@@ -26,6 +36,11 @@ import {
     TblPointData,
 } from '@/component/general/TablePartial.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import SelectBaseOptionFAQType from '@/common/dataForm/SelectBaseOptionFAQType.tsx'
+import { useEffect, useState } from 'react'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
 const defaultActive = '1'
 
@@ -46,6 +61,9 @@ const initMapForm = (passData) => ({
 })
 
 const TabFAQ = () => {
+    const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
+    const [urlAPI, setUrlAPI] = useState(() => apiFAQ.list)
+
     const {
         __list,
         __isLoading,
@@ -53,9 +71,11 @@ const TabFAQ = () => {
         __actionAdd,
         __actionUpdate,
         __pagination,
+        __actionRemoveAll,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiFAQ.list,
+        urlAPI: urlAPI,
+        isAutoSearch: false,
     })
 
     const {
@@ -88,16 +108,62 @@ const TabFAQ = () => {
         },
     })
 
+    const {
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: restoreFAQ,
+        urlAPIPermanentRemove: permanentDeleteFAQ,
+        actions: {
+            onSuccess: (vm) => __actionRemove(vm.id),
+        },
+    })
+
+    const _handleShowTrash = () => {
+        setIsShowTrash(true)
+        setUrlAPI(() => getFAQTrash)
+    }
+
+    const _handleShowList = () => {
+        setIsShowTrash(false)
+        setUrlAPI(() => apiFAQ.list)
+    }
+
+    useEffect(() => {
+        __actionRemoveAll()
+        __actionPagination(1)
+    }, [urlAPI])
+
     return (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">FAQ</h5>
+                    <h5 className="fs-18 fw-500">
+                        FAQ {isShowTrash && 'Trash'}
+                    </h5>
                 </div>
                 <div className="col-auto">
-                    <BtnPrimary onClick={() => __actionAddModal()}>
-                        Add New
-                    </BtnPrimary>
+                    {isShowTrash ? (
+                        <BtnPrimary isOutline onClick={() => _handleShowList()}>
+                            Back
+                        </BtnPrimary>
+                    ) : (
+                        <div className="hstack gap-2">
+                            <BtnDanger
+                                isOutline
+                                handle={() => _handleShowTrash()}>
+                                Trash
+                            </BtnDanger>
+                            <BtnPrimary onClick={() => __actionAddModal()}>
+                                Add New
+                            </BtnPrimary>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -109,6 +175,7 @@ const TabFAQ = () => {
                         ths={[
                             'Order',
                             { content: 'FAQ', className: 'w-75' },
+                            'Type',
                             'Info',
                             '',
                         ]}
@@ -129,6 +196,7 @@ const TabFAQ = () => {
                                                 {vm.answer || '-'}
                                             </TblPointData>
                                         </td>
+                                        <td>{vm.type?.name || '-'}</td>
                                         <td>
                                             <TblPointData title="Status Active">
                                                 {/*{vm.isActive || '-'}*/}
@@ -161,26 +229,40 @@ const TabFAQ = () => {
                                         {/*</td>*/}
                                         <td>
                                             <div className="hstack gap-2 justify-content-end">
-                                                <BtnCircleRemove
-                                                    actions={{
-                                                        remove: (e) => {
-                                                            e.stopPropagation()
-                                                            _handleChooseRemove(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                                <BtnCircleEdit
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            __actionUpdateModal(
-                                                                vm,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
+                                                {isShowTrash ? (
+                                                    <TrashActionButtons
+                                                        selected={vm}
+                                                        actions={{
+                                                            permanentRemove:
+                                                                __handleChoosePermanentRemove,
+                                                            restore:
+                                                                __handleChooseRestore,
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        <BtnCircleRemove
+                                                            actions={{
+                                                                remove: (e) => {
+                                                                    e.stopPropagation()
+                                                                    _handleChooseRemove(
+                                                                        vm,
+                                                                    )
+                                                                },
+                                                            }}
+                                                        />
+                                                        <BtnCircleEdit
+                                                            actions={{
+                                                                edit: (e) => {
+                                                                    e.stopPropagation()
+                                                                    __actionUpdateModal(
+                                                                        vm,
+                                                                    )
+                                                                },
+                                                            }}
+                                                        />
+                                                    </>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
@@ -244,6 +326,12 @@ const TabFAQ = () => {
                             {/*    </div>*/}
                             {/*)}*/}
 
+                            <SelectBaseOptionFAQType
+                                label="Type"
+                                name="typeId"
+                                isRequired
+                            />
+
                             <FormInput
                                 label="Order"
                                 name="order"
@@ -298,6 +386,15 @@ const TabFAQ = () => {
                             __setFormRequest(() => ({
                                 ...initForm,
                             })),
+                    }}
+                />
+
+                <TrashConfirmModals
+                    name={__dataRestore?.name || __dataPermanentRemove?.name}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove,
                     }}
                 />
             </CreatePortalLayout>
