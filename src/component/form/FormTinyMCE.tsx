@@ -63,16 +63,16 @@ const FormTinyMCE = ({
         }
     }
 
-    // useEffect(() => {
-    //     setInitialValue(dataValue)
-    // }, [])
+    useEffect(() => {
+        setInitialValue(dataValue)
+    }, [])
 
     return isSimple ? (
         <Editor
             licenseKey="gpl"
             onInit={(_, editor) => (editorRef.current = editor)}
-            // initialValue={initialValue}
-            initialValue={dataValue}
+            initialValue={initialValue}
+            // initialValue={dataValue}
             onEditorChange={_handleChange}
             init={{
                 height: 200,
@@ -91,6 +91,7 @@ const FormTinyMCE = ({
             licenseKey="gpl"
             onInit={(_, editor) => (editorRef.current = editor)}
             initialValue={initialValue}
+            // initialValue={dataValue}
             onEditorChange={_handleChange}
             init={{
                 height: height,

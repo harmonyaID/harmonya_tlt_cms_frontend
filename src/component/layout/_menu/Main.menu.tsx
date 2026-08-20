@@ -254,7 +254,7 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="">
                 <LinkMenu
-                    name="Pages"
+                    name="Page"
                     icon={<TaskSquare variant="Bulk" />}
                     to={contentAllPagesPath.main}
                 />

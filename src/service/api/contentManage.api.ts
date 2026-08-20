@@ -39,6 +39,7 @@ export const detailHomePageContent = (formSearch) =>
 export const apiPageContent = {
     ..._shapeObjectMethodCRUD(SrvPageContentCRUD),
 }
+
 // Blog
 export const apiBlogContent = { ..._shapeObjectMethodCRUD(SrvBlogContentCRUD) }
 
@@ -65,7 +66,6 @@ export const permanentDeleteExperienceContent = (id: string | number) =>
 export const restoreExperienceContent = (id: string | number) =>
     _shapeMethodPost(SrvExperienceContentRestore(id))
 
-
 export const apiExpInquiryForm = {
     ..._shapeObjectMethodCRUD(SrvExpInquiryFormCRUD),
 }
@@ -78,8 +78,6 @@ export const permanentDeleteExpInquiryForm = (id: string | number) =>
 
 export const restoreExpInquiryForm = (id: string | number) =>
     _shapeMethodPost(SrvExpInquiryFormRestore(id))
-
-
 
 export const updateStatusExpInquiryForm = (id, formRequest) =>
     _shapeMethodPatch(SrvExpInquiryFormUpdateStatus(id), formRequest)
