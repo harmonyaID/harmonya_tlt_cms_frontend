@@ -6,8 +6,17 @@ import contentAllPagesPath from '@/path/contentAllPages.path.ts'
 
 const mainPath = contentAllPagesPath.main
 
-const ContentAllPagesPage = lazy(
-    () => import('@/page/contentAllPages/ContentAllPages.page.tsx'),
+const ContentPagePage = lazy(
+    () => import('@/page/contentAllPages/ContentPage.page.tsx'),
+)
+const ContentPagePageAdd = lazy(
+    () => import('@/page/contentAllPages/ContentPageAdd.page.tsx'),
+)
+const ContentPagePageEdit = lazy(
+    () => import('@/page/contentAllPages/ContentPageEdit.page.tsx'),
+)
+const ContentPagePageDetail = lazy(
+    () => import('@/page/contentAllPages/ContentPageDetail.page.tsx'),
 )
 
 const ContentAllPageRoute = () => (
@@ -17,7 +26,31 @@ const ContentAllPageRoute = () => (
             path={mainPath}
             element={
                 <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
-                    <ContentAllPagesPage />
+                    <ContentPagePage />
+                </SuspenseLayout>
+            }
+        />
+        <Route
+            path={contentAllPagesPath.add}
+            element={
+                <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
+                    <ContentPagePageAdd />
+                </SuspenseLayout>
+            }
+        />
+        <Route
+            path={contentAllPagesPath.edit()}
+            element={
+                <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
+                    <ContentPagePageEdit />
+                </SuspenseLayout>
+            }
+        />
+        <Route
+            path={contentAllPagesPath.detail()}
+            element={
+                <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
+                    <ContentPagePageDetail />
                 </SuspenseLayout>
             }
         />

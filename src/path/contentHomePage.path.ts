@@ -7,6 +7,6 @@ const main = '/cm-home-page'
 //     page: main + '/page',
 //     banner: main + '/banner',
 // }
-const contentHomePagePath = { ...objectPathMenu('cm-home-page') }
+const contentHomePagePath = { ...objectPathMenu('cm-homepage') }
 
 export default contentHomePagePath
