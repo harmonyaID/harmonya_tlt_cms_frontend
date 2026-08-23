@@ -7,10 +7,6 @@ export const SrvLanguageCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/languages',
 )
 
-export const SrvMediaPartnerCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPI + '/media-partners',
-)
-
 export const SrvWebContactFormCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/website-contact-forms',
 )
@@ -87,6 +83,15 @@ export const SrvTLTTestimonialTrashWithId = (
 ): string => baseAPITLTTestimonial + '/trash/' + id
 export const SrvTLTTestimonialRestore = (id: string | number = ''): string =>
     baseAPITLTTestimonial + '/trash/' + id + '/restore'
+
+const baseAPIMediaPartner = baseAPI + '/media-partners'
+export const SrvMediaPartnerCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIMediaPartner)
+export const SrvMediaPartnerTrash = baseAPIMediaPartner + '/trash'
+export const SrvMediaPartnerTrashWithId = (id: string | number = ''): string =>
+    baseAPIMediaPartner + '/trash/' + id
+export const SrvMediaPartnerRestore = (id: string | number = ''): string =>
+    baseAPIMediaPartner + '/trash/' + id + '/restore'
 
 // Content FAQ Setting
 const baseAPIFAQ = baseAPI + '/faqs'

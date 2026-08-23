@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import SelectBaseOptionMediaPartnerType from '@/common/dataForm/SelectBaseOptionMediaPartnerType.tsx'
 import SelectBaseOptionStaticMediaPartnerType from '@/common/dataForm/SelectBaseOptionStaticMediaPartnerType.tsx'
@@ -13,6 +13,7 @@ import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
+    BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import { ImgInTable } from '@/component/general/Image.tsx'
@@ -36,8 +37,19 @@ import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import { apiMediaPartner } from '@/service/api/contentManageSetting.api.ts'
-import { APIResponse } from '@/type/resultAPI'
+import {
+    apiMediaPartner,
+    apiTLTReview,
+    getMediaPartnerTrash,
+    getTLTReviewTrash,
+    permanentDeleteMediaPartner,
+    permanentDeleteTLTReview,
+    restoreMediaPartner,
+    restoreTLTReview,
+} from '@/service/api/contentManageSetting.api.ts'
+import { APIResponse } from '@/type/resultAPI.ts'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
 const initForm = {
     name: '',
@@ -62,7 +74,10 @@ const initMapForm = (passData) => ({
 const PARAM_LOGO = 'logo'
 const PARAM_FEATURE_IMAGE = 'featureImage'
 
-const TabMediaPartner = () => {
+const TabTLTMediaPartner = () => {
+    const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
+    const [urlAPI, setUrlAPI] = useState(() => apiMediaPartner.list)
+
     const {
         __list,
         __isLoading,
@@ -71,8 +86,10 @@ const TabMediaPartner = () => {
         __actionUpdate,
         __pagination,
         __actionPagination,
+        __actionRemoveAll,
     } = useDataListHook({
-        urlAPI: apiMediaPartner.list,
+        urlAPI: urlAPI,
+        isAutoSearch: false,
     })
 
     const [previewDataImage, setPreviewDataImage] = useState({
@@ -109,6 +126,32 @@ const TabMediaPartner = () => {
 
     const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
 
+    const {
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: restoreMediaPartner,
+        urlAPIPermanentRemove: permanentDeleteMediaPartner,
+        actions: {
+            onSuccess: (vm) => __actionRemove(vm.id),
+        },
+    })
+
+    const _handleShowTrash = () => {
+        setIsShowTrash(true)
+        setUrlAPI(() => getMediaPartnerTrash)
+    }
+
+    const _handleShowList = () => {
+        setIsShowTrash(false)
+        setUrlAPI(() => apiMediaPartner.list)
+    }
+
     const _handleDataImage = (name, value = '') => {
         setPreviewDataImage((prevState) => ({ ...prevState, [name]: value }))
     }
@@ -138,6 +181,11 @@ const TabMediaPartner = () => {
         return apiMediaPartner.updateWithData(__selectedId, dataForm)
     }
 
+    useEffect(() => {
+        __actionRemoveAll()
+        __actionPagination(1)
+    }, [urlAPI])
+
     return (
         <>
             <div className="row mb-4">
@@ -145,9 +193,22 @@ const TabMediaPartner = () => {
                     <h5 className="fs-18 fw-500">Media Partner</h5>
                 </div>
                 <div className="col-auto">
-                    <BtnPrimary onClick={() => __actionAddModal()}>
-                        Add New
-                    </BtnPrimary>
+                    {isShowTrash ? (
+                        <BtnPrimary isOutline onClick={() => _handleShowList()}>
+                            Back
+                        </BtnPrimary>
+                    ) : (
+                        <div className="hstack gap-2">
+                            <BtnDanger
+                                isOutline
+                                handle={() => _handleShowTrash()}>
+                                Trash
+                            </BtnDanger>
+                            <BtnPrimary onClick={() => __actionAddModal()}>
+                                Add New
+                            </BtnPrimary>
+                        </div>
+                    )}
                 </div>
             </div>
 
@@ -444,9 +505,18 @@ const TabMediaPartner = () => {
                             })),
                     }}
                 />
+
+                <TrashConfirmModals
+                    name={__dataRestore?.name || __dataPermanentRemove?.name}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove,
+                    }}
+                />
             </CreatePortalLayout>
         </>
     )
 }
 
-export default TabMediaPartner
+export default TabTLTMediaPartner

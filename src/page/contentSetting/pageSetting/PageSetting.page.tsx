@@ -5,6 +5,7 @@ import TabFAQ from '@/page/contentSetting/faqSetting/container/TabFAQ.tsx'
 import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 import TabTLTReview from '@/page/contentSetting/pageSetting/container/TabTLTReview.tsx'
 import TabTLTTestimonial from '@/page/contentSetting/pageSetting/container/TabTLTTestimonial.tsx'
+import TabTLTMediaPartner from '@/page/contentSetting/pageSetting/container/TabTLTMediaPartner.tsx'
 
 const PageSettingPage = () => {
     return (
@@ -22,7 +23,7 @@ const PageSettingPage = () => {
                     objectTabContent('', <PageComingSoonLayout />),
                     objectTabContent('', <TabTLTReview />),
                     objectTabContent('', <TabTLTTestimonial />),
-                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <TabTLTMediaPartner />),
                 ]}
             />
         </>
