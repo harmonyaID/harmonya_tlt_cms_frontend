@@ -4,27 +4,29 @@ import { SelectOptionGeneralProps } from '@/common/dataForm/type/selectOption.ty
 import SelectOption from '@/component/form/SelectOption.tsx'
 import { useHookContextForm } from '@/context/Form.context.tsx'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
-import useBoatTypeStore from '@/store/useBoatType.store.ts'
-import useLanguageStore from '@/store/useLanguage.store.ts'
+import useExperienceAreaStore from '@/store/useExperienceArea.store.ts'
+import useExperienceTypeStore from '@/store/useExperienceType.store.ts'
 
-const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
+const SelectOptionExperienceType = (props: SelectOptionGeneralProps) => {
     const uniqueId = useId()
     const ctx = useHookContextForm()
 
-    const { __list } = useLanguageStore({ isFormatList: false })
+    const { __list } = useExperienceTypeStore({ isFormatList: false })
 
     const _configList = () => {
         return __list.map((vm) => ({
             ...vm,
+            value: vm.id,
+            label: vm.name,
         }))
     }
 
     const {
-        id = 'select-language',
+        id = 'select-exp-type',
         name = '',
         className = '',
         label = '',
-        placeholder = 'Select Language',
+        placeholder = 'Select Type',
 
         nameOfChange = '',
         valueKey = 'value',
@@ -46,7 +48,7 @@ const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
         others = {},
     } = props
 
-    const myId = id || 'select-language' + name + useId()
+    const myId = id || 'select-exp-type' + name + useId()
 
     const { dataValue } = useComponentInputConfigHook(
         ctx,
@@ -154,4 +156,4 @@ const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
     )
 }
 
-export default SelectOptionLanguage
+export default SelectOptionExperienceType

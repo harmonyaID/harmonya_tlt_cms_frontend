@@ -1,12 +1,9 @@
-import SelectOptionBoatType from '@/common/dataForm/SelectOptionBoatType.tsx'
+import SelectOptionPageStatus from '@/common/dataForm/SelectOptionPageStatus.tsx'
+import SelectOptionLanguage from '@/common/dataForm/SelectOptionLanguage.tsx'
+import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
-import SelectOptionExperienceCategory from '@/common/dataForm/SelectOptionExperienceCategory.tsx'
-import SelectBaseOptionExpType from '@/common/dataForm/SelectBaseOptionExpType.tsx'
-import SelectBaseOptionExpArea from '@/common/dataForm/SelectBaseOptionExpArea.tsx'
-import SelectOptionExperienceArea from '@/common/dataForm/SelectOptionExperienceArea.tsx'
-import SelectOptionExperienceType from '@/common/dataForm/SelectOptionExperienceType.tsx'
 
-const ContentExperienceFilter = ({
+const PageFilter = ({
     __search,
     __isLoading,
     actions,
@@ -26,7 +23,7 @@ const ContentExperienceFilter = ({
             formRequest={__search}
             isUseSearch={true}
             isUsePrevState
-            placeholderSearch="e.g D'Stars Fast Ferry"
+            placeholderSearch="e.g Mindful Travel"
             isAdvance={false}
             actions={{
                 change: actions.__actionChange,
@@ -41,20 +38,19 @@ const ContentExperienceFilter = ({
             baseContent={
                 <>
                     <div className="col-md-4 col-lg-2">
-                        <SelectOptionExperienceArea
-                            name="experienceAreaIds"
-                            placeholder="Select Area"
+                        <SelectOptionPageStatus
                             isUseHook
+                            label="Status"
+                            name="status"
                             className="mb-lg-0 mb-2"
-                            label="Area"
                         />
                     </div>
                     <div className="col-md-4 col-lg-2">
-                        <SelectOptionExperienceType
-                            name="experienceTypeIds"
+                        <SelectOptionLanguage
                             isUseHook
+                            label="Locale"
+                            name="locale"
                             className="mb-lg-0 mb-2"
-                            label="Type"
                         />
                     </div>
                 </>
@@ -63,4 +59,4 @@ const ContentExperienceFilter = ({
     )
 }
 
-export default ContentExperienceFilter
+export default PageFilter

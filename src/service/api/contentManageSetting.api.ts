@@ -35,6 +35,9 @@ import {
     SrvFAQTypeTrashWithId,
     SrvLanguageCRUD,
     SrvMediaPartnerCRUD,
+    SrvMediaPartnerRestore,
+    SrvMediaPartnerTrash,
+    SrvMediaPartnerTrashWithId,
     SrvTLTReviewCRUD,
     SrvTLTReviewRestore,
     SrvTLTReviewTrash,
@@ -52,10 +55,6 @@ import {
 } from '@/service/api/_boatManage.endPoint.ts'
 
 export const apiLanguage = { ..._shapeObjectMethodCRUD(SrvLanguageCRUD) }
-
-export const apiMediaPartner = {
-    ..._shapeObjectMethodCRUD(SrvMediaPartnerCRUD),
-}
 
 export const apiWebContactForm = {
     ..._shapeObjectMethodCRUD(SrvWebContactFormCRUD),
@@ -131,6 +130,16 @@ export const permanentDeleteTLTTestimonial = (id: string | number) =>
     _shapeMethodDel(SrvTLTTestimonialTrashWithId(id))
 export const restoreTLTTestimonial = (id: string | number) =>
     _shapeMethodPost(SrvTLTTestimonialRestore(id))
+
+export const apiMediaPartner = {
+    ..._shapeObjectMethodCRUD(SrvMediaPartnerCRUD),
+}
+export const getMediaPartnerTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvMediaPartnerTrash, search)
+export const permanentDeleteMediaPartner = (id: string | number) =>
+    _shapeMethodDel(SrvMediaPartnerTrashWithId(id))
+export const restoreMediaPartner = (id: string | number) =>
+    _shapeMethodPost(SrvMediaPartnerRestore(id))
 
 // FAQ Setting
 export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }

@@ -10,12 +10,21 @@ import useChooseData from '@/hook/useChooseData.hook.ts'
 import PageSelectStatus from '@/page/contentAllPages/component/PageSelectStatus.tsx'
 import PageTable from '@/page/contentAllPages/component/PageTable.tsx'
 import usePageMainHook from '@/page/contentAllPages/hook/usePageMain.hook.ts'
-import { apiPageContent } from '@/service/api/contentManage.api.ts'
+import {
+    apiPageContent,
+    getPageContentTrash,
+    permanentDeleteBlog,
+    permanentDeletePageContent,
+    restoreBlog,
+    restorePageContent,
+} from '@/service/api/contentManage.api.ts'
 import SelectOptionLanguage from '@/common/dataForm/SelectOptionLanguage.tsx'
 import SelectOptionPageStatus from '@/common/dataForm/SelectOptionPageStatus.tsx'
 import PageFilter from '@/page/contentAllPages/component/PageFilter.tsx'
+import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 
-const ContentPagePage = () => {
+const ContentPageTrashPage = () => {
     const {
         // ---- List Data ----
         __list,
@@ -33,16 +42,22 @@ const ContentPagePage = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToDetail,
-        __handleToTrash,
-    } = usePageMainHook({ urlAPI: apiPageContent.list })
+        __handleToMain,
+    } = usePageMainHook({ urlAPI: getPageContentTrash })
 
     const {
-        __data: dataForRemove,
-        __handleChooseAndNextStep: _handleChooseRemove,
-        __setData: _handleSetData,
-    } = useChooseData({
-        action: {
-            nextStep: () => actionModal(MDGeneralRemove, false),
+        __isLoadingTrash,
+        __handlePermanentRemove,
+        __handleChooseRestore,
+        __handleRestore,
+        __handleChoosePermanentRemove,
+        __dataPermanentRemove,
+        __dataRestore,
+    } = useTrash({
+        urlAPIRestore: restorePageContent,
+        urlAPIPermanentRemove: permanentDeletePageContent,
+        actions: {
+            onSuccess: (boat) => __actionRemove(boat.id),
         },
     })
 
@@ -51,18 +66,9 @@ const ContentPagePage = () => {
             <CardListData
                 title="Page"
                 componentAction={
-                    <div className="hstack gap-2">
-                        <BtnDanger
-                            isOutline
-                            handle={() => {
-                                __handleToTrash()
-                            }}>
-                            Trash
-                        </BtnDanger>
-                        <BtnPrimary onClick={() => __handleToAdd()}>
-                            Add New
-                        </BtnPrimary>
-                    </div>
+                    <BtnPrimary isOutline onClick={() => __handleToMain()}>
+                        Back
+                    </BtnPrimary>
                 }>
                 <PageFilter
                     __isLoading={__isLoading}
@@ -77,29 +83,26 @@ const ContentPagePage = () => {
                 />
 
                 <PageTable
+                    isTrash={true}
                     __list={__list}
                     __isLoading={__isLoading}
                     __pagination={__pagination}
                     actions={{
                         __actionPagination: __actionPagination,
-                        __handleChooseRemove: _handleChooseRemove,
-                        __handleToDetail: __handleToDetail,
-                        __handleToEdit: __handleToEdit,
+                        __handleChoosePermanentRemove:
+                            __handleChoosePermanentRemove,
+                        __handleChooseRestore: __handleChooseRestore,
                     }}
                 />
             </CardListData>
 
             <CreatePortalLayout>
-                <ConfirmRemoveListLogic
-                    id={MDGeneralRemove}
-                    configHandle={{
-                        urlAPI: () => apiPageContent.delete(dataForRemove.id),
-                        callBack: () => {
-                            __actionRemove(dataForRemove.id)
-                        },
-                        emptySelect: () => {
-                            _handleSetData({})
-                        },
+                <TrashConfirmModals
+                    name={__dataRestore?.title || __dataPermanentRemove?.title}
+                    isLoading={__isLoadingTrash}
+                    actions={{
+                        handleRestore: __handleRestore,
+                        handlePermanentRemove: __handlePermanentRemove,
                     }}
                 />
             </CreatePortalLayout>
@@ -107,4 +110,4 @@ const ContentPagePage = () => {
     )
 }
 
-export default ContentPagePage
+export default ContentPageTrashPage

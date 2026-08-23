@@ -17,6 +17,7 @@ import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormInputPassword from '@/component/form/FormInputPassword.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
@@ -728,17 +729,17 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                     />
                                                                 </GeneralRowForm>
 
-                                                                <GeneralRowForm
-                                                                    label="Channel"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        // label="Channel"
-                                                                        name="channel"
-                                                                        placeholder="e.g Primary"
-                                                                    />
-                                                                </GeneralRowForm>
+                                                                {/*<GeneralRowForm*/}
+                                                                {/*    label="Channel"*/}
+                                                                {/*    isRequired={*/}
+                                                                {/*        false*/}
+                                                                {/*    }>*/}
+                                                                {/*    <FormInput*/}
+                                                                {/*        // label="Channel"*/}
+                                                                {/*        name="channel"*/}
+                                                                {/*        placeholder="e.g Primary"*/}
+                                                                {/*    />*/}
+                                                                {/*</GeneralRowForm>*/}
 
                                                                 <GeneralRowForm
                                                                     label="Getting Around"
@@ -769,9 +770,14 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                     isRequired={
                                                                         false
                                                                     }>
-                                                                    <FormTextArea
+                                                                    {/*<FormTextArea*/}
+                                                                    {/*    name="summary"*/}
+                                                                    {/*    placeholder="e.g Root"*/}
+                                                                    {/*/>*/}
+
+                                                                    <FormTinyMCE
                                                                         name="summary"
-                                                                        placeholder="e.g Root"
+                                                                        isSimple
                                                                     />
                                                                 </GeneralRowForm>
                                                             </WrapFormContext>

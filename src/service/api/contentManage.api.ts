@@ -17,6 +17,9 @@ import {
     SrvMenuContentCRUD,
     SrvMenuTypeStatic,
     SrvPageContentCRUD,
+    SrvPageContentRestore,
+    SrvPageContentTrash,
+    SrvPageContentTrashWithId,
 } from '@/service/api/_contentManage.endPoint.ts'
 import {
     _shapeMethodDel,
@@ -39,6 +42,14 @@ export const detailHomePageContent = (formSearch) =>
 export const apiPageContent = {
     ..._shapeObjectMethodCRUD(SrvPageContentCRUD),
 }
+export const getPageContentTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvPageContentTrash, search)
+
+export const permanentDeletePageContent = (id: string | number) =>
+    _shapeMethodDel(SrvPageContentTrashWithId(id))
+
+export const restorePageContent = (id: string | number) =>
+    _shapeMethodPost(SrvPageContentRestore(id))
 
 // Blog
 export const apiBlogContent = { ..._shapeObjectMethodCRUD(SrvBlogContentCRUD) }

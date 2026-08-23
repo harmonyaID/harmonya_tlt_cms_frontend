@@ -5,8 +5,8 @@ import moment from 'moment'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 
 const contentBlogFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    dateTo: moment().format('DD/MM/YYYY'),
     categoryIds: [],
     tagIds: [],
     limit: 50,

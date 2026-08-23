@@ -5,6 +5,7 @@ import TabGuestyConfig from '@/page/systemGeneralSetting/container/TabGuestyConf
 import TabLanguage from '@/page/systemGeneralSetting/container/TabLanguage.tsx'
 import TabNewsletterConfig from '@/page/systemGeneralSetting/container/TabNewsletterConfig.tsx'
 import TabNotificationConfig from '@/page/systemGeneralSetting/container/TabNotificationConfig.tsx'
+import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 
 const SystemGeneralSettingPage = () => {
     return (
@@ -16,12 +17,16 @@ const SystemGeneralSettingPage = () => {
                     objectTab('Language', 'tabMultiLanguage'),
                     objectTab('Notification', 'tabNotification'),
                     objectTab('Newsletter', 'tabNewsletter'),
+                    objectTab('Redirection', 'tabRedirection'),
+                    objectTab('Tracking Analytics', 'tabTrackingAnalytics'),
                     objectTab('Guesty Configuration', 'tabGuesty'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabLanguage />),
                     objectTabContent('', <TabNotificationConfig />),
                     objectTabContent('', <TabNewsletterConfig />),
+                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <PageComingSoonLayout />),
                     objectTabContent('', <TabGuestyConfig />),
                 ]}
             />

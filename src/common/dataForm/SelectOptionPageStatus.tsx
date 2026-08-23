@@ -7,24 +7,29 @@ import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hoo
 import useBoatTypeStore from '@/store/useBoatType.store.ts'
 import useLanguageStore from '@/store/useLanguage.store.ts'
 
-const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
+const SelectOptionPageStatus = (props: SelectOptionGeneralProps) => {
     const uniqueId = useId()
     const ctx = useHookContextForm()
 
-    const { __list } = useLanguageStore({ isFormatList: false })
-
     const _configList = () => {
-        return __list.map((vm) => ({
-            ...vm,
-        }))
+        return [
+            {
+                value: 'publish',
+                label: 'Publish',
+            },
+            {
+                value: 'draft',
+                label: 'Draft',
+            },
+        ]
     }
 
     const {
-        id = 'select-language',
+        id = 'select-status',
         name = '',
         className = '',
         label = '',
-        placeholder = 'Select Language',
+        placeholder = 'Select Status',
 
         nameOfChange = '',
         valueKey = 'value',
@@ -46,7 +51,7 @@ const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
         others = {},
     } = props
 
-    const myId = id || 'select-language' + name + useId()
+    const myId = id || 'select-status' + name + useId()
 
     const { dataValue } = useComponentInputConfigHook(
         ctx,
@@ -134,7 +139,7 @@ const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
         setSelectedData(
             isCreatable && isArray(dataValue) ? dataValue : findData || [],
         )
-    }, [dataValue, __list])
+    }, [dataValue])
 
     return (
         <SelectOption
@@ -154,4 +159,4 @@ const SelectOptionLanguage = (props: SelectOptionGeneralProps) => {
     )
 }
 
-export default SelectOptionLanguage
+export default SelectOptionPageStatus

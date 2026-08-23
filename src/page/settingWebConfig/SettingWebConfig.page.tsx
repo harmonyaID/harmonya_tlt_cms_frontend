@@ -3,7 +3,6 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabContactFormType from '@/page/settingWebConfig/container/TabContactFormType.tsx'
-import TabMediaPartner from '@/page/settingWebConfig/container/TabMediaPartner.tsx'
 import TabWebConfig from '@/page/settingWebConfig/container/TabWebConfig.tsx'
 import TabWebContactForm from '@/page/settingWebConfig/container/TabWebContactForm.tsx'
 
@@ -26,31 +25,29 @@ const SettingWebConfigPage = () => {
             <CardNavTab
                 tabs={[
                     objectTab('Web Config', 'tabWebConfig'),
-                    objectTab('Media Partner', 'tabMediaPartner'),
-                    objectTab('Website Contact Form', 'tabWebsiteContactForm'),
-                    objectTab('Contact Form Type', 'tabContactFormType'),
+                    // objectTab('Website Contact Form', 'tabWebsiteContactForm'),
+                    // objectTab('Contact Form Type', 'tabContactFormType'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabWebConfig />),
-                    objectTabContent('', <TabMediaPartner />),
-                    objectTabContent(
-                        '',
-                        <TabWebContactForm
-                            listContactFormType={listContactFormType}
-                            isLoadingContactFormType={isLoadingContactFormType}
-                        />,
-                    ),
-                    objectTabContent(
-                        '',
-                        <TabContactFormType
-                            action={{
-                                setIsLoadingFormType: (passData) =>
-                                    setIsLoadingListContactFormType(passData),
-                                setListFormType: (passData) =>
-                                    setListContactFormType(passData),
-                            }}
-                        />,
-                    ),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabWebContactForm
+                    //         listContactFormType={listContactFormType}
+                    //         isLoadingContactFormType={isLoadingContactFormType}
+                    //     />,
+                    // ),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabContactFormType
+                    //         action={{
+                    //             setIsLoadingFormType: (passData) =>
+                    //                 setIsLoadingListContactFormType(passData),
+                    //             setListFormType: (passData) =>
+                    //                 setListContactFormType(passData),
+                    //         }}
+                    //     />,
+                    // ),
                 ]}
             />
         </>

@@ -10,7 +10,15 @@ export const SrvHomePageContentCRUD = objectPathEndPointAPI(
 export const SrvHomePageContent = baseAPI + '/homepages'
 
 // Page
-export const SrvPageContentCRUD = objectPathEndPointAPI(baseAPI + '/pages')
+const baseApiPageContent = baseAPI + '/pages'
+export const SrvPageContentCRUD = objectPathEndPointAPI(baseApiPageContent)
+export const SrvPageContentTrash = baseApiPageContent + '/trash'
+
+export const SrvPageContentTrashWithId = (id: string | number = ''): string =>
+    baseApiPageContent + '/trash/' + id
+
+export const SrvPageContentRestore = (id: string | number = ''): string =>
+    baseApiPageContent + '/trash/' + id + '/restore'
 
 // Blog
 const baseAPIBlog = baseAPI + '/blogs'
@@ -26,24 +34,26 @@ export const SrvBlogRestore = (id: string | number = ''): string =>
 
 // Experiences
 const baseAPIExperience = baseAPI + '/experiences'
-export const SrvExperiencesContentCRUD = objectPathEndPointAPI(baseAPIExperience)
+export const SrvExperiencesContentCRUD =
+    objectPathEndPointAPI(baseAPIExperience)
 
 export const SrvExperienceContentTrash = baseAPIExperience + '/trash'
 
-export const SrvExperienceContentTrashWithId = (id: string | number = ''): string =>
-    baseAPIExperience + '/trash/' + id
+export const SrvExperienceContentTrashWithId = (
+    id: string | number = '',
+): string => baseAPIExperience + '/trash/' + id
 
 export const SrvExperienceContentRestore = (id: string | number = ''): string =>
     baseAPIExperience + '/trash/' + id + '/restore'
-
 
 const baseAPIInquiryForm = baseAPI + '/experiences/inquiry-forms'
 export const SrvExpInquiryFormCRUD = objectPathEndPointAPI(baseAPIInquiryForm)
 
 export const SrvExpInquiryFormTrash = baseAPIInquiryForm + '/trash'
 
-export const SrvExpInquiryFormTrashWithId = (id: string | number = ''): string =>
-    baseAPIInquiryForm + '/trash/' + id
+export const SrvExpInquiryFormTrashWithId = (
+    id: string | number = '',
+): string => baseAPIInquiryForm + '/trash/' + id
 
 export const SrvExpInquiryFormRestore = (id: string | number = ''): string =>
     baseAPIInquiryForm + '/trash/' + id + '/restore'

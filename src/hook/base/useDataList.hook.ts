@@ -17,6 +17,8 @@ import {
     PaginationInFace,
     SearchInFace,
 } from '../type/hook.type'
+import moment from 'moment'
+import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
 
 const defaultDataConfig: DataConfigInFace = {
     urlAPI: async () => ({}),
@@ -72,17 +74,26 @@ const useDataListHook = (passConfig: ConfigList = {}) => {
     const _getData = (newSearch: NewSearchList | any = {}) => {
         _handleSetIsLoading(true)
 
-        config.urlAPI(newSearch).then((resData) => {
-            _handleSetIsLoading(false)
+        config
+            .urlAPI({
+                ...newSearch,
+                dateFrom: actionFormatDateStrict(
+                    newSearch.dateFrom,
+                    'YYYY-MM-DD',
+                ),
+                dateTo: actionFormatDateStrict(newSearch.dateTo, 'YYYY-MM-DD'),
+            })
+            .then((resData) => {
+                _handleSetIsLoading(false)
 
-            if (isSuccess(resData)) {
-                const dataList = config.parameterByList
-                    ? resData.result[config.parameterByList]
-                    : resData.result || []
-                _handleSetList(dataList)
-                _handleSetPagination(resData.pagination || {})
-            }
-        })
+                if (isSuccess(resData)) {
+                    const dataList = config.parameterByList
+                        ? resData.result[config.parameterByList]
+                        : resData.result || []
+                    _handleSetList(dataList)
+                    _handleSetPagination(resData.pagination || {})
+                }
+            })
     }
 
     const _change = (name: string = '', value: any) => {

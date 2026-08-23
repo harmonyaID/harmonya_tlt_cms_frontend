@@ -35,6 +35,7 @@ import {
 
     // Boat Management
     Ship,
+    ReceiptText,
 } from 'iconsax-react'
 import { isEmpty, isNull } from 'lodash'
 import {
@@ -74,6 +75,10 @@ import {
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
 import userPath from '@/path/user.path.ts'
+import {
+    boatInquiryPrivatePath,
+    boatInquiryTransferPath,
+} from '@/path/boatInquiry.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -345,6 +350,24 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Boat"
                     icon={<Ship variant="Bulk" />}
                     to={boatPath.main}
+                />
+            </li>
+            <li className="submenu-dropdown">
+                <LinkMenuDropdown
+                    name="Boat Inquiry"
+                    to={experienceSetting.main}
+                    icon={<ReceiptText variant="Bulk" />}
+                    idControl="boat-inquiry"
+                    subMenus={[
+                        _configParamSubMenu(
+                            'Boat Transfer',
+                            boatInquiryTransferPath.main,
+                        ),
+                        _configParamSubMenu(
+                            'Private Boat',
+                            boatInquiryPrivatePath.main,
+                        ),
+                    ]}
                 />
             </li>
             <li className="">
