@@ -7,8 +7,8 @@ import moment from 'moment'
 const experienceFilterParam = () => ({
     fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
     toDate: moment().format('DD/MM/YYYY'),
-    typeIds: [],
-    areaIds: [],
+    experienceTypeIds: [],
+    experienceAreaIds: [],
     limit: 50,
 })
 

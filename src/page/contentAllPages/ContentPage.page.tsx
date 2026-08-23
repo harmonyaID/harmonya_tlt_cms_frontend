@@ -11,6 +11,8 @@ import PageSelectStatus from '@/page/contentAllPages/component/PageSelectStatus.
 import PageTable from '@/page/contentAllPages/component/PageTable.tsx'
 import usePageMainHook from '@/page/contentAllPages/hook/usePageMain.hook.ts'
 import { apiPageContent } from '@/service/api/contentManage.api.ts'
+import SelectOptionLanguage from '@/common/dataForm/SelectOptionLanguage.tsx'
+import SelectOptionPageStatus from '@/common/dataForm/SelectOptionPageStatus.tsx'
 
 const ContentPagePage = () => {
     const {
@@ -70,17 +72,18 @@ const ContentPagePage = () => {
                         clear: __actionClear,
                     }}>
                     <div className="col-md-2">
-                        <PageSelectStatus
+                        <SelectOptionPageStatus
+                            isUseHook
                             label="Status"
                             name="status"
                             className="mb-0"
                         />
                     </div>
                     <div className="col-md-2">
-                        <SelectBaseOptionLanguage
+                        <SelectOptionLanguage
+                            isUseHook
                             label="Locale"
                             name="locale"
-                            isRequired={false}
                             className="mb-0"
                         />
                     </div>

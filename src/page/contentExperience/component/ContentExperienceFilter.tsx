@@ -3,6 +3,8 @@ import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
 import SelectOptionExperienceCategory from '@/common/dataForm/SelectOptionExperienceCategory.tsx'
 import SelectBaseOptionExpType from '@/common/dataForm/SelectBaseOptionExpType.tsx'
 import SelectBaseOptionExpArea from '@/common/dataForm/SelectBaseOptionExpArea.tsx'
+import SelectOptionExperienceArea from '@/common/dataForm/SelectOptionExperienceArea.tsx'
+import SelectOptionExperienceType from '@/common/dataForm/SelectOptionExperienceType.tsx'
 
 const ContentExperienceFilter = ({
     __search,
@@ -39,8 +41,8 @@ const ContentExperienceFilter = ({
             baseContent={
                 <>
                     <div className="col-md-4 col-lg-2">
-                        <SelectBaseOptionExpArea
-                            name="areaIds"
+                        <SelectOptionExperienceArea
+                            name="experienceAreaIds"
                             placeholder="Select Area"
                             isUseHook
                             className="mb-lg-0 mb-2"
@@ -48,8 +50,8 @@ const ContentExperienceFilter = ({
                         />
                     </div>
                     <div className="col-md-4 col-lg-2">
-                        <SelectBaseOptionExpType
-                            name="typeIds"
+                        <SelectOptionExperienceType
+                            name="experienceTypeIds"
                             isUseHook
                             className="mb-lg-0 mb-2"
                             label="Type"
