@@ -9,6 +9,9 @@ const mainPath = contentAllPagesPath.main
 const ContentPagePage = lazy(
     () => import('@/page/contentAllPages/ContentPage.page.tsx'),
 )
+const ContentPageTrashPage = lazy(
+    () => import('@/page/contentAllPages/ContentPageTrash.page.tsx'),
+)
 const ContentPagePageAdd = lazy(
     () => import('@/page/contentAllPages/ContentPageAdd.page.tsx'),
 )
@@ -27,6 +30,14 @@ const ContentAllPageRoute = () => (
             element={
                 <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
                     <ContentPagePage />
+                </SuspenseLayout>
+            }
+        />
+        <Route
+            path={contentAllPagesPath.trash}
+            element={
+                <SuspenseLayout titleNavbar="Page" isCheckPermission={false}>
+                    <ContentPageTrashPage />
                 </SuspenseLayout>
             }
         />
