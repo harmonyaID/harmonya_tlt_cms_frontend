@@ -77,11 +77,11 @@ const useDataListHook = (passConfig: ConfigList = {}) => {
         config
             .urlAPI({
                 ...newSearch,
-                fromDate: actionFormatDateStrict(
-                    newSearch.fromDate,
+                dateFrom: actionFormatDateStrict(
+                    newSearch.dateFrom,
                     'YYYY-MM-DD',
                 ),
-                toDate: actionFormatDateStrict(newSearch.toDate, 'YYYY-MM-DD'),
+                dateTo: actionFormatDateStrict(newSearch.dateTo, 'YYYY-MM-DD'),
             })
             .then((resData) => {
                 _handleSetIsLoading(false)

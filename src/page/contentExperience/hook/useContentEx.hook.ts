@@ -5,8 +5,8 @@ import contentExperiencePath from '@/path/contentExperience.path.ts'
 import moment from 'moment'
 
 const experienceFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    dateTo: moment().format('DD/MM/YYYY'),
     experienceTypeIds: [],
     experienceAreaIds: [],
     limit: 50,

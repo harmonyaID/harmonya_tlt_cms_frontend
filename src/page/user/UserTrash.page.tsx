@@ -32,8 +32,8 @@ const UserTrashPage = () => {
     } = useDataListHook({
         urlAPI: getStaffTrash,
         advancedSearch: {
-            fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-            toDate: moment().format('DD/MM/YYYY'),
+            dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+            dateTo: moment().format('DD/MM/YYYY'),
             roleIds: [],
             limit: 50,
         },

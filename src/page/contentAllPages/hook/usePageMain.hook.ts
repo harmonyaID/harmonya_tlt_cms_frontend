@@ -6,8 +6,8 @@ import propertyPath from '@/path/property.path.ts'
 
 const propertyFilterParam = () => ({
     search: '',
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    dateTo: moment().format('DD/MM/YYYY'),
     limit: 50,
     status: '',
     locale: '',

@@ -5,8 +5,8 @@ import boatPath from '@/path/boat.path.ts'
 import moment from 'moment/moment'
 
 const boatFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    dateTo: moment().format('DD/MM/YYYY'),
     typeIds: [],
     limit: 50,
 })

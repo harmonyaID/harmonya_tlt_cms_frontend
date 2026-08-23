@@ -4,8 +4,8 @@ import propertyPath from '@/path/property.path.ts'
 import moment from 'moment'
 
 const propertyFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    dateTo: moment().format('DD/MM/YYYY'),
     typeIds: [],
     tagIds: [],
     sourceTypeIds: [],
