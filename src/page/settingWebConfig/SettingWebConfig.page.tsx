@@ -25,29 +25,29 @@ const SettingWebConfigPage = () => {
             <CardNavTab
                 tabs={[
                     objectTab('Web Config', 'tabWebConfig'),
-                    objectTab('Website Contact Form', 'tabWebsiteContactForm'),
-                    objectTab('Contact Form Type', 'tabContactFormType'),
+                    // objectTab('Website Contact Form', 'tabWebsiteContactForm'),
+                    // objectTab('Contact Form Type', 'tabContactFormType'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabWebConfig />),
-                    objectTabContent(
-                        '',
-                        <TabWebContactForm
-                            listContactFormType={listContactFormType}
-                            isLoadingContactFormType={isLoadingContactFormType}
-                        />,
-                    ),
-                    objectTabContent(
-                        '',
-                        <TabContactFormType
-                            action={{
-                                setIsLoadingFormType: (passData) =>
-                                    setIsLoadingListContactFormType(passData),
-                                setListFormType: (passData) =>
-                                    setListContactFormType(passData),
-                            }}
-                        />,
-                    ),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabWebContactForm
+                    //         listContactFormType={listContactFormType}
+                    //         isLoadingContactFormType={isLoadingContactFormType}
+                    //     />,
+                    // ),
+                    // objectTabContent(
+                    //     '',
+                    //     <TabContactFormType
+                    //         action={{
+                    //             setIsLoadingFormType: (passData) =>
+                    //                 setIsLoadingListContactFormType(passData),
+                    //             setListFormType: (passData) =>
+                    //                 setListContactFormType(passData),
+                    //         }}
+                    //     />,
+                    // ),
                 ]}
             />
         </>

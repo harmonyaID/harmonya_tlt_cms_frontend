@@ -23,6 +23,7 @@ export interface ModalWithActionFormCRUDLogicProps {
     detail: object | any
     formRequest: object | any
     classNameModalDialog?: string
+    isAdd?: boolean
     isEdit?: boolean
     isHideClose?: boolean
     isNeedAction?: boolean

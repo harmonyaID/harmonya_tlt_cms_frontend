@@ -37,6 +37,10 @@ body {
     -webkit-line-clamp: 2;
 }
 
+.offcanvas-footer {
+    padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+}
+
 
 // Base Config
 @import 'base/_index.base.scss';
