@@ -156,8 +156,8 @@ const FilterBarBasic = (props: FilterBarBasicProps) => {
                                             {/*) : null}*/}
                                         </>
                                     }
-                                    startName="dateFrom"
-                                    endName="dateTo"
+                                    startName="fromDate"
+                                    endName="toDate"
                                     value={formRequest}
                                 />
                             </div>
