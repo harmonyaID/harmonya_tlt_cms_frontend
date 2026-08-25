@@ -36,6 +36,7 @@ import {
     // Boat Management
     Ship,
     ReceiptText,
+    PresentionChart,
 } from 'iconsax-react'
 import { isEmpty, isNull } from 'lodash'
 import {
@@ -79,6 +80,7 @@ import {
     boatInquiryPrivatePath,
     boatInquiryTransferPath,
 } from '@/path/boatInquiry.path.ts'
+import analyticsPath from '@/path/analytics.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -246,6 +248,14 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Dashboard"
                     icon={<Home variant="Bulk" />}
                     to={dashboardPath.main}
+                />
+            </li>
+
+            <li className="">
+                <LinkMenu
+                    name="Analytics"
+                    icon={<PresentionChart variant="Bulk" />}
+                    to={analyticsPath}
                 />
             </li>
 
