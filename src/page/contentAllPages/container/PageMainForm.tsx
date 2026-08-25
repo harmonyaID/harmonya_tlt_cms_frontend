@@ -105,15 +105,15 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         />
                                     </GeneralRowForm>
 
-                                    <GeneralRowForm
-                                        label="Description"
-                                        isRequired>
-                                        <FormTextArea
-                                            name="description"
-                                            placeholder="e.g About"
-                                            required
-                                        />
-                                    </GeneralRowForm>
+                                    {/*<GeneralRowForm*/}
+                                    {/*    label="Description"*/}
+                                    {/*    isRequired>*/}
+                                    {/*    <FormTextArea*/}
+                                    {/*        name="description"*/}
+                                    {/*        placeholder="e.g About"*/}
+                                    {/*        required*/}
+                                    {/*    />*/}
+                                    {/*</GeneralRowForm>*/}
 
                                     <GeneralRowForm
                                         label="Short Description"
@@ -124,17 +124,13 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             required
                                         />
                                     </GeneralRowForm>
-                                </CardDropdown>
 
-                                <CardDropdown
-                                    title="Content Form"
-                                    isShow
-                                    id="section-content-form">
                                     <GeneralRowForm
                                         label="Content"
                                         isRequired
-                                        classNameColumnLabel="col-md-12 pb-3"
-                                        classNameColumnChild="col-md-12">
+                                        // classNameColumnLabel="col-md-12 pb-3"
+                                        // classNameColumnChild="col-md-12"
+                                    >
                                         {/*<WrapFormContext*/}
                                         {/*    formRequest={__formRequest.value}*/}
                                         {/*    actions={{*/}

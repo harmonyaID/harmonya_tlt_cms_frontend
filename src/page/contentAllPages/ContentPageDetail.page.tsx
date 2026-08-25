@@ -104,12 +104,12 @@ const ContentPageDetailPage = () => {
                                                 {__detail?.status || '-'}
                                             </span>,
                                         ),
-                                        objectListDetail(
-                                            'Description',
-                                            <PreElement className="text-capitalize">
-                                                {__detail?.description || '-'}
-                                            </PreElement>,
-                                        ),
+                                        // objectListDetail(
+                                        //     'Description',
+                                        //     <PreElement className="text-capitalize">
+                                        //         {__detail?.description || '-'}
+                                        //     </PreElement>,
+                                        // ),
                                         objectListDetail(
                                             'Short Description',
                                             <PreElement className="text-capitalize">
@@ -118,34 +118,30 @@ const ContentPageDetailPage = () => {
                                             </PreElement>,
                                         ),
 
-                                        // objectListDetail(
-                                        //     'Excerpt',
-                                        //     __detail.excerpt ? (
-                                        //         <div className="p-3 bg-neutral-600 rounded-2 border-neutral-500">
-                                        //             <TinyMCERenderer
-                                        //                 content={
-                                        //                     __detail.excerpt
-                                        //                 }
-                                        //             />
-                                        //         </div>
-                                        //     ) : (
-                                        //         '-'
-                                        //     ),
-                                        // ),
+                                        objectListDetail(
+                                            'Content',
+                                            __detail.content ? (
+                                                <TinyMCERenderer
+                                                    content={__detail.content}
+                                                />
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
                                     ]}
                                 />
                             </CardDropdown>
 
-                            <CardDropdown
-                                title="Content Information"
-                                id="section-content-information"
-                                isShow>
-                                <div className="p-4 bg-neutral-600 rounded-2">
-                                    <TinyMCERenderer
-                                        content={__detail.content}
-                                    />
-                                </div>
-                            </CardDropdown>
+                            {/*<CardDropdown*/}
+                            {/*    title="Content Information"*/}
+                            {/*    id="section-content-information"*/}
+                            {/*    isShow>*/}
+                            {/*    <div className="p-4 bg-neutral-600 rounded-2">*/}
+                            {/*        <TinyMCERenderer*/}
+                            {/*            content={__detail.content}*/}
+                            {/*        />*/}
+                            {/*    </div>*/}
+                            {/*</CardDropdown>*/}
 
                             <CardDropdown
                                 title="SEO Information"
