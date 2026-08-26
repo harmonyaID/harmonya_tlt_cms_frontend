@@ -1,7 +1,7 @@
 import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
-import TabGuestyConfig from '@/page/systemGeneralSetting/container/TabGuestyConfig.tsx'
+import TabGuestyConfig from '@/page/propertySetting/integration/container/TabGuestyConfig.tsx'
 import TabLanguage from '@/page/systemGeneralSetting/container/TabLanguage.tsx'
 import TabNewsletterConfig from '@/page/systemGeneralSetting/container/TabNewsletterConfig.tsx'
 import TabNotificationConfig from '@/page/systemGeneralSetting/container/TabNotificationConfig.tsx'
@@ -19,7 +19,6 @@ const SystemGeneralSettingPage = () => {
                     objectTab('Newsletter', 'tabNewsletter'),
                     objectTab('Redirection', 'tabRedirection'),
                     objectTab('Tracking Analytics', 'tabTrackingAnalytics'),
-                    objectTab('Guesty Configuration', 'tabGuesty'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabLanguage />),
@@ -27,7 +26,6 @@ const SystemGeneralSettingPage = () => {
                     objectTabContent('', <TabNewsletterConfig />),
                     objectTabContent('', <PageComingSoonLayout />),
                     objectTabContent('', <PageComingSoonLayout />),
-                    objectTabContent('', <TabGuestyConfig />),
                 ]}
             />
         </>

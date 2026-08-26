@@ -43,8 +43,8 @@ const UserPage = () => {
     } = useDataListHook({
         urlAPI: apiStaff.list,
         advancedSearch: {
-            dateFrom: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-            dateTo: moment().format('DD/MM/YYYY'),
+            fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+            toDate: moment().format('DD/MM/YYYY'),
             roleIds: [],
             limit: 50,
         },

@@ -99,8 +99,8 @@ const AdvanceSearch = (props: AdvanceSearchProps) => {
 
     const _handleSearchCheckMaxMonth = (isActionAdvance: boolean = false) => {
         const countMonth = dateDifference(
-            formRequest.dateFrom,
-            formRequest.dateTo,
+            formRequest.fromDate,
+            formRequest.toDate,
         )
 
         if (maxMonthRange > countMonth) {
@@ -206,8 +206,8 @@ const AdvanceSearch = (props: AdvanceSearchProps) => {
                                             ) : null}
                                         </>
                                     }
-                                    startName="dateFrom"
-                                    endName="dateTo"
+                                    startName="fromDate"
+                                    endName="toDate"
                                     value={formRequest}
                                 />
                             </div>

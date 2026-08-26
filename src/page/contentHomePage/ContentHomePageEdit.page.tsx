@@ -21,6 +21,7 @@ import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 import useHomePageMainForm from '@/page/contentHomePage/hook/useHomePageMainForm.ts'
 import {
     initSECTION3TabsItemParam,
+    initSECTION4ItemParam,
     initSECTION5SlideParam,
 } from '@/page/contentHomePage/param/homePageMainForm.param.ts'
 import contentHomePagePath from '@/path/contentHomePage.path.ts'
@@ -88,40 +89,70 @@ const ContentHomePageEditPage = () => {
         // @ts-ignore
     } = !__isLoadingDetail && !isEmpty(__detail) ? __formRequest.value : {}
 
-    const FormInputDataFileImage = memo(
-        ({
-            sectionName = '',
-            name = '',
-            value = '',
-            ...other
-        }: InputCustomProps) => {
-            return (
-                <FormUploadFile
-                    // Default
-                    {...defaultPropsFile}
+    // const FormInputDataFileImage = memo(
+    //     ({
+    //         sectionName = '',
+    //         name = '',
+    //         value = '',
+    //         ...other
+    //     }: InputCustomProps) => {
+    //         return (
+    //             <FormUploadFile
+    //                 // Default
+    //                 {...defaultPropsFile}
+    //
+    //                 {...other}
+    //
+    //                 isResetList
+    //                 accept="image/*"
+    //                 name={name}
+    //                 value={value || ''}
+    //                 actions={{
+    //                     onChange: (_, newFiles) => {
+    //                         __handleSectionInput(
+    //                             sectionName ? sectionName + '.' + name : name,
+    //                             newFiles,
+    //                         )
+    //                         // __handleUploadFile(sectionName, name, newFiles)
+    //                     },
+    //                 }}
+    //             />
+    //         )
+    //     },
+    //     (prevProps, nextProps) => {
+    //         return prevProps.value === nextProps.value
+    //     },
+    // )
 
-                    {...other}
+    const FormInputDataFileImage = ({
+        sectionName = '',
+        name = '',
+        value = '',
+        ...other
+    }: InputCustomProps) => {
+        return (
+            <FormUploadFile
+                // Default
+                {...defaultPropsFile}
 
-                    isResetList
-                    accept="image/*"
-                    name={name}
-                    value={value || ''}
-                    actions={{
-                        onChange: (_, newFiles) => {
-                            __handleSectionInput(
-                                sectionName ? sectionName + '.' + name : name,
-                                newFiles,
-                            )
-                            // __handleUploadFile(sectionName, name, newFiles)
-                        },
-                    }}
-                />
-            )
-        },
-        (prevProps, nextProps) => {
-            return prevProps.value === nextProps.value
-        },
-    )
+                {...other}
+                isUseHook={false}
+                // isResetList
+                accept="image/*"
+                name={name}
+                value={value || ''}
+                actions={{
+                    onChange: (_, newFiles) => {
+                        __handleSectionInput(
+                            sectionName ? sectionName + '.' + name : name,
+                            newFiles,
+                        )
+                        // __handleUploadFile(sectionName, name, newFiles)
+                    },
+                }}
+            />
+        )
+    }
 
     const FormInputTextEditor = ({
         sectionName = '',
@@ -143,10 +174,10 @@ const ContentHomePageEditPage = () => {
             //     required
             // />
             <FormTinyMCE
+                isSimple
                 {...other}
                 name={sectionName ? sectionName + '.' + name : name}
                 isUseHook={false}
-                isSimple
                 value={value || ''}
                 actions={{
                     onChange: (passName, passValue) =>
@@ -602,6 +633,18 @@ const ContentHomePageEditPage = () => {
                                                                             item,
                                                                             idx,
                                                                         ) => {
+                                                                            console.log(
+                                                                                'idx: ',
+                                                                                idx,
+                                                                            )
+                                                                            console.log(
+                                                                                'item: ',
+                                                                                item,
+                                                                            )
+                                                                            console.log(
+                                                                                '---------------------------',
+                                                                            )
+
                                                                             return (
                                                                                 <div
                                                                                     className="card card-body"
@@ -648,9 +691,9 @@ const ContentHomePageEditPage = () => {
                                                                                                 __handleSectionInput(
                                                                                                     'SECTION3.tabs[' +
                                                                                                         index +
-                                                                                                        ']items[' +
+                                                                                                        '].items[' +
                                                                                                         idx +
-                                                                                                        ']' +
+                                                                                                        '].' +
                                                                                                         name,
                                                                                                     value,
                                                                                                 ),
@@ -853,6 +896,24 @@ const ContentHomePageEditPage = () => {
                                                         },
                                                     )}
                                                 </div>
+
+                                                {/*<BtnPrimary*/}
+                                                {/*    className="mt-2 w-100"*/}
+                                                {/*    type="button"*/}
+                                                {/*    // isOutline*/}
+                                                {/*    onClick={() =>*/}
+                                                {/*        __handleSectionInput(*/}
+                                                {/*            'SECTION4.items[' +*/}
+                                                {/*                SECTION4.items*/}
+                                                {/*                    .length +*/}
+                                                {/*                ']',*/}
+                                                {/*            {*/}
+                                                {/*                ...initSECTION4ItemParam,*/}
+                                                {/*            },*/}
+                                                {/*        )*/}
+                                                {/*    }>*/}
+                                                {/*    Add New*/}
+                                                {/*</BtnPrimary>*/}
                                             </GeneralRowForm>
                                         </CardDropdown>
 
@@ -867,6 +928,9 @@ const ContentHomePageEditPage = () => {
                                                 const isLast =
                                                     SECTION5.length ===
                                                     index + 1
+
+                                                const isRemove =
+                                                    SECTION5.length > 1
 
                                                 return (
                                                     <div
@@ -889,15 +953,17 @@ const ContentHomePageEditPage = () => {
                                                                 </h6>
                                                             </div>
                                                             <div className="col-auto pb-2">
-                                                                <BtnCircleRemove
-                                                                    actions={{
-                                                                        remove: () =>
-                                                                            __handleSectionRemoveNested(
-                                                                                'SECTION5',
-                                                                                index,
-                                                                            ),
-                                                                    }}
-                                                                />
+                                                                {isRemove ? (
+                                                                    <BtnCircleRemove
+                                                                        actions={{
+                                                                            remove: () =>
+                                                                                __handleSectionRemoveNested(
+                                                                                    'SECTION5',
+                                                                                    index,
+                                                                                ),
+                                                                        }}
+                                                                    />
+                                                                ) : null}
                                                             </div>
                                                         </div>
 
@@ -1377,6 +1443,7 @@ const ContentHomePageEditPage = () => {
                                                     value={
                                                         SECTION11?.content || ''
                                                     }
+                                                    isSimple={false}
                                                     required
                                                 />
                                             </GeneralRowForm>
@@ -1455,6 +1522,7 @@ const ContentHomePageEditPage = () => {
                                                 <FormInputTextEditor
                                                     sectionName="SECTION13"
                                                     name="content"
+                                                    // isSimple={false}
                                                     value={
                                                         SECTION13?.content || ''
                                                     }
