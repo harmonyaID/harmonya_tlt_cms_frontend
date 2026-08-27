@@ -10,6 +10,12 @@ const ContentOfferPage = lazy(
 const ContentOfferTrashPage = lazy(
     () => import('@/page/contentOffer/ContentOfferTrash.page.tsx'),
 )
+const ContentOfferAddPage = lazy(
+    () => import('@/page/contentOffer/ContentOfferAdd.page.tsx'),
+)
+const ContentOfferEditPage = lazy(
+    () => import('@/page/contentOffer/ContentOfferEdit.page.tsx'),
+)
 
 const ContentOfferRoute = () => {
     return (
@@ -32,6 +38,28 @@ const ContentOfferRoute = () => {
                         titleNavbar="Offer"
                         isCheckPermission={false}>
                         <ContentOfferTrashPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentOfferPath.add}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Offer"
+                        isCheckPermission={false}>
+                        <ContentOfferAddPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentOfferPath.edit()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Offer"
+                        isCheckPermission={false}>
+                        <ContentOfferEditPage />
                     </SuspenseLayout>
                 }
             />
