@@ -37,6 +37,7 @@ import {
     Ship,
     ReceiptText,
     PresentionChart,
+    Timer1,
 } from 'iconsax-react'
 import { isEmpty, isNull } from 'lodash'
 import {
@@ -83,6 +84,7 @@ import {
 import analyticsPath from '@/path/analytics.path.ts'
 import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
 import { islandGuideSetting } from '@/path/islandGuideManage.path.ts'
+import contentOfferPath from '@/path/contentOffer.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -281,6 +283,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Blog"
                     icon={<Blogger variant="Bulk" />}
                     to={contentBlogPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Offer"
+                    icon={<Timer1 variant="Bulk" />}
+                    to={contentOfferPath.main}
                 />
             </li>
             <li className="">
