@@ -16,6 +16,10 @@ import {
     SrvHomePageContentCRUD,
     SrvMenuContentCRUD,
     SrvMenuTypeStatic,
+    SrvOfferContentCRUD,
+    SrvOfferRestore,
+    SrvOfferTrash,
+    SrvOfferTrashWithId,
     SrvPageContentCRUD,
     SrvPageContentRestore,
     SrvPageContentTrash,
@@ -62,6 +66,20 @@ export const permanentDeleteBlog = (id: string | number) =>
 
 export const restoreBlog = (id: string | number) =>
     _shapeMethodPost(SrvBlogRestore(id))
+
+// Offer
+export const apiOfferContent = {
+    ..._shapeObjectMethodCRUD(SrvOfferContentCRUD),
+}
+
+export const getOfferTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvOfferTrash, search)
+
+export const permanentDeleteOffer = (id: string | number) =>
+    _shapeMethodDel(SrvOfferTrashWithId(id))
+
+export const restoreOffer = (id: string | number) =>
+    _shapeMethodPost(SrvOfferRestore(id))
 
 // Experience
 export const apiExperienceContent = {
