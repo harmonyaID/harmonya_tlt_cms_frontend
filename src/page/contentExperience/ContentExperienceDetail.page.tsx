@@ -333,7 +333,7 @@ const ContentExperienceDetailPage = () => {
                                 <SectionPreviewSEOInformation
                                     isTitle={false}
                                     classNameColumn="col-md-9"
-                                    seo={__detail.seo}
+                                    seo={__detail?.seo || {}}
                                 />,
                             ),
                         ]}
