@@ -37,6 +37,7 @@ import {
     Ship,
     ReceiptText,
     PresentionChart,
+    Timer1,
 } from 'iconsax-react'
 import { isEmpty, isNull } from 'lodash'
 import {
@@ -81,6 +82,9 @@ import {
     boatInquiryTransferPath,
 } from '@/path/boatInquiry.path.ts'
 import analyticsPath from '@/path/analytics.path.ts'
+import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
+import { islandGuideSetting } from '@/path/islandGuideManage.path.ts'
+import contentOfferPath from '@/path/contentOffer.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -283,6 +287,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             </li>
             <li className="">
                 <LinkMenu
+                    name="Offer"
+                    icon={<Timer1 variant="Bulk" />}
+                    to={contentOfferPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
                     name="Menu"
                     icon={<HambergerMenu variant="Bulk" />}
                     to={contentMenuPath.main}
@@ -339,20 +350,24 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     ]}
                 />
             </li>
-            {/*<li className="">*/}
-            {/*    <LinkMenu*/}
-            {/*        name="Type"*/}
-            {/*        icon={<Flag variant="Bulk" />}*/}
-            {/*        to={experienceTypePath.main}*/}
-            {/*    />*/}
-            {/*</li>*/}
-            {/*<li className="">*/}
-            {/*    <LinkMenu*/}
-            {/*        name="Area"*/}
-            {/*        icon={<Map variant="Bulk" />}*/}
-            {/*        to={experienceAreaPath.main}*/}
-            {/*    />*/}
-            {/*</li>*/}
+
+            <MenuSection name="Island Guide Management" />
+            <li className="">
+                <LinkMenu
+                    name="Island Guide"
+                    icon={<Map variant="Bulk" />}
+                    to={contentIslandGuidePath.main}
+                />
+            </li>
+            <li className="submenu-dropdown">
+                <LinkMenuDropdown
+                    name="Island Guide Setting"
+                    to={islandGuideSetting.main}
+                    icon={<Setting variant="Bulk" />}
+                    idControl="island-guide-setting"
+                    subMenus={[]}
+                />
+            </li>
 
             <MenuSection name="Boat Management" />
             <li className="">

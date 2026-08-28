@@ -20,6 +20,8 @@ import PropertyReviewsRoute from '@/route/PropertyReviews.route.tsx'
 import PropertySettingRoute from '@/route/PropertySetting.route.tsx'
 import SystemManagementRoute from '@/route/SystemManagement.route.tsx'
 import UserRoute from '@/route/User.route.tsx'
+import ContentIslandGuideRoute from '@/route/ContentIslandGuide.route.tsx'
+import ContentOfferRoute from '@/route/ContentOffer.route.tsx'
 
 const App = () => {
     return (
@@ -31,7 +33,9 @@ const App = () => {
                         {UserRoute()}
                         {ContentAllPageRoute()}
                         {ContentBlogRoute()}
+                        {ContentOfferRoute()}
                         {ContentExperienceRoute()}
+                        {ContentIslandGuideRoute()}
                         {ContentHomePageRoute()}
                         {ContentMenuRoute()}
                         {ContentSettingRoute()}

@@ -32,6 +32,18 @@ export const SrvBlogTrashWithId = (id: string | number = ''): string =>
 export const SrvBlogRestore = (id: string | number = ''): string =>
     baseAPIBlog + '/trash/' + id + '/restore'
 
+// Offer
+const baseAPIOffer = baseAPI + '/offers'
+export const SrvOfferContentCRUD = { ...objectPathEndPointAPI(baseAPIOffer) }
+
+export const SrvOfferTrash = baseAPIOffer + '/trash'
+
+export const SrvOfferTrashWithId = (id: string | number = ''): string =>
+    baseAPIOffer + '/trash/' + id
+
+export const SrvOfferRestore = (id: string | number = ''): string =>
+    baseAPIOffer + '/trash/' + id + '/restore'
+
 // Experiences
 const baseAPIExperience = baseAPI + '/experiences'
 export const SrvExperiencesContentCRUD =

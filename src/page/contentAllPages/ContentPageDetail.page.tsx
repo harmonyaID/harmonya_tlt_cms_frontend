@@ -149,7 +149,7 @@ const ContentPageDetailPage = () => {
                                 isShow>
                                 <SectionPreviewSEOInformation
                                     isTitle={false}
-                                    seo={__detail.seo}
+                                    seo={__detail?.seo || {}}
                                 />
                             </CardDropdown>
                         </div>

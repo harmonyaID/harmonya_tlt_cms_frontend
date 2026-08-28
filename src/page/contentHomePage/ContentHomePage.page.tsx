@@ -451,15 +451,21 @@ const ContentHomePagePage = () => {
                                             />,
                                         ),
                                         objectListDetail(
+                                            'Description',
+                                            <RenderHtml
+                                                html={SECTION6.description}
+                                            />,
+                                        ),
+                                        objectListDetail(
                                             'Button Text',
                                             <RenderHtml
-                                                html={SECTION5.buttonText}
+                                                html={SECTION6.buttonText}
                                             />,
                                         ),
                                         objectListDetail(
                                             'Button Link',
                                             <RenderHtml
-                                                html={SECTION5.buttonLink}
+                                                html={SECTION6.buttonLink}
                                             />,
                                         ),
                                     ]}

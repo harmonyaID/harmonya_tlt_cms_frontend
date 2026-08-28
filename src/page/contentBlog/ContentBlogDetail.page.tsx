@@ -12,12 +12,12 @@ import PreElement from '@/component/general/PreElement.tsx'
 import PreviewJson from '@/component/general/PreviewJson.tsx'
 import SEOPreviewPublic from '@/component/general/SEOPreviewPublic.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import useContentBlogDetail from '@/page/contentBlog/hook/useContentBlogDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
-import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
 
 const ContentBlogDetailPage = () => {
     const {
@@ -137,7 +137,7 @@ const ContentBlogDetailPage = () => {
                             <CardDropdown title="SEO Information" isShow>
                                 <SectionPreviewSEOInformation
                                     isTitle={false}
-                                    seo={__detail.seo}
+                                    seo={__detail?.seo || {}}
                                 />
                             </CardDropdown>
                         </div>

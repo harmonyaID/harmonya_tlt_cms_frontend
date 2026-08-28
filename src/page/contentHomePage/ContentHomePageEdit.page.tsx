@@ -18,6 +18,7 @@ import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
+import setNestedValue from '@/helper/setNestedValue.helper.ts'
 import useHomePageMainForm from '@/page/contentHomePage/hook/useHomePageMainForm.ts'
 import {
     initSECTION3TabsItemParam,
@@ -633,18 +634,6 @@ const ContentHomePageEditPage = () => {
                                                                             item,
                                                                             idx,
                                                                         ) => {
-                                                                            console.log(
-                                                                                'idx: ',
-                                                                                idx,
-                                                                            )
-                                                                            console.log(
-                                                                                'item: ',
-                                                                                item,
-                                                                            )
-                                                                            console.log(
-                                                                                '---------------------------',
-                                                                            )
-
                                                                             return (
                                                                                 <div
                                                                                     className="card card-body"
@@ -1099,19 +1088,29 @@ const ContentHomePageEditPage = () => {
                                                 />
                                             </GeneralRowForm>
 
-                                            <GeneralRowForm
-                                                label="Action"
-                                                isRequired>
-                                                <WrapFormContext
-                                                    formRequest={SECTION6}
-                                                    actions={{
-                                                        change: (name, value) =>
-                                                            __handleSectionInput(
-                                                                'SECTION6.' +
-                                                                    name,
-                                                                value,
-                                                            ),
-                                                    }}>
+                                            <WrapFormContext
+                                                formRequest={SECTION6}
+                                                actions={{
+                                                    change: (name, value) =>
+                                                        __handleSectionInput(
+                                                            'SECTION6.' + name,
+                                                            value,
+                                                        ),
+                                                }}>
+                                                <GeneralRowForm label="Description">
+                                                    <FormTextArea
+                                                        name="description"
+                                                        placeholder="e.g Ringed by crystal clear turquoise waters and just 30 minutes from Bali."
+                                                        value={
+                                                            SECTION6?.description ||
+                                                            ''
+                                                        }
+                                                    />
+                                                </GeneralRowForm>
+
+                                                <GeneralRowForm
+                                                    label="Action"
+                                                    isRequired>
                                                     <div className="row">
                                                         <div className="col-md-6">
                                                             <FormInput
@@ -1136,8 +1135,8 @@ const ContentHomePageEditPage = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                </WrapFormContext>
-                                            </GeneralRowForm>
+                                                </GeneralRowForm>
+                                            </WrapFormContext>
                                         </CardDropdown>
 
                                         {/*SECTION 7*/}
