@@ -1,5 +1,7 @@
 import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 import TopTenCard from '@/page/analytics/component/TopTenCard.tsx'
+import BarChart from '@/page/analytics/component/BarChart.tsx'
+import LineChart from '@/page/analytics/component/LineChart.tsx'
 
 const AnalyticsPage = () => {
     return (
@@ -21,8 +23,12 @@ const AnalyticsPage = () => {
                     <TopTenCard title="10 Highest Review Property " />
                 </div>
             </div>
-            <p>Chart Boat Inquiry</p>
-            <p>Chart score distribution property review</p>
+            <div className="mt-4">
+                <BarChart />
+            </div>
+            <div className="mt-4">
+                <LineChart />
+            </div>
         </>
     )
 }

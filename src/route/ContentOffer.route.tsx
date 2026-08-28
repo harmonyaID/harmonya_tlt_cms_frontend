@@ -16,6 +16,9 @@ const ContentOfferAddPage = lazy(
 const ContentOfferEditPage = lazy(
     () => import('@/page/contentOffer/ContentOfferEdit.page.tsx'),
 )
+const ContentOfferDetailPage = lazy(
+    () => import('@/page/contentOffer/ContentOfferDetail.page.tsx'),
+)
 
 const ContentOfferRoute = () => {
     return (
@@ -60,6 +63,17 @@ const ContentOfferRoute = () => {
                         titleNavbar="Offer"
                         isCheckPermission={false}>
                         <ContentOfferEditPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentOfferPath.detail()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Offer"
+                        isCheckPermission={false}>
+                        <ContentOfferDetailPage />
                     </SuspenseLayout>
                 }
             />
