@@ -1,23 +1,24 @@
-import { useParams } from 'react-router'
-import useLocationStateHook from '@/hook/useLocationState.hook.ts'
-import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
-import contentBlogPath from '@/path/contentBlog.path.ts'
 import { useEffect, useState } from 'react'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
-import { apiBlogContent, apiMenu } from '@/service/api/contentManage.api.ts'
-import { apiLanguage } from '@/service/api/contentManageSetting.api.ts'
-import { isSuccess } from '@/helper/base/condition.helper.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
+import { useParams } from 'react-router'
+import { isEmpty, isArray } from 'lodash'
+import { MENU_ID } from '@/config/menu.config.ts'
 import { MDContentMenuAddMenuItem } from '@/config/modal.config.ts'
+import actionModal from '@/helper/base/actionModal.helper.ts'
+import { isSuccess } from '@/helper/base/condition.helper.ts'
 import {
     getSiblingsLength,
     getDepthById,
     upsertMenuItem,
     removeMenuItem,
 } from '@/helper/menuTree.helper.ts'
+import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
+import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
+import useLocationStateHook from '@/hook/useLocationState.hook.ts'
+import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
+import contentBlogPath from '@/path/contentBlog.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
-import { isEmpty, isArray } from 'lodash'
+import { apiBlogContent, apiMenu } from '@/service/api/contentManage.api.ts'
+import { apiLanguage } from '@/service/api/contentManageSetting.api.ts'
 
 const MAX_MENU_DEPTH = 3
 
@@ -33,6 +34,8 @@ const initMenuParam = {
     menuOrder: '',
     menuParent: '',
     children: [],
+
+    typeId: MENU_ID,
 }
 
 const initMenuParamMap = (passData) => ({})
@@ -43,6 +46,10 @@ const initForm = {
     groupId: '',
     locale: 'en',
     items: [],
+
+    typeId: MENU_ID,
+    description: '',
+    featuredImage: '',
 }
 
 const initMapForm = (passData) => ({
@@ -50,6 +57,9 @@ const initMapForm = (passData) => ({
     handle: passData?.handle || '',
     groupId: passData?.groupId || '',
     locale: passData?.locale || '',
+
+    typeId: passData?.type?.id || MENU_ID,
+
     items:
         !isEmpty(passData.items) && isArray(passData.items)
             ? passData.items
