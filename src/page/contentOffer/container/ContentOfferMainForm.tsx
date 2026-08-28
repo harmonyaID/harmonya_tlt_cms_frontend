@@ -23,6 +23,7 @@ import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import useContentOfferMainForm from '@/page/contentOffer/hook/useContentOfferMainForm.hook.ts'
 import contentOfferPath from '@/path/contentOffer.path.ts'
 import FormInputDatePicker from '@/component/form/FormInputDatePicker.tsx'
+import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
 
 const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -36,7 +37,9 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeTitle,
 
         // tags
-        __listTags,
+        __listProperties,
+        __handlePropertyChoose,
+        __handlePropertyRemove,
 
         // Thumbnail
         __previewThumbnail,
@@ -174,6 +177,8 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     formRequest={__formRequest}
                                     actions={{
                                         change: __handleChange,
+                                        changePropertyOld: (data) =>
+                                            __handlePropertyChoose(data),
                                     }}>
                                     <Card title="Other Information">
                                         <div className="">
@@ -253,6 +258,23 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         label: 'Yes',
                                                     },
                                                 ]}
+                                            />
+
+                                            <SelectOptionProperty
+                                                label="Properties"
+                                                name="propertyIds"
+                                                nameOfChange="changePropertyOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.propertyIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listProperties}
+                                                dataActions={{
+                                                    remove: __handlePropertyRemove,
+                                                }}
                                             />
                                         </div>
                                     </Card>

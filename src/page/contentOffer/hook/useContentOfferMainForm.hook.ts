@@ -10,9 +10,13 @@ import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
-import { apiBlogContent } from '@/service/api/contentManage.api.ts'
+import {
+    apiBlogContent,
+    apiOfferContent,
+} from '@/service/api/contentManage.api.ts'
 import moment from 'moment'
 import contentOfferPath from '@/path/contentOffer.path.ts'
+import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
 
 const defaultActive = '1'
 
@@ -21,7 +25,7 @@ const initForm = {
     slug: '',
     excerpt: '',
     content: '', // text editor
-    publishedAt: formatDatePublish() || '',
+    publishedAt: moment().format('DD/MM/YYYY') || '',
     startDate: moment().format('DD/MM/YYYY') || '',
     endDate: moment().format('DD/MM/YYYY') || '',
     isActive: defaultActive,
@@ -38,7 +42,7 @@ const initMapForm = (passData) => ({
     slug: passData?.slug || '',
     excerpt: passData?.excerpt || '',
     content: passData?.content || '', // text editor
-    publishedAt: passData?.publishedAt || formatDatePublish(),
+    publishedAt: passData?.publishedAt || moment().format('DD/MM/YYYY'),
     startDate: passData?.startDate || moment().format('DD/MM/YYYY'),
     endDate: passData?.endDate || moment().format('DD/MM/YYYY'),
     isActive: passData?.isActive ? defaultActive : '0',
@@ -71,7 +75,7 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const [listTags, setListTags] = useState<any[]>([])
+    const [listProperties, setListProperties] = useState<any[]>([])
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -99,7 +103,7 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     }
 
     const dataDetail = useDetailFormRequestHook({
-        urlAPI: () => apiBlogContent.detail(id),
+        urlAPI: () => apiOfferContent.detail(id),
         formRequest,
         setFormRequest,
         isManualSetFormRequest: true,
@@ -118,21 +122,68 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 if (res?.seo?.thumbnail) {
                     setSetSEOThumbnail(res.seo.thumbnail)
                 }
+
+                if (!isEmpty(res?.properties)) {
+                    setListProperties(res?.properties)
+                }
             }
         },
         isAutoGet: isEdit,
     })
+
+    const _handlePropertyChoose = (newProperty) => {
+        if (!isEmpty(newProperty)) {
+            const checkData = isArray(newProperty)
+                ? newProperty[0]
+                : isObject(newProperty)
+                  ? newProperty
+                  : {}
+
+            nestedForm._handleArrAddMulti('propertyIds', [checkData.id])
+
+            // @ts-ignore
+            setListProperties((prevState) => [...prevState, ...newProperty])
+        }
+    }
+
+    const _handlePropertyRemove = (dataProperty) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.propertyIds = newState.propertyIds.filter(
+                (id) => id !== dataProperty.id,
+            )
+
+            return newState
+        })
+
+        setListProperties((prev) =>
+            prev.filter((property) => property.id !== dataProperty.id),
+        )
+    }
 
     const isLoadingDetail = isEdit
         ? dataDetail.__isLoadingDetailFormRequest
         : false
 
     const _handleSubmit = () => {
+        const payload = {
+            ...formRequest,
+            startDate: actionFormatDateStrict(
+                formRequest.startDate,
+                'YYYY-MM-DD',
+            ),
+            endDate: actionFormatDateStrict(formRequest.endDate, 'YYYY-MM-DD'),
+            publishedAt: actionFormatDateStrict(
+                formRequest.publishedAt,
+                'YYYY-MM-DD',
+            ),
+        }
+
         return __handleSubmit({
             apiCall: () =>
                 isEdit
-                    ? apiBlogContent.updateWithData(id, formRequest)
-                    : apiBlogContent.addWithData(formRequest),
+                    ? apiOfferContent.updateWithData(id, payload)
+                    : apiOfferContent.addWithData(payload),
             setIsLoading,
             isDirectToDetail: true,
         })
@@ -150,8 +201,10 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeWithParent: nestedForm._handleChangeWithParent,
         __handleChangeTitle: _handleChangeTitle,
 
-        __listTags: listTags,
-        __setListTags: setListTags,
+        __listProperties: listProperties,
+        __setListProperties: setListProperties,
+        __handlePropertyChoose: _handlePropertyChoose,
+        __handlePropertyRemove: _handlePropertyRemove,
 
         __previewThumbnail: previewThumbnail,
         __setPreviewThumbnail: setPreviewThumbnail,
