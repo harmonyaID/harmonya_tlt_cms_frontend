@@ -20,14 +20,23 @@ export const propertyMapFormRoom = (passData: Record<string, any> = {}) => ({
 
 export const propertyMapFormDesc = (passData: Record<string, any> = {}) => ({
     channel: passData.channel || '',
-    gettingAround: passData.gettingAround || '',
-    guestAccess: passData.guestAccess || '',
     language: passData.language || '',
-    otherThingsToNote: passData.otherThingsToNote || '',
-    summary: passData.summary || '',
-    theNeighborhood: passData.theNeighborhood || '',
-    theSpace: passData.theSpace || '',
     title: passData.title || '',
+    summary: passData.summary || '',
+    theSpace: passData.theSpace || '',
+    guestAccess: passData.guestAccess || '',
+    theNeighborhood: passData.theNeighborhood || '',
+    gettingAround: passData.gettingAround || '',
+    otherThingsToNote: passData.otherThingsToNote || '',
+
+    // gettingAround: passData.gettingAround || '',
+    // guestAccess: passData.guestAccess || '',
+    // language: passData.language || '',
+    // otherThingsToNote: passData.otherThingsToNote || '',
+    // summary: passData.summary || '',
+    // theNeighborhood: passData.theNeighborhood || '',
+    // theSpace: passData.theSpace || '',
+    // title: passData.title || '',
 })
 
 export const propertyInitForm = {

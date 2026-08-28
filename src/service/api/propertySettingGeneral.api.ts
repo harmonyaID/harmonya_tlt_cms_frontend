@@ -39,11 +39,17 @@ import {
     SrvPropertyTagTrash,
     SrvPropertyTagTrashWithId,
     SrvPropertyTagRestore,
+    SrvPropertySourceTypeCRUD,
 } from '@/service/api/_property.endPoint.ts'
+
+export const apiPropertySourceType = {
+    ..._shapeObjectMethodCRUD(SrvPropertySourceTypeCRUD),
+}
 
 export const apiPropertyType = {
     ..._shapeObjectMethodCRUD(SrvPropertyTypeCRUD),
 }
+
 export const getPropertyTypeTrash = (search: any) =>
     _shapeMethodGetSearch(
         SrvPropertyTypeTrash,

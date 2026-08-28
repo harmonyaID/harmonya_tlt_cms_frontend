@@ -41,6 +41,11 @@ export const SrvPropertyReviewsRestore = (id: string | number = ''): string =>
 
 // Setting
 const baseAPIPropertyType = baseAPIProperty + '/types'
+
+export const SrvPropertySourceTypeCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPIProperty + '/source-types',
+)
+
 export const SrvPropertyTypeCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPIPropertyType)
 export const SrvPropertyTypeTrash = baseAPIPropertyType + '/trash'
