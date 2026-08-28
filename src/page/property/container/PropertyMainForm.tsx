@@ -10,6 +10,7 @@ import SelectBaseOptionStaticSourceType from '@/common/dataForm/SelectBaseOption
 import SelectBaseOptionStaticUnitType from '@/common/dataForm/SelectBaseOptionStaticUnitType.tsx'
 import SelectOptionPropertyBedType from '@/common/dataForm/SelectOptionPropertyBedType.tsx'
 import SelectOptionPropertyRoomType from '@/common/dataForm/SelectOptionPropertyRoomType.tsx'
+import SelectOptionPropertySourceType from '@/common/dataForm/SelectOptionPropertySourceType.tsx'
 import SelectOptionPropertyTag from '@/common/dataForm/SelectOptionPropertyTag.tsx'
 import SelectOptionPropertyType from '@/common/dataForm/SelectOptionPropertyType.tsx'
 import Card from '@/component/card/Card.tsx'
@@ -130,9 +131,21 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <GeneralRowForm
                                                 label="Source Type"
                                                 isRequired>
-                                                <SelectBaseOptionStaticSourceType
+                                                {/*<SelectBaseOptionStaticSourceType*/}
+                                                {/*    name="sourceTypeId"*/}
+                                                {/*    isRequired*/}
+                                                {/*/>*/}
+                                                <SelectOptionPropertySourceType
                                                     name="sourceTypeId"
-                                                    isRequired
+                                                    isUseHook
+                                                    required
+                                                    ids={[
+                                                        ...(__formRequest.sourceTypeId
+                                                            ? [
+                                                                  __formRequest.sourceTypeId,
+                                                              ]
+                                                            : []),
+                                                    ]}
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
@@ -728,6 +741,26 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                         placeholder="e.g Primary"
                                                                     />
                                                                 </GeneralRowForm>
+                                                                <GeneralRowForm
+                                                                    label="Channel"
+                                                                    isRequired={
+                                                                        false
+                                                                    }>
+                                                                    <FormInput
+                                                                        name="channel"
+                                                                        placeholder="e.g Primary"
+                                                                    />
+                                                                </GeneralRowForm>
+                                                                <GeneralRowForm
+                                                                    label="The Space"
+                                                                    isRequired={
+                                                                        false
+                                                                    }>
+                                                                    <FormInput
+                                                                        name="theSpace"
+                                                                        placeholder="e.g Primary"
+                                                                    />
+                                                                </GeneralRowForm>
 
                                                                 {/*<GeneralRowForm*/}
                                                                 {/*    label="Channel"*/}
@@ -749,6 +782,29 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                     <FormInput
                                                                         // label="Getting Around"
                                                                         name="gettingAround"
+                                                                        placeholder="e.g Car"
+                                                                    />
+                                                                </GeneralRowForm>
+
+                                                                <GeneralRowForm
+                                                                    label="The Neighborhood"
+                                                                    isRequired={
+                                                                        false
+                                                                    }>
+                                                                    <FormInput
+                                                                        // label="Getting Around"
+                                                                        name="theNeighborhood"
+                                                                        placeholder="e.g Car"
+                                                                    />
+                                                                </GeneralRowForm>
+
+                                                                <GeneralRowForm
+                                                                    label="Other Things To Note"
+                                                                    isRequired={
+                                                                        false
+                                                                    }>
+                                                                    <FormTextArea
+                                                                        name="otherThingsToNote"
                                                                         placeholder="e.g Car"
                                                                     />
                                                                 </GeneralRowForm>
