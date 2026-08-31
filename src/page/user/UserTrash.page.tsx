@@ -35,6 +35,8 @@ const UserTrashPage = () => {
             fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
             toDate: moment().format('DD/MM/YYYY'),
             roleIds: [],
+            countryId: '',
+            genderId: '',
             limit: 50,
         },
     })
