@@ -6,12 +6,13 @@ import moment from 'moment'
 const propertyFilterParam = () => ({
     fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
     toDate: moment().format('DD/MM/YYYY'),
-    typeIds: [],
+    propertyTypeIds: [],
     tagIds: [],
+    area: '',
     sourceTypeIds: [],
     amenitiesCategoryIds: [],
-    occupancyFrom: '',
-    occupancyTo: '',
+    occupancyMax: 0,
+    occupancyMin: 0,
     limit: 50,
 })
 

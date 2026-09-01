@@ -5,6 +5,8 @@ import SelectBaseOptionStaticSourceType from '@/common/dataForm/SelectBaseOption
 import FormInput from '@/component/form/FormInput.tsx'
 import SelectOptionPropertyTag from '@/common/dataForm/SelectOptionPropertyTag.tsx'
 import SelectOptionPropertyAmenitiesCategory from '@/common/dataForm/SelectOptionPropertyAmenitiesCategory.tsx'
+import FormRange from '@/component/form/FormRange.tsx'
+import SelectOptionPropertySourceType from '@/common/dataForm/SelectOptionPropertySourceType.tsx'
 
 const PropertyFilter = ({
     __search,
@@ -41,29 +43,19 @@ const PropertyFilter = ({
                 <>
                     <div className="col-md-4 col-lg-2">
                         <SelectOptionPropertyType
-                            name="typeIds"
+                            name="propertyTypeIds"
                             isUseHook
                             className="mb-lg-0 mb-2"
                             label="Type"
                         />
                     </div>
                     <div className="col-md-4 col-lg-2">
-                        <div className="hstack gap-1 align-items-end">
-                            <FormInput
-                                label="Occupancy"
-                                name="occupancyFrom"
-                                placeholder="0"
-                                isNumberOnly
-                                className="mb-lg-0 mb-2"
-                            />
-                            <p className="mb-2 text-neutral-400">to</p>
-                            <FormInput
-                                name="occupancyTo"
-                                placeholder="100"
-                                isNumberOnly
-                                className="mb-lg-0 mb-2"
-                            />
-                        </div>
+                        <SelectOptionPropertySourceType
+                            name="sourceTypeIds"
+                            label="Source Type"
+                            isUseHook
+                            className="mb-lg-0 mb-2"
+                        />
                     </div>
                 </>
             }
@@ -71,24 +63,21 @@ const PropertyFilter = ({
                 <>
                     <div className="col-6">
                         <SelectOptionPropertyType
-                            name="typeIds"
+                            name="propertyTypeIds"
                             isUseHook
                             label="Type"
                         />
                     </div>
                     <div className="col-6">
                         <div className="hstack gap-1 align-items-end">
-                            <FormInput
+                            <FormRange
                                 label="Occupancy"
-                                name="occupancyFrom"
+                                name="occupancyMax"
                                 placeholder="0"
-                                isNumberOnly
-                            />
-                            <p className="text-neutral-400">to</p>
-                            <FormInput
-                                name="occupancyTo"
-                                placeholder="100"
-                                isNumberOnly
+                                type="range"
+                                min={0}
+                                max={100}
+                                className="mb-lg-0 mb-2"
                             />
                         </div>
                     </div>
@@ -104,6 +93,20 @@ const PropertyFilter = ({
                             name="tagIds"
                             isUseHook
                             label="Amenities Category"
+                        />
+                    </div>
+                    <div className="col-6">
+                        <FormInput
+                            name="area"
+                            label="Area"
+                            placeholder="e.g. JungutBatu"
+                        />
+                    </div>
+                    <div className="col-6">
+                        <SelectOptionPropertySourceType
+                            name="sourceTypeIds"
+                            label="Source Type"
+                            isUseHook
                         />
                     </div>
                 </>

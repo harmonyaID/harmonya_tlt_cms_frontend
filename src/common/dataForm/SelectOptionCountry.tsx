@@ -25,7 +25,7 @@ const SelectOptionCountry = (props: SelectOptionGeneralProps) => {
         name = '',
         className = '',
         label = '',
-        placeholder = 'Select Access',
+        placeholder = 'Select Country',
 
         nameOfChange = '',
         valueKey = 'value',
