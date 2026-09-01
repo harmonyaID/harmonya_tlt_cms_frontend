@@ -31,8 +31,10 @@ import usePropertyMainForm from '@/page/property/hook/usePropertyMainForm.hook.t
 import {
     propertyMapFormAddress,
     propertyMapFormDesc,
+    propertyMapFormRoom,
 } from '@/page/property/param/propertyMainForm.param.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
+import propertyPath from '@/path/property.path.ts'
 
 const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -75,7 +77,7 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             <NavBreadcrumb
                 navs={[
                     objectNavBread('Property', {
-                        url: contentExperiencePath.main,
+                        url: propertyPath.main,
                         state: __pageStateDataSearch,
                     }),
                     objectNavBread(isEdit ? 'Edit' : 'Add'),
@@ -452,7 +454,7 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         __handleArrToggle(
                                                             -1,
                                                             'rooms',
-                                                            propertyMapFormAddress(),
+                                                            propertyMapFormRoom(),
                                                         )
                                                     }>
                                                     Add New Room
