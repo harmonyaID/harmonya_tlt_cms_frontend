@@ -117,6 +117,8 @@ export interface FormUploadFileWithActionPreviewLogicProps {
 
     classNameRowImg?: string
     columnSizeImg?: string
+
+    nameInput?: string
 }
 
 // Modal With Action Form CRUD
@@ -165,7 +167,11 @@ export interface PreviewFileModalLogicProps {
     dataUrl: string
     dataBy?: string
     dataFile?: object | any
+    isShowBtnRemove?: boolean
     classNameWidth?: string
+    actions?: {
+        remove: () => void
+    }
 }
 
 export interface PreviewFileModalMultiLogicProps {
@@ -174,7 +180,11 @@ export interface PreviewFileModalMultiLogicProps {
     className?: string
     classNameColumnPreview?: string
     classNameImagePreview?: string
+    classNameWrapImg?: string
     children?: ReactNode
+    isDescription?: boolean
+    labelDescription?: string
+    keyDescription?: string
 }
 
 export interface IframeLayoutProps {

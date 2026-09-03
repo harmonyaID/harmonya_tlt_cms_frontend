@@ -6,8 +6,7 @@ import {
 } from 'react'
 
 // Form Checkbox
-export interface FormCheckboxProps
-    extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
     id?: string
     label: string
     isDefault?: boolean
@@ -19,8 +18,7 @@ export interface FormCheckboxProps
 }
 
 // Form Input Date
-export interface FormInputDatePickerProps
-    extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormInputDatePickerProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string
     classNameInput?: string
     clearButton?: boolean
@@ -72,8 +70,7 @@ export interface FormInputDateRangePickerProps {
 }
 
 // Form Input Time
-export interface FormInputTimePickerProps
-    extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormInputTimePickerProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string
     format?: string
     classInput?: string
@@ -86,8 +83,9 @@ export interface FormInputTimePickerProps
     }
     config?: object | any
     other?: object | any
-    isTimeRange: boolean
+    isTimeRange?: boolean
     isResetValue?: boolean
+    isHook?: boolean
 }
 
 // Form Input
@@ -123,8 +121,7 @@ export interface FormInputCurrencyProps extends FormInputProps {
     isAllowNegative?: boolean
 }
 
-export interface FormInputPasswordProps
-    extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormInputPasswordProps extends InputHTMLAttributes<HTMLInputElement> {
     id?: string
     name?: string
     label?: string
@@ -151,8 +148,7 @@ interface CheckBox {
     [key: string]: any
 }
 
-export interface FormRadioButtonProps
-    extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormRadioButtonProps extends InputHTMLAttributes<HTMLInputElement> {
     id?: string
     className?: string
     classNameRadio?: string
@@ -173,6 +169,7 @@ export interface FormRadioButtonProps
     value?: any
     defaultValue?: any
     aliasName?: string
+    isGetDefaultValue?: boolean
 }
 
 export interface FormRadioButtonMultiProps {
@@ -202,8 +199,7 @@ export interface FormRadioButtonMultiProps {
 }
 
 // Form Select Option
-export interface FormSelectOptionProps
-    extends InputHTMLAttributes<HTMLSelectElement> {
+export interface FormSelectOptionProps extends InputHTMLAttributes<HTMLSelectElement> {
     name: string
     value?: any
     id?: string
@@ -213,6 +209,7 @@ export interface FormSelectOptionProps
     disabled?: boolean
     required?: boolean
     children: ReactNode
+    isUseHook?: boolean
     actions?:
         | object
         | any
@@ -252,20 +249,19 @@ export interface FormTextAreaProps {
 }
 
 // Form Upload File
-export interface FormUploadFileProps
-    extends InputHTMLAttributes<HTMLInputElement> {
+export interface FormUploadFileProps extends InputHTMLAttributes<HTMLInputElement> {
     name: string
     label?: string
     classNameLabel?: string
     classNameLayoutImage?: string
     subTitle?: string
     actions?: {
-        onChange: (
+        onChange?: (
             name: string,
             value: any,
             event?: ChangeEvent<HTMLInputElement>,
         ) => void
-        handleDataFiles: (files: any[] | any) => void
+        handleDataFiles?: (files: any[] | any) => void
     }
     isMulti?: boolean
     isGeneralFile?: boolean
@@ -282,6 +278,9 @@ export interface FormUploadFileProps
     idAreaUpload?: string
     idBtnPaste?: string
     dataPreviewBy?: string
+
+    isPreviewVideo?: boolean
+    classNameLayoutVideo?: string
 }
 
 export interface LayoutImageAndDocumentProps {
@@ -294,6 +293,11 @@ export interface LayoutImageAndDocumentProps {
         name: string
         size: number | any
         type: string
+    }
+    dataFile?: {
+        name?: string
+        size?: number | any
+        type?: string
     }
     passIndex: any
 }
@@ -320,7 +324,7 @@ export interface FormLabelProps {
 // Form Row
 export interface RowFormProps {
     label: string | ReactNode
-    children: ReactNode
+    children?: ReactNode
     classNameColumnLabel?: string
     classNameColumnChild?: string
     className?: string

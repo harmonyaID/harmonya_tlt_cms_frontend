@@ -14,11 +14,13 @@ const CardCount: FC<CardCountProps> = ({
                 (className ? ` ${className}` : '')
             }>
             <div className="d-flex align-items-md-start">
-                <div className="me-3">
-                    <div className="avatar-36 d-flex align-items-center justify-content-center circular bg-neutral-500 text-neutral-100">
-                        {icon}
+                {icon ? (
+                    <div className="me-3">
+                        <div className="avatar-36 d-flex align-items-center justify-content-center circular bg-neutral-500 text-neutral-100">
+                            {icon}
+                        </div>
                     </div>
-                </div>
+                ) : null}
 
                 <div className="overflow-hidden d-flex flex-column flex-grow-1">
                     <h4 className="fw-600 mb-0">{count}</h4>

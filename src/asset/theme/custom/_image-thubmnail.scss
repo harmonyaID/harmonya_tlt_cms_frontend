@@ -1,0 +1,21 @@
+.pv-image-tbl {
+  width: 130px;
+  height: 100px;
+  overflow: hidden;
+
+  &.is-empty {
+    background-color: var(--bs-neutral-400);
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+  }
+  img {
+    object-fit: cover;
+  }
+}
+
+.img-contain-100 {
+  object-fit: contain !important;
+  width: 100%;
+  height: 100%;
+}

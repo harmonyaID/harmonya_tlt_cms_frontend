@@ -34,11 +34,17 @@ const ModalWithActionFormCRUDLogic = (
         detail = {},
         formRequest = {},
 
+        classNameModalDialog = '',
+
         isEdit = false,
         isHideClose = true,
         isNeedAction = true,
         isUseDefaultInput = true,
         defaultInputNumberOnly = false,
+
+        isCentered = false,
+        isScrollable = false,
+        isUseDefaultTitle = true,
 
         defaultInputOtherConfig = {},
         externalForm = null,
@@ -50,6 +56,7 @@ const ModalWithActionFormCRUDLogic = (
         configHandle = {
             ...dataConfig,
         },
+        width,
     } = props
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -107,8 +114,13 @@ const ModalWithActionFormCRUDLogic = (
         <ModalMiddle
             id={id}
             title={(isEdit ? 'Update ' : 'Add ') + title}
+
             isHideClose={isHideClose}
-            isCentered={false}
+            isCentered={isCentered}
+            isScrollable={isScrollable}
+            width={width}
+            classNameModalDialog={classNameModalDialog}
+
             closeAction={_handleCancel}>
             <FormWrap actions={{ handleSubmit: _handleSubmit }}>
                 <WrapFormContext

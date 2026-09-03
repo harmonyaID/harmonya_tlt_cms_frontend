@@ -1,10 +1,9 @@
 import { FC, ReactNode, MouseEvent } from 'react'
-import { Edit } from 'react-feather'
-import { Printer, Send2, Trash } from 'iconsax-react'
+import { Edit, Eye, RotateCcw, X } from 'react-feather'
+import { ArrowForward, Printer, Repeat, Send2, Trash } from 'iconsax-react'
 import LoadingSpinner from '@/component/loading/LoadingSpinner.tsx'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import { BtnBaseProps } from './type/general.type'
-
 
 export const BtnBase = ({
     type,
@@ -160,6 +159,21 @@ export const BtnCircleEdit: FC<BtnBaseProps> = ({
     </BtnBase>
 )
 
+export const BtnCircleDetail: FC<BtnBaseProps> = ({
+    actions = { onClick: () => {} },
+    className = '',
+}) => (
+    <BtnBase
+        onClick={actions.onClick}
+        className={joinClassNameHelper(
+            'btn-gray-300 text-black btn-sm mt-0 btn-circle-icon',
+            className,
+        )}
+        type="button">
+        <Eye size={16} strokeWidth={2.4} />
+    </BtnBase>
+)
+
 export const BtnCirclePrint: FC<BtnBaseProps> = ({
     actions = { click: () => {} },
     className = '',
@@ -187,5 +201,35 @@ export const BtnCircleSend: FC<BtnBaseProps> = ({
         )}
         type="button">
         <Send2 variant="Bold" size="16" />
+    </BtnBase>
+)
+
+export const BtnCircleRestore: FC<BtnBaseProps> = ({
+    actions = { click: () => {} },
+    className = '',
+}) => (
+    <BtnBase
+        onClick={actions.click}
+        className={joinClassNameHelper(
+            'btn-tint-500 text-black-100 btn-sm mt-0 btn-circle-icon',
+            className,
+        )}
+        type="button">
+        <RotateCcw size="16" />
+    </BtnBase>
+)
+
+export const BtnCircleX: FC<BtnBaseProps> = ({
+    actions = { click: () => {} },
+    className = '',
+}) => (
+    <BtnBase
+        onClick={actions.click}
+        className={joinClassNameHelper(
+            'btn-danger-300 text-black-100 btn-sm mt-0 btn-circle-icon',
+            className,
+        )}
+        type="button">
+        <X size="16" />
     </BtnBase>
 )

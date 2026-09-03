@@ -17,6 +17,8 @@ import {
     PaginationInFace,
     SearchInFace,
 } from '../type/hook.type'
+import moment from 'moment'
+import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
 
 const defaultDataConfig: DataConfigInFace = {
     urlAPI: async () => ({}),

@@ -45,12 +45,12 @@ $gray-700: #5e6278;
 $gray-800: #3f4254;
 $gray-900: #181c32;
 
-$tint-100: #322800;
-$tint-200: #ae8d00;
-$tint-300: #30BEB3;
-$tint-400: #fbd94d;
-$tint-500: #fde999;
-$tint-600: #fefae6;
+$tint-100: shade-color($primary, 80%);
+$tint-200: shade-color($primary, 40%);
+$tint-300: $primary;
+$tint-400: tint-color($primary, 50%);
+$tint-500: tint-color($primary, 70%);
+$tint-600: tint-color($primary, 90%);
 
 $blue-100: #18255c;
 $blue-200: #2b40a1;
@@ -173,6 +173,15 @@ $theme-colors: (
    // Body
    --bs-body-bg: #fff;
    --bs-body-color: #1b1b1b;
+
+   // Accordion
+   --bs-accordion-btn-icon-width: 20px;
+   --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+   --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
+
+   --bs-accordion-btn-icon-transform: rotate(-180deg);
+   --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23052c65' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
 }
 
 // font family
@@ -300,3 +309,14 @@ $offcanvas-backdrop-opacity: 25%;
 $offcanvas-border-color: var(--bs-base-border-mood-theme);
 
 $min-contrast-ratio: 2;
+
+// Component
+$component-active-color: var(--bs-tint-200);
+$component-active-bg: var(--bs-tint-200);
+
+// Badge
+$badge-font-weight:                 500;
+
+// Dropdown
+$dropdown-link-active-color:        $component-active-color;
+$dropdown-link-active-bg:           $component-active-bg;

@@ -348,3 +348,11 @@ select::after {
   height: 100%;
   padding-left: 2.75rem !important;
 }
+
+
+
+.wp-custom-timepicker {
+  .flatpickr-wrapper {
+    display: block !important;
+  }
+}

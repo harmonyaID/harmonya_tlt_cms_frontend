@@ -96,6 +96,9 @@ const usePageFlowHandlerHook = ({
     const _handleToMain = (extraState: Record<string, any> = {}) =>
         _handleNavigateWithState(basePath.main, extraState)
 
+    const _handleToTrash = (extraState: Record<string, any> = {}) =>
+        _handleNavigateWithState(basePath.trash, extraState)
+
     const _handleRemove = (id: string) => {
         setSelectedId(id)
         if (modalRemoveId) actionModal(modalRemoveId)
@@ -147,6 +150,7 @@ const usePageFlowHandlerHook = ({
         __handleToAdd: _handleToAdd,
         __handleToEdit: _handleToEdit,
         __handleToMain: _handleToMain,
+        __handleToTrash: _handleToTrash,
         __handleRemove: _handleRemove,
         __handleCancel: _handleCancel,
         __handleSubmit: _handleSubmit,

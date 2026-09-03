@@ -64,4 +64,14 @@ export const createStoreWithAPI = (
         },
 
         __handleUpdate: (newData: any, index: number) => {},
+
+        // Push single data baru ke __list (paling depan / belakang, tinggal pilih)
+        __handlePush: (newData: any, toTop: boolean = true) => {
+            set((state) => ({
+                ...state,
+                __list: toTop
+                    ? [newData, ...state.__list]
+                    : [...state.__list, newData],
+            }))
+        },
     }))

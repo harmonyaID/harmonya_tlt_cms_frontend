@@ -7,7 +7,7 @@ import {
     setLocalStorage,
 } from '@/helper/base/localStorage.helper'
 import { ProfileProps } from '@/hook/type/hook.type.ts'
-import { apiAuthProfile } from '@/service/api/auth/auth.api.ts'
+import { apiAuthProfile } from '@/service/api/auth.api.ts'
 
 const useProfileHook = () => {
     const [profile, setProfile] = useState<ProfileProps | null | object>({})

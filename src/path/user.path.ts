@@ -1,0 +1,15 @@
+import { objectPathMenu, pathBasenameRoute } from '@/config/base/objectPath.config.js'
+
+const basic = 'sm-account'
+
+const userPath = {
+    basic: '/' + basic,
+    ...objectPathMenu(basic + '/staff'),
+
+    roleAndPermission: { ...objectPathMenu(basic + '/role-permission') },
+    myProfile: '/profile',
+    myProfileEdit: '/profile/edit',
+    trash: pathBasenameRoute(basic + '/staff') + '/trash',
+}
+
+export default userPath

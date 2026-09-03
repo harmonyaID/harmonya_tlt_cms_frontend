@@ -16,7 +16,7 @@ const useHookFetchDataStore = (
         ...passConfig,
     }
 
-    const { __list, __isLoading, __handleGet } = useStore(
+    const { __list, __isLoading, __handleGet, __handlePush } = useStore(
         passConfig.configUseStore,
         // configUseStore,
         (state: StoreStateType) => state,
@@ -45,6 +45,7 @@ const useHookFetchDataStore = (
         __list: configList(),
         __isLoading,
         __handleGetDataStore: __handleGet,
+        __handlePushDataStore: __handlePush,
     }
 }
 

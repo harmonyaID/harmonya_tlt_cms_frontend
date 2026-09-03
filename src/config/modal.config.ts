@@ -14,30 +14,94 @@ export const MDGeneralFilterMaxThreeMonth: string =
 export const MDGeneralConfirm: string = 'modalGeneralConfirm'
 export const MDGeneralFormCRUD: string = 'modalGeneralFormCRUD'
 export const MDGeneralPreview = 'modalGeneralPreview'
+export const MDGeneralRestore: string = 'modalGeneralRestore'
+export const MDGeneralPermanentRemove: string = 'modalGeneralPermanentRemove'
 
-// Page Setting
-export const MDSettingService = 'modalSettingService'
-export const MDSettingRemoveService = 'modalSettingRemoveService'
+// Content Page Setting
+export const MDPSTabFAQAdd = 'modalSettingPageFAQAdd'
+export const MDPSTabFAQRemove = 'modalSettingPageFAQRemove'
 
-export const MDSettingAccess = 'modalSettingAccess'
-export const MDSettingRemoveAccess = 'modalSettingRemoveAccess'
+export const MDPSTabFAQTypeAdd = 'modalSettingPageFAQTypeAdd'
+export const MDPSTabFAQTypeRemove = 'modalSettingPageFAQTypeRemove'
 
-export const MDSettingGlusterfs = 'modalSettingGlusterfs'
-export const MDSettingRemoveGlusterfs = 'modalSettingRemoveGlusterfs'
+export const MDPSTabLanguageAdd = 'modalSettingPageLanguageAdd'
+export const MDPSTabLanguageRemove = 'modalSettingPageLanguageRemove'
 
-export const MDSettingServer = 'modalSettingServer'
-export const MDSettingRemoveServer = 'modalSettingRemoveServer'
+export const MDPSTabTLTReviewAdd = 'modalSettingPageTLTReviewAdd'
+export const MDPSTabTLTReviewRemove = 'modalSettingPageTLTReviewRemove'
 
-export const MDDirectoryAdvanceFilter = 'modalDirectoryAdvanceFilter'
+export const MDPSTabTLTTestimonialAdd = 'modalSettingPageTLTTestimonialAdd'
+export const MDPSTabTLTTestimonialRemove =
+    'modalSettingPageTLTTestimonialRemove'
 
-export const MDServiceAssetAddDirectory: string =
-    'modalServiceAssetAddDirectory'
-export const MDServiceAssetAddFile: string = 'modalServiceAssetAddFile'
-export const MDServiceAssetPreviewFile: string = 'modalServiceAssetPreviewFile'
+export const MDPSTabMediaPartnerAdd = 'modalSettingPageMediaPartnerAdd'
+export const MDPSTabMediaPartnerRemove = 'modalSettingPageMediaPartnerRemove'
 
-export const MDServiceAssetRemoveDirectory: string =
-    'modalServiceAssetRemoveDirectory'
+export const MDPSTabWebContactFormAdd = 'modalSettingPageWebContactFormAdd'
+export const MDPSTabWebContactFormRemove =
+    'modalSettingPageWebContactFormRemove'
 
-export const MDServiceAssetRemoveFile: string = 'modalServiceAssetRemoveFile'
+export const MDPSTabMediaContactFormTypeAdd =
+    'modalSettingPageContactFormTypeAdd'
+export const MDPSTabMediaContactFormTypeRemove =
+    'modalSettingPageContactFormTypeRemove'
 
-export const MDAssetServiceFileAdd = 'modalServiceAssetFileAdd'
+export const MDBlogTagAdd = 'modalSettingPageBlogTagAdd'
+export const MDBlogTagRemove = 'modalSettingPageBlogTagRemove'
+
+export const MDBlogCategoryAdd = 'modalSettingPageBlogCategoryAdd'
+export const MDBlogCategoryRemove = 'modalSettingPageBlogCategoryRemove'
+
+export const MDExTypeAdd = 'modalExTypeSettingAdd'
+export const MDExTypeRemove = 'modalExTypeSettingRemove'
+
+export const MDExCategoryAdd = 'modalExCategoryTypeAdd'
+export const MDExCategoryRemove = 'modalExCategoryTypeRemove'
+
+// User / Staff
+export const MDUserRemove = 'modalUserRemove'
+
+export const MDSUserSettingPermission = 'modalUserSettingPermission'
+
+export const MDSUserSettingRole = 'modalUserSettingRole'
+
+export const MDSUserUpdatePassword = 'modalUserUpdatePassword'
+
+export const MDUserUpdatePassword = 'modalUserUpdatePassword'
+
+export const MDUserSettingRole = 'modalUserSettingRole'
+
+export const MDUserUpdateActivation = 'modalUserUpdateActivation'
+
+export const MDUserUpdateSuperAdmin = 'modalUserUpdateSuperAdmin'
+
+// Boat
+export const MDBoatTypeAdd = 'modalBoatTypeAdd'
+export const MDBoatTypeRemove = 'modalBoatTypeRemove'
+
+export const MDBoatContactFormAdd = 'modalBoatContactFormAdd'
+export const MDBoatContactFormRemove = 'modalBoatContactFormRemove'
+
+// Content Menu
+export const MDContentMenuAddMenuItem = 'modalContentMenuAddMenuItem'
+
+// Web Config Setting
+export const MDWebConfigSettingUpdate = 'modalWebConfigSettingUpdate'
+
+// General Setting
+export const MDGuestyConfigForm = 'modalGuestyConfigForm'
+
+// Property Setting
+export const MDPropertySettingAmenities = 'modalPropertySettingAmenities'
+
+export const MDPropertySettingAmenitiesRemove =
+    'modalPropertySettingAmenitiesRemove'
+
+export const MDPropertySettingAmenitiesCategory =
+    'modalPropertySettingAmenitiesCategory'
+
+export const MDPropertySettingAmenitiesCategoryRemove =
+    'modalPropertySettingAmenitiesCategoryRemove'
+
+// Property Form Request
+export const MDPropertyFormRequestRemove = 'modalPropertyInquiryRemove'

@@ -312,7 +312,7 @@
       color: rgba(122, 137, 148, 0.7);
       font-size: 10.5px;
       min-width: 70px;
-      text-transform: uppercase;
+      //text-transform: uppercase;
       border-color: transparent;
       position: relative;
       line-height: 1.7em;
@@ -328,10 +328,10 @@
 }
 .tab-pane {
    padding: 1.5rem 1.25rem 1.25rem;
-   .row > * {
-      padding-left: calc(#{$bs-gutter-x-sm} * 0.5);
-      padding-right: calc(#{$bs-gutter-x-sm} * 0.5);
-   }
+   //.row > * {
+   //   padding-left: calc(#{$bs-gutter-x-sm} * 0.5);
+   //   padding-right: calc(#{$bs-gutter-x-sm} * 0.5);
+   //}
 
    .card {
       margin-bottom: 1.563rem;
@@ -1114,6 +1114,22 @@ ul.long-tab {
    width: 24px;
 }
 
+// Box
+.flex-center {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.box-80 {
+   height: 80px;
+   width: 80px;
+
+   &.center {
+      @extend .flex-center
+   }
+}
+
 .wrap-advance-search {
    // Custom Form
    .form-label {
@@ -1227,7 +1243,8 @@ pre {
    transition: opacity 0.3s;
    height: 100%;
    width: 100%;
-   z-index: 998;
+   //z-index: 998;
+   z-index: 1;
 
    &:hover {
       opacity: 1;
@@ -1259,7 +1276,7 @@ pre {
    .data-img {
       width: 100%;
       object-fit: cover;
-      min-height: 300px;
+      //min-height: 300px;
 
       &.data-img-contain {
          object-fit: contain;
@@ -1351,3 +1368,9 @@ pre {
 
 // Flatpickr
 .flatpickr-wrapper {display: block;}
+
+// Max Height
+.max-h-120-px {max-height: 120px;}
+.max-h-148px {max-height: 148px;}
+.max-h-240px {max-height: 240px;}
+.max-h-400px {max-height: 400px;}

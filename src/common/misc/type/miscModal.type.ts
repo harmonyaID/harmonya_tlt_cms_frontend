@@ -22,11 +22,16 @@ export interface ModalWithActionFormCRUDLogicProps {
     defaultInputType?: string
     detail: object | any
     formRequest: object | any
+    classNameModalDialog?: string
+    isAdd?: boolean
     isEdit?: boolean
     isHideClose?: boolean
     isNeedAction?: boolean
     isUseDefaultInput?: boolean
     defaultInputNumberOnly?: boolean
+    isCentered?: boolean
+    isScrollable?: boolean
+    isUseDefaultTitle?: boolean
     defaultInputOtherConfig?: object
     externalForm?: ReactNode
     actions: {
@@ -39,4 +44,5 @@ export interface ModalWithActionFormCRUDLogicProps {
         other?: object
     }
     configHandle: ModalActionCRUDConfig
+    width?: string | number
 }

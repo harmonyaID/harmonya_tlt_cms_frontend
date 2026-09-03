@@ -1,0 +1,3 @@
+const HomePageMain = () => {
+    return <></>
+}

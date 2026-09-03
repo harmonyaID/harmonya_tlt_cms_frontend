@@ -15,4 +15,6 @@ export interface OffCanvasGeneralProps {
     closeAction?: () => void
     title?: ReactNode
     children?: ReactNode
+    isUseFooter?: boolean
+    footerContent?: ReactNode
 }

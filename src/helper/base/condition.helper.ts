@@ -46,4 +46,8 @@ export const isShowPagination = (
     isLoading: boolean = false,
     list: any[] = [],
     pagination: object | any = {},
-) => !isLoading && (!isEmpty(list) || pagination?.totalPage === 0)
+) => {
+    return !isLoading && !isEmpty(list) && pagination?.totalPage
+
+    // return !isLoading && (!isEmpty(list) || pagination?.totalPage === 0)
+}

@@ -12,12 +12,12 @@ const PrivatePageWrap = ({ children }: PrivatePageProps) => {
     useEffect(() => {
         // document.title = props.title
 
-        if (!isAuth && 0) {
+        if (!isAuth) {
             navigate(authPath.login)
         }
     }, [])
 
-    return isAuth || true ? children : null
+    return isAuth ? children : null
 }
 
 export default PrivatePageWrap

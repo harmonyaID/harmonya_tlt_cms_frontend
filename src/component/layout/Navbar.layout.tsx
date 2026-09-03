@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { Menu as IconFeatherMenu, Plus } from 'react-feather'
 import { Link } from 'react-router'
@@ -11,6 +12,7 @@ import {
     Home3,
     Refresh,
     Logout,
+    User,
 } from 'iconsax-react'
 import defaultAvatar from '@/asset/image/avatar_small2x.jpeg'
 import ButtonNavbarSearchServiceLoc from '@/common/misc/ButtonNavbarSearchServiceLoc'
@@ -45,6 +47,8 @@ import {
 // import ModalConfirmLogout from '../modal/ModalConfirmLogout'
 // import { businessRefreshAccess } from '@/service/api/auth/auth.api'
 // import { apiAuthLogout } from '@/service/api/auth/auth.api.ts'
+import userPath from '@/path/user.path.ts'
+import { apiAuthLogout } from '@/service/api/auth.api.ts'
 import { AvatarInTable } from '../general/Avatar'
 import { Loading, NotAvailable } from '../general/TextDefault'
 // import LoadingSpinner from '../loading/LoadingSpinner'
@@ -185,6 +189,22 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
                         <div
                             className="dropdown-menu topbar-dropdown-menu"
                             aria-labelledby="dropdownMenuProfile">
+                            {__profile ? (
+                                <div className="px-3 py-2 mb-2">
+                                    <div className="w-100">
+                                        <p className="text-neutral-100 fs-14 fw-600 mb-0 text-truncate">
+                                            {__profile.fullName}
+                                        </p>
+
+                                        {__profile?.email ? (
+                                            <p className="text-neutral-400 fs-12 mb-0 text-truncate">
+                                                {__profile.email}
+                                            </p>
+                                        ) : null}
+                                    </div>
+                                </div>
+                            ) : null}
+
                             <div className="dropdown-item p">
                                 Version {String(__APP_VERSION__)}
                             </div>
@@ -210,16 +230,26 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
                             {/*        </>*/}
                             {/*    )}*/}
                             {/*</button>*/}
-                            <button
-                                type="button"
-                                className="dropdown-item profile-item py-2"
-                                disabled={isLoadingRefreshAccess}
-                                onClick={_handleRefreshAccess}>
+
+                            <Link
+                                to={userPath.myProfile}
+                                className="dropdown-item profile-item py-2">
                                 <span className="me-2">
-                                    <Refresh variant="Bulk" />
+                                    <User variant="Bulk" />
                                 </span>
-                                Refresh Access
-                            </button>
+                                My Profile
+                            </Link>
+
+                            {/*<button*/}
+                            {/*    type="button"*/}
+                            {/*    className="dropdown-item profile-item py-2"*/}
+                            {/*    disabled={isLoadingRefreshAccess}*/}
+                            {/*    onClick={_handleRefreshAccess}>*/}
+                            {/*    <span className="me-2">*/}
+                            {/*        <Refresh variant="Bulk" />*/}
+                            {/*    </span>*/}
+                            {/*    Refresh Access*/}
+                            {/*</button>*/}
                             <button
                                 className="dropdown-item profile-item py-2"
                                 id="logout-btn"
@@ -237,10 +267,7 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
             <ModalConfirmLogout
                 configHandle={{
                     // change this with relate logout API
-                    // urlAPI: () => apiAuthLogout(),
-                    urlAPI: () => {
-                        return null
-                    },
+                    urlAPI: () => apiAuthLogout(),
                 }}
             />
         </>

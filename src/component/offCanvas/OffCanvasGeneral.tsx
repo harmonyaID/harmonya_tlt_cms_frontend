@@ -1,9 +1,7 @@
 import { useId } from 'react'
-import { isFunction } from 'lodash'
+import { isEmpty, isFunction } from 'lodash'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import { OffCanvasGeneralProps } from './type/offCanvas.type'
-
-
 
 const OffCanvasGeneral = (props: OffCanvasGeneralProps) => {
     const {
@@ -22,6 +20,9 @@ const OffCanvasGeneral = (props: OffCanvasGeneralProps) => {
         isScrollable = false,
 
         children = null,
+
+        isUseFooter = false,
+        footerContent = null,
     } = props
 
     const uniqueId = useId()
@@ -72,6 +73,10 @@ const OffCanvasGeneral = (props: OffCanvasGeneralProps) => {
                 )}>
                 {children}
             </div>
+
+            {isUseFooter && !isEmpty(footerContent) ? (
+                <div className="offcanvas-footer">{footerContent}</div>
+            ) : null}
         </div>
     )
 }

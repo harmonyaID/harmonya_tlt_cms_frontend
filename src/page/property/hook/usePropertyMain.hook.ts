@@ -1,0 +1,79 @@
+import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
+import propertyPath from '@/path/property.path.ts'
+import moment from 'moment'
+
+const propertyFilterParam = () => ({
+    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
+    toDate: moment().format('DD/MM/YYYY'),
+    propertyTypeIds: [],
+    tagIds: [],
+    area: '',
+    sourceTypeIds: [],
+    amenitiesCategoryIds: [],
+    occupancyMax: 0,
+    occupancyMin: 0,
+    limit: 50,
+})
+
+const usePropertyMainHook = ({
+    urlAPI,
+    isTrash,
+}: {
+    urlAPI: any
+    isTrash?: boolean
+}) => {
+    const {
+        __list,
+        __isLoading,
+        __pagination,
+        __search,
+        __isUseSearch,
+        __actionSetIsUseSearch,
+        __setSearch,
+        __actionPagination,
+        __actionRemove,
+        __actionChange,
+        __actionClear,
+    } = useDataListHook({
+        urlAPI: urlAPI,
+        isHideSidebar: true,
+        advancedSearch: { ...propertyFilterParam() },
+    })
+
+    const {
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
+    } = usePageFlowHandlerHook({
+        basePath: propertyPath,
+        pathFromKey: isTrash ? propertyPath.trash : propertyPath.main,
+        search: __search,
+        isUseSearch: __isUseSearch,
+    })
+
+    return {
+        // ---- List Data ----
+        __list,
+        __isLoading,
+        __pagination,
+        __search,
+        __actionRemove,
+        __actionChange,
+        __actionClear,
+        __setSearch,
+        __actionPagination,
+        __actionSetIsUseSearch,
+
+        // ---- Change Page ----
+        __handleToAdd,
+        __handleToEdit,
+        __handleToDetail,
+        __handleToTrash,
+        __handleToMain,
+    }
+}
+
+export default usePropertyMainHook

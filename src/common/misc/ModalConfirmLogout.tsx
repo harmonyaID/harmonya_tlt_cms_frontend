@@ -7,6 +7,7 @@ import actionModal from '@/helper/base/actionModal.helper'
 import { isSuccess } from '@/helper/base/condition.helper'
 import { manageClearTokenAuth } from '@/helper/base/manageAuth.helper'
 import { ModalConfirmLogoutProps } from './type/misc.type'
+import authPath from '@/path/auth.path.ts'
 
 const dataConfig = {
     urlAPI: async () => ({}),
@@ -33,7 +34,7 @@ const ModalConfirmLogout: FC<ModalConfirmLogoutProps> = ({
 
                 if (isSuccess(resData)) {
                     manageClearTokenAuth()
-                    navigate('/login')
+                    navigate(authPath.login)
                 }
             })
             .catch((error) => {
@@ -47,14 +48,12 @@ const ModalConfirmLogout: FC<ModalConfirmLogoutProps> = ({
     return (
         <ModalMiddle id={MDLogout} width={500} isHideClose>
             <div className="row mb-2">
-                <div className="col-md-12">
-                    <h5 className="text-center fw-400 mb-0">
-                        Are you sure to logout? <br />
-                        <span className="fs-14 text-neutral-400 d-block mt-2">
-                            Select &ldquo;Continue&rdquo; below if you are ready
-                            to end your current session.
-                        </span>
-                    </h5>
+                <div className="col-md-12 text-center">
+                    <h5 className="fw-500 mb-2">Are you sure to logout ?</h5>
+                    <p className="text-neutral-400 mb-0">
+                        Select &ldquo;Continue&rdquo; below if you are ready to
+                        end your current session.
+                    </p>
                 </div>
             </div>
 
@@ -70,20 +69,10 @@ const ModalConfirmLogout: FC<ModalConfirmLogoutProps> = ({
                     <BtnPrimary
                         isOutline
                         disabled={isLoading}
+                        isLoading={isLoading}
                         className="btn-sm"
                         handle={_handleActionLogout}>
                         Continue
-                        {isLoading ? (
-                            <div
-                                className="spinner-border spinner-border-sm"
-                                role="status">
-                                <span className="visually-hidden">
-                                    Loading...
-                                </span>
-                            </div>
-                        ) : (
-                            ''
-                        )}
                     </BtnPrimary>
                 </div>
             </div>

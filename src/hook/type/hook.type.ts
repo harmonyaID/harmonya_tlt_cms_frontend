@@ -12,7 +12,7 @@ interface BaseDataConfig {
 
 // Component Input Config
 export interface ContextInput {
-    __value: Record<string, any>
+    __value?: Record<string, any>
     __handleChange?: (name: string, value: any, event: any) => void
 }
 
@@ -22,8 +22,8 @@ export interface ChangeEventCallbackInput {
 
 // Data Config Detail
 export interface DataConfigDetail extends BaseDataConfig {
-    isCallAPI: boolean
-    triggerBy: string
+    isCallAPI?: boolean
+    triggerBy?: string | number
     isAutoGet?: boolean
 }
 
@@ -87,6 +87,7 @@ export interface UploadFileFormRequest {
     isLoadData?: boolean
     withDeleted?: boolean
     isMulti?: boolean
+    externalFormRequest?: object
 }
 
 // Search Form Request

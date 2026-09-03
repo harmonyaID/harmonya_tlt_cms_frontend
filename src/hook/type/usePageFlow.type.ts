@@ -4,6 +4,7 @@ export type UsePageFlowHandlerType = {
         edit: (id: string) => string
         add: string
         main: string
+        trash?: string
     }
     extraPath?: string
     pathFromKey?: string

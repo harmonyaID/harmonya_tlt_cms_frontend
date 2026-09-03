@@ -1,3 +1,5 @@
+'use client'
+
 import { isEmpty } from 'lodash'
 import { LS_TOKEN } from '@/config/localStrorage.config'
 import {
