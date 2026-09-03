@@ -38,6 +38,10 @@ import {
     SrvMediaPartnerRestore,
     SrvMediaPartnerTrash,
     SrvMediaPartnerTrashWithId,
+    SrvTeamCRUD,
+    SrvTeamRestore,
+    SrvTeamTrash,
+    SrvTeamTrashWithId,
     SrvTLTReviewCRUD,
     SrvTLTReviewRestore,
     SrvTLTReviewTrash,
@@ -140,6 +144,16 @@ export const permanentDeleteMediaPartner = (id: string | number) =>
     _shapeMethodDel(SrvMediaPartnerTrashWithId(id))
 export const restoreMediaPartner = (id: string | number) =>
     _shapeMethodPost(SrvMediaPartnerRestore(id))
+
+export const apiTeam = {
+    ..._shapeObjectMethodCRUD(SrvTeamCRUD),
+}
+export const getTeamTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvTeamTrash, search)
+export const permanentDeleteTeam = (id: string | number) =>
+    _shapeMethodDel(SrvTeamTrashWithId(id))
+export const restoreTeam = (id: string | number) =>
+    _shapeMethodPost(SrvTeamRestore(id))
 
 // FAQ Setting
 export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }

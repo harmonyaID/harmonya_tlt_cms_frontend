@@ -6,6 +6,7 @@ import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 import TabTLTReview from '@/page/contentSetting/pageSetting/container/TabTLTReview.tsx'
 import TabTLTTestimonial from '@/page/contentSetting/pageSetting/container/TabTLTTestimonial.tsx'
 import TabTLTMediaPartner from '@/page/contentSetting/pageSetting/container/TabTLTMediaPartner.tsx'
+import TabTLTTeam from '@/page/contentSetting/pageSetting/container/TabTLTTeam.tsx'
 
 const PageSettingPage = () => {
     return (
@@ -20,7 +21,7 @@ const PageSettingPage = () => {
                     objectTab('TLT Media Partner', 'tabTLTMediaPartner'),
                 ]}
                 tabContents={[
-                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <TabTLTTeam />),
                     objectTabContent('', <TabTLTReview />),
                     objectTabContent('', <TabTLTTestimonial />),
                     objectTabContent('', <TabTLTMediaPartner />),

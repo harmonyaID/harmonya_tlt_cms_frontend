@@ -93,6 +93,14 @@ export const SrvMediaPartnerTrashWithId = (id: string | number = ''): string =>
 export const SrvMediaPartnerRestore = (id: string | number = ''): string =>
     baseAPIMediaPartner + '/trash/' + id + '/restore'
 
+const baseAPITeam = baseAPI + '/teams'
+export const SrvTeamCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPITeam)
+export const SrvTeamTrash = baseAPITeam + '/trash'
+export const SrvTeamTrashWithId = (id: string | number = ''): string =>
+    baseAPITeam + '/trash/' + id
+export const SrvTeamRestore = (id: string | number = ''): string =>
+    baseAPITeam + '/trash/' + id + '/restore'
+
 // Content FAQ Setting
 const baseAPIFAQ = baseAPI + '/faqs'
 export const SrvFAQCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPIFAQ)
