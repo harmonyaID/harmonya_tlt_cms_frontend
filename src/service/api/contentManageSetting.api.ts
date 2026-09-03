@@ -10,6 +10,9 @@ import {
     SrvBlogCategoryRestore,
     SrvBlogCategoryTrash,
     SrvBlogCategoryTrashWithId,
+    SrvContactFormRestore,
+    SrvContactFormTrash,
+    SrvContactFormTrashWithId,
     SrvBlogTagCRUD,
     SrvBlogTagRestore,
     SrvBlogTagTrash,
@@ -67,6 +70,12 @@ export const apiWebContactForm = {
 export const apiContactFormType = {
     ..._shapeObjectMethodCRUD(SrvComponentContactFormTypeCRUD),
 }
+export const getContactFormTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvContactFormTrash, search)
+export const permanentDeleteContactForm = (id: string | number) =>
+    _shapeMethodDel(SrvContactFormTrashWithId(id))
+export const restoreContactForm = (id: string | number) =>
+    _shapeMethodPost(SrvContactFormRestore(id))
 
 // Blog Setting
 export const apiBlogCategory = {

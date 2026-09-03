@@ -7,9 +7,14 @@ export const SrvLanguageCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/languages',
 )
 
-export const SrvWebContactFormCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPI + '/website-contact-forms',
-)
+const baseAPIContactForm = baseAPI + '/website-contact-forms'
+export const SrvWebContactFormCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIContactForm)
+export const SrvContactFormTrash = baseAPIContactForm + '/trash'
+export const SrvContactFormTrashWithId = (id: string | number = ''): string =>
+    baseAPIContactForm + '/trash/' + id
+export const SrvContactFormRestore = (id: string | number = ''): string =>
+    baseAPIContactForm + '/trash/' + id + '/restore'
 
 // Component
 export const SrvComponentContactFormTypeCRUD: SrvWithFeature =
