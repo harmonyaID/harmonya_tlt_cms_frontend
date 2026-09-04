@@ -98,7 +98,7 @@ const TabLlms = () => {
                 placeholder="Isi llms.txt..."
             />
 
-            <div className="hstack gap-3">
+            <div className="hstack gap-3 pt-3">
                 <button
                     onClick={handleSave}
                     disabled={
