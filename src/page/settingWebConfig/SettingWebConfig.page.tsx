@@ -3,6 +3,7 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabContactFormType from '@/page/settingWebConfig/container/TabContactFormType.tsx'
+import TabLlms from '@/page/settingWebConfig/container/TabLlms.tsx'
 import TabWebConfig from '@/page/settingWebConfig/container/TabWebConfig.tsx'
 import TabWebContactForm from '@/page/settingWebConfig/container/TabWebContactForm.tsx'
 
@@ -25,11 +26,13 @@ const SettingWebConfigPage = () => {
             <CardNavTab
                 tabs={[
                     objectTab('Web Config', 'tabWebConfig'),
+                    objectTab('LLMS File', 'tabLLMSFile'),
                     // objectTab('Website Contact Form', 'tabWebsiteContactForm'),
                     // objectTab('Contact Form Type', 'tabContactFormType'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabWebConfig />),
+                    objectTabContent('', <TabLlms />),
                     // objectTabContent(
                     //     '',
                     //     <TabWebContactForm
