@@ -14,6 +14,9 @@ const titleTypeSetting = 'Type Setting'
 const ContactFormPage = lazy(
     () => import('@/page/contactForm/ContactForm.page.tsx'),
 )
+const ContactFormTrashPage = lazy(
+    () => import('@/page/contactForm/ContactFormTrash.page.tsx'),
+)
 
 const ContactFormSettingPage = lazy(
     () => import('@/page/contactFormSetting/ContactFormSetting.page.tsx'),
@@ -30,6 +33,18 @@ const ContactFormManageRoute = () => (
                         titleNavbar={titleContactForm}
                         isCheckPermission={false}>
                         <ContactFormPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                index
+                path={contactFormPath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar={titleContactForm}
+                        isCheckPermission={false}>
+                        <ContactFormTrashPage />
                     </SuspenseLayout>
                 }
             />

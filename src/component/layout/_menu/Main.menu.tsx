@@ -464,7 +464,7 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     idControl="contact-form-setting"
                     subMenus={[
                         _configParamSubMenu(
-                            'Type',
+                            'Type of Contact',
                             contactFormSettingPath.type.main,
                         ),
                     ]}

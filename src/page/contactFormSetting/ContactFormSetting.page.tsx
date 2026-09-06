@@ -11,7 +11,7 @@ const ContactFormPage = () => {
             </div>
 
             <CardNavTab
-                tabs={[objectTab('Type', 'tabContactFormType')]}
+                tabs={[objectTab('Type of Contact', 'tabContactFormType')]}
                 tabContents={[objectTabContent('', <TabContactFormType />)]}
             />
         </>
