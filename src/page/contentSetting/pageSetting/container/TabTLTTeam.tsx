@@ -201,13 +201,13 @@ const TabTLTTeam = () => {
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
+                            'Photo',
                             'Order',
                             'Name',
                             'Role',
                             'Question',
                             'Answer',
                             'Active',
-                            'Photo',
                             '',
                         ]}
                         tds={__list}>
@@ -216,6 +216,12 @@ const TabTLTTeam = () => {
                             .map((vm, index) => {
                                 return (
                                     <tr key={index}>
+                                        <td>
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.photo || ''}
+                                            />
+                                        </td>
                                         <td>{vm.order}</td>
                                         <td>
                                             <TblLineFirst value={vm.name} />
@@ -234,12 +240,6 @@ const TabTLTTeam = () => {
                                         <td className="max-w-300px">
                                             <TextTrueOrFalse
                                                 value={vm.isActive}
-                                            />
-                                        </td>
-                                        <td>
-                                            <PreviewFileModalLogic
-                                                classNameWidth="avatar-46"
-                                                dataUrl={vm.photo || ''}
                                             />
                                         </td>
                                         <td>

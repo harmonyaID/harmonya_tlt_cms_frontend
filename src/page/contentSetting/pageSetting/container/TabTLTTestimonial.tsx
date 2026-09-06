@@ -203,12 +203,12 @@ const TabTLTTestimonial = () => {
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
+                            'Photo',
                             'Order',
                             'Name',
                             'Company',
                             'Testimonial',
                             'Active',
-                            'Photo',
                             '',
                         ]}
                         tds={__list}>
@@ -217,6 +217,12 @@ const TabTLTTestimonial = () => {
                             .map((vm, index) => {
                                 return (
                                     <tr key={index}>
+                                        <td>
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.photo || ''}
+                                            />
+                                        </td>
                                         <td>{vm.order}</td>
                                         <td>
                                             <TblLineFirst value={vm.name} />
@@ -235,12 +241,6 @@ const TabTLTTestimonial = () => {
                                         <td>
                                             <TextTrueOrFalse
                                                 value={vm.isActive}
-                                            />
-                                        </td>
-                                        <td>
-                                            <PreviewFileModalLogic
-                                                classNameWidth="avatar-46"
-                                                dataUrl={vm.photo || ''}
                                             />
                                         </td>
                                         <td>

@@ -112,7 +112,7 @@ const TabContactFormType = (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Contact Form Type</h5>
+                    <h5 className="fs-18 fw-500">Type of Contact</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>

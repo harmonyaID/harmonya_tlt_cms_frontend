@@ -45,14 +45,7 @@ const ContentOfferTable = ({
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={[
-                            'Title',
-                            'Duration',
-                            'Info.',
-                            'Thumbnail',
-                            'Created',
-                            '',
-                        ]}
+                        ths={['Title', 'Duration', 'Info.', 'Created', '']}
                         tds={__list}>
                         {__list.map((vm, index) => {
                             return (
@@ -65,9 +58,15 @@ const ContentOfferTable = ({
                                         actions?.__handleToDetail(vm.id)
                                     }>
                                     <td>
-                                        <TblLineFirstPrimary
-                                            value={vm?.title || '-'}
-                                        />
+                                        <div className="hstack gap-3 align-items-start">
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.thumbnail || ''}
+                                            />
+                                            <TblLineFirstPrimary
+                                                value={vm?.title || '-'}
+                                            />
+                                        </div>
                                     </td>
 
                                     <td>
@@ -91,12 +90,6 @@ const ContentOfferTable = ({
                                                 {vm?.publishedAt || '-'}
                                             </TblLineSecond>
                                         </TblPointData>
-                                    </td>
-                                    <td>
-                                        <PreviewFileModalLogic
-                                            classNameWidth="avatar-46"
-                                            dataUrl={vm.thumbnail || ''}
-                                        />
                                     </td>
                                     <td>
                                         <TblPointData title="Author">
