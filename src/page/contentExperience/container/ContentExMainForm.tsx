@@ -62,18 +62,26 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     // Photos
     const {
         __dataFiles,
-        __actionAddFiles,
-        __actionSetDataFiles,
-        __actionRemoveDataFile,
-    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'photos')
+        __handleAddFiles: __actionAddFiles,
+        __handleSetDataFiles: __actionSetDataFiles,
+        __handleRemoveDataFile: __actionRemoveDataFile,
+    } = useUploadFileFormRequestHook({
+        formRequest: __formRequest,
+        setFormRequest: __setFormRequest,
+        keyFormRequest: 'photos',
+        withMimeType: true,
+        isLoadData: isEdit,
+        externalFormRequest: { order: 0 },
+    })
 
-    // Catalogs Photo
-    // const {
-    //     // __dataFiles: __dataFilesCatalogs,
-    //     __actionAddFiles: __actionAddFilesCatalogs,
-    //     __actionSetDataFiles: __actionSetDataFilesCatalogs,
-    //     __actionRemoveDataFile: __actionRemoveDataFileCatalogs,
-    // } = useUploadFileFormRequestHook(__formRequest, __setFormRequest, 'catalogs')
+    const _handleRemovePhoto = (index, idFile) => {
+        __setFormRequest((prev) => ({
+            ...prev,
+            deletePhotoIds: [...prev.deletePhotoIds, idFile],
+        }))
+
+        __actionRemoveDataFile(index, idFile)
+    }
 
     const {
         __dataFiles: __dataFilesCatalogs,
@@ -86,8 +94,16 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         keyFormRequest: 'catalogs',
         externalFormRequest: { name: '' },
         withMimeType: true,
-        isLoadData: !__isLoadingDetail,
+        isLoadData: isEdit,
     })
+
+    const _handleRemoveCatalog = (index, idFile) => {
+        __setFormRequest((prev) => ({
+            ...prev,
+            deleteCatalogIds: [...prev.deleteCatalogIds, idFile],
+        }))
+        __actionSetDataFilesCatalogs(index, idFile)
+    }
 
     // List Option Type
     const { __list: typeList, __isLoading: isTypeLoading } = useDataListHook({
@@ -238,7 +254,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 handleSetDataFiles:
                                                     __actionSetDataFiles,
                                                 handleRemoveDataFile:
-                                                    __actionRemoveDataFile,
+                                                    _handleRemovePhoto,
                                                 handleArrChange:
                                                     __handleArrChange,
                                             }}>
@@ -247,6 +263,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired>
                                                 <FormUploadFileWithActionPreviewLogic
                                                     isUseInputDesc={false}
+                                                    dataBy="photo"
                                                     formName="photos"
                                                     dataFiles={__dataFiles}
                                                     formRequest={__formRequest}
@@ -301,7 +318,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     handleSetDataFiles:
                                                         __actionSetDataFilesCatalogs,
                                                     handleRemoveDataFile:
-                                                        __actionRemoveDataFileCatalogs,
+                                                        _handleRemoveCatalog,
                                                     handleArrChange:
                                                         __handleArrChange,
                                                 }}>
@@ -313,6 +330,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     subTitle="Pdf Files"
                                                     accept="application/pdf"
                                                     formRequest={__formRequest}
+                                                    dataBy="file"
                                                     nameInput="name"
                                                     isUseInputDesc
                                                 />
