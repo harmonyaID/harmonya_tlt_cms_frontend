@@ -20,6 +20,9 @@ export const SrvContactFormRestore = (id: string | number = ''): string =>
 export const SrvComponentContactFormTypeCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPI + '/components/contact-form-types')
 
+export const SrvComponentContactFormInquiryTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPI + '/components/contact-form-inquiry-types')
+
 // Contain Blog Setting
 const baseAPIBlogCategory = baseAPI + '/blogs/categories'
 export const SrvBlogCategoryCRUD = objectPathEndPointAPI(baseAPIBlogCategory)

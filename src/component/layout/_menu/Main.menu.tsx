@@ -456,20 +456,27 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     to={contactFormPath.main}
                 />
             </li>
-            <li className="submenu-dropdown">
-                <LinkMenuDropdown
-                    name="Setting "
-                    to={contactFormSettingPath.main}
+            <li className="">
+                <LinkMenu
+                    name="Contact Setting"
                     icon={<Setting variant="Bulk" />}
-                    idControl="contact-form-setting"
-                    subMenus={[
-                        _configParamSubMenu(
-                            'Type of Contact',
-                            contactFormSettingPath.type.main,
-                        ),
-                    ]}
+                    to={contactFormSettingPath.type.main}
                 />
             </li>
+            {/*<li className="submenu-dropdown">*/}
+            {/*    <LinkMenuDropdown*/}
+            {/*        name="Setting "*/}
+            {/*        to={contactFormSettingPath.main}*/}
+            {/*        icon={<Setting variant="Bulk" />}*/}
+            {/*        idControl="contact-form-setting"*/}
+            {/*        subMenus={[*/}
+            {/*            _configParamSubMenu(*/}
+            {/*                'Type of Contact',*/}
+            {/*                contactFormSettingPath.type.main,*/}
+            {/*            ),*/}
+            {/*        ]}*/}
+            {/*    />*/}
+            {/*</li>*/}
 
             <MenuSection name="System Management" />
             <li className="submenu-dropdown">

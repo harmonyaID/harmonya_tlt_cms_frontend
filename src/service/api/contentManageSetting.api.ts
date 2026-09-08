@@ -54,6 +54,7 @@ import {
     SrvTLTTestimonialTrash,
     SrvTLTTestimonialTrashWithId,
     SrvWebContactFormCRUD,
+    SrvComponentContactFormInquiryTypeCRUD,
 } from '@/service/api/_contentManageSetting.endPoint'
 import {
     SrvBoatTypeRestore,
@@ -70,6 +71,11 @@ export const apiWebContactForm = {
 export const apiContactFormType = {
     ..._shapeObjectMethodCRUD(SrvComponentContactFormTypeCRUD),
 }
+
+export const apiContactFormInquiryType = {
+    ..._shapeObjectMethodCRUD(SrvComponentContactFormInquiryTypeCRUD),
+}
+
 export const getContactFormTrash = (search: any) =>
     _shapeMethodGetSearch(SrvContactFormTrash, search)
 export const permanentDeleteContactForm = (id: string | number) =>

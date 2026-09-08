@@ -49,6 +49,11 @@ export const MDPSTabMediaContactFormTypeAdd =
 export const MDPSTabMediaContactFormTypeRemove =
     'modalSettingPageContactFormTypeRemove'
 
+export const MDPSTabMediaContactFormInquiryTypeAdd =
+    'modalSettingPageContactFormInquryTypeAdd'
+export const MDPSTabMediaContactFormInquiryTypeRemove =
+    'modalSettingPageContactFormInquryTypeRemove'
+
 export const MDBlogTagAdd = 'modalSettingPageBlogTagAdd'
 export const MDBlogTagRemove = 'modalSettingPageBlogTagRemove'
 
