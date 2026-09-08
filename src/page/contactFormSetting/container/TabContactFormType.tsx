@@ -38,13 +38,16 @@ import {
     apiContactFormType,
     apiFAQ,
 } from '@/service/api/contentManageSetting.api.ts'
+import VerticalDataPreview from '@/component/general/VerticalDataPreview.tsx'
 
 const initForm = {
     name: '',
+    eventId: '',
 }
 
 const initMapForm = (passData) => ({
     name: passData.name || '',
+    eventId: passData.eventId || '',
 })
 
 const TabContactFormType = (
@@ -121,42 +124,42 @@ const TabContactFormType = (
                 </div>
             </div>
 
-            <LoadingStatePreviewData isLoading={__isLoading} data={__list}>
-                <div className="row g-3">
-                    {__list?.map((vm, index) => (
-                        <div className="col-lg-3 col-md-6" key={index}>
-                            <CardPreview className="mb-0 h-100">
-                                <div className="hstack gap-2 justify-content-between flex-wrap mb-3 align-items-start">
-                                    <h6 className="fw-500 text-neutral-100 mb-0">
-                                        {vm.name}
-                                    </h6>
-                                </div>
-
-                                <div className="hstack gap-2 flex-wrap mt-auto">
-                                    <BtnCircleRemove
-                                        title="Delete Data"
-                                        actions={{
-                                            remove: (e) => {
-                                                e.stopPropagation()
-                                                _handleChooseRemove(vm)
-                                            },
-                                        }}
-                                    />
-                                    <BtnCircleEdit
-                                        title="Edit"
-                                        actions={{
-                                            edit: (e) => {
-                                                e.stopPropagation()
-                                                __actionUpdateModal(vm)
-                                            },
-                                        }}
-                                    />
-                                </div>
-                            </CardPreview>
-                        </div>
-                    ))}
+            <div className="row overflow-y-auto position-relative">
+                <div className="col-md-12">
+                    <TableThemeLogic
+                        isLoading={__isLoading}
+                        isNoWrap
+                        ths={['Name', 'Event ID', '']}
+                        tds={__list}>
+                        {__list.map((type) => (
+                            <tr key={type.id}>
+                                <td>{type.name}</td>
+                                <td>{type.eventId || '-'}</td>
+                                <td>
+                                    <div className="hstack gap-2 justify-content-end">
+                                        <BtnCircleRemove
+                                            actions={{
+                                                remove: (e) => {
+                                                    e.stopPropagation()
+                                                    _handleChooseRemove(type)
+                                                },
+                                            }}
+                                        />
+                                        <BtnCircleEdit
+                                            actions={{
+                                                edit: (e) => {
+                                                    e.stopPropagation()
+                                                    __actionUpdateModal(type)
+                                                },
+                                            }}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
+                    </TableThemeLogic>
                 </div>
-            </LoadingStatePreviewData>
+            </div>
 
             {/*{isShowPagination(__isLoading, __list, __pagination) ? (*/}
             {/*    <Pagination*/}
@@ -187,7 +190,7 @@ const TabContactFormType = (
                 <ModalWithActionFormCRUDLogic
                     id={MDPSTabMediaContactFormTypeAdd}
                     detail={__detailData}
-                    title="Contact Form Type"
+                    title="Type of Contact"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -203,6 +206,11 @@ const TabContactFormType = (
                                 name="name"
                                 required
                                 placeholder="e.g Career"
+                            />
+                            <FormInput
+                                label="Event ID"
+                                name="eventId"
+                                placeholder="e.g Event"
                             />
                         </>
                     }
