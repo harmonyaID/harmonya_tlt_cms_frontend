@@ -7,13 +7,21 @@ export const SrvLanguageCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/languages',
 )
 
-export const SrvWebContactFormCRUD: SrvWithFeature = objectPathEndPointAPI(
-    baseAPI + '/website-contact-forms',
-)
+const baseAPIContactForm = baseAPI + '/website-contact-forms'
+export const SrvWebContactFormCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPIContactForm)
+export const SrvContactFormTrash = baseAPIContactForm + '/trash'
+export const SrvContactFormTrashWithId = (id: string | number = ''): string =>
+    baseAPIContactForm + '/trash/' + id
+export const SrvContactFormRestore = (id: string | number = ''): string =>
+    baseAPIContactForm + '/trash/' + id + '/restore'
 
 // Component
 export const SrvComponentContactFormTypeCRUD: SrvWithFeature =
     objectPathEndPointAPI(baseAPI + '/components/contact-form-types')
+
+export const SrvComponentContactFormInquiryTypeCRUD: SrvWithFeature =
+    objectPathEndPointAPI(baseAPI + '/components/contact-form-inquiry-types')
 
 // Contain Blog Setting
 const baseAPIBlogCategory = baseAPI + '/blogs/categories'
@@ -92,6 +100,14 @@ export const SrvMediaPartnerTrashWithId = (id: string | number = ''): string =>
     baseAPIMediaPartner + '/trash/' + id
 export const SrvMediaPartnerRestore = (id: string | number = ''): string =>
     baseAPIMediaPartner + '/trash/' + id + '/restore'
+
+const baseAPITeam = baseAPI + '/teams'
+export const SrvTeamCRUD: SrvWithFeature = objectPathEndPointAPI(baseAPITeam)
+export const SrvTeamTrash = baseAPITeam + '/trash'
+export const SrvTeamTrashWithId = (id: string | number = ''): string =>
+    baseAPITeam + '/trash/' + id
+export const SrvTeamRestore = (id: string | number = ''): string =>
+    baseAPITeam + '/trash/' + id + '/restore'
 
 // Content FAQ Setting
 const baseAPIFAQ = baseAPI + '/faqs'

@@ -1,5 +1,9 @@
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import { TblLineFirstPrimary, TblLineSecond, TblPointData } from '@/component/general/TablePartial.tsx'
+import {
+    TblLineFirstPrimary,
+    TblLineSecond,
+    TblPointData,
+} from '@/component/general/TablePartial.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import {
@@ -12,6 +16,8 @@ import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import { isClickToDetail } from '@/helper/condition.helper.ts'
 
 const ContentBlogTable = ({
     isTrash = false,
@@ -57,22 +63,31 @@ const ContentBlogTable = ({
                                     key={index}
                                     title="Preview Detail"
                                     className={!isTrash && 'cursor-pointer'}
-                                    onClick={() =>
+                                    onClick={(e) =>
                                         !isTrash &&
                                         actions?.__handleToDetail(vm.id)
                                     }>
                                     <td>
-                                        <TblLineFirstPrimary
-                                            value={vm?.title || '-'}
-                                        />
-                                        <TblPointData title="Category">
-                                            <BadgeStatusGeneral
-                                                value={
-                                                    vm?.category?.name || '-'
-                                                }
-                                                className="text-bg-neutral-300 fw-normal"
+                                        <div className="hstack gap-3 align-items-start">
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.thumbnail || ''}
                                             />
-                                        </TblPointData>
+                                            <div>
+                                                <TblLineFirstPrimary
+                                                    value={vm?.title || '-'}
+                                                />
+                                                <TblPointData title="Category">
+                                                    <BadgeStatusGeneral
+                                                        value={
+                                                            vm?.category
+                                                                ?.name || '-'
+                                                        }
+                                                        className="text-bg-neutral-300 fw-normal"
+                                                    />
+                                                </TblPointData>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <div className="d-inline-flex gap-2">
@@ -113,8 +128,10 @@ const ContentBlogTable = ({
                                                 <TrashActionButtons
                                                     selected={vm}
                                                     actions={{
-                                                        restore: actions?.__handleChooseRestore,
-                                                        permanentRemove:actions?.__handleChoosePermanentRemove
+                                                        restore:
+                                                            actions?.__handleChooseRestore,
+                                                        permanentRemove:
+                                                            actions?.__handleChoosePermanentRemove,
                                                     }}
                                                 />
                                             ) : (

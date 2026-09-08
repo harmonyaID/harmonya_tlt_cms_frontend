@@ -2,6 +2,7 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabContactFormType from '@/page/contactFormSetting/container/TabContactFormType.tsx'
+import TabContactFormInquiryType from '@/page/contactFormSetting/container/TabContactFormInquiryType.tsx'
 
 const ContactFormPage = () => {
     return (
@@ -11,8 +12,17 @@ const ContactFormPage = () => {
             </div>
 
             <CardNavTab
-                tabs={[objectTab('Type', 'tabContactFormType')]}
-                tabContents={[objectTabContent('', <TabContactFormType />)]}
+                tabs={[
+                    objectTab('Type of Contact', 'tabContactFormType'),
+                    objectTab(
+                        'Contact Form Inquiry Type',
+                        'tabContactFormInquiryType',
+                    ),
+                ]}
+                tabContents={[
+                    objectTabContent('', <TabContactFormType />),
+                    objectTabContent('', <TabContactFormInquiryType />),
+                ]}
             />
         </>
     )

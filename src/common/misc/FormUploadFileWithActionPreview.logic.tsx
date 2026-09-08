@@ -188,7 +188,8 @@ const FormUploadFileWithActionPreviewLogic = (
                             : () => null,
                         imageRender: IS_TYPE_FILE_PDF(
                             !dataFiles[current]?.[dataBy]?.startsWith('data:')
-                                ? dataFiles[current]?.[dataTypeBy]
+                                ? dataFiles[current]?.[dataTypeBy] ||
+                                      dataFiles[current]?.[dataBy]
                                 : dataFiles[current]?.type,
                         )
                             ? () => {

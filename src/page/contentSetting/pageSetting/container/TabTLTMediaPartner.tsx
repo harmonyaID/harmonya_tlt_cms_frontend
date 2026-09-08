@@ -232,11 +232,9 @@ const TabTLTMediaPartner = () => {
                                 <tr key={index}>
                                     <td>
                                         {/*{vm.image}*/}
-
-                                        <ImgInTable
-                                            src={vm.logo}
-                                            alt={vm.name}
-                                            extraClassImg="img-contain-100"
+                                        <PreviewFileModalLogic
+                                            classNameWidth="avatar-46"
+                                            dataUrl={vm.logo || ''}
                                         />
                                     </td>
                                     <td>

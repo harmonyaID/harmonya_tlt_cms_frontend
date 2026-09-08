@@ -6,22 +6,24 @@ import {
 } from '@/component/general/Button.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import {
+    apiTeam,
     apiTLTReview,
-    apiTLTTestimonial,
+    getTeamTrash,
     getTLTReviewTrash,
-    getTLTTestimonialTrash,
+    permanentDeleteTeam,
     permanentDeleteTLTReview,
-    permanentDeleteTLTTestimonial,
+    restoreTeam,
     restoreTLTReview,
-    restoreTLTTestimonial,
 } from '@/service/api/contentManageSetting.api.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
     MDPSTabFAQAdd,
     MDPSTabFAQRemove,
     MDPSTabLanguageAdd,
-    MDPSTabTLTTestimonialAdd,
-    MDPSTabTLTTestimonialRemove,
+    MDPSTabTLTReviewAdd,
+    MDPSTabTLTReviewRemove,
+    MDPSTabTLTTeamAdd,
+    MDPSTabTLTTeamRemove,
 } from '@/config/modal.config.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
@@ -53,36 +55,34 @@ import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
-import RenderHtml from '@/component/general/RenderHtml.tsx'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 
 const defaultIsActive = 1
 
 const initForm = {
     name: '',
-    position: '',
-    company: '',
-    order: '0',
-    testimonial: '',
+    role: '',
+    question: '',
+    answer: '',
+    order: 1,
     isActive: defaultIsActive,
     photo: '',
 }
 
 const initMapForm = (passData) => ({
     name: passData?.name || '',
-    position: passData?.position || '',
-    company: passData?.company || '',
-    order: passData?.order || '0',
-    testimonial: passData?.testimonial || '',
+    role: passData?.role || '',
+    question: passData?.question || '',
+    answer: passData?.answer || '',
+    order: passData?.order || 1,
     isActive: passData?.isActive ? 1 : 0,
-    deletePhotoIds: [],
     photo: passData?.photo || '',
 })
 
-const TabTLTTestimonial = () => {
+const TabTLTTeam = () => {
     const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
-    const [urlAPI, setUrlAPI] = useState(() => apiTLTTestimonial.list)
+    const [urlAPI, setUrlAPI] = useState(() => apiTeam.list)
 
     const {
         __list,
@@ -98,8 +98,6 @@ const TabTLTTestimonial = () => {
         isAutoSearch: false,
     })
 
-    const [lisPreviousPhotos, setLisPreviousPhotos] = useState([])
-
     const {
         __formRequest,
         __detailData,
@@ -112,8 +110,8 @@ const TabTLTTestimonial = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabTLTTestimonialAdd,
-        modalRemoveId: MDPSTabTLTTestimonialRemove,
+        modalId: MDPSTabTLTTeamAdd,
+        modalRemoveId: MDPSTabTLTTeamRemove,
         //@ts-ignore
         emptyParam: { ...initForm },
         mapDetailToFormRequest: (passData) => {
@@ -137,8 +135,8 @@ const TabTLTTestimonial = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: restoreTLTTestimonial,
-        urlAPIPermanentRemove: permanentDeleteTLTTestimonial,
+        urlAPIRestore: restoreTeam,
+        urlAPIPermanentRemove: permanentDeleteTeam,
         actions: {
             onSuccess: (vm) => __actionRemove(vm.id),
         },
@@ -146,12 +144,12 @@ const TabTLTTestimonial = () => {
 
     const _handleShowTrash = () => {
         setIsShowTrash(true)
-        setUrlAPI(() => getTLTTestimonialTrash)
+        setUrlAPI(() => getTeamTrash)
     }
 
     const _handleShowList = () => {
         setIsShowTrash(false)
-        setUrlAPI(() => apiTLTTestimonial.list)
+        setUrlAPI(() => apiTeam.list)
     }
 
     const {
@@ -160,7 +158,7 @@ const TabTLTTestimonial = () => {
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDPSTabTLTTestimonialRemove, false),
+            nextStep: () => actionModal(MDPSTabTLTTeamRemove, false),
         },
     })
 
@@ -174,7 +172,7 @@ const TabTLTTestimonial = () => {
             <div className="row mb-4">
                 <div className="col-md">
                     <h5 className="fs-18 fw-500">
-                        TLT Testimonial {isShowTrash && 'Trash'}
+                        TLT Team {isShowTrash && 'Trash'}
                     </h5>
                 </div>
                 <div className="col-auto">
@@ -206,8 +204,9 @@ const TabTLTTestimonial = () => {
                             'Photo',
                             'Order',
                             'Name',
-                            'Company',
-                            'Testimonial',
+                            'Role',
+                            'Question',
+                            'Answer',
                             'Active',
                             '',
                         ]}
@@ -226,19 +225,19 @@ const TabTLTTestimonial = () => {
                                         <td>{vm.order}</td>
                                         <td>
                                             <TblLineFirst value={vm.name} />
-                                            <TblLineSecond
-                                                value={vm.position}
-                                            />
                                         </td>
                                         <td>
-                                            <TblLineSecond value={vm.company} />
+                                            <TblLineSecond value={vm.role} />
+                                        </td>
+                                        <td>
+                                            <TblLineSecond
+                                                value={vm.question}
+                                            />
                                         </td>
                                         <td className="max-w-300px">
-                                            <RenderHtml
-                                                html={vm.testimonial || '-'}
-                                            />
+                                            <TblLineSecond value={vm.answer} />
                                         </td>
-                                        <td>
+                                        <td className="max-w-300px">
                                             <TextTrueOrFalse
                                                 value={vm.isActive}
                                             />
@@ -301,10 +300,9 @@ const TabTLTTestimonial = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabTLTTestimonialRemove}
+                    id={MDPSTabTLTReviewRemove}
                     configHandle={{
-                        urlAPI: () =>
-                            apiTLTTestimonial.delete(dataForRemove.id),
+                        urlAPI: () => apiTLTReview.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -315,9 +313,9 @@ const TabTLTTestimonial = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabTLTTestimonialAdd}
+                    id={MDPSTabTLTTeamAdd}
                     detail={__detailData}
-                    title="TLT Testimonial"
+                    title="TLT Team"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -336,30 +334,29 @@ const TabTLTTestimonial = () => {
                             />
 
                             <FormInput
-                                label="Position"
-                                name="position"
-                                required
-                                placeholder="e.g Marketing"
-                            />
-
-                            <FormInput
-                                label="Company"
-                                name="company"
-                                required
-                                placeholder="e.g XYW Ltd"
-                            />
-
-                            <FormTextArea
-                                label="Testimonial"
-                                name="testimonial"
-                                required
-                                placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
-                            />
-
-                            <FormInput
                                 label="Order"
                                 name="order"
                                 isNumberOnly
+                                placeholder="e.g 2"
+                                min={0}
+                            />
+
+                            <FormInput
+                                label="Role"
+                                name="role"
+                                placeholder="e.g Founder"
+                            />
+
+                            <FormInput
+                                label="Question"
+                                name="question"
+                                placeholder="e.g Why?"
+                            />
+
+                            <FormInput
+                                label="Answer"
+                                name="answer"
+                                placeholder="e.g Thats why"
                             />
 
                             <FormRadioButtonMulti
@@ -394,13 +391,13 @@ const TabTLTTestimonial = () => {
                             const dataForm = await objectToFormData({
                                 ...__formRequest,
                             })
-                            return apiTLTTestimonial.addWithData(dataForm)
+                            return apiTeam.addWithData(dataForm)
                         },
                         urlAPIUpdate: async (): Promise<APIResponse> => {
                             const dataForm = await objectToFormData({
                                 ...__formRequest,
                             })
-                            return apiTLTTestimonial.updateWithData(
+                            return apiTeam.updateWithData(
                                 __selectedId,
                                 dataForm,
                             )
@@ -411,15 +408,11 @@ const TabTLTTestimonial = () => {
                             __isEdit
                                 ? __actionUpdate(newData)
                                 : __actionAdd(newData, 'id', true)
-
-                            setLisPreviousPhotos([])
                         },
                         emptySelect: () => {
                             __setFormRequest({
                                 ...initForm,
                             })
-
-                            setLisPreviousPhotos([])
                         },
                     }}
                 />
@@ -437,4 +430,4 @@ const TabTLTTestimonial = () => {
     )
 }
 
-export default TabTLTTestimonial
+export default TabTLTTeam

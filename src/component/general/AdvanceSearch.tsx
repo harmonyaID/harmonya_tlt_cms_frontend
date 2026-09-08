@@ -73,7 +73,7 @@ const AdvanceSearch = (props: AdvanceSearchProps) => {
         isBranchOffice = true,
         isStatus = true,
 
-        isMaxMonthRange = true,
+        isMaxMonthRange = false,
         maxMonthRange = 6,
 
         isMDUseDefaultBtnMargin = true,
