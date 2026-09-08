@@ -4,6 +4,7 @@ import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
 import propertyPath from '@/path/property.path.ts'
 import propertyContactFormPath from '@/path/propertyContactForm.path.ts'
+import propertyInquiryPath from '@/path/propertyInquiry.path.ts'
 
 const PropertyMainPage = lazy(() => import('@/page/property/Property.page.tsx'))
 
@@ -26,6 +27,11 @@ const PropertyDetailPage = lazy(
 // Property Form Request
 const PropertyFormRequestPage = lazy(
     () => import('@/page/propertyContactForm/PropertyContactForm.page.tsx'),
+)
+
+// Property Inquiry
+const PropertyInquiryPage = lazy(
+    () => import('@/page/propertyInquiry/PropertyInquiry.page.tsx'),
 )
 
 const PropertyRoute = () => {
@@ -111,6 +117,24 @@ const PropertyRoute = () => {
                     element={
                         <Page404Layout to={propertyContactFormPath.main} />
                     }
+                />
+            </Route>
+
+            <Route path={propertyInquiryPath.main}>
+                <Route
+                    index
+                    path={propertyInquiryPath.main}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Inquiry"
+                            isCheckPermission={false}>
+                            <PropertyInquiryPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    path="*"
+                    element={<Page404Layout to={propertyInquiryPath.main} />}
                 />
             </Route>
         </>

@@ -22,6 +22,7 @@ import {
     Building,
     CalendarTick,
     Star,
+    Message2,
 
     // Contact Form Management
     MessageAdd1,
@@ -50,7 +51,12 @@ import {
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context'
 import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.ts'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
+import analyticsPath from '@/path/analytics.path.ts'
 import boatPath from '@/path/boat.path.ts'
+import {
+    boatInquiryPrivatePath,
+    boatInquiryTransferPath,
+} from '@/path/boatInquiry.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
 import {
     contactFormPath,
@@ -60,14 +66,18 @@ import contentAllPagesPath from '@/path/contentAllPages.path.ts'
 import contentBlogPath from '@/path/contentBlog.path'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import contentHomePagePath from '@/path/contentHomePage.path.ts'
+import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
+import contentOfferPath from '@/path/contentOffer.path.ts'
 import contentSettingPath from '@/path/contentSetting.path.ts'
 import dashboardPath from '@/path/dashboard.path'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import { experienceSetting } from '@/path/experienceManage.path.ts'
 import experienceTypePath from '@/path/experienceType.path.ts'
+import { islandGuideSetting } from '@/path/islandGuideManage.path.ts'
 import propertyPath from '@/path/property.path.ts'
 import propertyContactFormPath from '@/path/propertyContactForm.path.ts'
+import propertyInquiryFormPath from '@/path/propertyInquiryForm.path.ts'
 import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
 import {
@@ -77,14 +87,6 @@ import {
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
 import userPath from '@/path/user.path.ts'
-import {
-    boatInquiryPrivatePath,
-    boatInquiryTransferPath,
-} from '@/path/boatInquiry.path.ts'
-import analyticsPath from '@/path/analytics.path.ts'
-import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
-import { islandGuideSetting } from '@/path/islandGuideManage.path.ts'
-import contentOfferPath from '@/path/contentOffer.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -416,6 +418,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Property Contact Form"
                     icon={<CalendarTick variant="Bulk" />}
                     to={propertyContactFormPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Property Inquiry"
+                    icon={<Message2 variant="Bulk" />}
+                    to={propertyInquiryFormPath.main}
                 />
             </li>
             <li className="">

@@ -30,11 +30,11 @@ import {
 } from '@/helper/actionFormatDate.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import { viewData } from '@/helper/condition.helper.ts'
-import usePropertyContactFormList from '@/hook/usePropertyContactFormList.hook.ts'
+import usePropertyInquiryMainHook from '@/page/propertyInquiry/hook/usePropertyInquiryMain.hook.ts'
 import propertyPath from '@/path/property.path.ts'
-import { apiPropertyContactFormCRUD } from '@/service/api/property.api.ts'
+import { apiPropertyInquiryCRUD } from '@/service/api/property.api.ts'
 
-const PropertyContactFormPage = () => {
+const PropertyInquiryPage = () => {
     const {
         // List
         __list,
@@ -59,11 +59,11 @@ const PropertyContactFormPage = () => {
         __handleChooseDetail,
         __handleSetDetail,
         __handleCloseDetail,
-    } = usePropertyContactFormList()
+    } = usePropertyInquiryMainHook()
 
     return (
         <>
-            <CardListData title="Property Contact Form">
+            <CardListData title="Property Inquiry">
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
@@ -214,9 +214,7 @@ const PropertyContactFormPage = () => {
                     id={MDExCategoryRemove}
                     configHandle={{
                         urlAPI: () =>
-                            apiPropertyContactFormCRUD.delete(
-                                __dataForRemove.id,
-                            ),
+                            apiPropertyInquiryCRUD.delete(__dataForRemove.id),
                         callBack: () => {
                             __actionRemove(__dataForRemove.id)
                         },
@@ -304,4 +302,4 @@ const PropertyContactFormPage = () => {
     )
 }
 
-export default PropertyContactFormPage
+export default PropertyInquiryPage
