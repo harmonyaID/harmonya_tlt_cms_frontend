@@ -1,19 +1,16 @@
 import { isEmpty } from 'lodash'
-import SelectBaseOptionContactFormType from '@/common/dataForm/SelectBaseOptionContactFormType.tsx'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import OffCanvasWithActionFormCRUDLogic from '@/common/misc/OffCanvasWithActionFormCRUD.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
-import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import {
     BtnCircleDetail,
     BtnCircleEdit,
     BtnCircleRemove,
+    BtnDanger,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
@@ -23,10 +20,7 @@ import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
 import OffCanvasGeneral from '@/component/offCanvas/OffCanvasGeneral.tsx'
-import {
-    MDPSTabWebContactFormAdd,
-    MDPSTabWebContactFormRemove,
-} from '@/config/modal.config.ts'
+import { MDPSTabWebContactFormRemove } from '@/config/modal.config.ts'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import {
     OCContactFormCRUD,
@@ -34,87 +28,49 @@ import {
 } from '@/config/offCanvas.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionOffCanvas from '@/helper/actionOffCanvas.helper.ts'
-import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
-import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
-import useChooseData from '@/hook/useChooseData.hook.ts'
-import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import useContactFormDetailHook from '@/page/contactForm/hook/useContactFormDetail.hook.ts'
 import { apiWebContactForm } from '@/service/api/contentManageSetting.api.ts'
-
-const initForm = {
-    formTypeId: '',
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-}
-
-const initMapForm = (passData) => ({
-    formTypeId: passData?.formType?.id || '',
-    name: passData.name || '',
-    email: passData.email || '',
-    phone: passData.phone || '',
-    subject: passData.subject || '',
-    message: passData.message || '',
-})
+import SelectOptionContactFormType from '@/common/dataForm/SelectOptionContactFormType.tsx'
+import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
+import useContactFormMain from '@/page/contactForm/hook/useContactFormMain.hook.ts'
+import ContactFormTable from '@/page/contactForm/component/ContactFormTable.tsx'
+import ContactFormFilter from '@/page/contactForm/component/ContactFormFilter.tsx'
 
 const ContactFormPage = () => {
     const {
-        __list,
-        __isLoading,
-        __actionRemove,
-        __actionAdd,
-        __actionUpdate,
-        __pagination,
-        __actionPagination,
         __search,
-        __actionChange,
-        __actionClear,
-    } = useDataListHook({
-        urlAPI: apiWebContactForm.list,
-    })
-
-    const {
-        __formRequest,
+        __isLoading,
+        __list,
+        __pagination,
         __detailData,
-        __selectedId,
         __isEdit,
-        __setFormRequest,
-        __setSelectedId,
-        __actionAddModal,
-        __actionUpdateModal,
-        __actionCloseModal,
-        __actionRemoveModal,
-    } = useCRUDModalRequestHook({
-        // modalId: OCContactFormCRUD,
-        // modalRemoveId: MDPSTabWebContactFormRemove,
-        emptyParam: { ...initForm },
-        mapDetailToFormRequest: initMapForm,
-    })
-
-    const { _handleChange } = useNestedFormHook(__formRequest, __setFormRequest)
-
-    const {
-        __data: dataForRemove,
-        __handleChooseAndNextStep: _handleChooseRemove,
-        __setData: _handleSetData,
-    } = useChooseData({
-        action: {
-            nextStep: () => actionModal(MDPSTabWebContactFormRemove, false),
-        },
-    })
-
-    const {
-        __detail,
+        __formRequest,
+        __selectedId,
         __isLoadingDetail,
+        __detail,
+        __initForm: initForm,
+        __dataForRemove: dataForRemove,
 
+        __actionAddModal,
+        __actionChange,
+        __actionPagination,
+        __actionClear,
+        __actionSetIsUseSearch,
+        __setSearch,
+        __handleChooseRemove: _handleChooseRemove,
+        __actionUpdateModal,
         __handleChooseDetail,
-        __handleSetDetail,
+        __actionRemove,
+        __actionCloseModal,
+        __setFormRequest,
+        __initMapForm: initMapForm,
+        __actionUpdate,
+        __actionAdd,
+        __handleSetData,
+        __handleChange,
         __handleCloseDetail,
-    } = useContactFormDetailHook()
+        __handleToTrash,
+    } = useContactFormMain({ urlAPI: apiWebContactForm.list })
 
     return (
         <>
@@ -122,139 +78,47 @@ const ContactFormPage = () => {
                 title="Contact Form"
                 componentAction={
                     <>
-                        <BtnPrimary
-                            onClick={() => {
-                                actionOffCanvas(OCContactFormCRUD)
-                                __actionAddModal()
-                            }}>
-                            Add New
-                        </BtnPrimary>
+                        <div className="hstack gap-2">
+                            <BtnDanger
+                                isOutline
+                                handle={() => {
+                                    __handleToTrash()
+                                }}>
+                                Trash
+                            </BtnDanger>
+                            <BtnPrimary
+                                onClick={() => {
+                                    actionOffCanvas(OCContactFormCRUD)
+                                    __actionAddModal()
+                                }}>
+                                Add New
+                            </BtnPrimary>
+                        </div>
                     </>
                 }>
-                <FilterBarBasic
-                    formRequest={__search}
-                    searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    isDateRange={false}
+                <ContactFormFilter
+                    __isLoading={__isLoading}
+                    __search={__search}
                     actions={{
-                        change: __actionChange,
-                        pagination: __actionPagination,
-                        clear: __actionClear,
+                        __setSearch,
+                        __actionClear,
+                        __actionSetIsUseSearch,
+                        __actionChange,
+                        __actionPagination,
                     }}
                 />
 
-                <div className="row overflow-y position-relative">
-                    <div className="col-md-12 table-responsive-md">
-                        <TableThemeLogic
-                            isLoading={__isLoading}
-                            isNoWrap
-                            ths={[
-                                'Name',
-                                'Form Type',
-                                'Phone',
-                                'Email',
-                                // 'Contact Info.',
-                                // { content: 'FAQ', className: 'w-75' },
-                                'Subject',
-                                'Read',
-                                '',
-                            ]}
-                            tds={__list}>
-                            {__list
-                                .sort(
-                                    (a, b) => Number(a.order) - Number(b.order),
-                                )
-                                .map((vm, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td
-                                                scope="row"
-                                                className="max-w-200px">
-                                                <TblLineFirst
-                                                    value={vm.name || '-'}
-                                                />
-                                            </td>
-                                            <td>
-                                                <TblLineFirst
-                                                    value={
-                                                        vm?.formType?.name ||
-                                                        '-'
-                                                    }
-                                                />
-                                            </td>
-                                            <td>
-                                                <TblLineFirst
-                                                    value={vm.phone || '-'}
-                                                />
-                                            </td>
-                                            <td>
-                                                <TblLineFirst
-                                                    value={vm.email || '-'}
-                                                />
-                                            </td>
-                                            <td>
-                                                <TblLineFirst
-                                                    value={vm.subject || '-'}
-                                                />
-                                            </td>
-                                            <td>
-                                                <TextTrueOrFalse
-                                                    value={vm.isRead}
-                                                />
-                                            </td>
-                                            <td>
-                                                <div className="hstack gap-2 justify-content-end">
-                                                    <BtnCircleRemove
-                                                        actions={{
-                                                            remove: (e) => {
-                                                                e.stopPropagation()
-                                                                _handleChooseRemove(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-                                                    <BtnCircleEdit
-                                                        actions={{
-                                                            edit: (e) => {
-                                                                e.stopPropagation()
-                                                                __actionUpdateModal(
-                                                                    vm,
-                                                                )
-                                                                actionOffCanvas(
-                                                                    OCContactFormCRUD,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-                                                    <BtnCircleDetail
-                                                        actions={{
-                                                            onClick: (e) => {
-                                                                e.stopPropagation()
-                                                                __handleChooseDetail(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )
-                                })}
-                        </TableThemeLogic>
-                    </div>
-                </div>
-
-                {isShowPagination(__isLoading, __list, __pagination) ? (
-                    <Pagination
-                        onMove={(step) => __actionPagination(step)}
-                        className="mt-2"
-                        pagination={configDefaultPagination(
-                            __pagination,
-                            'totalPage',
-                        )}
-                    />
-                ) : null}
+                <ContactFormTable
+                    __list={__list}
+                    __isLoading={__isLoading}
+                    __pagination={__pagination}
+                    actions={{
+                        __actionPagination: __actionPagination,
+                        __actionUpdateModal: __actionUpdateModal,
+                        __handleChooseDetail: __handleChooseDetail,
+                        __handleChooseRemove: _handleChooseRemove,
+                    }}
+                />
             </CardListData>
 
             <CreatePortalLayout>
@@ -267,7 +131,7 @@ const ContactFormPage = () => {
                             __actionRemove(dataForRemove.id)
                         },
                         emptySelect: () => {
-                            _handleSetData({})
+                            __handleSetData({})
                         },
                     }}
                 />
@@ -279,7 +143,7 @@ const ContactFormPage = () => {
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
-                        change: _handleChange,
+                        change: __handleChange,
                         toggleModal: () => {
                             actionOffCanvas(OCContactFormCRUD, true)
                             __actionCloseModal()
@@ -303,10 +167,10 @@ const ContactFormPage = () => {
                             {/*    ))}*/}
                             {/*</FormSelectOption>*/}
 
-                            <SelectBaseOptionContactFormType
-                                label="Form Type"
+                            <SelectOptionContactFormType
                                 name="formTypeId"
-                                required
+                                isUseHook
+                                label="Form Type"
                             />
                             {/*) : null}*/}
 

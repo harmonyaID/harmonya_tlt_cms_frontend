@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams } from 'react-router'
-import { isEmpty } from 'lodash'
+import { isEmpty, isNumber } from 'lodash'
 import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
@@ -30,7 +30,7 @@ const initMapForm = (passData) => {
         showInquiry: passData?.showInquiry ? 1 : 0,
         thumbnail: '',
         mapImage: '',
-        photos: [],
+        photos: !isEmpty(passData.photos) ? passData.photos : [],
         deletePhotoIds: [],
         catalogs: !isEmpty(passData.catalogs) ? passData.catalogs : [],
         deleteCatalogIds: [],
@@ -54,6 +54,8 @@ const initForm = {
     mapImage: '',
     photos: [],
     catalogs: [],
+    deletePhotoIds: [],
+    deleteCatalogIds: [],
     seo: {
         ...initSEOFormConfig,
     },
@@ -138,12 +140,23 @@ const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         ? dataDetail.__isLoadingDetailFormRequest
         : false
 
+    const _handlePrepareData = (): any => {
+        const updated = { ...formRequest }
+
+        updated.photos = updated.photos.filter((vm) => !('id' in vm)).map((vm) => vm.file)
+        updated.catalogs = updated.catalogs.filter((vm) => !('id' in vm))
+
+        return updated
+    }
+
     const _handleSubmit = () => {
+        const form = _handlePrepareData()
+
         return __handleSubmit({
             apiCall: () =>
                 isEdit
-                    ? apiExperienceContent.updateWithData(id, formRequest)
-                    : apiExperienceContent.addWithData(formRequest),
+                    ? apiExperienceContent.updateWithData(id, form)
+                    : apiExperienceContent.addWithData(form),
             setIsLoading,
             isDirectToDetail: true,
         })

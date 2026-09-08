@@ -24,8 +24,8 @@ import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData
 import {
     MDPSTabFAQAdd,
     MDPSTabFAQRemove,
-    MDPSTabMediaContactFormTypeAdd,
-    MDPSTabMediaContactFormTypeRemove,
+    MDPSTabMediaContactFormInquiryTypeAdd,
+    MDPSTabMediaContactFormInquiryTypeRemove,
 } from '@/config/modal.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
@@ -35,6 +35,7 @@ import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import {
+    apiContactFormInquiryType,
     apiContactFormType,
     apiFAQ,
 } from '@/service/api/contentManageSetting.api.ts'
@@ -50,7 +51,7 @@ const initMapForm = (passData) => ({
     eventId: passData.eventId || '',
 })
 
-const TabContactFormType = (
+const TabContactFormInquiryType = (
     //     {
     //     action = {
     //         setIsLoadingFormType: (isLoadingFormType: boolean) => {},
@@ -72,7 +73,7 @@ const TabContactFormType = (
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiContactFormType.list,
+        urlAPI: apiContactFormInquiryType.list,
     })
 
     const {
@@ -87,8 +88,8 @@ const TabContactFormType = (
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabMediaContactFormTypeAdd,
-        modalRemoveId: MDPSTabMediaContactFormTypeRemove,
+        modalId: MDPSTabMediaContactFormInquiryTypeAdd,
+        modalRemoveId: MDPSTabMediaContactFormInquiryTypeRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: initMapForm,
     })
@@ -102,7 +103,7 @@ const TabContactFormType = (
     } = useChooseData({
         action: {
             nextStep: () =>
-                actionModal(MDPSTabMediaContactFormTypeRemove, false),
+                actionModal(MDPSTabMediaContactFormInquiryTypeRemove, false),
         },
     })
 
@@ -115,7 +116,7 @@ const TabContactFormType = (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Type of Contact</h5>
+                    <h5 className="fs-18 fw-500">Contact Form Inquiry Type</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -174,7 +175,7 @@ const TabContactFormType = (
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabMediaContactFormTypeRemove}
+                    id={MDPSTabMediaContactFormInquiryTypeRemove}
                     configHandle={{
                         urlAPI: () =>
                             apiContactFormType.delete(dataForRemove.id),
@@ -188,9 +189,9 @@ const TabContactFormType = (
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabMediaContactFormTypeAdd}
+                    id={MDPSTabMediaContactFormInquiryTypeAdd}
                     detail={__detailData}
-                    title="Type of Contact"
+                    title="Contact Form Inquiry Type"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -240,4 +241,4 @@ const TabContactFormType = (
     )
 }
 
-export default TabContactFormType
+export default TabContactFormInquiryType
