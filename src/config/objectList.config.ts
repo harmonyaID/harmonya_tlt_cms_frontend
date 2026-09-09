@@ -49,7 +49,7 @@ export const IS_TYPE_FILE_EXCEL = (type: string = ''): boolean => {
 }
 
 export const IS_TYPE_FILE_PDF = (type: string = ''): boolean => {
-    return type === 'application/pdf' || type === 'pdf'
+    return type === 'application/pdf' || type === 'pdf' || type.endsWith('.pdf')
 }
 
 export const IS_FILE_WORD_OR_EXCEL = (type: string = ''): boolean => {

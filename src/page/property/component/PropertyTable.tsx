@@ -1,13 +1,17 @@
-import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import Image from 'rc-image'
 import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
-import { TblLineFirst, TblLineFirstPrimary, TblLineSecond } from '@/component/general/TablePartial.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
-import Pagination from '@/component/general/Pagination.tsx'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
-import { BtnCircleEdit, BtnCircleRemove } from '@/component/general/Button.tsx'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import { BtnCircleEdit, BtnCircleRemove } from '@/component/general/Button.tsx'
+import Pagination from '@/component/general/Pagination.tsx'
+import {
+    TblLineFirst,
+    TblLineFirstPrimary,
+    TblLineSecond,
+} from '@/component/general/TablePartial.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
 
 const PropertyTable = ({
     isTrash = false,
@@ -56,7 +60,8 @@ const PropertyTable = ({
                                     title="Preview Detail"
                                     className={!isTrash && 'cursor-pointer'}
                                     onClick={() => {
-                                        !isTrash && actions?.__handleToDetail(vm.id)
+                                        !isTrash &&
+                                            actions?.__handleToDetail(vm.id)
                                     }}>
                                     <td className="col-3 max-w-200px">
                                         <div className="row gy-2">
@@ -117,7 +122,11 @@ const PropertyTable = ({
                                     </td>
                                     <td>
                                         <TblLineFirst>
-                                            {vm?.occupancy || '-'}
+                                            {vm?.occupancy ? (
+                                                <>{vm.occupancy} People</>
+                                            ) : (
+                                                '-'
+                                            )}
                                         </TblLineFirst>
                                     </td>
                                     <td>

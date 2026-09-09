@@ -11,6 +11,8 @@ import {
     upsertMenuItem,
     removeMenuItem,
 } from '@/helper/menuTree.helper.ts'
+import setNestedValue from '@/helper/setNestedValue.helper.ts'
+import { setRemoveNestedArray } from '@/helper/setRemoveNestedValue.helper.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
@@ -132,7 +134,7 @@ const useContentMenuMainFormHook = ({
     }, [])
 
     // Menu Parent
-    const [formRequestMenuParent, setFormRequestMenuParent] = useState({})
+    const [formRequestMenuParent, setFormRequestMenuParent] = useState<any>({})
 
     const [menuTargetParentId, setMenuTargetParentId] = useState(null)
 
@@ -248,6 +250,18 @@ const useContentMenuMainFormHook = ({
         const depth = getDepthById(formRequest.items, id)
         return depth !== null && depth + 1 < MAX_MENU_DEPTH
     }
+
+    // START CHANGE NESTED FORM
+    const _handleChangeNested = (name, value) => {
+        setFormRequest((prevState) => setNestedValue(prevState, name, value))
+    }
+
+    const _handleRemoveNestedArray = (name, index) => {
+        setFormRequest((prevState) =>
+            setRemoveNestedArray(prevState, name, index),
+        )
+    }
+    // END CHANGE NESTED FORM
 
     return {
         __formRequest: formRequest,

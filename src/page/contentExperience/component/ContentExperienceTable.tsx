@@ -1,5 +1,8 @@
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import { TblLineFirstPrimary, TblPointData } from '@/component/general/TablePartial.tsx'
+import {
+    TblLineFirstPrimary,
+    TblPointData,
+} from '@/component/general/TablePartial.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
@@ -8,6 +11,7 @@ import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const ContentExperienceTable = ({
     isTrash = false,
@@ -52,19 +56,32 @@ const ContentExperienceTable = ({
                                     title="Preview Detail"
                                     className={!isTrash && 'cursor-pointer'}
                                     onClick={() => {
-                                        !isTrash && actions?.__handleToDetail(vm.id)
+                                        !isTrash &&
+                                            actions?.__handleToDetail(vm.id)
                                     }}>
                                     <td>
-                                        <TblLineFirstPrimary
-                                            value={vm?.name || '-'}
-                                        />
-
-                                        <TblPointData title="Area">
-                                            <BadgeStatusGeneral
-                                                value={vm?.area?.name || '-'}
-                                                className="text-bg-neutral-300 fw-normal"
+                                        <div className="hstack gap-3 align-items-start">
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.thumbnail || ''}
                                             />
-                                        </TblPointData>
+
+                                            <div>
+                                                <TblLineFirstPrimary
+                                                    value={vm?.name || '-'}
+                                                />
+
+                                                <TblPointData title="Area">
+                                                    <BadgeStatusGeneral
+                                                        value={
+                                                            vm?.area?.name ||
+                                                            '-'
+                                                        }
+                                                        className="text-bg-neutral-300 fw-normal"
+                                                    />
+                                                </TblPointData>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <TblPointData title="Open Hours">

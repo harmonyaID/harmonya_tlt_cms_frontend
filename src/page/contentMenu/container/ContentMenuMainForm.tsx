@@ -1,33 +1,35 @@
-import { objectNavBread } from '@/config/objectNavBread.config.ts'
-import contentBlogPath from '@/path/contentBlog.path.ts'
+import { Additem } from 'iconsax-react'
+import { isEmpty } from 'lodash'
+import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
+import Card from '@/component/card/Card.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
+import FormSelectOption from '@/component/form/FormSelectOption.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import SelectOption from '@/component/form/SelectOption.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
+import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import {
     Loading,
     NotAvailable,
     TextIconLoading,
 } from '@/component/general/TextDefault.tsx'
-import useContentMenuMainFormHook from '@/page/contentMenu/hook/useContentMenuMainForm.hook.ts'
-import FormWrap from '@/component/wrapping/Form.wrap.tsx'
-import FooterSubmit from '@/component/general/FooterSubmit.tsx'
-import Card from '@/component/card/Card.tsx'
-import { WrapFormContext } from '@/context/Form.context.tsx'
-import FormInput from '@/component/form/FormInput.tsx'
-import { textSlug } from '@/helper/convertText.helper.ts'
-import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
-import SelectOption from '@/component/form/SelectOption.tsx'
-import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import ModalMiddle from '@/component/modal/ModalMiddle.tsx'
+import FormWrap from '@/component/wrapping/Form.wrap.tsx'
+import { MEGA_MENU_ID, menuNavbarTypes } from '@/config/menu.config.ts'
 import {
     MDContentMenuAddMenuItem,
     MDGeneralPreview,
 } from '@/config/modal.config.ts'
+import { objectNavBread } from '@/config/objectNavBread.config.ts'
+import { WrapFormContext } from '@/context/Form.context.tsx'
 import actionModal from '@/helper/base/actionModal.helper.ts'
+import { textSlug } from '@/helper/convertText.helper.ts'
 import { generateOptionByLength } from '@/helper/generateOption.helper.ts'
+import useContentMenuMainFormHook from '@/page/contentMenu/hook/useContentMenuMainForm.hook.ts'
+import contentBlogPath from '@/path/contentBlog.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
-import { isEmpty } from 'lodash'
-import { Additem } from 'iconsax-react'
 
 const MenuItemRow = ({
     item,
@@ -321,6 +323,29 @@ const ContentMenuMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             </option>
                                         ))}
                                     </FormSelectOption>
+
+                                    <FormSelectOption
+                                        label="Menu Type"
+                                        name="typeId"
+                                        required>
+                                        {menuNavbarTypes.map((op) => (
+                                            <option
+                                                value={op.value}
+                                                key={op.value}>
+                                                {op.label}
+                                            </option>
+                                        ))}
+                                    </FormSelectOption>
+
+                                    {__formRequestMenuParent.typeId ===
+                                    MEGA_MENU_ID ? (
+                                        <>
+                                            <FormTextArea
+                                                label="Description"
+                                                name="description"
+                                            />
+                                        </>
+                                    ) : null}
                                 </WrapFormContext>
 
                                 <div className="row mt-3">

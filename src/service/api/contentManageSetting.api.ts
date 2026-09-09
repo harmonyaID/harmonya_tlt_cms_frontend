@@ -10,6 +10,9 @@ import {
     SrvBlogCategoryRestore,
     SrvBlogCategoryTrash,
     SrvBlogCategoryTrashWithId,
+    SrvContactFormRestore,
+    SrvContactFormTrash,
+    SrvContactFormTrashWithId,
     SrvBlogTagCRUD,
     SrvBlogTagRestore,
     SrvBlogTagTrash,
@@ -38,6 +41,10 @@ import {
     SrvMediaPartnerRestore,
     SrvMediaPartnerTrash,
     SrvMediaPartnerTrashWithId,
+    SrvTeamCRUD,
+    SrvTeamRestore,
+    SrvTeamTrash,
+    SrvTeamTrashWithId,
     SrvTLTReviewCRUD,
     SrvTLTReviewRestore,
     SrvTLTReviewTrash,
@@ -47,6 +54,7 @@ import {
     SrvTLTTestimonialTrash,
     SrvTLTTestimonialTrashWithId,
     SrvWebContactFormCRUD,
+    SrvComponentContactFormInquiryTypeCRUD,
 } from '@/service/api/_contentManageSetting.endPoint'
 import {
     SrvBoatTypeRestore,
@@ -63,6 +71,17 @@ export const apiWebContactForm = {
 export const apiContactFormType = {
     ..._shapeObjectMethodCRUD(SrvComponentContactFormTypeCRUD),
 }
+
+export const apiContactFormInquiryType = {
+    ..._shapeObjectMethodCRUD(SrvComponentContactFormInquiryTypeCRUD),
+}
+
+export const getContactFormTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvContactFormTrash, search)
+export const permanentDeleteContactForm = (id: string | number) =>
+    _shapeMethodDel(SrvContactFormTrashWithId(id))
+export const restoreContactForm = (id: string | number) =>
+    _shapeMethodPost(SrvContactFormRestore(id))
 
 // Blog Setting
 export const apiBlogCategory = {
@@ -140,6 +159,16 @@ export const permanentDeleteMediaPartner = (id: string | number) =>
     _shapeMethodDel(SrvMediaPartnerTrashWithId(id))
 export const restoreMediaPartner = (id: string | number) =>
     _shapeMethodPost(SrvMediaPartnerRestore(id))
+
+export const apiTeam = {
+    ..._shapeObjectMethodCRUD(SrvTeamCRUD),
+}
+export const getTeamTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvTeamTrash, search)
+export const permanentDeleteTeam = (id: string | number) =>
+    _shapeMethodDel(SrvTeamTrashWithId(id))
+export const restoreTeam = (id: string | number) =>
+    _shapeMethodPost(SrvTeamRestore(id))
 
 // FAQ Setting
 export const apiFAQ = { ..._shapeObjectMethodCRUD(SrvFAQCRUD) }
