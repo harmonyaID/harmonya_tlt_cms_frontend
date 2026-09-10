@@ -126,3 +126,20 @@ export const SrvFAQTypeTrashWithId = (id: string | number = ''): string =>
     baseAPIFAQType + '/trash/' + id
 export const SrvFAQTypeRestore = (id: string | number = ''): string =>
     baseAPIFAQType + '/trash/' + id + '/restore'
+
+//Content Offer Setting
+const baseAPIOfferTag = baseAPI + '/offers/tags'
+export const SrvOfferTag = objectPathEndPointAPI(baseAPIOfferTag)
+export const SrvOfferTagTrash = baseAPIOfferTag + '/trash'
+export const SrvOfferTagTrashWithId = (id: string | number = ''): string =>
+    baseAPIOfferTag + '/trash/' + id
+export const SrvOfferTagRestore = (id: string | number = ''): string =>
+    baseAPIOfferTag + '/trash/' + id + '/restore'
+
+const baseAPIOfferCategory = baseAPI + '/offers/categories'
+export const SrvOfferCategory = objectPathEndPointAPI(baseAPIOfferCategory)
+export const SrvOfferCategoryTrash = baseAPIOfferCategory + '/trash'
+export const SrvOfferCategoryTrashWithId = (id: string | number = ''): string =>
+    baseAPIOfferCategory + '/trash/' + id
+export const SrvOfferCategoryRestore = (id: string | number = ''): string =>
+    baseAPIOfferCategory + '/trash/' + id + '/restore'
