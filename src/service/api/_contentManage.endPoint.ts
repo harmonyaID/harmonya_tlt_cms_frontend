@@ -78,3 +78,12 @@ export const SrvMenuContentCRUD = objectPathEndPointAPI(baseAPI + '/menus')
 
 // Menus Setting
 export const SrvMenuTypeStatic = baseAPI + +'/components/statics/menu-types'
+
+// Island Guides
+const baseAPIIslandGuide = baseAPI + '/island-guides'
+export const SrvIslandGuideCRUD = objectPathEndPointAPI(baseAPIIslandGuide)
+export const SrvIslandGuideTrash = baseAPIIslandGuide + '/trash'
+export const SrvIslandGuideTrashWithId = (id: string | number = ''): string =>
+    baseAPIIslandGuide + '/trash/' + id
+export const SrvIslandGuideRestore = (id: string | number = ''): string =>
+    baseAPIIslandGuide + '/trash/' + id + '/restore'

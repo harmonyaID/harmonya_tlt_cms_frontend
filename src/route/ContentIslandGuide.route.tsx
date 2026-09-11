@@ -7,6 +7,10 @@ const IslandGuidePage = lazy(
     () => import('@/page/contentIslandGuide/ContentIslandGuide.page.tsx'),
 )
 
+const IslandGuideTrashPage = lazy(
+    () => import('@/page/contentIslandGuide/ContentIslandGuideTrash.page.tsx'),
+)
+
 const ContentIslandGuideRoute = () => (
     <>
         <Route path={contentIslandGuidePath.main}>
@@ -17,6 +21,17 @@ const ContentIslandGuideRoute = () => (
                         titleNavbar="Island Guide"
                         isCheckPermission={false}>
                         <IslandGuidePage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentIslandGuidePath.trash}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Island Guide"
+                        isCheckPermission={false}>
+                        <IslandGuideTrashPage />
                     </SuspenseLayout>
                 }
             />
