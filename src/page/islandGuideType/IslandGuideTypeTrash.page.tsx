@@ -1,31 +1,28 @@
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
+import RenderHtml from '@/component/general/RenderHtml.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import useExperienceAreaMain from '@/page/experienceArea/hook/useExpAreaMain.hook.ts'
+import useExpTypeMainHook from '@/page/experienceType/hook/useExpTypeMain.hook.ts'
 import {
-    apiExperienceArea,
-    getExperienceAreaTrash,
-    getIslandGuideAreaTrash,
-    permanentDeleteExperienceArea,
-    permanentDeleteIslandGuideArea,
-    restoreExperienceArea,
+    getExperienceTypeTrash,
+    getIslandGuideTypeTrash,
+    permanentDeleteExperienceType,
+    permanentDeleteIslandGuideType,
+    restoreExperienceType,
+    restoreIslandGuideType,
 } from '@/service/api/contentManageSetting.api.ts'
-import ExperienceAreaTable from '@/page/experienceArea/component/ExperienceAreaTable.tsx'
+import ExpTypeTable from '@/page/experienceType/component/ExpTypeTable.tsx'
+import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import {
     permanentDeleteBoat,
     restoreBoat,
 } from '@/service/api/boatManage.api.ts'
-import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
-import {
-    getIslandGuideTrash,
-    restoreIslandGuide,
-} from '@/service/api/contentManage.api.ts'
-import IslandGuideAreaTable from '@/page/islandGuideArea/component/IslandGuideAreaTable.tsx'
-import useIslandGuideAreaMain from '@/page/islandGuideArea/hook/useIslandGuideAreaMain.hook.ts'
+import useIslandGuideTypeMainHook from '@/page/islandGuideType/hook/useIslandGuideTypeMain.hook.ts'
+import IslandGuideTypeTable from '@/page/islandGuideType/component/IslandGuideTypeTable.tsx'
 
-const IslandGuideAreaTrashPage = () => {
+const IslandGuideTypeTrashPage = () => {
     const {
         __list,
         __search,
@@ -36,8 +33,10 @@ const IslandGuideAreaTrashPage = () => {
         __actionChange,
         __actionClear,
 
+        __handleToAdd,
         __handleToMain,
-    } = useIslandGuideAreaMain({ urlAPI: getIslandGuideAreaTrash })
+        __handleToTrash,
+    } = useIslandGuideTypeMainHook({ urlAPI: getIslandGuideTypeTrash })
 
     const {
         __isLoadingTrash,
@@ -48,17 +47,17 @@ const IslandGuideAreaTrashPage = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: restoreIslandGuide,
-        urlAPIPermanentRemove: permanentDeleteIslandGuideArea,
+        urlAPIRestore: restoreIslandGuideType,
+        urlAPIPermanentRemove: permanentDeleteIslandGuideType,
         actions: {
-            onSuccess: (area) => __actionRemove(area.id),
+            onSuccess: (vm) => __actionRemove(vm.id),
         },
     })
 
     return (
         <>
             <CardListData
-                title="Area Trash"
+                title="Type Trash"
                 componentAction={
                     <BtnPrimary isOutline onClick={() => __handleToMain()}>
                         Back
@@ -67,7 +66,6 @@ const IslandGuideAreaTrashPage = () => {
                 <FilterBarBasic
                     formRequest={__search}
                     searchTextPlaceholder="e.g D'Stars Fast Ferry"
-                    // isDateRange
                     actions={{
                         change: __actionChange,
                         pagination: __actionPagination,
@@ -75,7 +73,7 @@ const IslandGuideAreaTrashPage = () => {
                     }}
                 />
 
-                <IslandGuideAreaTable
+                <IslandGuideTypeTable
                     isTrash={true}
                     __list={__list}
                     __isLoading={__isLoading}
@@ -103,4 +101,4 @@ const IslandGuideAreaTrashPage = () => {
     )
 }
 
-export default IslandGuideAreaTrashPage
+export default IslandGuideTypeTrashPage

@@ -1,8 +1,5 @@
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import {
-    TblLineFirstPrimary,
-    TblLineSecond,
-} from '@/component/general/TablePartial.tsx'
+import { TblLineFirstPrimary } from '@/component/general/TablePartial.tsx'
 import { BoxImage } from '@/component/general/Image.tsx'
 import {
     BtnCircleDetail,
@@ -14,7 +11,7 @@ import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 
-const ExperienceAreaTable = ({
+const IslandGuideTypeTable = ({
     isTrash = false,
     __isLoading,
     __list,
@@ -47,8 +44,7 @@ const ExperienceAreaTable = ({
                             //     content: 'Area',
                             //     className: 'max-w-200px',
                             // },
-                            'Area',
-                            'Type',
+                            'Name',
                             'Featured Image',
                             'Banner',
                             // 'Description',
@@ -70,11 +66,6 @@ const ExperienceAreaTable = ({
                                         <TblLineFirstPrimary
                                             value={vm?.name || ''}
                                         />
-                                    </td>
-                                    <td>
-                                        <TblLineSecond>
-                                            {vm?.type?.name || '-'}
-                                        </TblLineSecond>
                                     </td>
                                     <td>
                                         <BoxImage src={vm.featuredImage} />
@@ -163,4 +154,4 @@ const ExperienceAreaTable = ({
     )
 }
 
-export default ExperienceAreaTable
+export default IslandGuideTypeTable

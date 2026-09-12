@@ -1,4 +1,3 @@
-import { isEmpty } from 'lodash'
 import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import SelectBaseOptionExpType from '@/common/dataForm/SelectBaseOptionExpType.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
@@ -8,21 +7,17 @@ import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
-import { Loading } from '@/component/general/TextDefault.tsx'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import { isLoadingAndDetail } from '@/helper/condition.helper.ts'
-import useExpAreaMainForm from '@/page/experienceArea/hook/useExpAreaMainForm.hook.ts'
-import boatPath from '@/path/boat.path.ts'
+import useExpTypeMainForm from '@/page/experienceType/hook/useExpTypeMainForm.hook.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
-import useIslandGuideAreaMainForm from '@/page/islandGuideArea/hook/useIslandGuideAreaMainForm.hook.ts'
-import islandGuideAreaPath from '@/path/islandGuideArea.path.ts'
-import SelectBaseOptionIslandGuideType from '@/common/dataForm/SelectBaseOptionIslandGuideType.tsx'
+import useIslandGuideTypeMainForm from '@/page/islandGuideType/hook/useIslandGuideTypeMainForm.hook.ts'
 
-const IslandGuideAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
+const IslandGuideTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
         __formRequest,
         __isLoading,
@@ -52,14 +47,14 @@ const IslandGuideAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // Submit / Cancel
         __handleSubmit,
         __handleCancel,
-    } = useIslandGuideAreaMainForm({ isEdit })
+    } = useIslandGuideTypeMainForm({ isEdit })
 
     return (
         <>
             <NavBreadcrumb
                 navs={[
-                    objectNavBread('Area', {
-                        url: islandGuideAreaPath.main,
+                    objectNavBread('Type', {
+                        url: experienceAreaPath.main,
                         state: __pageStateDataSearch,
                     }),
                     objectNavBread(isEdit ? 'Edit' : 'Add'),
@@ -76,7 +71,7 @@ const IslandGuideAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                             handleSubmit: () => __handleSubmit(),
                         }}
                         className="vstack gap-3">
-                        <CardDropdown title="Area Information" isShow>
+                        <CardDropdown title="Type Information" isShow>
                             <div className="row">
                                 <div className="col-md-8">
                                     <WrapFormContext
@@ -84,20 +79,11 @@ const IslandGuideAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         actions={{
                                             change: __handleChange,
                                         }}>
-                                        <GeneralRowForm
-                                            label="Form Type"
-                                            isRequired>
-                                            <SelectBaseOptionIslandGuideType
-                                                name="islandGuideTypeId"
-                                                isRequired
-                                            />
-                                        </GeneralRowForm>
-
                                         <GeneralRowForm label="Name" isRequired>
                                             <FormInput
                                                 name="name"
                                                 required
-                                                placeholder="e.g JUNGUTBATU"
+                                                placeholder="e.g Water Sport"
                                             />
                                         </GeneralRowForm>
 
@@ -271,4 +257,4 @@ const IslandGuideAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     )
 }
 
-export default IslandGuideAreaMainForm
+export default IslandGuideTypeMainForm

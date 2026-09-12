@@ -12,6 +12,7 @@ import {
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
+import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 
 const IslandGuideAreaTable = ({
     isTrash = false,
@@ -41,7 +42,7 @@ const IslandGuideAreaTable = ({
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={['Area', 'Type', 'Featured Image', 'Banner']}
+                        ths={['Area', 'Type', 'Featured Image', 'Banner', '']}
                         tds={__list}>
                         {__list.map((vm, index) => {
                             return (
@@ -73,39 +74,53 @@ const IslandGuideAreaTable = ({
                                     {/*</td>*/}
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
-                                            <BtnCircleRemove
-                                                actions={{
-                                                    remove: (e) => {
-                                                        e.stopPropagation()
-                                                        actions?.__handleChooseRemove(
-                                                            vm,
-                                                        )
-                                                    },
-                                                }}
-                                            />
+                                            {isTrash ? (
+                                                <TrashActionButtons
+                                                    selected={vm}
+                                                    actions={{
+                                                        restore:
+                                                            actions?.__handleChooseRestore,
+                                                        permanentRemove:
+                                                            actions?.__handleChoosePermanentRemove,
+                                                    }}
+                                                />
+                                            ) : (
+                                                <>
+                                                    <BtnCircleRemove
+                                                        actions={{
+                                                            remove: (e) => {
+                                                                e.stopPropagation()
+                                                                actions?.__handleChooseRemove(
+                                                                    vm,
+                                                                )
+                                                            },
+                                                        }}
+                                                    />
 
-                                            <BtnCircleEdit
-                                                title="Edit Data"
-                                                actions={{
-                                                    edit: (e) => {
-                                                        e.stopPropagation()
-                                                        actions?.__handleToEdit(
-                                                            vm.id,
-                                                        )
-                                                    },
-                                                }}
-                                            />
+                                                    <BtnCircleEdit
+                                                        title="Edit Data"
+                                                        actions={{
+                                                            edit: (e) => {
+                                                                e.stopPropagation()
+                                                                actions?.__handleToEdit(
+                                                                    vm.id,
+                                                                )
+                                                            },
+                                                        }}
+                                                    />
 
-                                            <BtnCircleDetail
-                                                actions={{
-                                                    onClick: (e) => {
-                                                        e.stopPropagation()
-                                                        actions?.__handleChooseDetail(
-                                                            vm,
-                                                        )
-                                                    },
-                                                }}
-                                            />
+                                                    <BtnCircleDetail
+                                                        actions={{
+                                                            onClick: (e) => {
+                                                                e.stopPropagation()
+                                                                actions?.__handleChooseDetail(
+                                                                    vm,
+                                                                )
+                                                            },
+                                                        }}
+                                                    />
+                                                </>
+                                            )}
                                         </div>
                                     </td>
                                 </tr>

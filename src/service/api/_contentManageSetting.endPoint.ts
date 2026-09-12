@@ -149,7 +149,7 @@ const baseAPIIslandGuideType = baseAPI + '/island-guides/types'
 export const SrvIslandGuideTypeCRUD = objectPathEndPointAPI(
     baseAPIIslandGuideType,
 )
-export const SrvIslandGuideTypeTrash = baseAPIExperienceType + '/trash'
+export const SrvIslandGuideTypeTrash = baseAPIIslandGuideType + '/trash'
 export const SrvIslandGuideTypeTrashWithId = (
     id: string | number = '',
 ): string => baseAPIIslandGuideType + '/trash/' + id
@@ -160,7 +160,7 @@ const baseAPIIslandGuideArea = baseAPI + '/island-guides/areas'
 export const SrvIslandGuideAreaCRUD = objectPathEndPointAPI(
     baseAPIIslandGuideArea,
 )
-export const SrvIslandGuideAreaTrash = baseAPIExperienceArea + '/trash'
+export const SrvIslandGuideAreaTrash = baseAPIIslandGuideArea + '/trash'
 export const SrvIslandGuideAreaTrashWithId = (
     id: string | number = '',
 ): string => baseAPIIslandGuideArea + '/trash/' + id
