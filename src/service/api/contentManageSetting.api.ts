@@ -63,6 +63,14 @@ import {
     SrvOfferTagTrash,
     SrvOfferTagTrashWithId,
     SrvOfferTagRestore,
+    SrvIslandGuideTypeCRUD,
+    SrvIslandGuideTypeTrash,
+    SrvIslandGuideTypeTrashWithId,
+    SrvIslandGuideTypeRestore,
+    SrvIslandGuideAreaRestore,
+    SrvIslandGuideAreaTrashWithId,
+    SrvIslandGuideAreaCRUD,
+    SrvIslandGuideAreaTrash,
 } from '@/service/api/_contentManageSetting.endPoint'
 import {
     SrvBoatTypeRestore,
@@ -214,3 +222,24 @@ export const permanentDeleteOfferTag = (id: string | number) =>
     _shapeMethodDel(SrvOfferTagTrashWithId(id))
 export const restoreOfferTag = (id: string | number) =>
     _shapeMethodPost(SrvOfferTagRestore(id))
+
+// Island Guide Setting
+export const apiIslandGuideType = {
+    ..._shapeObjectMethodCRUD(SrvIslandGuideTypeCRUD),
+}
+export const getIslandGuideTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvIslandGuideTypeTrash, search)
+export const permanentDeleteIslandGuideType = (id: string | number) =>
+    _shapeMethodDel(SrvIslandGuideTypeTrashWithId(id))
+export const restoreIslandGuideType = (id: string | number) =>
+    _shapeMethodPost(SrvIslandGuideTypeRestore(id))
+
+export const apiIslandGuideArea = {
+    ..._shapeObjectMethodCRUD(SrvIslandGuideAreaCRUD),
+}
+export const getIslandGuideAreaTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvIslandGuideAreaTrash, search)
+export const permanentDeleteIslandGuideArea = (id: string | number) =>
+    _shapeMethodDel(SrvIslandGuideAreaTrashWithId(id))
+export const restoreIslandGuideArea = (id: string | number) =>
+    _shapeMethodPost(SrvIslandGuideAreaRestore(id))

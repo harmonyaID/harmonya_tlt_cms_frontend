@@ -143,3 +143,26 @@ export const SrvOfferCategoryTrashWithId = (id: string | number = ''): string =>
     baseAPIOfferCategory + '/trash/' + id
 export const SrvOfferCategoryRestore = (id: string | number = ''): string =>
     baseAPIOfferCategory + '/trash/' + id + '/restore'
+
+// Content Island Guide Setting
+const baseAPIIslandGuideType = baseAPI + '/island-guides/types'
+export const SrvIslandGuideTypeCRUD = objectPathEndPointAPI(
+    baseAPIIslandGuideType,
+)
+export const SrvIslandGuideTypeTrash = baseAPIExperienceType + '/trash'
+export const SrvIslandGuideTypeTrashWithId = (
+    id: string | number = '',
+): string => baseAPIIslandGuideType + '/trash/' + id
+export const SrvIslandGuideTypeRestore = (id: string | number = ''): string =>
+    baseAPIIslandGuideType + '/trash/' + id + '/restore'
+
+const baseAPIIslandGuideArea = baseAPI + '/island-guides/areas'
+export const SrvIslandGuideAreaCRUD = objectPathEndPointAPI(
+    baseAPIIslandGuideArea,
+)
+export const SrvIslandGuideAreaTrash = baseAPIExperienceArea + '/trash'
+export const SrvIslandGuideAreaTrashWithId = (
+    id: string | number = '',
+): string => baseAPIIslandGuideArea + '/trash/' + id
+export const SrvIslandGuideAreaRestore = (id: string | number = ''): string =>
+    baseAPIIslandGuideArea + '/trash/' + id + '/restore'
