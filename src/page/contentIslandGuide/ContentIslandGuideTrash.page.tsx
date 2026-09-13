@@ -20,6 +20,7 @@ import {
     restoreBoat,
 } from '@/service/api/boatManage.api.ts'
 import ContentExperienceFilter from '@/page/contentExperience/component/ContentExperienceFilter.tsx'
+import useContentIslandGuideHook from '@/page/contentIslandGuide/hook/useContentIslandGuide.hook.ts'
 
 const ContentExperienceTrashPage = () => {
     const {
@@ -37,7 +38,10 @@ const ContentExperienceTrashPage = () => {
 
         // ---- Change Page ----
         __handleToMain,
-    } = useContentExHook({ urlAPI: getIslandGuideTrash, isTrash: true })
+    } = useContentIslandGuideHook({
+        urlAPI: getIslandGuideTrash,
+        isTrash: true,
+    })
 
     const {
         __isLoadingTrash,

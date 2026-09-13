@@ -9,9 +9,17 @@ import islandGuideTypePath from '@/path/islandGuideType.path.ts'
 const IslandGuidePage = lazy(
     () => import('@/page/contentIslandGuide/ContentIslandGuide.page.tsx'),
 )
-
 const IslandGuideTrashPage = lazy(
     () => import('@/page/contentIslandGuide/ContentIslandGuideTrash.page.tsx'),
+)
+const IslandGuideAddPage = lazy(
+    () => import('@/page/contentIslandGuide/ContentIslandGuideAdd.page.tsx'),
+)
+const IslandGuideEditPage = lazy(
+    () => import('@/page/contentIslandGuide/ContentIslandGuideEdit.page.tsx'),
+)
+const IslandGuideDetailPage = lazy(
+    () => import('@/page/contentIslandGuide/ContentIslandGuideDetail.page.tsx'),
 )
 
 // Setting Area
@@ -63,6 +71,39 @@ const ContentIslandGuideRoute = () => (
                         titleNavbar="Island Guide"
                         isCheckPermission={false}>
                         <IslandGuideTrashPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentIslandGuidePath.add}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Island Guide"
+                        isCheckPermission={false}>
+                        <IslandGuideAddPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentIslandGuidePath.edit()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Island Guide"
+                        isCheckPermission={false}>
+                        <IslandGuideEditPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentIslandGuidePath.detail()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Island Guide"
+                        isCheckPermission={false}>
+                        <IslandGuideDetailPage />
                     </SuspenseLayout>
                 }
             />
