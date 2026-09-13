@@ -1,20 +1,19 @@
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import {
     TblLineFirstPrimary,
-    TblLineSecond,
+    TblPointData,
 } from '@/component/general/TablePartial.tsx'
-import { BoxImage } from '@/component/general/Image.tsx'
-import {
-    BtnCircleDetail,
-    BtnCircleEdit,
-    BtnCircleRemove,
-} from '@/component/general/Button.tsx'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
+import { BtnCircleEdit, BtnCircleRemove } from '@/component/general/Button.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
-const ExperienceAreaTable = ({
+const ContentExperienceTable = ({
     isTrash = false,
     __isLoading,
     __list,
@@ -32,26 +31,21 @@ const ExperienceAreaTable = ({
         __actionPagination: (page, search?: any) => void
         __handleChoosePermanentRemove?: (data: any) => void
         __handleChooseRestore?: (data: any) => void
-        __handleChooseDetail?: (data: any) => void
     }
 }) => {
     return (
         <>
             <div className="row overflow-y position-relative">
-                <div className="col-md-12">
+                <div className="col-md-12 table-responsive-md">
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
-                            // {
-                            //     content: 'Area',
-                            //     className: 'max-w-200px',
-                            // },
-                            'Area',
-                            'Type',
-                            'Featured Image',
-                            'Banner',
-                            // 'Description',
+                            'Name',
+                            'Info.',
+                            'Contact',
+                            'Status Active',
+                            'Created',
                             '',
                         ]}
                         tds={__list}>
@@ -59,38 +53,67 @@ const ExperienceAreaTable = ({
                             return (
                                 <tr
                                     key={index}
-                                    // onClick={(e) => {
-                                    //     e.stopPropagation()
-                                    //     __handleChooseDetail(vm)
-                                    // }}
-                                    // title="Preview Detail"
-                                    // className="cursor-pointer"
-                                >
+                                    title="Preview Detail"
+                                    className={!isTrash && 'cursor-pointer'}
+                                    onClick={() => {
+                                        !isTrash &&
+                                            actions?.__handleToDetail(vm.id)
+                                    }}>
                                     <td>
-                                        <TblLineFirstPrimary
-                                            value={vm?.name || ''}
-                                        />
+                                        <div className="hstack gap-3 align-items-start">
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={vm.thumbnail || ''}
+                                            />
+
+                                            <div>
+                                                <TblLineFirstPrimary
+                                                    value={vm?.name || '-'}
+                                                />
+
+                                                <TblPointData title="Area">
+                                                    <BadgeStatusGeneral
+                                                        value={
+                                                            vm?.area?.name ||
+                                                            '-'
+                                                        }
+                                                        className="text-bg-neutral-300 fw-normal"
+                                                    />
+                                                </TblPointData>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
-                                        <TblLineSecond>
-                                            {vm?.type?.name || '-'}
-                                        </TblLineSecond>
+                                        <TblPointData title="Open Hours">
+                                            {vm?.openHours || '-'}
+                                        </TblPointData>
+
+                                        <TblPointData title="Type">
+                                            <BadgeStatusGeneral
+                                                value={vm?.type?.name || '-'}
+                                                className="text-bg-neutral-300 fw-normal"
+                                            />
+                                        </TblPointData>
+                                    </td>
+
+                                    <td>
+                                        <TblPointData title="Instagram">
+                                            {vm?.instagram || '-'}
+                                        </TblPointData>
+
+                                        <TblPointData title="Whatsapp">
+                                            {vm?.whatsapp || '-'}
+                                        </TblPointData>
+                                    </td>
+
+                                    <td>
+                                        <TextTrueOrFalse value={vm.isActive} />
                                     </td>
                                     <td>
-                                        <BoxImage src={vm.featuredImage} />
+                                        <TblPointData title="Create At">
+                                            {formatDateTimeByTlt(vm?.createdAt)}
+                                        </TblPointData>
                                     </td>
-                                    <td>
-                                        <BoxImage src={vm.banner} />
-                                    </td>
-                                    {/*<td>*/}
-                                    {/*    {vm.description ? (*/}
-                                    {/*        <RenderHtml*/}
-                                    {/*            html={vm.description}*/}
-                                    {/*        />*/}
-                                    {/*    ) : (*/}
-                                    {/*        '-'*/}
-                                    {/*    )}*/}
-                                    {/*</td>*/}
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
                                             {isTrash ? (
@@ -127,17 +150,6 @@ const ExperienceAreaTable = ({
                                                             },
                                                         }}
                                                     />
-
-                                                    <BtnCircleDetail
-                                                        actions={{
-                                                            onClick: (e) => {
-                                                                e.stopPropagation()
-                                                                actions?.__handleChooseDetail(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
                                                 </>
                                             )}
                                         </div>
@@ -163,4 +175,4 @@ const ExperienceAreaTable = ({
     )
 }
 
-export default ExperienceAreaTable
+export default ContentExperienceTable

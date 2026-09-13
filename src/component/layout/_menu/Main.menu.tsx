@@ -87,6 +87,8 @@ import {
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
 import userPath from '@/path/user.path.ts'
+import islandGuideTypePath from '@/path/islandGuideType.path.ts'
+import islandGuideAreaPath from '@/path/islandGuideArea.path.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -367,7 +369,10 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     to={islandGuideSetting.main}
                     icon={<Setting variant="Bulk" />}
                     idControl="island-guide-setting"
-                    subMenus={[]}
+                    subMenus={[
+                        _configParamSubMenu('Type', islandGuideTypePath.main),
+                        _configParamSubMenu('Area', islandGuideAreaPath.main),
+                    ]}
                 />
             </li>
 

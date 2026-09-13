@@ -14,7 +14,7 @@ import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 
-const ExperienceAreaTable = ({
+const IslandGuideAreaTable = ({
     isTrash = false,
     __isLoading,
     __list,
@@ -42,30 +42,11 @@ const ExperienceAreaTable = ({
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={[
-                            // {
-                            //     content: 'Area',
-                            //     className: 'max-w-200px',
-                            // },
-                            'Area',
-                            'Type',
-                            'Featured Image',
-                            'Banner',
-                            // 'Description',
-                            '',
-                        ]}
+                        ths={['Area', 'Type', 'Featured Image', 'Banner', '']}
                         tds={__list}>
                         {__list.map((vm, index) => {
                             return (
-                                <tr
-                                    key={index}
-                                    // onClick={(e) => {
-                                    //     e.stopPropagation()
-                                    //     __handleChooseDetail(vm)
-                                    // }}
-                                    // title="Preview Detail"
-                                    // className="cursor-pointer"
-                                >
+                                <tr key={index}>
                                     <td>
                                         <TblLineFirstPrimary
                                             value={vm?.name || ''}
@@ -163,4 +144,4 @@ const ExperienceAreaTable = ({
     )
 }
 
-export default ExperienceAreaTable
+export default IslandGuideAreaTable

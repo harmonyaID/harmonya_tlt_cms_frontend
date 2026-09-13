@@ -126,3 +126,43 @@ export const SrvFAQTypeTrashWithId = (id: string | number = ''): string =>
     baseAPIFAQType + '/trash/' + id
 export const SrvFAQTypeRestore = (id: string | number = ''): string =>
     baseAPIFAQType + '/trash/' + id + '/restore'
+
+//Content Offer Setting
+const baseAPIOfferTag = baseAPI + '/offers/tags'
+export const SrvOfferTag = objectPathEndPointAPI(baseAPIOfferTag)
+export const SrvOfferTagTrash = baseAPIOfferTag + '/trash'
+export const SrvOfferTagTrashWithId = (id: string | number = ''): string =>
+    baseAPIOfferTag + '/trash/' + id
+export const SrvOfferTagRestore = (id: string | number = ''): string =>
+    baseAPIOfferTag + '/trash/' + id + '/restore'
+
+const baseAPIOfferCategory = baseAPI + '/offers/categories'
+export const SrvOfferCategory = objectPathEndPointAPI(baseAPIOfferCategory)
+export const SrvOfferCategoryTrash = baseAPIOfferCategory + '/trash'
+export const SrvOfferCategoryTrashWithId = (id: string | number = ''): string =>
+    baseAPIOfferCategory + '/trash/' + id
+export const SrvOfferCategoryRestore = (id: string | number = ''): string =>
+    baseAPIOfferCategory + '/trash/' + id + '/restore'
+
+// Content Island Guide Setting
+const baseAPIIslandGuideType = baseAPI + '/island-guides/types'
+export const SrvIslandGuideTypeCRUD = objectPathEndPointAPI(
+    baseAPIIslandGuideType,
+)
+export const SrvIslandGuideTypeTrash = baseAPIIslandGuideType + '/trash'
+export const SrvIslandGuideTypeTrashWithId = (
+    id: string | number = '',
+): string => baseAPIIslandGuideType + '/trash/' + id
+export const SrvIslandGuideTypeRestore = (id: string | number = ''): string =>
+    baseAPIIslandGuideType + '/trash/' + id + '/restore'
+
+const baseAPIIslandGuideArea = baseAPI + '/island-guides/areas'
+export const SrvIslandGuideAreaCRUD = objectPathEndPointAPI(
+    baseAPIIslandGuideArea,
+)
+export const SrvIslandGuideAreaTrash = baseAPIIslandGuideArea + '/trash'
+export const SrvIslandGuideAreaTrashWithId = (
+    id: string | number = '',
+): string => baseAPIIslandGuideArea + '/trash/' + id
+export const SrvIslandGuideAreaRestore = (id: string | number = ''): string =>
+    baseAPIIslandGuideArea + '/trash/' + id + '/restore'

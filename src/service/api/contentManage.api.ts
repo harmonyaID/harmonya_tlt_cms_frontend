@@ -14,6 +14,10 @@ import {
     SrvExpInquiryFormUpdateStatus,
     SrvHomePageContent,
     SrvHomePageContentCRUD,
+    SrvIslandGuideCRUD,
+    SrvIslandGuideRestore,
+    SrvIslandGuideTrash,
+    SrvIslandGuideTrashWithId,
     SrvMenuContentCRUD,
     SrvMenuTypeStatic,
     SrvOfferContentCRUD,
@@ -118,3 +122,17 @@ export const apiMenu = {
 
 export const getStaticTypeMenu = () =>
     _shapeMethodGet(SrvMenuTypeStatic, 'tcSrvMenuTypeStatic')
+
+// Island Guide
+export const apiIslandGuide = {
+    ..._shapeObjectMethodCRUD(SrvIslandGuideCRUD),
+}
+
+export const getIslandGuideTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvIslandGuideTrash, search)
+
+export const permanentDeleteIslandGuide = (id: string | number) =>
+    _shapeMethodDel(SrvIslandGuideTrashWithId(id))
+
+export const restoreIslandGuide = (id: string | number) =>
+    _shapeMethodPost(SrvIslandGuideRestore(id))
