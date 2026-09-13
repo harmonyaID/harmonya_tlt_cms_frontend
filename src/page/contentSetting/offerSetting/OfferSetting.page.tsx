@@ -2,6 +2,8 @@ import { PageTitle } from '@/component/general/TitleGeneral.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
+import TabOfferCategory from '@/page/contentSetting/offerSetting/container/TabOfferCategory.tsx'
+import TabOfferTag from '@/page/contentSetting/offerSetting/container/TabOfferTag.tsx'
 
 const OfferSettingPage = () => {
     return (
@@ -14,8 +16,8 @@ const OfferSettingPage = () => {
                     objectTab('Tag', 'tabTag'),
                 ]}
                 tabContents={[
-                    objectTabContent('', <PageComingSoonLayout />),
-                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <TabOfferCategory />),
+                    objectTabContent('', <TabOfferTag />),
                 ]}
             />
         </>

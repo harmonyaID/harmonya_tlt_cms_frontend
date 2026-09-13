@@ -55,12 +55,29 @@ import {
     SrvTLTTestimonialTrashWithId,
     SrvWebContactFormCRUD,
     SrvComponentContactFormInquiryTypeCRUD,
+    SrvOfferTag,
+    SrvOfferCategory,
+    SrvOfferCategoryTrash,
+    SrvOfferCategoryTrashWithId,
+    SrvOfferCategoryRestore,
+    SrvOfferTagTrash,
+    SrvOfferTagTrashWithId,
+    SrvOfferTagRestore,
+    SrvIslandGuideTypeCRUD,
+    SrvIslandGuideTypeTrash,
+    SrvIslandGuideTypeTrashWithId,
+    SrvIslandGuideTypeRestore,
+    SrvIslandGuideAreaRestore,
+    SrvIslandGuideAreaTrashWithId,
+    SrvIslandGuideAreaCRUD,
+    SrvIslandGuideAreaTrash,
 } from '@/service/api/_contentManageSetting.endPoint'
 import {
     SrvBoatTypeRestore,
     SrvBoatTypeTrash,
     SrvBoatTypeTrashWithId,
 } from '@/service/api/_boatManage.endPoint.ts'
+import { SrvOfferContentCRUD } from '@/service/api/_contentManage.endPoint.ts'
 
 export const apiLanguage = { ..._shapeObjectMethodCRUD(SrvLanguageCRUD) }
 
@@ -186,3 +203,43 @@ export const permanentDeleteFAQType = (id: string | number) =>
     _shapeMethodDel(SrvFAQTypeTrashWithId(id))
 export const restoreFAQType = (id: string | number) =>
     _shapeMethodPost(SrvFAQTypeRestore(id))
+
+// Offer Setting
+export const apiOfferCategory = {
+    ..._shapeObjectMethodCRUD(SrvOfferCategory),
+}
+export const getOfferCategoryTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvOfferCategoryTrash, search)
+export const permanentDeleteOfferCategory = (id: string | number) =>
+    _shapeMethodDel(SrvOfferCategoryTrashWithId(id))
+export const restoreOfferCategory = (id: string | number) =>
+    _shapeMethodPost(SrvOfferCategoryRestore(id))
+
+export const apiOfferTag = { ..._shapeObjectMethodCRUD(SrvOfferTag) }
+export const getOfferTagTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvOfferTagTrash, search)
+export const permanentDeleteOfferTag = (id: string | number) =>
+    _shapeMethodDel(SrvOfferTagTrashWithId(id))
+export const restoreOfferTag = (id: string | number) =>
+    _shapeMethodPost(SrvOfferTagRestore(id))
+
+// Island Guide Setting
+export const apiIslandGuideType = {
+    ..._shapeObjectMethodCRUD(SrvIslandGuideTypeCRUD),
+}
+export const getIslandGuideTypeTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvIslandGuideTypeTrash, search)
+export const permanentDeleteIslandGuideType = (id: string | number) =>
+    _shapeMethodDel(SrvIslandGuideTypeTrashWithId(id))
+export const restoreIslandGuideType = (id: string | number) =>
+    _shapeMethodPost(SrvIslandGuideTypeRestore(id))
+
+export const apiIslandGuideArea = {
+    ..._shapeObjectMethodCRUD(SrvIslandGuideAreaCRUD),
+}
+export const getIslandGuideAreaTrash = (search: any) =>
+    _shapeMethodGetSearch(SrvIslandGuideAreaTrash, search)
+export const permanentDeleteIslandGuideArea = (id: string | number) =>
+    _shapeMethodDel(SrvIslandGuideAreaTrashWithId(id))
+export const restoreIslandGuideArea = (id: string | number) =>
+    _shapeMethodPost(SrvIslandGuideAreaRestore(id))
