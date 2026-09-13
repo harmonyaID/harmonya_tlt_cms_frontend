@@ -1,9 +1,9 @@
-import BoatInquiryMainList from '@/common/dataFeature/boatInquiry/component/BoatInquiryMainList.tsx'
+import BoatInquiryMainForm from '@/common/dataFeature/boatInquiry/component/BoatInquiryMainForm.tsx'
 import { boatInquiryPath } from '@/path/boatInquiry.path.ts'
 
 const BoatInquiryTransferPage = () => {
     return (
-        <BoatInquiryMainList
+        <BoatInquiryMainForm
             title="Boat Transfer"
             basePath={boatInquiryPath.transfer}
         />

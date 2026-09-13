@@ -53,10 +53,7 @@ import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import analyticsPath from '@/path/analytics.path.ts'
 import boatPath from '@/path/boat.path.ts'
-import {
-    boatInquiryPrivatePath,
-    boatInquiryTransferPath,
-} from '@/path/boatInquiry.path.ts'
+import { boatInquiryPath } from '@/path/boatInquiry.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
 import {
     contactFormPath,
@@ -387,17 +384,17 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Boat Inquiry"
-                    to={experienceSetting.main}
+                    to={boatInquiryPath.main}
                     icon={<ReceiptText variant="Bulk" />}
                     idControl="boat-inquiry"
                     subMenus={[
                         _configParamSubMenu(
                             'Boat Transfer',
-                            boatInquiryTransferPath.main,
+                            boatInquiryPath.transfer.main,
                         ),
                         _configParamSubMenu(
                             'Private Boat',
-                            boatInquiryPrivatePath.main,
+                            boatInquiryPath.private.main,
                         ),
                     ]}
                 />
