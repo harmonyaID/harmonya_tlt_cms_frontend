@@ -5,9 +5,7 @@ import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import {BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import RenderHtml from '@/component/general/RenderHtml.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
@@ -170,6 +168,12 @@ const ExperienceAreaPage = () => {
                                         ) : (
                                             '-'
                                         ),
+                                    ),
+                                    objectListDetail(
+                                        'Blogs',
+                                        __detail.blogs?.map((blog) => (
+                                            <li key={blog.id}>{blog.title}</li>
+                                        )),
                                     ),
                                 ]}
                             />
