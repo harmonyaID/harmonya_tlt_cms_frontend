@@ -1,20 +1,8 @@
-import {
-    objectPathMenu,
-    pathBasenameRoute,
-} from '@/config/base/objectPath.config.js'
+import { pathBasenameRoute } from '@/config/base/objectPath.config.js'
 
-const boatInquiryTransferPath = {
-    ...objectPathMenu('boat-inquiry-transfer'),
-    trash: pathBasenameRoute('boat-inqury-transfer') + '/trash',
-}
-
-const boatInquiryPrivatePath = {
-    ...objectPathMenu('boat-inquiry-private'),
-    trash: pathBasenameRoute('boat-inqury-private') + '/trash',
-}
-
-export const boatInquiryPath = {
-    main: pathBasenameRoute('boat-inquiry'),
-    transfer: { ...boatInquiryTransferPath },
-    private: { ...boatInquiryPrivatePath },
+const base = pathBasenameRoute('boat-inquiry')
+export const boatInquiryGeneral = {
+    root: base,
+    main: (slug: string = ':slug') => base + '/' + slug,
+    add: (slug: string = ':slug') => base + '/' + slug + '/add',
 }

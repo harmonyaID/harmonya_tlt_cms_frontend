@@ -53,7 +53,7 @@ import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
 import analyticsPath from '@/path/analytics.path.ts'
 import boatPath from '@/path/boat.path.ts'
-import { boatInquiryPath } from '@/path/boatInquiry.path.ts'
+import { boatInquiryGeneral } from '@/path/boatInquiry.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
 import {
     contactFormPath,
@@ -86,6 +86,8 @@ import {
 import userPath from '@/path/user.path.ts'
 import islandGuideTypePath from '@/path/islandGuideType.path.ts'
 import islandGuideAreaPath from '@/path/islandGuideArea.path.ts'
+import useBoatTypeStore from '@/store/useBoatType.store.ts'
+import { textSlug } from '@/helper/convertText.helper.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -95,6 +97,10 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
     const currentPath = useLocation().pathname
 
     const { __permissions } = useGlobalPrivateContext()
+
+    const { __list: boatTypes } = useBoatTypeStore({
+        isFormatList: false,
+    })
 
     const [pathNow, setPathNow] = useState<string>('')
 
@@ -384,19 +390,15 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
             <li className="submenu-dropdown">
                 <LinkMenuDropdown
                     name="Boat Inquiry"
-                    to={boatInquiryPath.main}
+                    to={boatInquiryGeneral.root}
                     icon={<ReceiptText variant="Bulk" />}
                     idControl="boat-inquiry"
-                    subMenus={[
+                    subMenus={boatTypes.map((type) =>
                         _configParamSubMenu(
-                            'Boat Transfer',
-                            boatInquiryPath.transfer.main,
+                            type.name,
+                            boatInquiryGeneral.main(textSlug(type.name)),
                         ),
-                        _configParamSubMenu(
-                            'Private Boat',
-                            boatInquiryPath.private.main,
-                        ),
-                    ]}
+                    )}
                 />
             </li>
             <li className="">

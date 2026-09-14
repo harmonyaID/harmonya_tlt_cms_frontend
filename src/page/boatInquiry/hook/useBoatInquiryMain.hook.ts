@@ -7,7 +7,7 @@ import {
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import moment from 'moment/moment'
-import { boatInquiryPath } from '@/path/boatInquiry.path.ts'
+import { boatInquiryGeneral } from '@/path/boatInquiry.path.ts'
 import { useState } from 'react'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import {
@@ -15,6 +15,13 @@ import {
     MDBoatInquiryUpdateStatus,
 } from '@/config/modal.config.ts'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
+import { useNavigate, useParams } from 'react-router'
+import { objDataSearchOther } from '@/config/objectPassState.config.ts'
+import {
+    RESTORE_COUNT,
+    RESTORE_COUNT_ADVANCE,
+    RESTORE_IS_USE_SEARCH,
+} from '@/config/advanceSearch.config.ts'
 
 const filterParam = () => ({
     fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
@@ -25,14 +32,15 @@ const filterParam = () => ({
 
 const useBoatInquiryMain = ({
     urlAPI,
-    basePath,
     isTrash = false,
 }: {
     urlAPI: any
-    basePath: any
     isTrash?: boolean
 }) => {
     const [id, setId] = useState()
+    const { slug } = useParams()
+    const navigate = useNavigate()
+
     const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
     const [formRequestStatus, setFormRequestStatus] = useState({ statusId: '' })
 
@@ -55,18 +63,25 @@ const useBoatInquiryMain = ({
         advancedSearch: { ...filterParam() },
     })
 
-    const {
-        __handleToAdd,
-        __handleToEdit,
-        __handleToDetail,
-        __handleToMain,
-        __handleToTrash,
-    } = usePageFlowHandlerHook({
-        basePath: basePath,
-        pathFromKey: isTrash ? basePath.trash : basePath.main,
-        search: __search,
-        isUseSearch: __isUseSearch,
-    })
+    const _handleNavigateWithState = (
+        url: string,
+        extraState: Record<string, any> = {},
+    ) => {
+        navigate(url, {
+            state: {
+                ...objDataSearchOther(__search),
+                ...extraState,
+            },
+        })
+    }
+
+    const __handleToAdd = () => {
+        _handleNavigateWithState(boatInquiryGeneral.add(slug))
+    }
+
+    const __handleToMain = () => {
+        _handleNavigateWithState(boatInquiryGeneral.main(slug))
+    }
 
     const _handleConfirmRead = (id) => {
         setId(id)
@@ -123,10 +138,7 @@ const useBoatInquiryMain = ({
 
         // ---- Change Page ----
         __handleToAdd,
-        __handleToEdit,
-        __handleToDetail,
         __handleToMain,
-        __handleToTrash,
 
         // ---- Actions ----
         __formRequestStatus: formRequestStatus,

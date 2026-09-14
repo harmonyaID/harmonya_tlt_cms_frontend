@@ -1,9 +1,7 @@
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import boatPath from '@/path/boat.path.ts'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
-import { boatInquiryPath } from '@/path/boatInquiry.path.ts'
-import useLocationStateHook from '@/hook/useLocationState.hook.ts'
-import useBoatInquiryMainForm from '@/common/dataFeature/boatInquiry/hook/useBoatInquiryMainForm.hook.ts'
+import useBoatInquiryMainForm from '@/page/boatInquiry/hook/useBoatInquiryMainForm.hook.ts'
 import { Loading } from '@/component/general/TextDefault.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import Card from '@/component/card/Card.tsx'
@@ -20,39 +18,33 @@ import SelectOptionBoat from '@/common/dataForm/SelectOptionBoat.tsx'
 const BoatInquiryMainForm = ({
     isEdit = false,
     title,
-    basePath,
 }: {
     isEdit?: boolean
     title: string
-    basePath: any
 }) => {
     const {
         __formRequest,
         __isLoading,
-        __isLoadingDetail,
+        __mainPath,
         __pageStateDataSearch,
         __handleSubmit,
         __handleCancel,
-        __setFormRequest,
         __handleChange,
-    } = useBoatInquiryMainForm({
-        isEdit: isEdit,
-        basePath: basePath,
-    })
+    } = useBoatInquiryMainForm()
 
     return (
         <>
             <NavBreadcrumb
                 navs={[
                     objectNavBread(title, {
-                        url: basePath.main,
+                        url: __mainPath,
                         state: __pageStateDataSearch,
                     }),
                     objectNavBread(isEdit ? 'Edit' : 'Add'),
                 ]}
             />
 
-            {__isLoadingDetail && isEdit ? (
+            {isEdit ? (
                 <Loading />
             ) : (
                 <>
@@ -312,9 +304,7 @@ const BoatInquiryMainForm = ({
 
                         <FooterSubmit
                             isLoading={__isLoading}
-                            handleCancel={() =>
-                                __handleCancel(__pageStateDataSearch)
-                            }
+                            handleCancel={() => __handleCancel()}
                         />
                     </FormWrap>
                 </>

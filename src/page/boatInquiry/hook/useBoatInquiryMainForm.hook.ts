@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
@@ -7,6 +7,9 @@ import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import { apiBoat, apiBoatContactForm } from '@/service/api/boatManage.api.ts'
 import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
+import { isSuccess } from '@/helper/base/condition.helper.ts'
+import { objDataSearchOther } from '@/config/objectPassState.config.ts'
+import { boatInquiryGeneral } from '@/path/boatInquiry.path.ts'
 
 const defaultActive = '1'
 
@@ -72,44 +75,32 @@ const initMapForm = (passData) => ({
     message: passData?.message || '',
 })
 
-const useBoatInquiryMainForm = ({
-    isEdit = false,
-    basePath,
-}: {
-    isEdit?: boolean
-    basePath: any
-}) => {
-    const { id } = useParams()
+const useBoatInquiryMainForm = () => {
+    const { slug } = useParams()
+    const navigate = useNavigate()
 
     const restored = useLocationStateHook()
-
-    const { __handleSubmit, __handleCancel, __handleToMain } =
-        usePageFlowHandlerHook({
-            basePath: basePath,
-            pathFromKey: restored.from,
-        })
 
     const [formRequest, setFormRequest] = useState({ ...initForm })
     const [isLoading, setIsLoading] = useState(false)
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
-    const dataDetail = useDetailFormRequestHook({
-        urlAPI: () => apiBoatContactForm.detail(id),
-        formRequest,
-        setFormRequest,
-        isManualSetFormRequest: true,
-        handleSetFormRequest: (res) => {
-            if (isEdit) {
-                setFormRequest(initMapForm(res))
-            }
-        },
-        isAutoGet: isEdit,
-    })
+    const _handleNavigateWithState = (
+        url: string,
+        extraState: Record<string, any> = {},
+    ) => {
+        navigate(url, {
+            state: {
+                ...objDataSearchOther(restored),
+                ...extraState,
+            },
+        })
+    }
 
-    const isLoadingDetail = isEdit
-        ? dataDetail.__isLoadingDetailFormRequest
-        : false
+    const _handleToMain = () => {
+        _handleNavigateWithState(boatInquiryGeneral.main(slug))
+    }
 
     const _handleSubmit = () => {
         const payload = {
@@ -124,30 +115,28 @@ const useBoatInquiryMainForm = ({
             ),
         }
 
-        return __handleSubmit({
-            apiCall: () =>
-                isEdit
-                    ? apiBoatContactForm.updateWithData(id, payload)
-                    : apiBoatContactForm.addWithData(payload),
-            setIsLoading,
-            isDirectToDetail: false,
-            callBack: () => {
-                __handleToMain()
-            },
-        })
+        setIsLoading(true)
+        apiBoatContactForm
+            .addWithData(payload)
+            .then((res) => {
+                if (isSuccess(res)) {
+                    _handleToMain()
+                }
+            })
+            .finally(() => setIsLoading(false))
     }
 
     return {
         __formRequest: formRequest,
         __isLoading: isLoading,
-        __isLoadingDetail: isLoadingDetail,
         __pageStateDataSearch: restored,
+        __mainPath: boatInquiryGeneral.main(slug),
 
         __setFormRequest: setFormRequest,
         __handleChange: nestedForm._handleChange,
 
         __handleSubmit: _handleSubmit,
-        __handleCancel,
+        __handleCancel: _handleToMain,
     }
 }
 

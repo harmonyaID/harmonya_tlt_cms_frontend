@@ -12,6 +12,14 @@ export const textSlug = (text: string) => {
         .replace(/-+/g, '-')
 }
 
+export const slugToText = (slug: string) => {
+    return slug
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/\b\w/g, (char) => char.toUpperCase())
+}
+
 export const textToId = (text?: string, format = '') => {
     const words = text.trim().toLowerCase().split(/\s+/)
 

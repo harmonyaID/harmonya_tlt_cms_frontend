@@ -1,11 +1,10 @@
 import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
 import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
-import useBoatInquiryMain from '@/common/dataFeature/boatInquiry/hook/useBoatInquiryMain.hook.ts'
+import useBoatInquiryMain from '@/page/boatInquiry/hook/useBoatInquiryMain.hook.ts'
 import { apiBoatContactForm } from '@/service/api/boatManage.api.ts'
-import { boatInquiryPath } from '@/path/boatInquiry.path.ts'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
-import BoatInquiryTable from '@/common/dataFeature/boatInquiry/component/BoatInquiryTable.tsx'
+import BoatInquiryTable from '@/page/boatInquiry/component/BoatInquiryTable.tsx'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import {
@@ -17,7 +16,7 @@ import useIslandGuideAreaDetailOffCanvasHook from '@/page/islandGuideArea/hook/u
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import { apiIslandGuideArea } from '@/service/api/contentManageSetting.api.ts'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import useBoatInquiryDetailOffCanvasHook from '@/common/dataFeature/boatInquiry/hook/useBoatInquiryDetailOffCanvas.hook.ts'
+import useBoatInquiryDetailOffCanvasHook from '@/page/boatInquiry/hook/useBoatInquiryDetailOffCanvas.hook.ts'
 import { OCGeneralPreviewDetail } from '@/config/offCanvas.config.ts'
 import { isEmpty } from 'lodash'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
@@ -36,15 +35,9 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { TextIconLoading } from '@/component/general/TextDefault.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import BoatInquiryStatus from '@/common/dataFeature/boatInquiry/component/BoatInquiryStatus.tsx'
+import BoatInquiryStatus from '@/page/boatInquiry/component/BoatInquiryStatus.tsx'
 
-const BoatInquiryMainList = ({
-    title,
-    basePath,
-}: {
-    title: string
-    basePath: any
-}) => {
+const BoatInquiryMainList = ({ title }: { title: string }) => {
     const {
         __list,
         __handleToAdd,
@@ -64,7 +57,6 @@ const BoatInquiryMainList = ({
         __formRequestStatus,
     } = useBoatInquiryMain({
         urlAPI: apiBoatContactForm.list,
-        basePath: basePath,
     })
 
     const {

@@ -16,7 +16,7 @@ import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
-import BoatInquiryStatus from '@/common/dataFeature/boatInquiry/component/BoatInquiryStatus.tsx'
+import BoatInquiryStatus from '@/page/boatInquiry/component/BoatInquiryStatus.tsx'
 
 const BoatInquiryTable = ({
     isTrash = false,
