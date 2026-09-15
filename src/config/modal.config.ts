@@ -90,6 +90,9 @@ export const MDBoatTypeRemove = 'modalBoatTypeRemove'
 export const MDBoatContactFormAdd = 'modalBoatContactFormAdd'
 export const MDBoatContactFormRemove = 'modalBoatContactFormRemove'
 
+export const MDBoatInquiryRead = 'modalBoatInquiryRead'
+export const MDBoatInquiryUpdateStatus = 'modalBoatInquiryUpdateStatus'
+
 // Content Menu
 export const MDContentMenuAddMenuItem = 'modalContentMenuAddMenuItem'
 

@@ -13,6 +13,8 @@ import FormWrap from '@/component/wrapping/Form.wrap.tsx'
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import PageSelectStatus from '@/page/contentAllPages/component/PageSelectStatus.tsx'
+import PageSelectTemplate from '@/page/contentAllPages/component/PageSelectTemplate.tsx'
+import PageMainFormTemplatePage from '@/page/contentAllPages/container/PageMainFormTemplatePage.tsx'
 import usePageMainFormHook from '@/page/contentAllPages/hook/usePageMainForm.hook.ts'
 import contentAllPagesPath from '@/path/contentAllPages.path.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
@@ -126,6 +128,13 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     </GeneralRowForm>
 
                                     <GeneralRowForm
+                                        label="Template Content"
+                                        // isRequired
+                                    >
+                                        <PageSelectTemplate />
+                                    </GeneralRowForm>
+
+                                    <GeneralRowForm
                                         label="Content"
                                         isRequired
                                         // classNameColumnLabel="col-md-12 pb-3"
@@ -142,11 +151,11 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         {/*    }}>*/}
                                         {/*</WrapFormContext>*/}
 
-                                        <FormTinyMCE
-                                            name="content"
-                                            value={__formRequest?.content || ''}
-                                            isUseHook={false}
-                                            required
+                                        <PageMainFormTemplatePage
+                                            template={__formRequest.template}
+                                            content={
+                                                __formRequest?.content || ''
+                                            }
                                             actions={{
                                                 onChange: (
                                                     passName,
@@ -158,6 +167,23 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     ),
                                             }}
                                         />
+
+                                        {/*<FormTinyMCE*/}
+                                        {/*    name="content"*/}
+                                        {/*    value={__formRequest?.content || ''}*/}
+                                        {/*    isUseHook={false}*/}
+                                        {/*    required*/}
+                                        {/*    actions={{*/}
+                                        {/*        onChange: (*/}
+                                        {/*            passName,*/}
+                                        {/*            passValue,*/}
+                                        {/*        ) =>*/}
+                                        {/*            __handleSectionInput(*/}
+                                        {/*                passName,*/}
+                                        {/*                passValue,*/}
+                                        {/*            ),*/}
+                                        {/*    }}*/}
+                                        {/*/>*/}
                                     </GeneralRowForm>
                                 </CardDropdown>
 

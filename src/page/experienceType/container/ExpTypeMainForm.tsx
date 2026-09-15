@@ -15,12 +15,17 @@ import { isLoadingAndDetail } from '@/helper/condition.helper.ts'
 import useExpTypeMainForm from '@/page/experienceType/hook/useExpTypeMainForm.hook.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
+import SelectOptionBlog from '@/common/dataForm/SelectOptionBlog.tsx'
 
 const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
         __formRequest,
         __isLoading,
         __pageStateDataSearch,
+        __listBlogs,
+        __handleBlogRemove,
+        __handleChooseBlog,
 
         // Detail
         __isLoadingDetail,
@@ -77,6 +82,7 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         formRequest={__formRequest}
                                         actions={{
                                             change: __handleChange,
+                                            changeBlogOld: __handleChooseBlog,
                                         }}>
                                         <GeneralRowForm label="Name" isRequired>
                                             <FormInput
@@ -224,6 +230,28 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     }}
                                                 />
                                             )}
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Blogs">
+                                            <SelectOptionBlog
+                                                name="blogIds"
+                                                disabled={
+                                                    __formRequest.blogIds
+                                                        .length == 2
+                                                }
+                                                nameOfChange="changeBlogOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.blogIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listBlogs}
+                                                dataActions={{
+                                                    remove: __handleBlogRemove,
+                                                }}
+                                            />
                                         </GeneralRowForm>
                                     </WrapFormContext>
                                 </div>

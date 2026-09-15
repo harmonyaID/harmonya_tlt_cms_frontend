@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { hideSidebar, showSidebar } from '@/helper/base/actionSidebar.helper.ts'
 import setNestedValue from '@/helper/setNestedValue.helper.ts'
 import { setRemoveNestedArray } from '@/helper/setRemoveNestedValue.helper.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
@@ -82,6 +83,14 @@ const usePageMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
             isDirectToDetail: true,
         })
     }
+
+    useEffect(() => {
+        hideSidebar()
+
+        return () => {
+            showSidebar()
+        }
+    }, [])
 
     return {
         __formRequest: formRequest,

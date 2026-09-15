@@ -257,6 +257,10 @@ const ContentBlogDetailPage = () => {
                                             __detail?.author || '-',
                                         ),
                                         objectListDetail(
+                                            'Visitors',
+                                            __detail?.uniqueVisitorCount || '-',
+                                        ),
+                                        objectListDetail(
                                             'Created At',
                                             __detail?.createdAt || '-',
                                         ),

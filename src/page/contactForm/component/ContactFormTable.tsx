@@ -42,7 +42,8 @@ const ContactFormTable = ({
                         isNoWrap
                         ths={[
                             'Name',
-                            'Form Type',
+                            'Type of Contact',
+                            'Type of Inquiry Contact',
                             'Phone',
                             'Email',
                             // 'Contact Info.',
@@ -66,6 +67,14 @@ const ContactFormTable = ({
                                             <TblLineFirst
                                                 value={
                                                     vm?.formType?.name || '-'
+                                                }
+                                            />
+                                        </td>
+                                        <td>
+                                            <TblLineFirst
+                                                value={
+                                                    vm?.formInquiryType?.name ||
+                                                    '-'
                                                 }
                                             />
                                         </td>
