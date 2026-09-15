@@ -8,6 +8,7 @@ export const initPageMainForm = {
     shortDescription: '',
     status: '',
     locale: '',
+    template: '',
     seo: {
         ...initSEOFormConfig,
     },
@@ -21,5 +22,6 @@ export const initMapPageMainForm = (passData) => ({
     shortDescription: passData?.shortDescription || '',
     status: passData?.status || '',
     locale: passData?.locale || '',
+    template: passData?.template || '',
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
