@@ -16,6 +16,7 @@ import { contactFormPath } from '@/path/contactFormManage.path.ts'
 const useContactFormMain = ({ urlAPI }: { urlAPI: any }) => {
     const initForm = {
         formTypeId: '',
+        formInquiryTypeId: '',
         name: '',
         email: '',
         phone: '',
@@ -25,6 +26,7 @@ const useContactFormMain = ({ urlAPI }: { urlAPI: any }) => {
 
     const initMapForm = (passData) => ({
         formTypeId: passData?.formType?.id || '',
+        formInquiryTypeId: passData?.formInquiryType?.id || '',
         name: passData.name || '',
         email: passData.email || '',
         phone: passData.phone || '',

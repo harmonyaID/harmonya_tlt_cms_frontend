@@ -113,6 +113,12 @@ const ContentBlogTable = ({
                                                 {vm?.publishedAt || '-'}
                                             </TblLineSecond>
                                         </TblPointData>
+
+                                        <TblPointData title="Visitors">
+                                            <TblLineSecond>
+                                                {vm?.uniqueVisitorCount || '-'}
+                                            </TblLineSecond>
+                                        </TblPointData>
                                     </td>
                                     <td>
                                         <TblPointData title="Author">

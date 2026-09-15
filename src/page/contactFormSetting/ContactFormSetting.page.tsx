@@ -15,7 +15,7 @@ const ContactFormPage = () => {
                 tabs={[
                     objectTab('Type of Contact', 'tabContactFormType'),
                     objectTab(
-                        'Contact Form Inquiry Type',
+                        'Type of Inquiry Contact',
                         'tabContactFormInquiryType',
                     ),
                 ]}

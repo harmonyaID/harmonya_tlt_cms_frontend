@@ -35,6 +35,7 @@ import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
 import useContactFormMain from '@/page/contactForm/hook/useContactFormMain.hook.ts'
 import ContactFormTable from '@/page/contactForm/component/ContactFormTable.tsx'
 import ContactFormFilter from '@/page/contactForm/component/ContactFormFilter.tsx'
+import SelectOptionContactFormInquiryType from '@/common/dataForm/SelectOptionContactFormInquiryType.tsx'
 
 const ContactFormPage = () => {
     const {
@@ -170,9 +171,14 @@ const ContactFormPage = () => {
                             <SelectOptionContactFormType
                                 name="formTypeId"
                                 isUseHook
-                                label="Form Type"
+                                label="Type of Contact"
                             />
-                            {/*) : null}*/}
+
+                            <SelectOptionContactFormInquiryType
+                                name="formInquiryTypeId"
+                                isUseHook
+                                label="Type of Inquiry Contact"
+                            />
 
                             <FormInput
                                 label="Name"
@@ -247,8 +253,12 @@ const ContactFormPage = () => {
                             list={[
                                 objectListDetail('Name', __detail.name),
                                 objectListDetail(
-                                    'Form Type',
+                                    'Type of Contact',
                                     __detail?.formType?.name || '-',
+                                ),
+                                objectListDetail(
+                                    'Type of Inquiry Contact',
+                                    __detail?.formInquiryType?.name || '-',
                                 ),
                                 objectListDetail(
                                     'Read',
