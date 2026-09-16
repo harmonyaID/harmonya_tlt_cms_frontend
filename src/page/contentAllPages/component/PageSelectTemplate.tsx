@@ -11,6 +11,7 @@ const PageSelectTemplate = ({
     required?: boolean
     name?: string
     className?: string
+    [key: string]: any
 }) => {
     return (
         <FormSelectOption

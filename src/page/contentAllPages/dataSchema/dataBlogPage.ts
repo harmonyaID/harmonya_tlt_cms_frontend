@@ -1,3 +1,7 @@
 const dataBlogPage = {
-    headBanner: '',
+    SECTION1: {
+        backgroundImage: '',
+    },
 }
+
+export default dataBlogPage

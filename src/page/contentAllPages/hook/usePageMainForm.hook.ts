@@ -7,6 +7,7 @@ import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
+import configDataSchema from '@/page/contentAllPages/dataSchema/_configDataSchema.ts'
 import {
     initMapPageMainForm,
     initPageMainForm,
@@ -46,6 +47,8 @@ const usePageMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     // START SECTION NESTED FORM
     const _handleSectionInput = (name?: any, value: any = '') => {
+        console.log('name: ', name)
+        console.log('value: ', value)
         setFormRequest((prevState) => setNestedValue(prevState, name, value))
     }
 
@@ -55,6 +58,18 @@ const usePageMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         )
     }
     // END SECTION NESTED FORM
+
+    // START CHANGE TEMPLATE
+    const _handleChangeTemplate = (value = '') => {
+        setFormRequest((prevState) => {
+            const newState = { ...prevState }
+            newState.template = value
+            newState.content = value ? configDataSchema[value] || '' : ''
+
+            return newState
+        })
+    }
+    // END CHANGE TEMPLATE
 
     const dataDetail = useDetailFormRequestHook({
         urlAPI: () => apiPageContent.detail(id),
@@ -106,6 +121,8 @@ const usePageMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
         __handleSectionInput: _handleSectionInput,
         __handleSectionRemoveNested: _handleSectionRemoveNested,
+
+        __handleChangeTemplate: _handleChangeTemplate,
 
         // SEO
         __seoThumbnail: seoThumbnail,

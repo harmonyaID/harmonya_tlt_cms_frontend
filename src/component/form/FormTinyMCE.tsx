@@ -37,6 +37,9 @@ const FormTinyMCE = ({
     height = 500,
     isUseHook = true,
     isSimple = false,
+    label = '',
+    required = false,
+    id = '',
     ...props
 }: FormInputProps & {
     height?: number
@@ -67,134 +70,147 @@ const FormTinyMCE = ({
         setInitialValue(dataValue)
     }, [])
 
-    return isSimple ? (
-        <Editor
-            licenseKey="gpl"
-            onInit={(_, editor) => (editorRef.current = editor)}
-            initialValue={initialValue}
-            // initialValue={dataValue}
-            onEditorChange={_handleChange}
-            init={{
-                height: 200,
-                menubar: false,
-                plugins: 'lists link',
-                toolbar:
-                    'bold italic underline strikethrough | bullist numlist | link | undo redo',
-                branding: false,
-                statusbar: false,
-                resize: false,
-                placeholder: placeholder,
-            }}
-        />
-    ) : (
-        <Editor
-            licenseKey="gpl"
-            onInit={(_, editor) => (editorRef.current = editor)}
-            initialValue={initialValue}
-            // initialValue={dataValue}
-            onEditorChange={_handleChange}
-            init={{
-                height: height,
-                menubar: true,
-                promotion: false,
-                branding: false,
-                statusbar: false,
-                file_picker_types: 'image',
-                help_accessibility: false,
-                placeholder: placeholder,
+    return (
+        <>
+            {label ? (
+                <label htmlFor={id} className="form-label">
+                    {label}
+                    <span className="text-danger-200 fs-16">
+                        {required ? '*' : ''}
+                    </span>
+                </label>
+            ) : null}
 
-                plugins: [
-                    'advlist',
-                    'autolink',
-                    'lists',
-                    'link',
-                    'image',
-                    'charmap',
-                    'anchor',
-                    'searchreplace',
-                    'visualblocks',
-                    'code',
-                    'fullscreen',
-                    'insertdatetime',
-                    'media',
-                    'table',
-                    'preview',
-                    'help',
-                    'wordcount',
-                ],
+            {isSimple ? (
+                <Editor
+                    licenseKey="gpl"
+                    onInit={(_, editor) => (editorRef.current = editor)}
+                    initialValue={initialValue}
+                    // initialValue={dataValue}
+                    onEditorChange={_handleChange}
+                    init={{
+                        height: 200,
+                        menubar: false,
+                        plugins: 'lists link',
+                        toolbar:
+                            'bold italic underline strikethrough | bullist numlist | link | undo redo',
+                        branding: false,
+                        statusbar: false,
+                        resize: false,
+                        placeholder: placeholder,
+                    }}
+                />
+            ) : (
+                <Editor
+                    licenseKey="gpl"
+                    onInit={(_, editor) => (editorRef.current = editor)}
+                    initialValue={initialValue}
+                    // initialValue={dataValue}
+                    onEditorChange={_handleChange}
+                    init={{
+                        height: height,
+                        menubar: true,
+                        promotion: false,
+                        branding: false,
+                        statusbar: false,
+                        file_picker_types: 'image',
+                        help_accessibility: false,
+                        placeholder: placeholder,
 
-                toolbar:
-                    'undo redo | blocks | fontfamily | styles ' +
-                    'bold italic forecolor backcolor | ' +
-                    'alignleft aligncenter alignright alignjustify | ' +
-                    'bullist numlist outdent indent | ' +
-                    'link image media | ',
-                block_formats:
-                    'Paragraph=p;' +
-                    'Heading 1=h1;' +
-                    'Heading 2=h2;' +
-                    'Heading 3=h3;' +
-                    'Heading 4=h4;' +
-                    'Heading 4=h5;' +
-                    'Heading 4=h6;' +
-                    'Quote=blockquote;' +
-                    'Preformatted=pre',
-                table_header_type: 'sectionCells',
+                        plugins: [
+                            'advlist',
+                            'autolink',
+                            'lists',
+                            'link',
+                            'image',
+                            'charmap',
+                            'anchor',
+                            'searchreplace',
+                            'visualblocks',
+                            'code',
+                            'fullscreen',
+                            'insertdatetime',
+                            'media',
+                            'table',
+                            'preview',
+                            'help',
+                            'wordcount',
+                        ],
 
-                file_picker_callback: (callback) => {
-                    const input = document.createElement('input')
+                        toolbar:
+                            'undo redo | blocks | fontfamily | styles ' +
+                            'bold italic forecolor backcolor | ' +
+                            'alignleft aligncenter alignright alignjustify | ' +
+                            'bullist numlist outdent indent | ' +
+                            'link image media | ',
+                        block_formats:
+                            'Paragraph=p;' +
+                            'Heading 1=h1;' +
+                            'Heading 2=h2;' +
+                            'Heading 3=h3;' +
+                            'Heading 4=h4;' +
+                            'Heading 4=h5;' +
+                            'Heading 4=h6;' +
+                            'Quote=blockquote;' +
+                            'Preformatted=pre',
+                        table_header_type: 'sectionCells',
 
-                    input.type = 'file'
-                    input.accept = 'image/*'
+                        file_picker_callback: (callback) => {
+                            const input = document.createElement('input')
 
-                    input.onchange = () => {
-                        const file = input.files?.[0]
-                        if (!file) return
+                            input.type = 'file'
+                            input.accept = 'image/*'
 
-                        const reader = new FileReader()
+                            input.onchange = () => {
+                                const file = input.files?.[0]
+                                if (!file) return
 
-                        reader.onload = () => {
-                            callback(reader.result as string, {
-                                alt: file.name,
-                            })
-                        }
+                                const reader = new FileReader()
 
-                        reader.readAsDataURL(file)
-                    }
+                                reader.onload = () => {
+                                    callback(reader.result as string, {
+                                        alt: file.name,
+                                    })
+                                }
 
-                    input.click()
-                },
+                                reader.readAsDataURL(file)
+                            }
 
-                content_css: CustomCSS,
+                            input.click()
+                        },
 
-                font_formats:
-                    'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats',
+                        content_css: CustomCSS,
 
-                style_formats: [
-                    {
-                        title: 'Info',
-                        block: 'div',
-                        classes: 'info-block',
-                        wrapper: true,
-                        preview: 'Info',
-                    },
-                    {
-                        title: 'Warning',
-                        block: 'div',
-                        classes: 'warning-block',
-                        wrapper: true,
-                        preview: 'Warning',
-                    },
-                    {
-                        title: 'Danger',
-                        block: 'div',
-                        classes: 'danger-block',
-                        wrapper: true,
-                        preview: 'Danger',
-                    },
-                ],
-            }}
-        />
+                        font_formats:
+                            'Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black,avant garde; Book Antiqua=book antiqua,palatino; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Oswald=oswald; Symbol=symbol; Tahoma=tahoma,arial,helvetica,sans-serif; Terminal=terminal,monaco; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; Webdings=webdings; Wingdings=wingdings,zapf dingbats',
+
+                        style_formats: [
+                            {
+                                title: 'Info',
+                                block: 'div',
+                                classes: 'info-block',
+                                wrapper: true,
+                                preview: 'Info',
+                            },
+                            {
+                                title: 'Warning',
+                                block: 'div',
+                                classes: 'warning-block',
+                                wrapper: true,
+                                preview: 'Warning',
+                            },
+                            {
+                                title: 'Danger',
+                                block: 'div',
+                                classes: 'danger-block',
+                                wrapper: true,
+                                preview: 'Danger',
+                            },
+                        ],
+                    }}
+                />
+            )}
+        </>
     )
 }
 
