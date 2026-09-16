@@ -134,6 +134,13 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
+                                        <GeneralRowForm label="Promo Label">
+                                            <FormInput
+                                                name="promoLabel"
+                                                placeholder="20% Off"
+                                            />
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm label="Custom Informations">
                                             {__formRequest.customInformations.map(
                                                 (vm, index) => {

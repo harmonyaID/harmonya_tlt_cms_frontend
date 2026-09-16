@@ -108,6 +108,10 @@ const BoatDetailPage = () => {
                                         </>,
                                     ),
                                     objectListDetail(
+                                        'Promo Label',
+                                        __detail.promoLabel || '-',
+                                    ),
+                                    objectListDetail(
                                         'Created At',
                                         __detail.createdAt || '-',
                                     ),

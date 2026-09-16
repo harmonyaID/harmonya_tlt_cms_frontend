@@ -482,12 +482,6 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 label="Tags"
                                                 name="tagIds"
                                                 nameOfChange="changeTagsOld"
-                                                required={
-                                                    __formRequest?.tagIds
-                                                        ?.length
-                                                        ? false
-                                                        : true
-                                                }
                                                 isUseHook
                                                 isOnlyChoose
                                                 isMulti

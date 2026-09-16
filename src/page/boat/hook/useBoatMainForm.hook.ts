@@ -21,6 +21,7 @@ const initForm = {
     promoPhotos: [],
     photos: [],
     customInformations: [],
+    promoLabel: '',
     seo: {
         ...initSEOFormConfig,
     },
@@ -43,6 +44,8 @@ const initMapForm = (passData) => ({
 
     promoPhotos: [],
     deletePromoPhotoIds: [],
+
+    promoLabel: passData?.promoLabel || '',
 
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
