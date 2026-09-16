@@ -5,8 +5,12 @@ export const TEMPLATE_BLOG_DETAIL = 'template-page-blog-detail'
 export const TEMPLATE_CONTACT_US = 'template-page-contact-us'
 export const TEMPLATE_EXPERIENCE = 'template-page-experience'
 export const TEMPLATE_EXPERIENCE_DETAIL = 'template-page-experience-detail'
-export const TEMPLATE_FAQ = 'template-page-FAQ'
 export const TEMPLATE_ISLAND_GUIDE = 'template-page-island-guide'
+export const TEMPLATE_INFO_PRES_AND_MEDIA = 'template-page-press-and-media'
+export const TEMPLATE_INFO_CONTACT = 'template-page-contact'
+export const TEMPLATE_INFO_FAQ = 'template-page-FAQ'
+export const TEMPLATE_INFO_TNC = 'template-page-term-and-conditions'
+export const TEMPLATE_INFO_PRIVACY_POLICY = 'template-page-privacy-policy'
 export const TEMPLATE_NEIGHBOURHOOD = 'template-page-neighbourhood'
 export const TEMPLATE_NEIGHBOURHOOD_DETAIL =
     'template-page-neighbourhood-detail'
@@ -43,8 +47,12 @@ export const listTemplatePages = createTemplateOptions([
     TEMPLATE_CONTACT_US,
     TEMPLATE_EXPERIENCE,
     TEMPLATE_EXPERIENCE_DETAIL,
-    TEMPLATE_FAQ,
     TEMPLATE_ISLAND_GUIDE,
+    TEMPLATE_INFO_PRES_AND_MEDIA,
+    TEMPLATE_INFO_CONTACT,
+    TEMPLATE_INFO_FAQ,
+    TEMPLATE_INFO_TNC,
+    TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_NEIGHBOURHOOD,
     TEMPLATE_NEIGHBOURHOOD_DETAIL,
     TEMPLATE_OFFER,

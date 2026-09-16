@@ -31,6 +31,8 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSectionInput,
         __handleSectionRemoveNested,
 
+        __handleChangeTemplate,
+
         // SEO Thumbnail
         __seoThumbnail,
         __setSetSEOThumbnail,
@@ -40,6 +42,8 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = usePageMainFormHook({ isEdit })
+
+    console.log('__formRequest: ', __formRequest)
 
     return (
         <>
@@ -97,6 +101,7 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         <SelectBaseOptionLanguage
                                             name="locale"
                                             isRequired
+                                            disabled
                                         />
                                     </GeneralRowForm>
 
@@ -131,60 +136,74 @@ const PageMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         label="Template Content"
                                         // isRequired
                                     >
-                                        <PageSelectTemplate />
-                                    </GeneralRowForm>
-
-                                    <GeneralRowForm
-                                        label="Content"
-                                        isRequired
-                                        // classNameColumnLabel="col-md-12 pb-3"
-                                        // classNameColumnChild="col-md-12"
-                                    >
-                                        {/*<WrapFormContext*/}
-                                        {/*    formRequest={__formRequest.value}*/}
-                                        {/*    actions={{*/}
-                                        {/*        change: (name, value) =>*/}
-                                        {/*            __handleSectionInput(*/}
-                                        {/*                name,*/}
-                                        {/*                value,*/}
-                                        {/*            ),*/}
-                                        {/*    }}>*/}
-                                        {/*</WrapFormContext>*/}
-
-                                        <PageMainFormTemplatePage
-                                            template={__formRequest.template}
-                                            content={
-                                                __formRequest?.content || ''
-                                            }
+                                        <PageSelectTemplate
+                                            name="template"
+                                            isUseHook={false}
+                                            value={__formRequest.template}
                                             actions={{
-                                                onChange: (
-                                                    passName,
-                                                    passValue,
-                                                ) =>
-                                                    __handleSectionInput(
-                                                        passName,
-                                                        passValue,
+                                                onChange: (name, value) =>
+                                                    __handleChangeTemplate(
+                                                        value,
                                                     ),
                                             }}
                                         />
-
-                                        {/*<FormTinyMCE*/}
-                                        {/*    name="content"*/}
-                                        {/*    value={__formRequest?.content || ''}*/}
-                                        {/*    isUseHook={false}*/}
-                                        {/*    required*/}
-                                        {/*    actions={{*/}
-                                        {/*        onChange: (*/}
-                                        {/*            passName,*/}
-                                        {/*            passValue,*/}
-                                        {/*        ) =>*/}
-                                        {/*            __handleSectionInput(*/}
-                                        {/*                passName,*/}
-                                        {/*                passValue,*/}
-                                        {/*            ),*/}
-                                        {/*    }}*/}
-                                        {/*/>*/}
                                     </GeneralRowForm>
+                                </CardDropdown>
+
+                                <CardDropdown
+                                    title="Content Form"
+                                    isShow
+                                    id="section-main-content-form">
+                                    <PageMainFormTemplatePage
+                                        template={__formRequest.template}
+                                        formContent={
+                                            __formRequest?.content || ''
+                                        }
+                                        actions={{
+                                            change: (passName, passValue) =>
+                                                __handleSectionInput(
+                                                    passName
+                                                        ? 'content.' + passName
+                                                        : 'content',
+                                                    passValue,
+                                                ),
+                                        }}
+                                    />
+
+                                    {/*<GeneralRowForm*/}
+                                    {/*    label="Content"*/}
+                                    {/*    isRequired*/}
+                                    {/*    classNameColumnLabel="col-md-12 pb-3"*/}
+                                    {/*    classNameColumnChild="col-md-12"*/}
+                                    {/*>*/}
+                                    {/*<WrapFormContext*/}
+                                    {/*    formRequest={__formRequest.value}*/}
+                                    {/*    actions={{*/}
+                                    {/*        change: (name, value) =>*/}
+                                    {/*            __handleSectionInput(*/}
+                                    {/*                name,*/}
+                                    {/*                value,*/}
+                                    {/*            ),*/}
+                                    {/*    }}>*/}
+                                    {/*</WrapFormContext>*/}
+
+                                    {/*<FormTinyMCE*/}
+                                    {/*    name="content"*/}
+                                    {/*    value={__formRequest?.content || ''}*/}
+                                    {/*    isUseHook={false}*/}
+                                    {/*    required*/}
+                                    {/*    actions={{*/}
+                                    {/*        onChange: (*/}
+                                    {/*            passName,*/}
+                                    {/*            passValue,*/}
+                                    {/*        ) =>*/}
+                                    {/*            __handleSectionInput(*/}
+                                    {/*                passName,*/}
+                                    {/*                passValue,*/}
+                                    {/*            ),*/}
+                                    {/*    }}*/}
+                                    {/*/>*/}
+                                    {/*</GeneralRowForm>*/}
                                 </CardDropdown>
 
                                 {/*SEO FORM*/}

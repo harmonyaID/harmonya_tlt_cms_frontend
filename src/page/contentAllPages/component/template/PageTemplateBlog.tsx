@@ -1,3 +1,4 @@
+import FormInput from '@/component/form/FormInput.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { WrapFormContext } from '@/context/Form.context.tsx'
@@ -16,22 +17,33 @@ const PageTemplateBlog = ({
                 actions={{
                     change: (name, value) => actions.change(name, value),
                 }}>
-                <GeneralRowForm label="Background Image" isRequired>
-                    <FormUploadFile
-                        // Default
-                        {...defaultUploadFileProps}
-                        isUseHook={false}
-
-                        accept="image/*"
-                        required
-                        name="backgroundImage"
-                        value={formContent?.backgroundImage || ''}
+                <GeneralRowForm label="Section 1">
+                    <WrapFormContext
+                        formRequest={formContent.SECTION1}
                         actions={{
-                            onChange: (_, newFiles) => {
-                                actions.change('backgroundImage', newFiles)
-                            },
-                        }}
-                    />
+                            change: (name, value) =>
+                                actions.change('SECTION1.' + name, value),
+                        }}>
+                        <FormUploadFile
+                            label="Background Image"
+                            // Default
+                            {...defaultUploadFileProps}
+                            isUseHook={false}
+
+                            accept="image/*"
+                            required
+                            name="backgroundImage"
+                            value={formContent?.SECTION1?.backgroundImage || ''}
+                            actions={{
+                                onChange: (_, newFiles) => {
+                                    actions.change(
+                                        'SECTION1.backgroundImage',
+                                        newFiles,
+                                    )
+                                },
+                            }}
+                        />
+                    </WrapFormContext>
                 </GeneralRowForm>
             </WrapFormContext>
         </>
