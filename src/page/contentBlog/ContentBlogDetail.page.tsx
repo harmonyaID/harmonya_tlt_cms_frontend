@@ -231,6 +231,22 @@ const ContentBlogDetailPage = () => {
                                             __detail?.category?.name || '-',
                                         ),
                                         objectListDetail(
+                                            'Properties',
+                                            __detail?.properties?.length > 0 ? (
+                                                <ul>
+                                                    {__detail?.properties?.map(
+                                                        (vm) => (
+                                                            <li key={vm.id}>
+                                                                {vm.nickname}
+                                                            </li>
+                                                        ),
+                                                    )}
+                                                </ul>
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
+                                        objectListDetail(
                                             'Tags',
                                             __detail?.tags &&
                                                 __detail?.tags.length ? (
