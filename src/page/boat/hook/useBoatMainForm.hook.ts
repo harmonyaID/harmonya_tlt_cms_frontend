@@ -190,8 +190,13 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     const _handleCustomInfoAdd = () => {
         nestedForm._handleArrToggle(-1, 'customInformations', {
             name: '',
-            value: '',
-            order: formRequest.customInformations.length + 1,
+            customInformations: [
+                {
+                    name: '',
+                    value: '',
+                    order: 1,
+                },
+            ],
         })
     }
 
@@ -203,6 +208,19 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                     ...item,
                     order: index + 1,
                 }))
+
+            return {
+                ...prev,
+                customInformations: updated,
+            }
+        })
+    }
+
+    const _handleChangeCustomInfo = (index, group) => {
+        setFormRequest((prev) => {
+            const updated = [...prev.customInformations]
+
+            updated[index] = group
 
             return {
                 ...prev,
@@ -250,6 +268,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeWithParent: nestedForm._handleChangeWithParent,
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
+        __handleCustomInfoChange: _handleChangeCustomInfo,
 
         // SEO
         __seoThumbnail: seoThumbnail,

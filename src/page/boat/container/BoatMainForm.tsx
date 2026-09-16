@@ -22,6 +22,7 @@ import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
 import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import BoatCustomInfoForm from '@/page/boat/component/BoatCustomInfoForm.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -35,6 +36,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleArrChange,
         __handleCustomInfoAdd,
         __handleCustomInfoRemove,
+        __handleCustomInfoChange,
         __handleSubmit,
         __handleCancel,
         __handleChangeWithParent,
@@ -142,81 +144,29 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
 
                                         <GeneralRowForm label="Custom Informations">
-                                            {__formRequest.customInformations.map(
-                                                (vm, index) => {
-                                                    const order = index + 1
-                                                    const uniqId =
-                                                        'customInformations' +
-                                                        order
-
-                                                    return (
-                                                        <div
-                                                            className="row align-items-end"
-                                                            key={index}>
-                                                            <div className="col-md">
-                                                                <FormInput
-                                                                    label="Name"
-                                                                    name="name"
-                                                                    value={
-                                                                        vm.name
-                                                                    }
-                                                                    placeholder="e.g Capacity"
-                                                                    required
-                                                                    id={uniqId}
-                                                                    actions={{
-                                                                        onChange:
-                                                                            (
-                                                                                name,
-                                                                                value,
-                                                                            ) =>
-                                                                                __handleArrChange(
-                                                                                    index,
-                                                                                    name,
-                                                                                    value,
-                                                                                    'customInformations',
-                                                                                ),
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className="col-md">
-                                                                <FormInput
-                                                                    label="Value"
-                                                                    name="value"
-                                                                    value={
-                                                                        vm.value
-                                                                    }
-                                                                    placeholder="e.g 20 People"
-                                                                    required
-                                                                    id={uniqId}
-                                                                    actions={{
-                                                                        onChange:
-                                                                            (
-                                                                                name,
-                                                                                value,
-                                                                            ) =>
-                                                                                __handleArrChange(
-                                                                                    index,
-                                                                                    name,
-                                                                                    value,
-                                                                                    'customInformations',
-                                                                                ),
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                            <div className="col-auto pb-4">
-                                                                <BtnCircleRemove
-                                                                    actions={{
-                                                                        remove: () =>
-                                                                            __handleCustomInfoRemove(
-                                                                                index,
-                                                                            ),
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    )
-                                                },
-                                            )}
+                                            <div className="vstack gap-3">
+                                                {__formRequest.customInformations?.map(
+                                                    (group, index) => (
+                                                        <BoatCustomInfoForm
+                                                            key={index}
+                                                            group={group}
+                                                            actions={{
+                                                                onChange: (
+                                                                    group,
+                                                                ) =>
+                                                                    __handleCustomInfoChange(
+                                                                        index,
+                                                                        group,
+                                                                    ),
+                                                                onRemove: () =>
+                                                                    __handleCustomInfoRemove(
+                                                                        index,
+                                                                    ),
+                                                            }}
+                                                        />
+                                                    ),
+                                                )}
+                                            </div>
 
                                             <BtnPrimary
                                                 type="button"
@@ -225,7 +175,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 handle={() =>
                                                     __handleCustomInfoAdd()
                                                 }>
-                                                Add New Information
+                                                Add New Group
                                             </BtnPrimary>
                                         </GeneralRowForm>
 
