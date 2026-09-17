@@ -1,68 +1,46 @@
-import { useEffect } from 'react'
-import { isEmpty } from 'lodash'
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import CardPreview from '@/component/card/CardPreview.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import FormTextArea from '@/component/form/FormTextArea.tsx'
 import {
     BtnCircleEdit,
     BtnCircleRemove,
     BtnPrimary,
 } from '@/component/general/Button.tsx'
-import Pagination from '@/component/general/Pagination.tsx'
-import {
-    TblLineFirst,
-    TblLineSecond,
-    TblPointData,
-} from '@/component/general/TablePartial.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import {
-    MDPSTabFAQAdd,
-    MDPSTabFAQRemove,
-    MDPSTabMediaContactFormTypeAdd,
-    MDPSTabMediaContactFormTypeRemove,
+    MDPSTabRedirectionAdd,
+    MDPSTabRedirectionRemove,
 } from '@/config/modal.config.ts'
-import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import {
-    apiContactFormType,
-    apiFAQ,
-} from '@/service/api/contentManageSetting.api.ts'
-import VerticalDataPreview from '@/component/general/VerticalDataPreview.tsx'
+import { apiContactFormType } from '@/service/api/contentManageSetting.api.ts'
+import { apiRedirectionCRUD } from '@/service/api/systemManagement.api.ts'
+import { isShowPagination } from '@/helper/base/condition.helper.ts'
+import Pagination from '@/component/general/Pagination.tsx'
+import { configDefaultPagination } from '@/config/pagination.config.ts'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 
 const initForm = {
     name: '',
-    eventId: '',
+    sourceUrl: '',
+    targetUrl: '',
+    statusCode: '',
+    isActive: '1',
 }
 
 const initMapForm = (passData) => ({
     name: passData.name || '',
-    eventId: passData.eventId || '',
+    sourceUrl: passData.sourceUrl || '',
+    targetUrl: passData.targetUrl || '',
+    statusCode: passData.statusCode || '',
+    isActive: passData.isActive ? '1' : '0',
 })
 
-const TabContactFormType = (
-    //     {
-    //     action = {
-    //         setIsLoadingFormType: (isLoadingFormType: boolean) => {},
-    //         setListFormType: (listFormType: any[]) => {},
-    //     },
-    // }: {
-    //     action?: {
-    //         setIsLoadingFormType?: (pass?: any) => void
-    //         setListFormType?: (pass?: any) => void
-    //     }
-    // }
-) => {
+const TabRedirection = () => {
     const {
         __list,
         __isLoading,
@@ -72,7 +50,7 @@ const TabContactFormType = (
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiContactFormType.list,
+        urlAPI: apiRedirectionCRUD.list,
     })
 
     const {
@@ -87,8 +65,8 @@ const TabContactFormType = (
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabMediaContactFormTypeAdd,
-        modalRemoveId: MDPSTabMediaContactFormTypeRemove,
+        modalId: MDPSTabRedirectionAdd,
+        modalRemoveId: MDPSTabRedirectionRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: initMapForm,
     })
@@ -101,8 +79,7 @@ const TabContactFormType = (
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () =>
-                actionModal(MDPSTabMediaContactFormTypeRemove, false),
+            nextStep: () => actionModal(MDPSTabRedirectionRemove, false),
         },
     })
 
@@ -115,7 +92,7 @@ const TabContactFormType = (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Type of Contact</h5>
+                    <h5 className="fs-18 fw-500">Redirections</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -129,12 +106,13 @@ const TabContactFormType = (
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={['Name', 'Event ID', '']}
+                        ths={['Name', 'Source URL', 'Target URL', 'Status', '']}
                         tds={__list}>
                         {__list.map((type) => (
                             <tr key={type.id}>
                                 <td>{type.name}</td>
-                                <td>{type.eventId || '-'}</td>
+                                <td>{type.sourceUrl || '-'}</td>
+                                <td>{type.targetUrl || '-'}</td>
                                 <td>
                                     <div className="hstack gap-2 justify-content-end">
                                         <BtnCircleRemove
@@ -174,7 +152,7 @@ const TabContactFormType = (
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabMediaContactFormTypeRemove}
+                    id={MDPSTabRedirectionRemove}
                     configHandle={{
                         urlAPI: () =>
                             apiContactFormType.delete(dataForRemove.id),
@@ -188,9 +166,9 @@ const TabContactFormType = (
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabMediaContactFormTypeAdd}
+                    id={MDPSTabRedirectionAdd}
                     detail={__detailData}
-                    title="Type of Contact"
+                    title="Redirection"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
@@ -208,16 +186,43 @@ const TabContactFormType = (
                                 placeholder="e.g Career"
                             />
                             <FormInput
-                                label="Event ID"
-                                name="eventId"
-                                placeholder="e.g Event"
+                                label="Source URL"
+                                name="sourceUrl"
+                                required
+                                placeholder="e.g http://example.com"
+                            />
+                            <FormInput
+                                label="Target URL"
+                                name="targetUrl"
+                                required
+                                placeholder="e.g http://example.com"
+                            />
+                            <FormInput
+                                label="Status Code"
+                                name="statusCode"
+                                required
+                                isNumberOnly
+                                placeholder="e.g http://example.com"
+                            />
+                            <FormRadioButtonMulti
+                                name="isActive"
+                                checkBoxs={[
+                                    {
+                                        defaultValue: 0,
+                                        label: 'No',
+                                    },
+                                    {
+                                        defaultValue: 1,
+                                        label: 'Yes',
+                                    },
+                                ]}
                             />
                         </>
                     }
                     configHandle={{
-                        urlAPIAdd: () => apiContactFormType.add(__formRequest),
+                        urlAPIAdd: () => apiRedirectionCRUD.add(__formRequest),
                         urlAPIUpdate: () => {
-                            return apiContactFormType.update(
+                            return apiRedirectionCRUD.update(
                                 __selectedId,
                                 __formRequest,
                             )
@@ -240,4 +245,4 @@ const TabContactFormType = (
     )
 }
 
-export default TabContactFormType
+export default TabRedirection
