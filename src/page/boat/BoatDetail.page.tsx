@@ -108,6 +108,10 @@ const BoatDetailPage = () => {
                                         </>,
                                     ),
                                     objectListDetail(
+                                        'Promo Label',
+                                        __detail.promoLabel || '-',
+                                    ),
+                                    objectListDetail(
                                         'Created At',
                                         __detail.createdAt || '-',
                                     ),
@@ -120,27 +124,45 @@ const BoatDetailPage = () => {
                                         Custom Information
                                     </h5>
 
-                                    {__detail.customInformations.map(
-                                        (vm, index) => {
-                                            return (
-                                                <div
-                                                    className="hstack gap-3 align-items-start pb-3 border-bottom border-neutral-500"
-                                                    key={index}>
-                                                    <div className="fs-13">
-                                                        {vm.order}.
-                                                    </div>
-                                                    <div className="w-100">
-                                                        <label className="fs-12 text-neutral-300 pb-2">
-                                                            {vm.name}
-                                                        </label>
-                                                        <p className="fs-14 text-neutral-100 fw-semibold mb-0">
-                                                            {vm.value}
+                                    <div className="vstack gap-3">
+                                        {__detail.customInformations.map(
+                                            (group, index) => {
+                                                return (
+                                                    <>
+                                                        <p className="mb-1">
+                                                            {group.name}
                                                         </p>
-                                                    </div>
-                                                </div>
-                                            )
-                                        },
-                                    )}
+                                                        {group?.customInformations?.map(
+                                                            (info) => (
+                                                                <div
+                                                                    className="hstack gap-3 align-items-start pb-1 border-bottom border-neutral-500"
+                                                                    key={index}>
+                                                                    <div className="fs-13">
+                                                                        {
+                                                                            info.order
+                                                                        }
+                                                                        .
+                                                                    </div>
+                                                                    <div className="w-100">
+                                                                        <label className="fs-12 text-neutral-300 pb-2">
+                                                                            {
+                                                                                info.name
+                                                                            }
+                                                                        </label>
+                                                                        <p className="fs-14 text-neutral-100 fw-semibold mb-0">
+                                                                            {
+                                                                                info.value
+                                                                            }
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            ),
+                                                        )}
+                                                    </>
+                                                )
+                                            },
+                                        )}
+                                    </div>
                                 </div>
                             ) : null}
                         </Card>

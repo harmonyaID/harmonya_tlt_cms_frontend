@@ -15,7 +15,6 @@ import { isLoadingAndDetail } from '@/helper/condition.helper.ts'
 import useExpTypeMainForm from '@/page/experienceType/hook/useExpTypeMainForm.hook.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
-import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
 import SelectOptionBlog from '@/common/dataForm/SelectOptionBlog.tsx'
 
 const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {

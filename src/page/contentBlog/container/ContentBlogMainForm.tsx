@@ -20,6 +20,7 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import useContentBlogMainForm from '@/page/contentBlog/hook/useContentBlogMainForm.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
 
 const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -31,11 +32,16 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeWithParent,
         __handleArrAddMulti,
         __handleChangeTitle,
-        __handleTagChoose,
-        __handleTagRemove,
+
+        //properties
+        __listProperties,
+        __handlePropertyRemove,
+        __handlePropertyChoose,
 
         // tags
         __listTags,
+        __handleTagChoose,
+        __handleTagRemove,
 
         // Thumbnail
         __previewThumbnail,
@@ -375,6 +381,8 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             __handleTagChoose(data),
                                         changeTagsOld: (data) =>
                                             __handleTagChoose(data),
+                                        changePropertyOld:
+                                            __handlePropertyChoose,
                                     }}>
                                     <Card title="Other Information">
                                         <div className="">
@@ -474,12 +482,6 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 label="Tags"
                                                 name="tagIds"
                                                 nameOfChange="changeTagsOld"
-                                                required={
-                                                    __formRequest?.tagIds
-                                                        ?.length
-                                                        ? false
-                                                        : true
-                                                }
                                                 isUseHook
                                                 isOnlyChoose
                                                 isMulti
@@ -494,6 +496,27 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 dataList={__listTags}
                                                 dataActions={{
                                                     remove: __handleTagRemove,
+                                                }}
+                                            />
+
+                                            <SelectOptionProperty
+                                                label="Properties"
+                                                name="propertyIds"
+                                                disabled={
+                                                    __formRequest.propertyIds
+                                                        .length == 9
+                                                }
+                                                nameOfChange="changePropertyOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.propertyIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listProperties}
+                                                dataActions={{
+                                                    remove: __handlePropertyRemove,
                                                 }}
                                             />
                                         </div>
