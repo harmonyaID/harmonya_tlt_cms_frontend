@@ -8,7 +8,7 @@ import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import moment from 'moment/moment'
 import { boatInquiryGeneral } from '@/path/boatInquiry.path.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import {
     MDBoatInquiryRead,
@@ -50,6 +50,7 @@ const useBoatInquiryMain = ({
         __pagination,
         __search,
         __isUseSearch,
+        __actionGetData,
         __actionSetIsUseSearch,
         __setSearch,
         __actionPagination,
@@ -59,8 +60,11 @@ const useBoatInquiryMain = ({
         __actionClear,
     } = useDataListHook({
         urlAPI: urlAPI,
-        // isHideSidebar: true,
-        advancedSearch: { ...filterParam() },
+        isAutoSearch: false,
+        advancedSearch: {
+            ...filterParam(),
+            typeName: slug,
+        },
     })
 
     const _handleNavigateWithState = (
@@ -122,6 +126,10 @@ const useBoatInquiryMain = ({
     const _handleChangeStatus = (name, value) => {
         setFormRequestStatus({ statusId: value })
     }
+
+    useEffect(() => {
+        __actionGetData({ ...__search, typeName: slug })
+    }, [slug])
 
     return {
         // ---- List Data ----
