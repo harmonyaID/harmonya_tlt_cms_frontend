@@ -18,6 +18,7 @@ import {
     SrvSystemInfoCacheQueueRestart,
     SrvSystemInfoCacheRouteClear,
     SrvSystemInfoCacheViewClear,
+    SrvSystemRedirection,
     SrvSystemTestGuestyConfig,
     SrvWebConfig,
     SrvWebConfigUpdate,
@@ -80,3 +81,6 @@ export const updateGuestyConfig = (formRequest) =>
 
 export const testGuestyConfig = (formRequest = {}) =>
     _shapeMethodPost(SrvSystemTestGuestyConfig, formRequest)
+
+// Redirections
+export const apiRedirectionCRUD = _shapeObjectMethodCRUD(SrvSystemRedirection)

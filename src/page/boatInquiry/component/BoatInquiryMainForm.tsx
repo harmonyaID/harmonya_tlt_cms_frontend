@@ -64,7 +64,7 @@ const BoatInquiryMainForm = ({
                                         <SelectOptionBoat
                                             name="boatId"
                                             isUseHook
-                                            placeholder="e.g John"
+                                            placeholder="e.g Andromeda"
                                             required
                                         />
                                     </GeneralRowForm>
@@ -156,7 +156,9 @@ const BoatInquiryMainForm = ({
                                             min={0}
                                         />
                                     </GeneralRowForm>
-                                    <GeneralRowForm label="Departure Date From Bali">
+                                    <GeneralRowForm
+                                        label="Departure Date From Bali"
+                                        isRequired>
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <FormInputDatePicker name="departureDateFromBali" />

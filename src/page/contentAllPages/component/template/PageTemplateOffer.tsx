@@ -78,7 +78,7 @@ const PageTemplateOffer = ({
                                 label="Description"
                                 isSimple
                                 name="description"
-                                value={formContent || ''}
+                                value={formContent?.SECTION2?.description || ''}
                                 isUseHook={false}
                                 required
                                 actions={{

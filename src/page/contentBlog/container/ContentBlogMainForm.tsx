@@ -48,6 +48,11 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __setPreviewThumbnail,
         __handleThumbnailRemove,
 
+        // Promo Banner
+        __previewPromoBanner,
+        __setPreviewPromoBanner,
+        __handlePromoBannerRemove,
+
         // SEO Thumbnail
         __seoThumbnail,
         __setSetSEOThumbnail,
@@ -518,6 +523,72 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 dataActions={{
                                                     remove: __handlePropertyRemove,
                                                 }}
+                                            />
+
+                                            {__previewPromoBanner ? (
+                                                <>
+                                                    <div className="pb-3">
+                                                        <p className="mb-2 text-neutral-100">
+                                                            Promo Banner
+                                                        </p>
+
+                                                        <PreviewFileModalLogic
+                                                            dataUrl={__previewPromoBanner?.toString()}
+                                                            dataBy="file"
+                                                            dataFile={
+                                                                __previewPromoBanner
+                                                            }
+                                                            isShowBtnRemove
+                                                            actions={{
+                                                                remove: __handlePromoBannerRemove,
+                                                            }}
+                                                            classNameWidth="w-100 max-h-148px"
+                                                        />
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <FormUploadFile
+                                                    label="Promo Banner"
+                                                    name="promoBanner"
+                                                    isUseHook={false}
+                                                    isPreview={false}
+                                                    accept="image/*"
+                                                    actions={{
+                                                        onChange: (
+                                                            _,
+                                                            newFiles,
+                                                        ) => {
+                                                            const img =
+                                                                new Image()
+                                                            const objectUrl =
+                                                                URL.createObjectURL(
+                                                                    newFiles,
+                                                                )
+
+                                                            img.onload = () => {
+                                                                __handleChange(
+                                                                    'promoBanner',
+                                                                    newFiles,
+                                                                )
+                                                            }
+
+                                                            img.src = objectUrl
+                                                        },
+                                                        handleDataFiles: (
+                                                            newDataFiles,
+                                                        ) => {
+                                                            __setPreviewPromoBanner(
+                                                                newDataFiles.url,
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+                                            )}
+
+                                            <FormInput
+                                                name="promoBannerUrl"
+                                                placeholder="http://example.com/"
+                                                label="Promo Banenr URL"
                                             />
                                         </div>
                                     </Card>
