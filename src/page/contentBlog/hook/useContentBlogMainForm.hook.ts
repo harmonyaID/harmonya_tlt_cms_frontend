@@ -26,6 +26,8 @@ const initForm = {
     isActive: defaultActive,
     tagIds: [],
     thumbnail: '',
+    promoBanner: '',
+    promoBannerUrl: '',
     seo: {
         ...initSEOFormConfig,
     },
@@ -43,6 +45,8 @@ const initMapForm = (passData) => ({
     tagIds: [],
     thumbnail: '',
     propertyIds: passData?.properties?.map((vm) => vm.id),
+    promoBanner: '',
+    promoBannerUrl: passData?.promoBannerUrl || '',
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
@@ -60,6 +64,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
 
     const [previewThumbnail, setPreviewThumbnail] = useState('')
+    const [previewPromoBanner, setPreviewPromoBanner] = useState('')
 
     const [seoThumbnail, setSetSEOThumbnail] = useState('')
 
@@ -119,6 +124,11 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // if (isEdit) {
         //     nestedForm.__handleChange('deleteThumbnail', '')
         // }
+    }
+
+    const _handlePromoBannerRemove = () => {
+        setPreviewPromoBanner('')
+        nestedForm.__handleChange('promoBanner', '')
     }
 
     const _handlePropertyRemove = (dataProperty) => {
@@ -186,6 +196,10 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     setPreviewThumbnail(res.thumbnail)
                 }
 
+                if (res?.promoBanner) {
+                    setPreviewPromoBanner(res.promoBanner)
+                }
+
                 if (res?.seo?.thumbnail) {
                     setSetSEOThumbnail(res.seo.thumbnail)
                 }
@@ -234,6 +248,10 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __previewThumbnail: previewThumbnail,
         __setPreviewThumbnail: setPreviewThumbnail,
         __handleThumbnailRemove: _handleThumbnailRemove,
+
+        __previewPromoBanner: previewPromoBanner,
+        __setPreviewPromoBanner: setPreviewPromoBanner,
+        __handlePromoBannerRemove: _handlePromoBannerRemove,
 
         // SEO
         __seoThumbnail: seoThumbnail,

@@ -116,3 +116,7 @@ export const MDPropertySettingAmenitiesCategoryRemove =
 
 // Property Form Request
 export const MDPropertyFormRequestRemove = 'modalPropertyInquiryRemove'
+
+// Redirection
+export const MDPSTabRedirectionAdd = 'modalRedirectionAdd'
+export const MDPSTabRedirectionRemove = 'modalRedirectionRemove'

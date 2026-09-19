@@ -7,6 +7,7 @@ import TabLanguage from '@/page/systemGeneralSetting/container/TabLanguage.tsx'
 import TabLlms from '@/page/systemGeneralSetting/container/TabLlms.tsx'
 import TabNewsletterConfig from '@/page/systemGeneralSetting/container/TabNewsletterConfig.tsx'
 import TabNotificationConfig from '@/page/systemGeneralSetting/container/TabNotificationConfig.tsx'
+import TabRedirection from '@/page/systemGeneralSetting/container/TabRedirection.tsx'
 
 const SystemGeneralSettingPage = () => {
     return (
@@ -26,7 +27,7 @@ const SystemGeneralSettingPage = () => {
                     objectTabContent('', <TabLanguage />),
                     objectTabContent('', <TabNotificationConfig />),
                     objectTabContent('', <TabNewsletterConfig />),
-                    objectTabContent('', <PageComingSoonLayout />),
+                    objectTabContent('', <TabRedirection />),
                     objectTabContent('', <PageComingSoonLayout />),
                     objectTabContent('', <TabLlms />),
                 ]}
