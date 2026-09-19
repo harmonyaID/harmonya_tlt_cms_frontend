@@ -3,6 +3,7 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import {
     TEMPLATE_ABOUT,
     TEMPLATE_BLOG,
+    TEMPLATE_EXPERIENCE,
     TEMPLATE_INFO_FAQ,
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
@@ -12,6 +13,7 @@ import {
 } from '@/config/pageTemplate.config.ts'
 import PageTemplateAbout from '@/page/contentAllPages/component/template/PageTemplateAbout.tsx'
 import PageTemplateBlog from '@/page/contentAllPages/component/template/PageTemplateBlog.tsx'
+import PageTemplateExperience from '@/page/contentAllPages/component/template/PageTemplateExperience.tsx'
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
@@ -35,6 +37,9 @@ const PageMainFormTemplatePage = ({
         [TEMPLATE_OFFER]: <PageTemplateOffer {...propsPageTemplate} />,
         [TEMPLATE_PROPERTY]: <PageTemplateProperty {...propsPageTemplate} />,
         // [TEMPLATE_PROPERTY_DETAIL]: <PageTemplateAbout {...props} />,
+        [TEMPLATE_EXPERIENCE]: (
+            <PageTemplateExperience {...propsPageTemplate} />
+        ),
 
         // Info Page
         [TEMPLATE_INFO_FAQ]: (
