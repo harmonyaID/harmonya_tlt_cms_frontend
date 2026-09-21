@@ -93,7 +93,17 @@ const FormTinyMCE = ({
                         menubar: false,
                         plugins: 'lists link',
                         toolbar:
-                            'bold italic underline strikethrough | bullist numlist | link | undo redo',
+                            ' undo redo | blocks | bold italic underline strikethrough | bullist numlist | link',
+                        block_formats:
+                            'Paragraph=p;' +
+                            'Heading 1=h1;' +
+                            'Heading 2=h2;' +
+                            'Heading 3=h3;' +
+                            'Heading 4=h4;' +
+                            'Heading 5=h5;' +
+                            'Heading 6=h6;' +
+                            'Quote=blockquote;' +
+                            'Preformatted=pre',
                         branding: false,
                         statusbar: false,
                         resize: false,
@@ -149,8 +159,8 @@ const FormTinyMCE = ({
                             'Heading 2=h2;' +
                             'Heading 3=h3;' +
                             'Heading 4=h4;' +
-                            'Heading 4=h5;' +
-                            'Heading 4=h6;' +
+                            'Heading 5=h5;' +
+                            'Heading 6=h6;' +
                             'Quote=blockquote;' +
                             'Preformatted=pre',
                         table_header_type: 'sectionCells',
