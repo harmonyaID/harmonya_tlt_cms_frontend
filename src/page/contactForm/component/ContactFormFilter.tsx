@@ -1,5 +1,6 @@
 import SelectOptionContactFormType from '@/common/dataForm/SelectOptionContactFormType.tsx'
 import AdvanceSearch from '@/component/general/AdvanceSearch.tsx'
+import SelectOptionContactFormInquiryType from '@/common/dataForm/SelectOptionContactFormInquiryType.tsx'
 
 const ContactFormFilter = ({
     __search,
@@ -40,7 +41,15 @@ const ContactFormFilter = ({
                             name="contactFormTypeIds"
                             isUseHook
                             className="mb-lg-0 mb-2"
-                            label="Form Type"
+                            label="Type of Contact"
+                        />
+                    </div>
+                    <div className="col-md-4 col-lg-2">
+                        <SelectOptionContactFormInquiryType
+                            name="contactFormInquiryTypeIds"
+                            isUseHook
+                            className="mb-lg-0 mb-2"
+                            label="Type of Inquiry Contact"
                         />
                     </div>
                 </>

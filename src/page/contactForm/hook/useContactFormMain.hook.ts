@@ -38,6 +38,7 @@ const useContactFormMain = ({ urlAPI }: { urlAPI: any }) => {
         fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
         toDate: moment().format('DD/MM/YYYY'),
         contactFormTypeIds: [],
+        contactFormInquiryTypeIds: [],
         limit: 50,
     })
 
