@@ -67,7 +67,7 @@ const ContentBlogTable = ({
                                         !isTrash &&
                                         actions?.__handleToDetail(vm.id)
                                     }>
-                                    <td>
+                                    <td className="max-w-300px text-wrap">
                                         <div className="hstack gap-3 align-items-start">
                                             <PreviewFileModalLogic
                                                 classNameWidth="avatar-46"
@@ -78,19 +78,26 @@ const ContentBlogTable = ({
                                                     value={vm?.title || '-'}
                                                 />
                                                 <TblPointData title="Category">
-                                                    <BadgeStatusGeneral
-                                                        value={
-                                                            vm?.category
-                                                                ?.name || '-'
-                                                        }
-                                                        className="text-bg-neutral-300 fw-normal"
-                                                    />
+                                                    <div className="hstack gap-2 flex-wrap">
+                                                        {vm?.categories?.map(
+                                                            (cat) => (
+                                                                <BadgeStatusGeneral
+                                                                    key={cat.id}
+                                                                    value={
+                                                                        cat.name ||
+                                                                        '-'
+                                                                    }
+                                                                    className="text-bg-neutral-300 fw-normal"
+                                                                />
+                                                            ),
+                                                        )}
+                                                    </div>
                                                 </TblPointData>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <div className="d-inline-flex gap-2">
+                                    <td className="max-w-300px">
+                                        <div className="d-inline-flex gap-2 flex-wrap">
                                             {vm?.tags?.map((tag, index) => (
                                                 <BadgeStatusGeneral
                                                     value={tag?.name || '-'}
@@ -105,6 +112,12 @@ const ContentBlogTable = ({
                                         <TblPointData title="Status Active">
                                             <TextTrueOrFalse
                                                 value={vm.isActive}
+                                            />
+                                        </TblPointData>
+
+                                        <TblPointData title="Visible">
+                                            <TextTrueOrFalse
+                                                value={vm.visibility}
                                             />
                                         </TblPointData>
 

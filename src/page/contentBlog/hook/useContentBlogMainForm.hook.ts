@@ -15,7 +15,7 @@ import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 const defaultActive = '1'
 
 const initForm = {
-    categoryId: '',
+    categoryIds: [],
     propertyIds: [],
     title: '',
     slug: '',
@@ -28,13 +28,14 @@ const initForm = {
     thumbnail: '',
     promoBanner: '',
     promoBannerUrl: '',
+    visibility: defaultActive,
     seo: {
         ...initSEOFormConfig,
     },
 }
 
 const initMapForm = (passData) => ({
-    categoryId: passData?.category?.id || '',
+    categoryIds: [],
     title: passData?.title || '',
     slug: passData?.slug || '',
     excerpt: passData?.excerpt || '',
@@ -44,8 +45,9 @@ const initMapForm = (passData) => ({
     isActive: passData?.isActive ? defaultActive : '0',
     tagIds: [],
     thumbnail: '',
-    propertyIds: passData?.properties?.map((vm) => vm.id),
+    propertyIds: [],
     promoBanner: '',
+    visibility: passData?.visibility ? defaultActive : '0',
     promoBannerUrl: passData?.promoBannerUrl || '',
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
@@ -77,6 +79,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [listProperties, setListProperties] = useState<any[]>([])
     const [listTags, setlistTags] = useState<any[]>([])
+    const [listCategories, setlistCategories] = useState<any[]>([])
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -165,6 +168,40 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         }
     }
 
+    const _handleCategoryRemove = (dataCategory) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.categoryIds = newState.categoryIds.filter(
+                (id) => id !== dataCategory.id,
+            )
+
+            return newState
+        })
+
+        setlistCategories((prev) =>
+            prev.filter((cat) => cat.id !== dataCategory.id),
+        )
+    }
+
+    const _handleCategoryChoose = (newCategory) => {
+        if (formRequest.categoryIds.length == 9) {
+            return
+        }
+
+        if (!isEmpty(newCategory)) {
+            const checkData = isArray(newCategory)
+                ? newCategory[0]
+                : isObject(newCategory)
+                  ? newCategory
+                  : {}
+
+            nestedForm._handleArrAddMulti('categoryIds', [checkData.id])
+
+            // @ts-ignore
+            setlistCategories((prevState) => [...prevState, ...newCategory])
+        }
+    }
+
     const _handleSEOThumbnailRemove = () => {
         setSetSEOThumbnail('')
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
@@ -181,6 +218,8 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 setFormRequest({
                     ...initMapForm(res),
                     tagIds: res.tags.map((vm) => vm.id),
+                    categoryIds: res.categories.map((v) => v.id),
+                    propertyIds: res.properties.map((v) => v.id),
                     author: res.author || __profile?.fullName || '',
                 })
 
@@ -190,6 +229,10 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                 if (res?.properties && res?.properties.length) {
                     setListProperties(res?.properties)
+                }
+
+                if (res?.categories && res?.categories.length) {
+                    setlistCategories(res?.categories)
                 }
 
                 if (res?.thumbnail) {
@@ -244,6 +287,11 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
         __listTags: listTags,
         __setListTags: setlistTags,
+
+        __listCategories: listCategories,
+        __setListCategories: setlistCategories,
+        __handleCategoryChoose: _handleCategoryChoose,
+        __handleCategoryRemove: _handleCategoryRemove,
 
         __previewThumbnail: previewThumbnail,
         __setPreviewThumbnail: setPreviewThumbnail,

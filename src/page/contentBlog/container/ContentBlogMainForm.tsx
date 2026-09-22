@@ -43,6 +43,11 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleTagChoose,
         __handleTagRemove,
 
+        // categories
+        __listCategories,
+        __handleCategoryChoose,
+        __handleCategoryRemove,
+
         // Thumbnail
         __previewThumbnail,
         __setPreviewThumbnail,
@@ -388,6 +393,8 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             __handleTagChoose(data),
                                         changePropertyOld:
                                             __handlePropertyChoose,
+                                        changeCategoryOld:
+                                            __handleCategoryChoose,
                                     }}>
                                     <Card title="Other Information">
                                         <div className="">
@@ -453,6 +460,23 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             )}
 
                                             <FormRadioButtonMulti
+                                                label="Visible"
+                                                name="visibility"
+                                                className="mb-0"
+                                                required
+                                                checkBoxs={[
+                                                    {
+                                                        defaultValue: 0,
+                                                        label: 'No',
+                                                    },
+                                                    {
+                                                        defaultValue: 1,
+                                                        label: 'Yes',
+                                                    },
+                                                ]}
+                                            />
+
+                                            <FormRadioButtonMulti
                                                 label="Status Active"
                                                 name="isActive"
                                                 className="mb-0"
@@ -470,17 +494,20 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
 
                                             <SelectOptionBlogCategory
-                                                label="Category"
-                                                name="categoryId"
-                                                required
+                                                label="Categories"
+                                                name="categoryIds"
+                                                nameOfChange="changeCategoryOld"
                                                 isUseHook
-                                                ids={[
-                                                    ...(__formRequest.categoryId
-                                                        ? [
-                                                              __formRequest.categoryId,
-                                                          ]
-                                                        : []),
-                                                ]}
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.categoryIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listCategories}
+                                                dataActions={{
+                                                    remove: __handleCategoryRemove,
+                                                }}
                                             />
 
                                             <SelectOptionBlogTag

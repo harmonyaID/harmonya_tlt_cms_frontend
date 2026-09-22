@@ -91,8 +91,6 @@ const SelectOptionBlogTag = (
     const _handleAddNewTag = (passData: any = {}) => {
         const formRequest = { name: passData.value || '' }
 
-        console.log('formRequest: ', formRequest)
-
         apiBlogTag.add(formRequest).then((res) => {
             if (isSuccess(res)) {
                 const configData = { ...shapeDataList(res.result) }
