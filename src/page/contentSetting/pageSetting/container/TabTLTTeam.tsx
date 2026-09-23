@@ -66,6 +66,7 @@ const initForm = {
     question: '',
     answer: '',
     order: 1,
+    level: 1,
     isActive: defaultIsActive,
     photo: '',
 }
@@ -76,13 +77,15 @@ const initMapForm = (passData) => ({
     question: passData?.question || '',
     answer: passData?.answer || '',
     order: passData?.order || 1,
-    isActive: passData?.isActive ? 1 : 0,
-    photo: passData?.photo || '',
+    level: passData?.level || 1,
+    isActive: passData?.isActive ? defaultIsActive : 0,
+    photo: '',
 })
 
 const TabTLTTeam = () => {
     const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
     const [urlAPI, setUrlAPI] = useState(() => apiTeam.list)
+    const [photo, setPhoto] = useState('')
 
     const {
         __list,
@@ -118,6 +121,10 @@ const TabTLTTeam = () => {
             const configParam = {
                 ...passData,
                 isActive: passData.isActive ? 1 : 0,
+            }
+
+            if (passData.photo) {
+                setPhoto(passData.photo)
             }
 
             return initMapForm(configParam)
@@ -203,6 +210,7 @@ const TabTLTTeam = () => {
                         ths={[
                             'Photo',
                             'Order',
+                            'Level',
                             'Name',
                             'Role',
                             'Question',
@@ -223,6 +231,7 @@ const TabTLTTeam = () => {
                                             />
                                         </td>
                                         <td>{vm.order}</td>
+                                        <td>{vm.level}</td>
                                         <td>
                                             <TblLineFirst value={vm.name} />
                                         </td>
@@ -342,6 +351,14 @@ const TabTLTTeam = () => {
                             />
 
                             <FormInput
+                                label="Level"
+                                name="level"
+                                isNumberOnly
+                                placeholder="e.g 2"
+                                min={0}
+                            />
+
+                            <FormInput
                                 label="Role"
                                 name="role"
                                 placeholder="e.g Founder"
@@ -374,16 +391,38 @@ const TabTLTTeam = () => {
                                 ]}
                             />
 
-                            <FormUploadFile
-                                name="photo"
-                                isUseHook={false}
-                                label="Photo"
-                                classNameLayoutImage="col-md-5"
-                                value={__formRequest.photo}
-                                actions={{
-                                    onChange: _handleChange,
-                                }}
-                            />
+                            {photo ? (
+                                <div className="pb-3">
+                                    <p className="mb-2 text-neutral-100">
+                                        Thumbnail
+                                    </p>
+
+                                    <PreviewFileModalLogic
+                                        dataUrl={photo}
+                                        dataBy="file"
+                                        dataFile={photo}
+                                        isShowBtnRemove
+                                        actions={{
+                                            remove: () => {
+                                                setPhoto('')
+                                                _handleChange('photo', '')
+                                            },
+                                        }}
+                                        classNameWidth="col-md-4"
+                                    />
+                                </div>
+                            ) : (
+                                <FormUploadFile
+                                    name="photo"
+                                    isUseHook={false}
+                                    label="Photo"
+                                    classNameLayoutImage="col-md-5"
+                                    value={__formRequest.photo}
+                                    actions={{
+                                        onChange: _handleChange,
+                                    }}
+                                />
+                            )}
                         </>
                     }
                     configHandle={{

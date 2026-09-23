@@ -5,26 +5,46 @@ import SelectOption from '@/component/form/SelectOption.tsx'
 import { useHookContextForm } from '@/context/Form.context.tsx'
 import useComponentInputConfigHook from '@/hook/base/useComponentInputConfig.hook'
 import useBlogCategoryStore from '@/store/useBlogCategory.store.ts'
+import { BtnCircleRemove } from '@/component/general/Button.tsx'
+import usePropertyStore from '@/store/useProperty.store.ts'
 
-const SelectOptionBlogCategory = (props: SelectOptionGeneralProps) => {
+interface ListDataProps {
+    dataList?: any[]
+    dataActions?: {
+        remove?: (passData?: any) => void
+    }
+}
+
+const shapeDataList = (passData: Record<string, any> = {}) => ({
+    ...passData,
+    value: passData.id,
+    label: passData.name,
+})
+
+const SelectOptionBlogCategory = (
+    props: SelectOptionGeneralProps & ListDataProps,
+) => {
     const ctx = useHookContextForm()
 
-    const { __list } = useBlogCategoryStore({ isFormatList: false })
+    const { __list, __handlePushDataStore } = useBlogCategoryStore({
+        isFormatList: false,
+    })
 
     const _configList = () => {
         return __list.map((vm) => ({
-            ...vm,
-            value: vm.id,
-            label: vm.name,
+            // ...vm,
+            // value: vm.id,
+            // label: vm.name,
+            ...shapeDataList(vm),
         }))
     }
 
     const {
-        id = 'select-blog-category',
+        id = 'select-category',
         name = '',
         className = '',
         label = '',
-        placeholder = 'Select Blog Category',
+        placeholder = 'Select Category',
 
         nameOfChange = '',
         valueKey = 'value',
@@ -42,10 +62,18 @@ const SelectOptionBlogCategory = (props: SelectOptionGeneralProps) => {
             onChange: () => {},
         },
 
+        isCreatable = true,
+
         others = {},
+
+        // Layout Only Choose
+        dataList = [],
+        dataActions = {
+            remove: () => {},
+        },
     } = props
 
-    const myId = id || 'select-blog-category' + name + useId()
+    const myId = id || 'select-category' + name + useId()
 
     const { dataValue } = useComponentInputConfigHook(
         ctx,
@@ -101,7 +129,7 @@ const SelectOptionBlogCategory = (props: SelectOptionGeneralProps) => {
                 if (!isMulti && !isArray(dataValue)) {
                     return vm[valueKey] === dataValue
                 } else {
-                    return dataValue.includes(vm[valueKey])
+                    return dataValue.includes(vm[valueKey] ? vm[valueKey] : vm)
                 }
             })
             setSelectedData(!isEmpty(findData) ? findData : [])
@@ -117,23 +145,51 @@ const SelectOptionBlogCategory = (props: SelectOptionGeneralProps) => {
 
             setOptions(filterOptions)
         }
-    }, [isOnlyChoose, ids])
+    }, [isOnlyChoose, ids, __list.length])
 
     return (
-        <SelectOption
-            className={className}
-            label={label}
-            id={myId}
-            {...(!isOnlyChoose ? { value: selectedData } : {})}
-            onChange={(data) => _handleSelectData(data)}
-            options={isOnlyChoose ? options : _configList()}
-            placeholder={placeholder}
-            isClearable
-            isMulti={isMulti}
-            required={required}
-            disabled={disabled}
-            others={others}
-        />
+        <>
+            <SelectOption
+                className={className}
+                label={label}
+                id={myId}
+                {...(!isOnlyChoose ? { value: selectedData } : {})}
+                onChange={(data) => _handleSelectData(data)}
+                options={isOnlyChoose ? options : _configList()}
+                placeholder={placeholder}
+                isClearable
+                isMulti={isMulti}
+                required={required}
+                disabled={disabled}
+                others={others}
+            />
+
+            {dataList?.length ? (
+                <>
+                    <p className="fs-12 mb-2 fw-600">
+                        Total Categories : {dataList.length}
+                    </p>
+                    <div className="mb-4 max-h-240px bg-neutral-600 px-3 pb-3 rounded-2 overflow-auto">
+                        {dataList.map((cat, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className="border-dashed border-neutral-400 border-1 pb-2 pt-2 d-flex align-items-center">
+                                    <div className="w-100">{cat.name}</div>
+                                    <BtnCircleRemove
+                                        className="ms-auto"
+                                        actions={{
+                                            remove: () =>
+                                                dataActions.remove(cat),
+                                        }}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </>
+            ) : null}
+        </>
     )
 }
 
