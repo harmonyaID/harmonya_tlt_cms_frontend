@@ -40,6 +40,8 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
         __handleChangeWithParent,
+        __mapImage,
+        __removeMapImage,
 
         __handleToggleDeletePrevPhotoPromotion,
         __lisPreviousPhotosPromotion,
@@ -298,6 +300,46 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 dataFiles={__dataFilesPromo}
                                                 formRequest={__formRequest}
                                             />
+                                        </GeneralRowForm>
+                                    </WrapFormContext>
+
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                        }}>
+                                        <GeneralRowForm label="Map Image">
+                                            {__mapImage ? (
+                                                <div className="pb-3">
+                                                    <p className="mb-2 text-neutral-100">
+                                                        Thumbnail
+                                                    </p>
+
+                                                    <PreviewFileModalLogic
+                                                        dataUrl={__mapImage}
+                                                        dataBy="file"
+                                                        dataFile={__mapImage}
+                                                        isShowBtnRemove
+                                                        actions={{
+                                                            remove: __removeMapImage,
+                                                        }}
+                                                        classNameWidth="col-md-4"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <FormUploadFile
+                                                    name="mapImage"
+                                                    isUseHook={false}
+                                                    classNameLayoutImage="col-md-5"
+                                                    value={
+                                                        __formRequest.mapImage
+                                                    }
+                                                    actions={{
+                                                        onChange:
+                                                            __handleChange,
+                                                    }}
+                                                />
+                                            )}
                                         </GeneralRowForm>
                                     </WrapFormContext>
                                 </div>

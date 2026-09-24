@@ -22,6 +22,8 @@ const initForm = {
     photos: [],
     customInformations: [],
     promoLabel: '',
+    mapImage: '',
+    deleteMapImage: 0,
     seo: {
         ...initSEOFormConfig,
     },
@@ -35,6 +37,8 @@ const initMapForm = (passData) => ({
         ? passData.customInformations
         : [],
     isActive: passData.isActive ? defaultActive : '0',
+    mapImage: '',
+    deleteMapImage: 0,
 
     priceFile: '',
     deletePriceFile: '',
@@ -81,6 +85,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     const [lisPreviousPhotosPromotion, setLisPreviousPhotosPromotion] =
         useState([])
 
+    const [mapImage, setMapImage] = useState('')
+
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
     const dataDetail = useDetailFormRequestHook({
@@ -113,6 +119,10 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                 if (res?.priceFile) {
                     setPreviewPriceFile(res?.priceFile)
+                }
+
+                if (res?.mapImage) {
+                    setMapImage(res?.mapImage)
                 }
             }
         },
@@ -186,6 +196,15 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         nestedForm.__handleChange('priceFile', '')
     }
 
+    const _handleRemoveMapImage = () => {
+        nestedForm.setFormRequest((prevState) => ({
+            ...prevState,
+            mapImage: '',
+            deleteMapImage: defaultActive,
+        }))
+        setMapImage('')
+    }
+
     // Start Handle Custom Info
     const _handleCustomInfoAdd = () => {
         nestedForm._handleArrToggle(-1, 'customInformations', {
@@ -249,6 +268,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __isLoading: isLoading,
         __isLoadingDetail: isLoadingDetail,
         __pageStateDataSearch: restored,
+        __mapImage: mapImage,
+        __removeMapImage: _handleRemoveMapImage,
 
         // Prev Photos
         __handleToggleDeletePrevPhotos: _handleToggleDeletePrevPhotos,
