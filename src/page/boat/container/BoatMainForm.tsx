@@ -41,7 +41,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleCancel,
         __handleChangeWithParent,
         __mapImage,
-        __setMapImage,
+        __removeMapImage,
 
         __handleToggleDeletePrevPhotoPromotion,
         __lisPreviousPhotosPromotion,
@@ -321,15 +321,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         dataFile={__mapImage}
                                                         isShowBtnRemove
                                                         actions={{
-                                                            remove: () => {
-                                                                __setMapImage(
-                                                                    '',
-                                                                )
-                                                                __handleChange(
-                                                                    'mapImage',
-                                                                    '',
-                                                                )
-                                                            },
+                                                            remove: __removeMapImage,
                                                         }}
                                                         classNameWidth="col-md-4"
                                                     />

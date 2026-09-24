@@ -14,6 +14,7 @@ import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const BoatDetailPage = () => {
     const {
@@ -110,6 +111,19 @@ const BoatDetailPage = () => {
                                     objectListDetail(
                                         'Promo Label',
                                         __detail.promoLabel || '-',
+                                    ),
+                                    objectListDetail(
+                                        'Map Image',
+                                        __detail.mapImage ? (
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={
+                                                    __detail?.mapImage || ''
+                                                }
+                                            />
+                                        ) : (
+                                            '-'
+                                        ),
                                     ),
                                     objectListDetail(
                                         'Created At',

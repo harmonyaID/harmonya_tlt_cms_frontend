@@ -23,6 +23,7 @@ const initForm = {
     customInformations: [],
     promoLabel: '',
     mapImage: '',
+    deleteMapImage: 0,
     seo: {
         ...initSEOFormConfig,
     },
@@ -37,6 +38,7 @@ const initMapForm = (passData) => ({
         : [],
     isActive: passData.isActive ? defaultActive : '0',
     mapImage: '',
+    deleteMapImage: 0,
 
     priceFile: '',
     deletePriceFile: '',
@@ -194,6 +196,15 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         nestedForm.__handleChange('priceFile', '')
     }
 
+    const _handleRemoveMapImage = () => {
+        nestedForm.setFormRequest((prevState) => ({
+            ...prevState,
+            mapImage: '',
+            deleteMapImage: defaultActive,
+        }))
+        setMapImage('')
+    }
+
     // Start Handle Custom Info
     const _handleCustomInfoAdd = () => {
         nestedForm._handleArrToggle(-1, 'customInformations', {
@@ -258,7 +269,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __isLoadingDetail: isLoadingDetail,
         __pageStateDataSearch: restored,
         __mapImage: mapImage,
-        __setMapImage: setMapImage,
+        __removeMapImage: _handleRemoveMapImage,
 
         // Prev Photos
         __handleToggleDeletePrevPhotos: _handleToggleDeletePrevPhotos,
