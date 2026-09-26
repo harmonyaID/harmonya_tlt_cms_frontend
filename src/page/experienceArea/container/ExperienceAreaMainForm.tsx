@@ -18,12 +18,17 @@ import useExpAreaMainForm from '@/page/experienceArea/hook/useExpAreaMainForm.ho
 import boatPath from '@/path/boat.path.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import CustomInfoForm from '@/common/dataFeature/customInformation/CustomInfoForm.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
+import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
 
 const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
         __formRequest,
         __isLoading,
         __pageStateDataSearch,
+        __mapImage,
+        __removeMapImage,
 
         // Detail
         __isLoadingDetail,
@@ -45,6 +50,14 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __seoThumbnail,
         __setSetSEOThumbnail,
         __handleSEOThumbnailRemove,
+
+        __handleCustomInfoAdd,
+        __handleCustomInfoRemove,
+        __handleCustomInfoChange,
+
+        __listProperties,
+        __handlePropertyRemove,
+        __handlePropertyChoose,
 
         // Submit / Cancel
         __handleSubmit,
@@ -80,6 +93,8 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         formRequest={__formRequest}
                                         actions={{
                                             change: __handleChange,
+                                            changePropertyOld:
+                                                __handlePropertyChoose,
                                         }}>
                                         <GeneralRowForm
                                             label="Form Type"
@@ -103,6 +118,64 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 name="description"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
                                                 isSimple
+                                            />
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Custom Informations">
+                                            <div className="vstack gap-3">
+                                                {__formRequest.customInformations?.map(
+                                                    (group, index) => (
+                                                        <CustomInfoForm
+                                                            key={index}
+                                                            group={group}
+                                                            actions={{
+                                                                onChange: (
+                                                                    group,
+                                                                ) =>
+                                                                    __handleCustomInfoChange(
+                                                                        index,
+                                                                        group,
+                                                                    ),
+                                                                onRemove: () =>
+                                                                    __handleCustomInfoRemove(
+                                                                        index,
+                                                                    ),
+                                                            }}
+                                                        />
+                                                    ),
+                                                )}
+                                            </div>
+
+                                            <BtnPrimary
+                                                type="button"
+                                                isOutline
+                                                className="w-100 mb-3"
+                                                handle={() =>
+                                                    __handleCustomInfoAdd()
+                                                }>
+                                                Add New Group
+                                            </BtnPrimary>
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Properties">
+                                            <SelectOptionProperty
+                                                name="propertyIds"
+                                                disabled={
+                                                    __formRequest.propertyIds
+                                                        .length == 9
+                                                }
+                                                nameOfChange="changePropertyOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.propertyIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listProperties}
+                                                dataActions={{
+                                                    remove: __handlePropertyRemove,
+                                                }}
                                             />
                                         </GeneralRowForm>
 
@@ -233,6 +306,46 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                 newDataFiles.url,
                                                             )
                                                         },
+                                                    }}
+                                                />
+                                            )}
+                                        </GeneralRowForm>
+                                    </WrapFormContext>
+
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                        }}>
+                                        <GeneralRowForm label="Map Image">
+                                            {__mapImage ? (
+                                                <div className="pb-3">
+                                                    <p className="mb-2 text-neutral-100">
+                                                        Thumbnail
+                                                    </p>
+
+                                                    <PreviewFileModalLogic
+                                                        dataUrl={__mapImage}
+                                                        dataBy="file"
+                                                        dataFile={__mapImage}
+                                                        isShowBtnRemove
+                                                        actions={{
+                                                            remove: __removeMapImage,
+                                                        }}
+                                                        classNameWidth="col-md-4"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <FormUploadFile
+                                                    name="mapImage"
+                                                    isUseHook={false}
+                                                    classNameLayoutImage="col-md-5"
+                                                    value={
+                                                        __formRequest.mapImage
+                                                    }
+                                                    actions={{
+                                                        onChange:
+                                                            __handleChange,
                                                     }}
                                                 />
                                             )}

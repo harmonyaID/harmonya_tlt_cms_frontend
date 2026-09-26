@@ -287,6 +287,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleArrToggle: nestedForm._handleArrToggle,
         __handleArrChange: nestedForm._handleArrChange,
         __handleChangeWithParent: nestedForm._handleChangeWithParent,
+
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
         __handleCustomInfoChange: _handleChangeCustomInfo,

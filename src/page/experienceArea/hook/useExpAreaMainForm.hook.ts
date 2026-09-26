@@ -9,6 +9,7 @@ import boatPath from '@/path/boat.path.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
 import { apiExperienceArea } from '@/service/api/contentManageSetting.api.ts'
+import { isArray, isEmpty, isObject } from 'lodash'
 
 const initForm = {
     experienceTypeId: '',
@@ -18,6 +19,12 @@ const initForm = {
     deleteFeaturedImage: '',
     banner: '',
     deleteBanner: '',
+
+    customInformations: [],
+    propertyIds: [],
+    mapImage: '',
+    deleteMapImage: 0,
+
     seo: {
         ...initSEOFormConfig,
     },
@@ -31,6 +38,13 @@ const initMapForm = (passData) => ({
     deleteFeaturedImage: passData?.deleteFeaturedImage || '',
     banner: '', //passData?.banner || '',
     deleteBanner: passData?.deleteBanner || '',
+
+    mapImage: '',
+    deleteMapImage: 0,
+    customInformations: passData?.customInformations?.length
+        ? passData.customInformations
+        : [],
+    propertyIds: [],
 
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
@@ -51,7 +65,20 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    const [mapImage, setMapImage] = useState('')
+
+    const [listProperties, setListProperties] = useState<any[]>([])
+
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
+
+    const _handleRemoveMapImage = () => {
+        nestedForm.setFormRequest((prevState) => ({
+            ...prevState,
+            mapImage: '',
+            deleteMapImage: 1,
+        }))
+        setMapImage('')
+    }
     // END MAIN FROM
 
     // START SEO
@@ -62,6 +89,87 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
     }
     // END SEO
+
+    // Start Handle Custom Info
+    const _handleCustomInfoAdd = () => {
+        nestedForm._handleArrToggle(-1, 'customInformations', {
+            name: '',
+            customInformations: [
+                {
+                    name: '',
+                    value: '',
+                    order: 1,
+                },
+            ],
+        })
+    }
+
+    const _handleCustomInfoRemove = (indexToRemove) => {
+        setFormRequest((prev) => {
+            const updated = prev.customInformations
+                .filter((_, index) => index !== indexToRemove)
+                .map((item, index) => ({
+                    ...item,
+                    order: index + 1,
+                }))
+
+            return {
+                ...prev,
+                customInformations: updated,
+            }
+        })
+    }
+
+    const _handleChangeCustomInfo = (index, group) => {
+        setFormRequest((prev) => {
+            const updated = [...prev.customInformations]
+
+            updated[index] = group
+
+            return {
+                ...prev,
+                customInformations: updated,
+            }
+        })
+    }
+    // End Handle Custom Info
+
+    // SART Property
+    const _handlePropertyRemove = (dataProperty) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.propertyIds = newState.propertyIds.filter(
+                (id) => id !== dataProperty.id,
+            )
+
+            return newState
+        })
+
+        setListProperties((prev) =>
+            prev.filter((property) => property.id !== dataProperty.id),
+        )
+    }
+
+    const _handlePropertyChoose = (newProperty) => {
+        if (formRequest.propertyIds.length == 9) {
+            return
+        }
+
+        if (!isEmpty(newProperty)) {
+            const checkData = isArray(newProperty)
+                ? newProperty[0]
+                : isObject(newProperty)
+                  ? newProperty
+                  : {}
+
+            nestedForm._handleArrAddMulti('propertyIds', [checkData.id])
+
+            // @ts-ignore
+            setListProperties((prevState) => [...prevState, ...newProperty])
+        }
+    }
+
+    // END Property
 
     // START BANNER
     const [previewFeaturedImage, setPreviewFeaturedImage] = useState('')
@@ -122,6 +230,14 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 if (res?.seo?.thumbnail) {
                     setSetSEOThumbnail(res.seo.thumbnail)
                 }
+
+                if (res?.mapImage) {
+                    setMapImage(res?.mapImage)
+                }
+
+                if (res?.properties){
+                    setListProperties(res.properties)
+                }
             }
         },
         isAutoGet: isEdit,
@@ -151,6 +267,8 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __pageStateDataSearch: restored,
         __isLoadingDetail: isLoadingDetail,
         __detailFormRequest: dataDetail.__detailFormRequest,
+        __mapImage: mapImage,
+        __removeMapImage: _handleRemoveMapImage,
 
         // Chang Form
         __setFormRequest: setFormRequest,
@@ -167,6 +285,14 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __seoThumbnail: seoThumbnail,
         __setSetSEOThumbnail: setSetSEOThumbnail,
         __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
+
+        __handleCustomInfoAdd: _handleCustomInfoAdd,
+        __handleCustomInfoRemove: _handleCustomInfoRemove,
+        __handleCustomInfoChange: _handleChangeCustomInfo,
+
+        __listProperties: listProperties,
+        __handlePropertyRemove: _handlePropertyRemove,
+        __handlePropertyChoose: _handlePropertyChoose,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
