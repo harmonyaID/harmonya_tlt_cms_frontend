@@ -24,6 +24,11 @@ const initForm = {
     propertyIds: [],
     mapImage: '',
     deleteMapImage: 0,
+    blogIds: [],
+    experienceSection1Ids: [],
+    experienceSection2Ids: [],
+    experienceSection1TypeId: '',
+    experienceSection2TypeId: '',
 
     seo: {
         ...initSEOFormConfig,
@@ -44,7 +49,12 @@ const initMapForm = (passData) => ({
     customInformations: passData?.customInformations?.length
         ? passData.customInformations
         : [],
-    propertyIds: [],
+    propertyIds: passData?.propertyIds || [],
+    blogIds: passData?.blogIds || [],
+    experienceSection1Ids: passData?.experienceSection1Ids || [],
+    experienceSection2Ids: passData?.experienceSection2Ids || [],
+    experienceSection1TypeId: '',
+    experienceSection2TypeId: '',
 
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
@@ -68,6 +78,16 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const [mapImage, setMapImage] = useState('')
 
     const [listProperties, setListProperties] = useState<any[]>([])
+
+    const [listBlogs, setListBlogs] = useState<any[]>([])
+
+    const [listExperienceSection1, setListExperienceSection1] = useState<any[]>(
+        [],
+    )
+
+    const [listExperienceSection2, setListExperienceSection2] = useState<any[]>(
+        [],
+    )
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -168,8 +188,115 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             setListProperties((prevState) => [...prevState, ...newProperty])
         }
     }
-
     // END Property
+
+    // START Blog
+    const _handleBlogChoose = (newBlog) => {
+        if (formRequest.blogIds.length == 4) {
+            return
+        }
+
+        if (!isEmpty(newBlog)) {
+            const checkData = isArray(newBlog)
+                ? newBlog[0]
+                : isObject(newBlog)
+                  ? newBlog
+                  : {}
+
+            nestedForm._handleArrAddMulti('blogIds', [checkData.id])
+
+            // @ts-ignore
+            setListBlogs((prevState) => [...prevState, ...newBlog])
+        }
+    }
+
+    const _handleBlogRemove = (dataBlog) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.blogIds = newState.blogIds.filter(
+                (id) => id !== dataBlog.id,
+            )
+
+            return newState
+        })
+
+        setListBlogs((prev) => prev.filter((blog) => blog.id !== dataBlog.id))
+    }
+    // END Blog
+
+    // START Experience Section 1
+    const _handleExp1Choose = (newExp) => {
+        if (formRequest.experienceSection1Ids.length == 4) {
+            return
+        }
+
+        if (!isEmpty(newExp)) {
+            const checkData = isArray(newExp)
+                ? newExp[0]
+                : isObject(newExp)
+                  ? newExp
+                  : {}
+
+            nestedForm._handleArrAddMulti('experienceSection1Ids', [
+                checkData.id,
+            ])
+
+            // @ts-ignore
+            setListExperienceSection1((prevState) => [...prevState, ...newExp])
+        }
+    }
+
+    const _handleExp1Remove = (dataExp) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.experienceSection1Ids =
+                newState.experienceSection1Ids.filter((id) => id !== dataExp.id)
+
+            return newState
+        })
+
+        setListExperienceSection1((prev) =>
+            prev.filter((vm) => vm.id !== dataExp.id),
+        )
+    }
+    // END Experience Section 1
+
+    // START Experience Section 2
+    const _handleExp2Choose = (newExp) => {
+        if (formRequest.experienceSection2Ids.length == 4) {
+            return
+        }
+
+        if (!isEmpty(newExp)) {
+            const checkData = isArray(newExp)
+                ? newExp[0]
+                : isObject(newExp)
+                  ? newExp
+                  : {}
+
+            nestedForm._handleArrAddMulti('experienceSection2Ids', [
+                checkData.id,
+            ])
+
+            // @ts-ignore
+            setListExperienceSection2((prevState) => [...prevState, ...newExp])
+        }
+    }
+
+    const _handleExp2Remove = (dataExp) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.experienceSection2Ids =
+                newState.experienceSection2Ids.filter((id) => id !== dataExp.id)
+
+            return newState
+        })
+
+        setListExperienceSection2((prev) =>
+            prev.filter((vm) => vm.id !== dataExp.id),
+        )
+    }
+    // END Experience Section 2
 
     // START BANNER
     const [previewFeaturedImage, setPreviewFeaturedImage] = useState('')
@@ -235,8 +362,20 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     setMapImage(res?.mapImage)
                 }
 
-                if (res?.properties){
+                if (res?.properties) {
                     setListProperties(res.properties)
+                }
+
+                if (res?.blogs) {
+                    setListBlogs(res.blogs)
+                }
+
+                if (res?.experienceSection1) {
+                    setListExperienceSection1(res.experienceSection1)
+                }
+
+                if (res?.experienceSection2) {
+                    setListExperienceSection2(res.experienceSection2)
                 }
             }
         },
@@ -293,6 +432,18 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __listProperties: listProperties,
         __handlePropertyRemove: _handlePropertyRemove,
         __handlePropertyChoose: _handlePropertyChoose,
+
+        __listBlogs: listBlogs,
+        __handleBlogRemove: _handleBlogRemove,
+        __handleChooseBlog: _handleBlogChoose,
+
+        __listExperienceSection1: listExperienceSection1,
+        __handleExp1Remove: _handleExp1Remove,
+        __handleExp1Choose: _handleExp1Choose,
+
+        __listExperienceSection2: listExperienceSection2,
+        __handleExp2Remove: _handleExp2Remove,
+        __handleExp2Choose: _handleExp2Choose,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,

@@ -236,7 +236,7 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 name="blogIds"
                                                 disabled={
                                                     __formRequest.blogIds
-                                                        .length == 2
+                                                        ?.length == 2
                                                 }
                                                 nameOfChange="changeBlogOld"
                                                 isUseHook
