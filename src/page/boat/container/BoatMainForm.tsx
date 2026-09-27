@@ -22,7 +22,7 @@ import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
 import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
-import BoatCustomInfoForm from '@/page/boat/component/BoatCustomInfoForm.tsx'
+import CustomInfoForm from '@/common/dataFeature/customInformation/CustomInfoForm.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -149,7 +149,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <div className="vstack gap-3">
                                                 {__formRequest.customInformations?.map(
                                                     (group, index) => (
-                                                        <BoatCustomInfoForm
+                                                        <CustomInfoForm
                                                             key={index}
                                                             group={group}
                                                             actions={{

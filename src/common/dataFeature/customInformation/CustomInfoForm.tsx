@@ -4,7 +4,7 @@ import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import setNestedValue from '@/helper/setNestedValue.helper.ts'
 
-const BoatCustomInfoForm = ({
+const CustomInfoForm = ({
     group,
     actions: { onChange, onRemove },
 }: {
@@ -118,4 +118,4 @@ const BoatCustomInfoForm = ({
     )
 }
 
-export default BoatCustomInfoForm
+export default CustomInfoForm
