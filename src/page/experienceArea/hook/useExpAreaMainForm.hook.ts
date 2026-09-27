@@ -372,10 +372,18 @@ const useExpAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                 if (res?.experienceSection1) {
                     setListExperienceSection1(res.experienceSection1)
+                    nestedForm._handleChange(
+                        'experienceSection1TypeId',
+                        res.experienceSection1[0]?.type?.id,
+                    )
                 }
 
                 if (res?.experienceSection2) {
                     setListExperienceSection2(res.experienceSection2)
+                    nestedForm._handleChange(
+                        'experienceSection2TypeId',
+                        res.experienceSection2[0]?.type?.id,
+                    )
                 }
             }
         },

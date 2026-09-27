@@ -39,18 +39,21 @@ const SelectOptionExperience = (
     const _configList = () => {
         if (props.typeId) {
             return __list
+                .filter((vm) => !ids.includes(String(vm['id'])))
                 .filter((vm) => vm.type?.id === props.typeId)
                 .map((vm) => ({
                     ...shapeDataList(vm),
                 }))
         }
 
-        return __list.map((vm) => ({
-            // ...vm,
-            // value: vm.id,
-            // label: vm.name,
-            ...shapeDataList(vm),
-        }))
+        return __list
+            .filter((vm) => !ids.includes(String(vm['id'])))
+            .map((vm) => ({
+                // ...vm,
+                // value: vm.id,
+                // label: vm.name,
+                ...shapeDataList(vm),
+            }))
     }
 
     const {
