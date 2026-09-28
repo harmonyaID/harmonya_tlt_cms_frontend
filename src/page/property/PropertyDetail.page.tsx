@@ -692,8 +692,9 @@ const PropertyDetailPage = () => {
                                         <>
                                             <PreviewFileModalMultiLogic
                                                 dataFiles={__detail.photos}
-                                                dataBy="photo"
-                                                isDescription={false}
+                                                dataBy="url"
+                                                // isDescription={false}
+                                                keyDescription="caption"
                                                 classNameWrapImg="max-h-120-px"
                                             />
                                         </>

@@ -25,7 +25,7 @@ const TextMoreLess = ({
     return (
         <div
             className={joinClassNameHelper(
-                'fs-13 text-neutral-300',
+                'fs-13 text-neutral-200',
                 className,
                 {
                     'mb-2': isUseDefaultMarginBottom,
