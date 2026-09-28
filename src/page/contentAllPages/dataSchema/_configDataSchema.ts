@@ -5,6 +5,7 @@
 // } from '@/page/contentAllPages/dataSchema/_typeDataSchema.ts'
 import {
     TEMPLATE_BLOG,
+    TEMPLATE_CONTACT_US,
     TEMPLATE_EXPERIENCE,
     TEMPLATE_INFO_FAQ,
     TEMPLATE_INFO_PRIVACY_POLICY,
@@ -13,6 +14,7 @@ import {
     TEMPLATE_PROPERTY,
 } from '@/config/pageTemplate.config.ts'
 import dataBlogPage from '@/page/contentAllPages/dataSchema/dataBlogPage.ts'
+import { dataContactUsPage } from '@/page/contentAllPages/dataSchema/dataContactUsPage.ts'
 import dataExperiencePage from '@/page/contentAllPages/dataSchema/dataExperiencePage.ts'
 import {
     dataFAQInfoPage,
@@ -23,6 +25,7 @@ import dataPropertyPage from '@/page/contentAllPages/dataSchema/dataPropertyPage
 
 const configDataSchema = {
     [TEMPLATE_BLOG]: dataBlogPage,
+    [TEMPLATE_CONTACT_US]: dataContactUsPage,
     [TEMPLATE_PROPERTY]: dataPropertyPage,
     [TEMPLATE_OFFER]: dataOfferPage,
     [TEMPLATE_EXPERIENCE]: dataExperiencePage,
