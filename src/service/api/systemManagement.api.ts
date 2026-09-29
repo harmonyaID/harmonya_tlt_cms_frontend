@@ -20,9 +20,11 @@ import {
     SrvSystemInfoCacheViewClear,
     SrvSystemRedirection,
     SrvSystemTestGuestyConfig,
+    SrvSystemTrackingAnalytics,
     SrvWebConfig,
     SrvWebConfigUpdate,
 } from '@/service/api/_systemManagement.endPoint.ts'
+import { objectPathEndPointAPI } from '@/config/base/objectPath.config.ts'
 
 export const getWebConfig = () =>
     _shapeMethodGet(SrvWebConfig, 'tcSrvWebConfig')
@@ -84,3 +86,8 @@ export const testGuestyConfig = (formRequest = {}) =>
 
 // Redirections
 export const apiRedirectionCRUD = _shapeObjectMethodCRUD(SrvSystemRedirection)
+
+// Tracking Analytics
+export const apiTrackingAnalyticsCRUD = _shapeObjectMethodCRUD(
+    SrvSystemTrackingAnalytics,
+)

@@ -9,39 +9,35 @@ import {
 } from '@/component/general/Button.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
-    MDPSTabRedirectionAdd,
-    MDPSTabRedirectionRemove,
+    MDPSTabTrackingAnalyticAdd,
+    MDPSTabTrackingAnalyticRemove,
 } from '@/config/modal.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import { apiContactFormType } from '@/service/api/contentManageSetting.api.ts'
-import { apiRedirectionCRUD } from '@/service/api/systemManagement.api.ts'
+import { apiTrackingAnalyticsCRUD } from '@/service/api/systemManagement.api.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
-import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
-import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
+import FormTextArea from '@/component/form/FormTextArea.tsx'
+import { textSlug } from '@/helper/convertText.helper.ts'
+import TextMoreLess from '@/component/general/TextMoreLess.tsx'
 
 const initForm = {
     name: '',
-    sourceUrl: '',
-    targetUrl: '',
-    statusCode: '',
-    isActive: '1',
+    key: '',
+    value: '',
 }
 
 const initMapForm = (passData) => ({
     name: passData.name || '',
-    sourceUrl: passData.sourceUrl || '',
-    targetUrl: passData.targetUrl || '',
-    statusCode: passData.statusCode || '',
-    isActive: passData.isActive ? '1' : '0',
+    key: passData.key || '',
+    value: passData.value || '',
 })
 
-const TabRedirection = () => {
+const TabTrackingAnalytic = () => {
     const {
         __list,
         __isLoading,
@@ -51,7 +47,7 @@ const TabRedirection = () => {
         __pagination,
         __actionPagination,
     } = useDataListHook({
-        urlAPI: apiRedirectionCRUD.list,
+        urlAPI: apiTrackingAnalyticsCRUD.list,
     })
 
     const {
@@ -66,8 +62,8 @@ const TabRedirection = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPSTabRedirectionAdd,
-        modalRemoveId: MDPSTabRedirectionRemove,
+        modalId: MDPSTabTrackingAnalyticAdd,
+        modalRemoveId: MDPSTabTrackingAnalyticRemove,
         emptyParam: { ...initForm },
         mapDetailToFormRequest: initMapForm,
     })
@@ -80,20 +76,28 @@ const TabRedirection = () => {
         __setData: _handleSetData,
     } = useChooseData({
         action: {
-            nextStep: () => actionModal(MDPSTabRedirectionRemove, false),
+            nextStep: () => actionModal(MDPSTabTrackingAnalyticRemove, false),
         },
     })
 
-    // useEffect(() => {
-    //     action.setListFormType(__list)
-    //     action.setIsLoadingFormType(__isLoading)
-    // }, [...__list, __isLoading, __isEdit])
+    const _handleChangeForm = (name, value) => {
+        if (name === 'name') {
+            __setFormRequest((prev) => ({
+                ...prev,
+                [name]: value,
+                key: textSlug(value),
+            }))
+            return
+        }
+
+        _handleChange(name, value)
+    }
 
     return (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Redirections</h5>
+                    <h5 className="fs-18 fw-500">Tracking Analytics</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -107,15 +111,16 @@ const TabRedirection = () => {
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={['Name', 'Source URL', 'Target URL', 'Active', '']}
+                        ths={['Name', 'Key', 'Value', '']}
                         tds={__list}>
                         {__list.map((type) => (
                             <tr key={type.id}>
                                 <td>{type.name}</td>
-                                <td>{type.sourceUrl || '-'}</td>
-                                <td>{type.targetUrl || '-'}</td>
-                                <td>
-                                    <TextTrueOrFalse value={type.isActive} />
+                                <td>{type.key || '-'}</td>
+                                <td className="max-w-300px">
+                                    <TextMoreLess>
+                                        {type.value || '-'}
+                                    </TextMoreLess>
                                 </td>
                                 <td>
                                     <div className="hstack gap-2 justify-content-end">
@@ -156,10 +161,10 @@ const TabRedirection = () => {
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
-                    id={MDPSTabRedirectionRemove}
+                    id={MDPSTabTrackingAnalyticRemove}
                     configHandle={{
                         urlAPI: () =>
-                            apiRedirectionCRUD.delete(dataForRemove.id),
+                            apiTrackingAnalyticsCRUD.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },
@@ -170,13 +175,13 @@ const TabRedirection = () => {
                 />
 
                 <ModalWithActionFormCRUDLogic
-                    id={MDPSTabRedirectionAdd}
+                    id={MDPSTabTrackingAnalyticAdd}
                     detail={__detailData}
-                    title="Redirection"
+                    title="Tracking Analytic"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{
-                        change: _handleChange,
+                        change: _handleChangeForm,
                         toggleModal: __actionCloseModal,
                     }}
                     placeholder="e.g Customer Staging"
@@ -190,43 +195,25 @@ const TabRedirection = () => {
                                 placeholder="e.g Career"
                             />
                             <FormInput
-                                label="Source URL"
-                                name="sourceUrl"
+                                label="Key"
+                                name="key"
                                 required
-                                placeholder="e.g http://example.com"
+                                placeholder="e.g Career"
                             />
-                            <FormInput
-                                label="Target URL"
-                                name="targetUrl"
+                            <FormTextArea
+                                label="Value"
+                                name="value"
                                 required
-                                placeholder="e.g http://example.com"
-                            />
-                            <FormInput
-                                label="Status Code"
-                                name="statusCode"
-                                required
-                                isNumberOnly
-                                placeholder="e.g http://example.com"
-                            />
-                            <FormRadioButtonMulti
-                                name="isActive"
-                                checkBoxs={[
-                                    {
-                                        defaultValue: 0,
-                                        label: 'No',
-                                    },
-                                    {
-                                        defaultValue: 1,
-                                        label: 'Yes',
-                                    },
-                                ]}
+                                placeholder="Some value"
+                                rows={15}
                             />
                         </>
                     }
                     configHandle={{
-                        urlAPIAdd: () => apiRedirectionCRUD.add(__formRequest),
+                        urlAPIAdd: () =>
+                            apiTrackingAnalyticsCRUD.add(__formRequest),
                         urlAPIUpdate: () => {
-                            return apiRedirectionCRUD.update(
+                            return apiTrackingAnalyticsCRUD.update(
                                 __selectedId,
                                 __formRequest,
                             )
@@ -249,4 +236,4 @@ const TabRedirection = () => {
     )
 }
 
-export default TabRedirection
+export default TabTrackingAnalytic
