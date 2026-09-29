@@ -35,6 +35,8 @@ import {
 } from '@/page/property/param/propertyMainForm.param.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import propertyPath from '@/path/property.path.ts'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 
 const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -66,6 +68,10 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __seoThumbnail,
         __setSetSEOThumbnail,
         __handleSEOThumbnailRemove,
+
+        //Floorplan Image
+        __floorplanImage,
+        __removeFloorplanImage,
 
         // Submit / Cancel
         __handleSubmit,
@@ -657,6 +663,40 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         </div>
                                                     </>
                                                 ) : null}
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm label="Floorplan Image">
+                                                {__floorplanImage ? (
+                                                    <div className="pb-3">
+                                                        <PreviewFileModalLogic
+                                                            dataUrl={
+                                                                __floorplanImage
+                                                            }
+                                                            dataBy="file"
+                                                            dataFile={
+                                                                __floorplanImage
+                                                            }
+                                                            isShowBtnRemove
+                                                            actions={{
+                                                                remove: __removeFloorplanImage,
+                                                            }}
+                                                            classNameWidth="col-md-4"
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <FormUploadFile
+                                                        name="floorplanImage"
+                                                        isUseHook={false}
+                                                        classNameLayoutImage="col-md-5"
+                                                        value={
+                                                            __formRequest.floorplanImage
+                                                        }
+                                                        actions={{
+                                                            onChange:
+                                                                __handleChange,
+                                                        }}
+                                                    />
+                                                )}
                                             </GeneralRowForm>
                                         </WrapFormContext>
                                     </div>

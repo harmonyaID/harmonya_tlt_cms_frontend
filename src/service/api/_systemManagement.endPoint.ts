@@ -48,3 +48,8 @@ export const SrvSystemTestGuestyConfig = SrvSystemGuestyConfig + '/test'
 export const SrvSystemRedirection = objectPathEndPointAPI(
     baseAPI + '/redirections',
 )
+
+// Tracking Analytics
+export const SrvSystemTrackingAnalytics = objectPathEndPointAPI(
+    baseAPI + '/settings/analytics',
+)

@@ -120,3 +120,7 @@ export const MDPropertyFormRequestRemove = 'modalPropertyInquiryRemove'
 // Redirection
 export const MDPSTabRedirectionAdd = 'modalRedirectionAdd'
 export const MDPSTabRedirectionRemove = 'modalRedirectionRemove'
+
+// Tracking Analytic
+export const MDPSTabTrackingAnalyticAdd = 'modalTrackingAnalyticAdd'
+export const MDPSTabTrackingAnalyticRemove = 'modalTrackingAnalyticRemove'

@@ -34,9 +34,20 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [seoThumbnail, setSetSEOThumbnail] = useState('')
 
+    const [floorplanImage, setFloorplanImage] = useState('')
+
     const _handleSEOThumbnailRemove = () => {
         setSetSEOThumbnail('')
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
+    }
+
+    const _handleRemoveFloorplanImage = () => {
+        nestedForm.__setFormRequest((prev) => ({
+            ...prev,
+            floorplanImage: '',
+            deleteFloorplanImage: 1,
+        }))
+        setFloorplanImage('')
     }
 
     // START TAGS
@@ -126,6 +137,10 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     setListAmenities(res?.amenities)
                 }
 
+                if (res?.floorplanImage) {
+                    setFloorplanImage(res?.floorplanImage)
+                }
+
                 // if (res?.thumbnail) {
                 //     setPreviewThumbnail(res.thumbnail)
                 // }
@@ -146,8 +161,8 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         return __handleSubmit({
             apiCall: () =>
                 isEdit
-                    ? updateProperty(id, formRequest)
-                    : apiProperty.add(formRequest),
+                    ? apiProperty.updateWithData(id, formRequest)
+                    : apiProperty.addWithData(formRequest),
             setIsLoading,
             isDirectToDetail: true,
         })
@@ -177,6 +192,10 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __seoThumbnail: seoThumbnail,
         __setSetSEOThumbnail: setSetSEOThumbnail,
         __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
+
+        //Floorplan Image
+        __floorplanImage: floorplanImage,
+        __removeFloorplanImage: _handleRemoveFloorplanImage,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
