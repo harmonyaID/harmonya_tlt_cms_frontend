@@ -25,6 +25,8 @@ import PropertyTabReview from '@/page/property/container/PropertyTabReview.tsx'
 import usePropertyDetail from '@/page/property/hook/usePropertyDetail.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import propertyPath from '@/path/property.path.ts'
+import { objectListDetail } from '@/config/objectList.config.ts'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const PropertyDetailPage = () => {
     const {
@@ -296,6 +298,20 @@ const PropertyDetailPage = () => {
                                                                           )
                                                                         : '-'}
                                                                 </div>,
+                                                            ),
+                                                            objectListDetail(
+                                                                'Floorplan Image',
+                                                                __detail.floorplanImage ? (
+                                                                    <PreviewFileModalLogic
+                                                                        classNameWidth="avatar-46"
+                                                                        dataUrl={
+                                                                            __detail?.floorplanImage ||
+                                                                            ''
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    '-'
+                                                                ),
                                                             ),
                                                             objectTabContent(
                                                                 'Created At',

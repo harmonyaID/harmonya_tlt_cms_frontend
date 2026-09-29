@@ -79,6 +79,8 @@ export const propertyInitForm = {
     amenityIds: [],
     tagIds: [],
     features: [],
+    floorplanImage: '',
+    deleteFloorplanImage: 0,
     seo: {
         ...initSEOFormConfig,
     },
@@ -127,5 +129,7 @@ export const propertyMapInitForm = (passData) => ({
     amenityIds: [],
     tagIds: [],
     features: [],
+    floorplanImage: '',
+    deleteFloorplanImage: 0,
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })

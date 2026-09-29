@@ -311,10 +311,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         <GeneralRowForm label="Map Image">
                                             {__mapImage ? (
                                                 <div className="pb-3">
-                                                    <p className="mb-2 text-neutral-100">
-                                                        Thumbnail
-                                                    </p>
-
                                                     <PreviewFileModalLogic
                                                         dataUrl={__mapImage}
                                                         dataBy="file"
