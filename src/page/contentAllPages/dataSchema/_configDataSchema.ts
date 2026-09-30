@@ -5,8 +5,8 @@
 // } from '@/page/contentAllPages/dataSchema/_typeDataSchema.ts'
 import {
     TEMPLATE_BLOG,
-    TEMPLATE_CONTACT_US,
     TEMPLATE_EXPERIENCE,
+    TEMPLATE_INFO_CONTACT,
     TEMPLATE_INFO_FAQ,
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
@@ -25,12 +25,12 @@ import dataPropertyPage from '@/page/contentAllPages/dataSchema/dataPropertyPage
 
 const configDataSchema = {
     [TEMPLATE_BLOG]: dataBlogPage,
-    [TEMPLATE_CONTACT_US]: dataContactUsPage,
     [TEMPLATE_PROPERTY]: dataPropertyPage,
     [TEMPLATE_OFFER]: dataOfferPage,
     [TEMPLATE_EXPERIENCE]: dataExperiencePage,
 
     // Info Page
+    [TEMPLATE_INFO_CONTACT]: dataContactUsPage,
     [TEMPLATE_INFO_FAQ]: dataFAQInfoPage,
     [TEMPLATE_INFO_TNC]: dataGeneralAndContentInfoPage,
     [TEMPLATE_INFO_PRIVACY_POLICY]: dataGeneralAndContentInfoPage,
