@@ -39,7 +39,7 @@ const ContentBlogDetailPage = () => {
             <NavBreadcrumb
                 navs={[
                     {
-                        name: 'Boat',
+                        name: 'Blog',
                         actions: {
                             url: contentBlogPath.main,
                             state: { ...__pageStateDataSearch },
@@ -51,7 +51,7 @@ const ContentBlogDetailPage = () => {
 
             <div className="row mb-4 g-3 align-items-md-center">
                 <div className="col">
-                    <PageTitle title="Boat Detail" />
+                    <PageTitle title="Blog Detail" />
                 </div>
 
                 <div className="col-auto">

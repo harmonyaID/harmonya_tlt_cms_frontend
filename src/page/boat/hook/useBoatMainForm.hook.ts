@@ -24,6 +24,7 @@ const initForm = {
     promoLabel: '',
     mapImage: '',
     deleteMapImage: 0,
+    schedule: [],
     seo: {
         ...initSEOFormConfig,
     },
@@ -50,6 +51,8 @@ const initMapForm = (passData) => ({
     deletePromoPhotoIds: [],
 
     promoLabel: passData?.promoLabel || '',
+
+    schedule: passData?.schedule?.length ? passData.schedule : [],
 
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
@@ -249,6 +252,41 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     }
     // End Handle Custom Info
 
+    // Start Handle Schedule
+    const _handleScheduleAdd = () => {
+        nestedForm._handleArrToggle(-1, 'schedule', {
+            from: '',
+            to: '',
+            times: [],
+        })
+    }
+
+    const _handleScheduleRemove = (indexToRemove) => {
+        setFormRequest((prev) => {
+            const updated = prev.schedule.filter(
+                (_, idx) => idx !== indexToRemove,
+            )
+
+            return {
+                ...prev,
+                schedule: updated,
+            }
+        })
+    }
+
+    const _handleChangeSchedule = (index, group) => {
+        setFormRequest((prev) => {
+            const updated = [...prev.schedule]
+            updated[index] = group
+
+            return {
+                ...prev,
+                schedule: updated,
+            }
+        })
+    }
+    // End Handle Schedule
+
     const _handleSubmit = () => {
         return __handleSubmit({
             apiCall: () =>
@@ -291,6 +329,10 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
         __handleCustomInfoChange: _handleChangeCustomInfo,
+
+        __handleScheduleAdd: _handleScheduleAdd,
+        __handleScheduleRemove: _handleScheduleRemove,
+        __handleScheduleChange: _handleChangeSchedule,
 
         // SEO
         __seoThumbnail: seoThumbnail,

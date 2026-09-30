@@ -23,6 +23,7 @@ import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import CustomInfoForm from '@/common/dataFeature/customInformation/CustomInfoForm.tsx'
+import BoatScheduleForm from '@/page/boat/component/BoatScheduleForm.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -34,14 +35,19 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChange,
         __handleArrToggle,
         __handleArrChange,
-        __handleCustomInfoAdd,
-        __handleCustomInfoRemove,
-        __handleCustomInfoChange,
         __handleSubmit,
         __handleCancel,
         __handleChangeWithParent,
         __mapImage,
         __removeMapImage,
+
+        __handleCustomInfoAdd,
+        __handleCustomInfoRemove,
+        __handleCustomInfoChange,
+
+        __handleScheduleAdd,
+        __handleScheduleRemove,
+        __handleScheduleChange,
 
         __handleToggleDeletePrevPhotoPromotion,
         __lisPreviousPhotosPromotion,
@@ -178,6 +184,42 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     __handleCustomInfoAdd()
                                                 }>
                                                 Add New Group
+                                            </BtnPrimary>
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Schedule">
+                                            <div className="vstack gap-3">
+                                                {__formRequest.schedule?.map(
+                                                    (schedule, index) => (
+                                                        <BoatScheduleForm
+                                                            key={index}
+                                                            group={schedule}
+                                                            actions={{
+                                                                onChange: (
+                                                                    schedule,
+                                                                ) =>
+                                                                    __handleScheduleChange(
+                                                                        index,
+                                                                        schedule,
+                                                                    ),
+                                                                onRemove: () =>
+                                                                    __handleScheduleRemove(
+                                                                        index,
+                                                                    ),
+                                                            }}
+                                                        />
+                                                    ),
+                                                )}
+                                            </div>
+
+                                            <BtnPrimary
+                                                type="button"
+                                                isOutline
+                                                className="w-100 mb-3"
+                                                handle={() =>
+                                                    __handleScheduleAdd()
+                                                }>
+                                                Add New Schedule
                                             </BtnPrimary>
                                         </GeneralRowForm>
 
