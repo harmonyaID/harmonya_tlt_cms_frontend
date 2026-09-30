@@ -1,7 +1,6 @@
 // Key Template
 export const TEMPLATE_ABOUT = 'template-page-about'
 export const TEMPLATE_BLOG = 'template-page-blog'
-export const TEMPLATE_CONTACT_US = 'template-page-contact-us'
 export const TEMPLATE_EXPERIENCE = 'template-page-experience'
 export const TEMPLATE_ISLAND_GUIDE = 'template-page-island-guide'
 export const TEMPLATE_INFO_PRES_AND_MEDIA = 'template-page-press-and-media'
@@ -40,7 +39,7 @@ export const createTemplateOptions = <T extends string>(
 export const listTemplatePages = createTemplateOptions([
     TEMPLATE_ABOUT,
     TEMPLATE_BLOG,
-    TEMPLATE_CONTACT_US,
+    // TEMPLATE_CONTACT_US,
     TEMPLATE_EXPERIENCE,
     TEMPLATE_ISLAND_GUIDE,
     TEMPLATE_INFO_PRES_AND_MEDIA,

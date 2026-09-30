@@ -8,12 +8,13 @@ const WFSectionTitleAndBackground = ({
     label,
     formContent,
     sectionKey = '',
+    titlePlaceholder = 'e.g Offers',
     actions = {
         change: (name, value) => {},
     },
 }: any) => {
     const _handleName = (name: string) => {
-        return sectionKey ? sectionKey + name : name
+        return sectionKey ? sectionKey + '.' + name : name
     }
 
     return (
@@ -27,9 +28,9 @@ const WFSectionTitleAndBackground = ({
                 <FormInput
                     label="Title"
                     name="title"
-                    value={formContent?.SECTION1?.title || ''}
+                    value={formContent?.title || ''}
                     required
-                    placeholder="e.g Offers"
+                    placeholder={titlePlaceholder}
                 />
 
                 <FormUploadFile
@@ -40,7 +41,7 @@ const WFSectionTitleAndBackground = ({
                     accept="image/*"
                     required
                     name="backgroundImage"
-                    value={formContent?.SECTION1?.backgroundImage || ''}
+                    value={formContent?.backgroundImage || ''}
                     actions={{
                         onChange: (_, newFiles) => {
                             actions.change(

@@ -3,9 +3,10 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import {
     TEMPLATE_ABOUT,
     TEMPLATE_BLOG,
-    TEMPLATE_CONTACT_US,
     TEMPLATE_EXPERIENCE,
+    TEMPLATE_INFO_CONTACT,
     TEMPLATE_INFO_FAQ,
+    TEMPLATE_INFO_PRES_AND_MEDIA,
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
     TEMPLATE_OFFER,
@@ -16,6 +17,8 @@ import PageTemplateAbout from '@/page/contentAllPages/component/template/PageTem
 import PageTemplateBlog from '@/page/contentAllPages/component/template/PageTemplateBlog.tsx'
 import PageTemplateContactUs from '@/page/contentAllPages/component/template/PageTemplateContactUs.tsx'
 import PageTemplateExperience from '@/page/contentAllPages/component/template/PageTemplateExperience.tsx'
+import PageTemplateFAQ from '@/page/contentAllPages/component/template/PageTemplateFAQ.tsx'
+import PageTemplateGeneralHero from '@/page/contentAllPages/component/template/PageTemplateGeneralHero.tsx'
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
@@ -36,7 +39,6 @@ const PageMainFormTemplatePage = ({
     const renderPageTemplate = {
         // [TEMPLATE_ABOUT]: <PageTemplateAbout {...propsPageTemplate} />,
         [TEMPLATE_BLOG]: <PageTemplateBlog {...propsPageTemplate} />,
-        [TEMPLATE_CONTACT_US]: <PageTemplateContactUs {...propsPageTemplate} />,
         [TEMPLATE_OFFER]: <PageTemplateOffer {...propsPageTemplate} />,
         [TEMPLATE_PROPERTY]: <PageTemplateProperty {...propsPageTemplate} />,
         // [TEMPLATE_PROPERTY_DETAIL]: <PageTemplateAbout {...props} />,
@@ -45,14 +47,18 @@ const PageMainFormTemplatePage = ({
         ),
 
         // Info Page
-        [TEMPLATE_INFO_FAQ]: (
-            <PageTemplateGeneralHeroAndContent {...propsPageTemplate} />
-        ),
+        [TEMPLATE_INFO_FAQ]: <PageTemplateFAQ {...propsPageTemplate} />,
         [TEMPLATE_INFO_TNC]: (
             <PageTemplateGeneralHeroAndContent {...propsPageTemplate} />
         ),
         [TEMPLATE_INFO_PRIVACY_POLICY]: (
             <PageTemplateGeneralHeroAndContent {...propsPageTemplate} />
+        ),
+        [TEMPLATE_INFO_PRES_AND_MEDIA]: (
+            <PageTemplateGeneralHero {...propsPageTemplate} />
+        ),
+        [TEMPLATE_INFO_CONTACT]: (
+            <PageTemplateContactUs {...propsPageTemplate} />
         ),
     }
 
