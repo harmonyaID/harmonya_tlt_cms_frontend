@@ -16,6 +16,7 @@ import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
 import useUserMainFormHook from '@/page/user/hook/useUserMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import userPath from '@/path/user.path.ts'
+import FormInputPhone from '@/component/form/FormInputPhone.tsx'
 
 const UserMainForm = ({
     isEdit = false,
@@ -127,12 +128,15 @@ const UserMainForm = ({
                                         <GeneralRowForm
                                             label="Contact"
                                             isRequired>
-                                            <FormInput
-                                                label="Phone"
-                                                name="phone"
-                                                required
-                                                placeholder="e.g 08100xxxx"
-                                                isNumberOnly
+                                            <FormInputPhone
+                                                value={__formRequest.phone}
+                                                actions={{
+                                                    onChange: (value) =>
+                                                        __handleChange(
+                                                            'phone',
+                                                            value,
+                                                        ),
+                                                }}
                                             />
 
                                             <FormInput
