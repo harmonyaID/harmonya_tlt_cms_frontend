@@ -24,3 +24,17 @@ export const configFileUploadOrExisting = (
         return vm
     })
 }
+
+export const getMimeType = (fileUrl) => {
+    const extension = fileUrl.split(/[?#]/)[0].split('.').pop().toLowerCase()
+
+    const mimeTypes = {
+        pdf: 'application/pdf',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    }
+
+    return mimeTypes[extension] ?? 'application/octet-stream'
+}

@@ -60,6 +60,10 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // used during editing
         __handleToggleDeletePrevPhotos,
         __lisPreviousPhotos,
+
+        //Price Files
+        __listPreviousPriceFiles,
+        __handleToggleDeletePrevPriceFiles,
     } = useBoatMainFormHook({ isEdit })
 
     // Photos
@@ -84,11 +88,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __actionAddFiles: __actionAddFilePriceFiles,
         __actionSetDataFiles: __actionSetDataFilePriceFiles,
         __actionRemoveDataFile: __actionRemoveDataFilePriceFiles,
-    } = useFormDataFilesHook(
-        __formRequest,
-        __setFormRequest,
-        'deletePromoPhotoIds',
-    )
+    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'priceFiles')
 
     return (
         <>
@@ -247,15 +247,50 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 ]}
                                             />
                                         </GeneralRowForm>
+                                    </WrapFormContext>
 
-                                        <GeneralRowForm label="Price File">
-                                            <FormUploadFile
-                                                name="priceFile"
-                                                nameFileDefault="Price"
-                                                subTitle="PDF"
-                                                accept=".pdf"
-                                                required
-                                                isGeneralFile
+                                    {/*Price Files*/}
+                                    {isEdit &&
+                                    __listPreviousPriceFiles?.length ? (
+                                        <GeneralRowForm label="Previous Price Files">
+                                            <FormEditFileLogic
+                                                dataFiles={__listPreviousPriceFiles.filter(
+                                                    (vm) => !vm.isDeleted,
+                                                )}
+                                                dataBy="file"
+                                                actions={{
+                                                    remove: (data) =>
+                                                        __handleToggleDeletePrevPriceFiles(
+                                                            data.id,
+                                                        ),
+                                                    restore: () => {},
+                                                }}
+                                            />
+                                        </GeneralRowForm>
+                                    ) : null}
+
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                            handleAddFiles:
+                                                __actionAddFilePriceFiles,
+                                            handleSetDataFiles:
+                                                __actionSetDataFilePriceFiles,
+                                            handleRemoveDataFile:
+                                                __actionRemoveDataFilePriceFiles,
+                                            handleArrChange: __handleArrChange,
+                                        }}>
+                                        <GeneralRowForm
+                                            label="New Price Files"
+                                            isRequired>
+                                            <FormUploadFileWithActionPreviewLogic
+                                                isUseInputDesc={false}
+                                                accept=".pdf,.xlsx,.xls,.doc,.docx"
+                                                subTitle="PDF, XLSX, XLS, DOC, DOCX"
+                                                formName="priceFiles"
+                                                dataFiles={__dataFilePriceFiles}
+                                                formRequest={__formRequest}
                                             />
                                         </GeneralRowForm>
                                     </WrapFormContext>

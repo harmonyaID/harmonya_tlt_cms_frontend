@@ -99,14 +99,23 @@ const BoatDetailPage = () => {
                                     ),
                                     objectListDetail(
                                         'Price File',
-                                        <>
-                                            <a
-                                                className="link text-underline"
-                                                href={__detail.priceFile}
-                                                target="_blank">
-                                                Preview
-                                            </a>
-                                        </>,
+                                        <div className="hstack gap-2 flex-wrap">
+                                            {__detail.priceFiles
+                                                ? __detail.priceFiles.map(
+                                                      (file) => (
+                                                          <PreviewFileModalLogic
+                                                              classNameWidth="avatar-46"
+                                                              dataFile={file}
+                                                              dataBy="file"
+                                                              dataUrl={
+                                                                  file?.file ||
+                                                                  ''
+                                                              }
+                                                          />
+                                                      ),
+                                                  )
+                                                : '-'}
+                                        </div>,
                                     ),
                                     objectListDetail(
                                         'Promo Label',
