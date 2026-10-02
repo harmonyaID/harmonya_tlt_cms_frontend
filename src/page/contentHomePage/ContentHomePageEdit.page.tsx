@@ -27,6 +27,7 @@ import {
 } from '@/page/contentHomePage/param/homePageMainForm.param.ts'
 import contentHomePagePath from '@/path/contentHomePage.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
+import FormInputPhone from '@/component/form/FormInputPhone.tsx'
 
 const defaultPropsFile = {
     isUseHook: false,
@@ -1466,10 +1467,15 @@ const ContentHomePageEditPage = () => {
                                                     />
                                                 </GeneralRowForm>
                                                 <GeneralRowForm label="Phone">
-                                                    <FormInput
-                                                        name="phone"
+                                                    <FormInputPhone
                                                         value={SECTION11.phone}
-                                                        placeholder="e.g 629xxx"
+                                                        actions={{
+                                                            onChange: (value) =>
+                                                                __handleSectionInput(
+                                                                    'SECTION11.phone',
+                                                                    value,
+                                                                ),
+                                                        }}
                                                     />
                                                 </GeneralRowForm>
                                                 <GeneralRowForm label="Gmaps Embed">

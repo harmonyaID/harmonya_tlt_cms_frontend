@@ -36,6 +36,7 @@ import useContactFormMain from '@/page/contactForm/hook/useContactFormMain.hook.
 import ContactFormTable from '@/page/contactForm/component/ContactFormTable.tsx'
 import ContactFormFilter from '@/page/contactForm/component/ContactFormFilter.tsx'
 import SelectOptionContactFormInquiryType from '@/common/dataForm/SelectOptionContactFormInquiryType.tsx'
+import FormInputPhone from '@/component/form/FormInputPhone.tsx'
 
 const ContactFormPage = () => {
     const {
@@ -195,12 +196,12 @@ const ContactFormPage = () => {
                                 placeholder="e.g uni@tlt.com"
                             />
 
-                            <FormInput
-                                label="Phone"
-                                name="phone"
-                                required
-                                placeholder="e.g 08100xxxx"
-                                isNumberOnly
+                            <FormInputPhone
+                                value={__formRequest.phone}
+                                actions={{
+                                    onChange: (value) =>
+                                        __handleChange('phone', value),
+                                }}
                             />
 
                             <FormInput

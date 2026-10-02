@@ -99,14 +99,23 @@ const BoatDetailPage = () => {
                                     ),
                                     objectListDetail(
                                         'Price File',
-                                        <>
-                                            <a
-                                                className="link text-underline"
-                                                href={__detail.priceFile}
-                                                target="_blank">
-                                                Preview
-                                            </a>
-                                        </>,
+                                        <div className="hstack gap-2 flex-wrap">
+                                            {__detail.priceFiles
+                                                ? __detail.priceFiles.map(
+                                                      (file) => (
+                                                          <PreviewFileModalLogic
+                                                              classNameWidth="avatar-46"
+                                                              dataFile={file}
+                                                              dataBy="file"
+                                                              dataUrl={
+                                                                  file?.file ||
+                                                                  ''
+                                                              }
+                                                          />
+                                                      ),
+                                                  )
+                                                : '-'}
+                                        </div>,
                                     ),
                                     objectListDetail(
                                         'Promo Label',
@@ -132,13 +141,67 @@ const BoatDetailPage = () => {
                                 ]}
                             />
 
+                            {__detail.schedule?.length ? (
+                                <div className="my-3">
+                                    <h5 className="fs-16 fw-500">Schedules</h5>
+
+                                    <div className="vstack gap-3 px-3">
+                                        {__detail.schedule.map(
+                                            (schedule, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="vstack gap-2 border-bottom">
+                                                    <div className="row">
+                                                        <div className="col-md-4">
+                                                            From
+                                                        </div>
+                                                        <div className="col">
+                                                            {schedule.from}
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-4">
+                                                            To
+                                                        </div>
+                                                        <div className="col">
+                                                            {schedule.to}
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-4">
+                                                            Times
+                                                        </div>
+                                                        <div className="col">
+                                                            <div className="hstack gap-2">
+                                                                {schedule.times?.map(
+                                                                    (time) => (
+                                                                        <span>
+                                                                            &bull;{' '}
+                                                                            {
+                                                                                time
+                                                                            }
+                                                                        </span>
+                                                                    ),
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                            ) : (
+                                '-'
+                            )}
+
                             {__detail?.customInformations?.length ? (
                                 <div className="pb-3 pt-4">
                                     <h5 className="fs-16 fw-500">
                                         Custom Information
                                     </h5>
 
-                                    <div className="vstack gap-3">
+                                    <div className="vstack gap-3 px-3">
                                         {__detail.customInformations.map(
                                             (group, index) => {
                                                 return (
@@ -178,7 +241,9 @@ const BoatDetailPage = () => {
                                         )}
                                     </div>
                                 </div>
-                            ) : null}
+                            ) : (
+                                '-'
+                            )}
                         </Card>
                     </div>
                     <div className="col-lg-8">
