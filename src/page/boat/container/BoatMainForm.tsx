@@ -23,6 +23,7 @@ import useBoatMainFormHook from '@/page/boat/hook/useBoatMainForm.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import CustomInfoForm from '@/common/dataFeature/customInformation/CustomInfoForm.tsx'
+import BoatScheduleForm from '@/page/boat/component/BoatScheduleForm.tsx'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -34,14 +35,19 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChange,
         __handleArrToggle,
         __handleArrChange,
-        __handleCustomInfoAdd,
-        __handleCustomInfoRemove,
-        __handleCustomInfoChange,
         __handleSubmit,
         __handleCancel,
         __handleChangeWithParent,
         __mapImage,
         __removeMapImage,
+
+        __handleCustomInfoAdd,
+        __handleCustomInfoRemove,
+        __handleCustomInfoChange,
+
+        __handleScheduleAdd,
+        __handleScheduleRemove,
+        __handleScheduleChange,
 
         __handleToggleDeletePrevPhotoPromotion,
         __lisPreviousPhotosPromotion,
@@ -54,6 +60,10 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // used during editing
         __handleToggleDeletePrevPhotos,
         __lisPreviousPhotos,
+
+        //Price Files
+        __listPreviousPriceFiles,
+        __handleToggleDeletePrevPriceFiles,
     } = useBoatMainFormHook({ isEdit })
 
     // Photos
@@ -78,11 +88,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __actionAddFiles: __actionAddFilePriceFiles,
         __actionSetDataFiles: __actionSetDataFilePriceFiles,
         __actionRemoveDataFile: __actionRemoveDataFilePriceFiles,
-    } = useFormDataFilesHook(
-        __formRequest,
-        __setFormRequest,
-        'deletePromoPhotoIds',
-    )
+    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'priceFiles')
 
     return (
         <>
@@ -181,6 +187,42 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             </BtnPrimary>
                                         </GeneralRowForm>
 
+                                        <GeneralRowForm label="Schedule">
+                                            <div className="vstack gap-3">
+                                                {__formRequest.schedule?.map(
+                                                    (schedule, index) => (
+                                                        <BoatScheduleForm
+                                                            key={index}
+                                                            group={schedule}
+                                                            actions={{
+                                                                onChange: (
+                                                                    schedule,
+                                                                ) =>
+                                                                    __handleScheduleChange(
+                                                                        index,
+                                                                        schedule,
+                                                                    ),
+                                                                onRemove: () =>
+                                                                    __handleScheduleRemove(
+                                                                        index,
+                                                                    ),
+                                                            }}
+                                                        />
+                                                    ),
+                                                )}
+                                            </div>
+
+                                            <BtnPrimary
+                                                type="button"
+                                                isOutline
+                                                className="w-100 mb-3"
+                                                handle={() =>
+                                                    __handleScheduleAdd()
+                                                }>
+                                                Add New Schedule
+                                            </BtnPrimary>
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm label="Description">
                                             <FormTinyMCE
                                                 name="description"
@@ -205,15 +247,50 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 ]}
                                             />
                                         </GeneralRowForm>
+                                    </WrapFormContext>
 
-                                        <GeneralRowForm label="Price File">
-                                            <FormUploadFile
-                                                name="priceFile"
-                                                nameFileDefault="Price"
-                                                subTitle="PDF"
-                                                accept=".pdf"
-                                                required
-                                                isGeneralFile
+                                    {/*Price Files*/}
+                                    {isEdit &&
+                                    __listPreviousPriceFiles?.length ? (
+                                        <GeneralRowForm label="Previous Price Files">
+                                            <FormEditFileLogic
+                                                dataFiles={__listPreviousPriceFiles.filter(
+                                                    (vm) => !vm.isDeleted,
+                                                )}
+                                                dataBy="file"
+                                                actions={{
+                                                    remove: (data) =>
+                                                        __handleToggleDeletePrevPriceFiles(
+                                                            data.id,
+                                                        ),
+                                                    restore: () => {},
+                                                }}
+                                            />
+                                        </GeneralRowForm>
+                                    ) : null}
+
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                            handleAddFiles:
+                                                __actionAddFilePriceFiles,
+                                            handleSetDataFiles:
+                                                __actionSetDataFilePriceFiles,
+                                            handleRemoveDataFile:
+                                                __actionRemoveDataFilePriceFiles,
+                                            handleArrChange: __handleArrChange,
+                                        }}>
+                                        <GeneralRowForm
+                                            label="New Price Files"
+                                            isRequired>
+                                            <FormUploadFileWithActionPreviewLogic
+                                                isUseInputDesc={false}
+                                                accept=".pdf,.xlsx,.xls,.doc,.docx"
+                                                subTitle="PDF, XLSX, XLS, DOC, DOCX"
+                                                formName="priceFiles"
+                                                dataFiles={__dataFilePriceFiles}
+                                                formRequest={__formRequest}
                                             />
                                         </GeneralRowForm>
                                     </WrapFormContext>

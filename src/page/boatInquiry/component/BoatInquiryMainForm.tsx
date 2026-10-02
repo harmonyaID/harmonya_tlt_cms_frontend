@@ -1,5 +1,4 @@
 import { objectNavBread } from '@/config/objectNavBread.config.ts'
-import boatPath from '@/path/boat.path.ts'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import useBoatInquiryMainForm from '@/page/boatInquiry/hook/useBoatInquiryMainForm.hook.ts'
 import { Loading } from '@/component/general/TextDefault.tsx'
@@ -14,6 +13,7 @@ import FormInputTimePicker from '@/component/form/FormInputTimePicker.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import SelectOptionBoat from '@/common/dataForm/SelectOptionBoat.tsx'
+import FormInputPhone from '@/component/form/FormInputPhone.tsx'
 
 const BoatInquiryMainForm = ({
     isEdit = false,
@@ -83,10 +83,15 @@ const BoatInquiryMainForm = ({
                                         />
                                     </GeneralRowForm>
                                     <GeneralRowForm label="Phone" isRequired>
-                                        <FormInput
-                                            name="phone"
-                                            placeholder="e.g 393849393"
-                                            required
+                                        <FormInputPhone
+                                            value={__formRequest.phone}
+                                            actions={{
+                                                onChange: (value) =>
+                                                    __handleChange(
+                                                        'phone',
+                                                        value,
+                                                    ),
+                                            }}
                                         />
                                     </GeneralRowForm>
                                     <GeneralRowForm
