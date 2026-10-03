@@ -59,13 +59,13 @@ const ExperienceAreaTable = ({
                             return (
                                 <tr
                                     key={index}
-                                    // onClick={(e) => {
-                                    //     e.stopPropagation()
-                                    //     __handleChooseDetail(vm)
-                                    // }}
-                                    // title="Preview Detail"
-                                    // className="cursor-pointer"
-                                >
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+                                        !isTrash &&
+                                            actions?.__handleToDetail(vm.id)
+                                    }}
+                                    title="Preview Detail"
+                                    className={!isTrash && 'cursor-pointer'}>
                                     <td>
                                         <TblLineFirstPrimary
                                             value={vm?.name || ''}
@@ -123,17 +123,6 @@ const ExperienceAreaTable = ({
                                                                 e.stopPropagation()
                                                                 actions?.__handleToEdit(
                                                                     vm.id,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-
-                                                    <BtnCircleDetail
-                                                        actions={{
-                                                            onClick: (e) => {
-                                                                e.stopPropagation()
-                                                                actions?.__handleChooseDetail(
-                                                                    vm,
                                                                 )
                                                             },
                                                         }}
