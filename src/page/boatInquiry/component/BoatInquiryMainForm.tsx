@@ -162,6 +162,80 @@ const BoatInquiryMainForm = ({
                                         />
                                     </GeneralRowForm>
                                     <GeneralRowForm
+                                        label="Has Surf Board"
+                                        isRequired>
+                                        <FormRadioButtonMulti
+                                            name="hasSurfboard"
+                                            checkBoxs={[
+                                                {
+                                                    defaultValue: 0,
+                                                    label: 'No',
+                                                },
+                                                {
+                                                    defaultValue: 1,
+                                                    label: 'Yes',
+                                                },
+                                            ]}
+                                        />
+                                    </GeneralRowForm>
+                                    <GeneralRowForm label="Hear About Us">
+                                        <FormInput
+                                            name="hearAboutUs"
+                                            placeholder="e.g something"
+                                        />
+                                    </GeneralRowForm>
+                                    <GeneralRowForm label="Message">
+                                        <FormTextArea
+                                            name="message"
+                                            className="mb-0"
+                                            placeholder="e.g Type"
+                                        />
+                                    </GeneralRowForm>
+
+                                    <h5 className="text-neutral-400 fs-16 mt-5 mb-3">
+                                        Flight Information
+                                    </h5>
+
+                                    <GeneralRowForm label="Flight Number">
+                                        <FormInput
+                                            name="flightNumber"
+                                            isNumberOnly
+                                            placeholder="e.g Number"
+                                        />
+                                    </GeneralRowForm>
+
+                                    <GeneralRowForm label="Flight Time">
+                                        <FormInputTimePicker
+                                            name="flightTime"
+                                            actions={{
+                                                onChange: (name, value) =>
+                                                    __handleChange(name, value),
+                                            }}
+                                        />
+                                    </GeneralRowForm>
+
+                                    <GeneralRowForm label="Arrival Time">
+                                        <FormInputTimePicker
+                                            name="arrivalTime"
+                                            actions={{
+                                                onChange: (name, value) =>
+                                                    __handleChange(name, value),
+                                            }}
+                                        />
+                                    </GeneralRowForm>
+
+                                    <GeneralRowForm label="Passenger Names">
+                                        <FormInput
+                                            name="passengerNames"
+                                            placeholder="e.g Name"
+                                        />
+                                    </GeneralRowForm>
+
+                                    <h5 className="text-neutral-400 fs-16 mt-5 mb-3">
+                                        Departure Information
+                                    </h5>
+
+                                    <GeneralRowForm
                                         label="Departure Date From Bali"
                                         isRequired>
                                         <div className="row">
@@ -191,22 +265,6 @@ const BoatInquiryMainForm = ({
                                             placeholder="e.g Location"
                                         />
                                     </GeneralRowForm>
-                                    <GeneralRowForm label="Flight Number">
-                                        <FormInput
-                                            name="flightNumber"
-                                            isNumberOnly
-                                            placeholder="e.g Number"
-                                        />
-                                    </GeneralRowForm>
-                                    <GeneralRowForm label="Arrival Time">
-                                        <FormInputTimePicker
-                                            name="arrivalTime"
-                                            actions={{
-                                                onChange: (name, value) =>
-                                                    __handleChange(name, value),
-                                            }}
-                                        />
-                                    </GeneralRowForm>
                                     <GeneralRowForm label="Hotel Name Bali">
                                         <FormInput
                                             name="hotelNameBali"
@@ -219,6 +277,11 @@ const BoatInquiryMainForm = ({
                                             placeholder="e.g Contact"
                                         />
                                     </GeneralRowForm>
+
+                                    <h5 className="text-neutral-400 fs-16 mt-5 mb-3">
+                                        Return Information
+                                    </h5>
+
                                     <GeneralRowForm
                                         label="Departure Date From Lembongan"
                                         isRequired>
@@ -249,15 +312,6 @@ const BoatInquiryMainForm = ({
                                             placeholder="e.g Location"
                                         />
                                     </GeneralRowForm>
-                                    <GeneralRowForm label="Flight Time">
-                                        <FormInputTimePicker
-                                            name="flightTime"
-                                            actions={{
-                                                onChange: (name, value) =>
-                                                    __handleChange(name, value),
-                                            }}
-                                        />
-                                    </GeneralRowForm>
                                     <GeneralRowForm label="Hotel Name Lembongan">
                                         <FormInput
                                             name="hotelNameLembongan"
@@ -268,41 +322,6 @@ const BoatInquiryMainForm = ({
                                         <FormInput
                                             name="accommodationLembongan"
                                             placeholder="e.g Accomodation"
-                                        />
-                                    </GeneralRowForm>
-                                    <GeneralRowForm label="Passenger Names">
-                                        <FormInput
-                                            name="passengerNames"
-                                            placeholder="e.g Name"
-                                        />
-                                    </GeneralRowForm>
-                                    <GeneralRowForm
-                                        label="Has Surf Board"
-                                        isRequired>
-                                        <FormRadioButtonMulti
-                                            name="hasSurfboard"
-                                            checkBoxs={[
-                                                {
-                                                    defaultValue: 0,
-                                                    label: 'No',
-                                                },
-                                                {
-                                                    defaultValue: 1,
-                                                    label: 'Yes',
-                                                },
-                                            ]}
-                                        />
-                                    </GeneralRowForm>
-                                    <GeneralRowForm label="Hear About Us">
-                                        <FormInput
-                                            name="hearAboutUs"
-                                            placeholder="e.g something"
-                                        />
-                                    </GeneralRowForm>
-                                    <GeneralRowForm label="Message">
-                                        <FormTextArea
-                                            name="message"
-                                            placeholder="e.g Type"
                                         />
                                     </GeneralRowForm>
                                 </WrapFormContext>
