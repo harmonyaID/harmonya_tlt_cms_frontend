@@ -9,6 +9,7 @@ import {
     TEMPLATE_INFO_PRES_AND_MEDIA,
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
+    TEMPLATE_ISLAND_GUIDE,
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
     TEMPLATE_PROPERTY_DETAIL,
@@ -43,6 +44,10 @@ const PageMainFormTemplatePage = ({
         [TEMPLATE_PROPERTY]: <PageTemplateProperty {...propsPageTemplate} />,
         // [TEMPLATE_PROPERTY_DETAIL]: <PageTemplateAbout {...props} />,
         [TEMPLATE_EXPERIENCE]: (
+            <PageTemplateExperience {...propsPageTemplate} />
+        ),
+        // Template Mirip Experience
+        [TEMPLATE_ISLAND_GUIDE]: (
             <PageTemplateExperience {...propsPageTemplate} />
         ),
 
