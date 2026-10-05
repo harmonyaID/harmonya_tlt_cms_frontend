@@ -10,6 +10,7 @@ import {
     TEMPLATE_INFO_FAQ,
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
+    TEMPLATE_ISLAND_GUIDE,
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
 } from '@/config/pageTemplate.config.ts'
@@ -20,6 +21,7 @@ import {
     dataFAQInfoPage,
     dataGeneralAndContentInfoPage,
 } from '@/page/contentAllPages/dataSchema/dataInfoPage.ts'
+import dataIslandGuidePage from '@/page/contentAllPages/dataSchema/dataIslandGuidePage.ts'
 import dataOfferPage from '@/page/contentAllPages/dataSchema/dataOfferPage.ts'
 import dataPropertyPage from '@/page/contentAllPages/dataSchema/dataPropertyPage.ts'
 
@@ -28,6 +30,7 @@ const configDataSchema = {
     [TEMPLATE_PROPERTY]: dataPropertyPage,
     [TEMPLATE_OFFER]: dataOfferPage,
     [TEMPLATE_EXPERIENCE]: dataExperiencePage,
+    [TEMPLATE_ISLAND_GUIDE]: dataIslandGuidePage,
 
     // Info Page
     [TEMPLATE_INFO_CONTACT]: dataContactUsPage,

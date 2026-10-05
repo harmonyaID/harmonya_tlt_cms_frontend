@@ -27,6 +27,7 @@ import {
     apiIslandGuideType,
 } from '@/service/api/contentManageSetting.api.ts'
 import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
+import SelectOptionPage from '@/common/dataForm/SelectOptionPage.tsx'
 
 const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -83,7 +84,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
         __actionRemoveDataFile(index, idFile)
     }
-
 
     // List Option Type
     const { __list: typeList, __isLoading: isTypeLoading } = useDataListHook({
@@ -502,6 +502,31 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 placeholder="e.g https://maps.google.com/?q=-8.123,115.456"
                                                 required
                                             />
+
+                                            <FormRadioButtonMulti
+                                                label="With Page"
+                                                name="isPage"
+                                                className="mb-0"
+                                                required
+                                                checkBoxs={[
+                                                    {
+                                                        defaultValue: 0,
+                                                        label: 'No',
+                                                    },
+                                                    {
+                                                        defaultValue: 1,
+                                                        label: 'Yes',
+                                                    },
+                                                ]}
+                                            />
+
+                                            {__formRequest.isPage ? (
+                                                <SelectOptionPage
+                                                    label="Page"
+                                                    name="pageId"
+                                                    isUseHook
+                                                />
+                                            ) : null}
                                         </div>
                                     </Card>
                                 </WrapFormContext>

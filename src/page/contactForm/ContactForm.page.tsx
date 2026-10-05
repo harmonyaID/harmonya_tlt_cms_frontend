@@ -197,6 +197,7 @@ const ContactFormPage = () => {
                             />
 
                             <FormInputPhone
+                                label="Phone"
                                 value={__formRequest.phone}
                                 actions={{
                                     onChange: (value) =>
