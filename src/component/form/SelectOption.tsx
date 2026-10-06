@@ -46,11 +46,13 @@ const SelectOption = (props: SelectOptionProps) => {
                 backgroundColor: isFocused
                     ? 'var(--bs-tint-300)'
                     : 'var(--bs-white-mood-theme)',
-                color: isFocused ? 'var(--bs-black)' : 'var(--bs-neutral-100)',
+                color: isFocused
+                    ? 'var(--bs-neutral-500)'
+                    : 'var(--bs-neutral-100)',
 
                 ':hover': {
                     backgroundColor: 'var(--bs-tint-300)',
-                    color: 'var(--bs-black)',
+                    color: 'var(--bs-neutral-500)',
                 },
             }
         },

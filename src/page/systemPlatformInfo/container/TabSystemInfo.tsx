@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { isEmpty } from 'lodash'
 import { BadgeStatusGeneral } from '@/component/general/Badge'
 import {
@@ -7,15 +7,23 @@ import {
 } from '@/component/general/TextDefault'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable'
 import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
-import useDataListHook from '@/hook/base/useDataList.hook'
-// import SystemSettingInformationList from '../component/SystemSettingInformationList'
 import SystemSettingInformationList from '@/page/systemPlatformInfo/component/SystemSettingInformationList.tsx'
 import { getLogActivitySetting } from '@/service/api/systemManagement.api.ts'
+import { BtnInfo } from '@/component/general/Button.tsx'
+import {
+    SYSTEM_INFO_EMAIL_INFO,
+    SYSTEM_INFO_INSTALL_PACKAGE,
+    SYSTEM_INFO_SERVER_ENV,
+    SYSTEM_INFO_SYSTEM_ENV,
+    systemInfoMenu,
+} from '@/config/systemInfo.config.ts'
 
 const TabSystemInfo: FC = () => {
     const { __detail: __list, __isLoading } = useDataDetailHook({
         urlAPI: getLogActivitySetting,
     })
+
+    const [selected, setSelected] = useState(SYSTEM_INFO_INSTALL_PACKAGE)
 
     return (
         <>
@@ -24,62 +32,74 @@ const TabSystemInfo: FC = () => {
             ) : !isEmpty(__list) ? (
                 <>
                     <div className="row">
-                        <div className="col-12 col-md-6">
-                            <table className="table table-thead table-box">
-                                <thead>
-                                    <tr className="">
-                                        <th className="text-neutral-100">
-                                            Installation Package
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    {__list?.package &&
-                                    __list.package.length ? (
-                                        __list.package.map((pkg, key) => (
-                                            <tr className="" key={key}>
-                                                <td className="text-neutral-200">
-                                                    {pkg.name}
-                                                    <BadgeStatusGeneral
-                                                        value={pkg.version}
-                                                        className="bg-primary-brand rounded-1 ms-2"
-                                                        isRounded={false}
-                                                    />
-                                                </td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <NotAvailableInTable colSpan={2} />
-                                    )}
-                                </tbody>
-                            </table>
+                        <div className="col-md-3">
+                            <div className="vstack gap-3">
+                                {systemInfoMenu.map((vm) => (
+                                    <div
+                                        key={vm.id}
+                                        onClick={() => setSelected(vm.id)}
+                                        className={`w-100 rounded-2 px-3 py-2 cursor-pointer ${vm.id === selected ? 'bg-primary text-white' : 'bg-neutral-500'}`}>
+                                        {vm.label}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
+                        <div className="col">
+                            {selected === SYSTEM_INFO_INSTALL_PACKAGE && (
+                                <table className="table table-thead table-box">
+                                    <thead>
+                                        <tr className="">
+                                            <th className="text-neutral-100">
+                                                Installation Package
+                                            </th>
+                                        </tr>
+                                    </thead>
 
-                        <div className="col-12 col-md-6">
-                            <SystemSettingInformationList
-                                title="Email Information"
-                                extraClass="mb-4"
-                                info={__list.email}
-                            />
-                        </div>
-                    </div>
+                                    <tbody>
+                                        {__list?.package &&
+                                        __list.package.length ? (
+                                            __list.package.map((pkg, key) => (
+                                                <tr className="" key={key}>
+                                                    <td className="text-neutral-200">
+                                                        {pkg.name}
+                                                        <BadgeStatusGeneral
+                                                            value={pkg.version}
+                                                            className="bg-primary-brand rounded-1 ms-2"
+                                                            isRounded={false}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <NotAvailableInTable colSpan={2} />
+                                        )}
+                                    </tbody>
+                                </table>
+                            )}
 
-                    <div className="row">
-                        <div className="col-12 col-md-6">
-                            <SystemSettingInformationList
-                                title="System Environment"
-                                extraClass="mb-4"
-                                info={__list.system}
-                            />
-                        </div>
+                            {selected === SYSTEM_INFO_EMAIL_INFO && (
+                                <SystemSettingInformationList
+                                    title="Email Information"
+                                    extraClass="mb-4"
+                                    info={__list.email}
+                                />
+                            )}
 
-                        <div className="col-12 col-md-6">
-                            <SystemSettingInformationList
-                                title="Server Environment"
-                                extraClass="mb-4"
-                                info={__list.server}
-                            />
+                            {selected === SYSTEM_INFO_SYSTEM_ENV && (
+                                <SystemSettingInformationList
+                                    title="System Environment"
+                                    extraClass="mb-4"
+                                    info={__list.system}
+                                />
+                            )}
+
+                            {selected === SYSTEM_INFO_SERVER_ENV && (
+                                <SystemSettingInformationList
+                                    title="Server Environment"
+                                    extraClass="mb-4"
+                                    info={__list.server}
+                                />
+                            )}
                         </div>
                     </div>
                 </>
