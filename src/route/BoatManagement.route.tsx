@@ -4,10 +4,7 @@ import Page404Layout from '@/component/layout/Page404.layout.tsx'
 import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
 import boatPath from '@/path/boat.path.ts'
 import boatSettingPath from '@/path/boatSetting.path.ts'
-import {
-    boatInquiryPrivatePath,
-    boatInquiryTransferPath,
-} from '@/path/boatInquiry.path.ts'
+import { boatInquiryGeneral } from '@/path/boatInquiry.path.ts'
 
 const BoatPage = lazy(() => import('@/page/boat/Boat.page.tsx'))
 const BoatTrashPage = lazy(() => import('@/page/boat/BoatTrash.page.tsx'))
@@ -15,12 +12,11 @@ const BoatAddPage = lazy(() => import('@/page/boat/BoatAdd.page.tsx'))
 const BoatEditPage = lazy(() => import('@/page/boat/BoatEdit.page.tsx'))
 const BoatDetailPage = lazy(() => import('@/page/boat/BoatDetail.page.tsx'))
 
-const BoatInquiryTransferPage = lazy(
-    () =>
-        import('@/page/boatInquiry/boatTransfer/BoatInquiryTransfer.page.tsx'),
+const BoatInquiryPage = lazy(
+    () => import('@/page/boatInquiry/BoatInquiry.page.tsx'),
 )
-const BoatInquiryPrivatePage = lazy(
-    () => import('@/page/boatInquiry/privateBoat/BoatInquiryPrivate.page.tsx'),
+const BoatInquiryAddPage = lazy(
+    () => import('@/page/boatInquiry/BoatInquiryAdd.page.tsx'),
 )
 
 const BoatSettingPage = lazy(
@@ -109,41 +105,34 @@ const BoatManagementRoute = () => (
             />
         </Route>
 
-        <Route path={boatInquiryTransferPath.main}>
+        <Route path={boatInquiryGeneral.main()}>
             <Route
                 index
-                path={boatInquiryTransferPath.main}
+                path={boatInquiryGeneral.main()}
                 element={
                     <SuspenseLayout
-                        titleNavbar="Boat Transfer"
+                        titleNavbar="Boat Inquiry"
                         isCheckPermission={false}>
-                        <BoatInquiryTransferPage />
+                        <BoatInquiryPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                index
+                path={boatInquiryGeneral.add()}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Boat Inquiry"
+                        isCheckPermission={false}>
+                        <BoatInquiryAddPage />
                     </SuspenseLayout>
                 }
             />
 
             <Route
                 path="*"
-                element={<Page404Layout to={boatInquiryTransferPath.main} />}
-            />
-        </Route>
-
-        <Route path={boatInquiryPrivatePath.main}>
-            <Route
-                index
-                path={boatInquiryPrivatePath.main}
-                element={
-                    <SuspenseLayout
-                        titleNavbar="Private Boat"
-                        isCheckPermission={false}>
-                        <BoatInquiryPrivatePage />
-                    </SuspenseLayout>
-                }
-            />
-
-            <Route
-                path="*"
-                element={<Page404Layout to={boatInquiryPrivatePath.main} />}
+                element={<Page404Layout to={boatInquiryGeneral.main()} />}
             />
         </Route>
     </>

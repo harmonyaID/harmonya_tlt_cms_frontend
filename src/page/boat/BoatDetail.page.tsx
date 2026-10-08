@@ -14,6 +14,7 @@ import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 
 const BoatDetailPage = () => {
     const {
@@ -98,14 +99,40 @@ const BoatDetailPage = () => {
                                     ),
                                     objectListDetail(
                                         'Price File',
-                                        <>
-                                            <a
-                                                className="link text-underline"
-                                                href={__detail.priceFile}
-                                                target="_blank">
-                                                Preview
-                                            </a>
-                                        </>,
+                                        <div className="hstack gap-2 flex-wrap">
+                                            {__detail.priceFiles
+                                                ? __detail.priceFiles.map(
+                                                      (file) => (
+                                                          <PreviewFileModalLogic
+                                                              classNameWidth="avatar-46"
+                                                              dataFile={file}
+                                                              dataBy="file"
+                                                              dataUrl={
+                                                                  file?.file ||
+                                                                  ''
+                                                              }
+                                                          />
+                                                      ),
+                                                  )
+                                                : '-'}
+                                        </div>,
+                                    ),
+                                    objectListDetail(
+                                        'Promo Label',
+                                        __detail.promoLabel || '-',
+                                    ),
+                                    objectListDetail(
+                                        'Map Image',
+                                        __detail.mapImage ? (
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={
+                                                    __detail?.mapImage || ''
+                                                }
+                                            />
+                                        ) : (
+                                            '-'
+                                        ),
                                     ),
                                     objectListDetail(
                                         'Created At',
@@ -114,35 +141,109 @@ const BoatDetailPage = () => {
                                 ]}
                             />
 
+                            {__detail.schedule?.length ? (
+                                <div className="my-3">
+                                    <h5 className="fs-16 fw-500">Schedules</h5>
+
+                                    <div className="vstack gap-3 px-3">
+                                        {__detail.schedule.map(
+                                            (schedule, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="vstack gap-2 border-bottom">
+                                                    <div className="row">
+                                                        <div className="col-md-4">
+                                                            From
+                                                        </div>
+                                                        <div className="col">
+                                                            {schedule.from}
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-4">
+                                                            To
+                                                        </div>
+                                                        <div className="col">
+                                                            {schedule.to}
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col-md-4">
+                                                            Times
+                                                        </div>
+                                                        <div className="col">
+                                                            <div className="hstack gap-2">
+                                                                {schedule.times?.map(
+                                                                    (time) => (
+                                                                        <span>
+                                                                            &bull;{' '}
+                                                                            {
+                                                                                time
+                                                                            }
+                                                                        </span>
+                                                                    ),
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                            ) : (
+                                '-'
+                            )}
+
                             {__detail?.customInformations?.length ? (
                                 <div className="pb-3 pt-4">
                                     <h5 className="fs-16 fw-500">
                                         Custom Information
                                     </h5>
 
-                                    {__detail.customInformations.map(
-                                        (vm, index) => {
-                                            return (
-                                                <div
-                                                    className="hstack gap-3 align-items-start pb-3 border-bottom border-neutral-500"
-                                                    key={index}>
-                                                    <div className="fs-13">
-                                                        {vm.order}.
-                                                    </div>
-                                                    <div className="w-100">
-                                                        <label className="fs-12 text-neutral-300 pb-2">
-                                                            {vm.name}
-                                                        </label>
-                                                        <p className="fs-14 text-neutral-100 fw-semibold mb-0">
-                                                            {vm.value}
+                                    <div className="vstack gap-3 px-3">
+                                        {__detail.customInformations.map(
+                                            (group, index) => {
+                                                return (
+                                                    <>
+                                                        <p className="mb-1">
+                                                            {group.name}
                                                         </p>
-                                                    </div>
-                                                </div>
-                                            )
-                                        },
-                                    )}
+                                                        {group?.customInformations?.map(
+                                                            (info) => (
+                                                                <div
+                                                                    className="hstack gap-3 align-items-start pb-1 border-bottom border-neutral-500"
+                                                                    key={index}>
+                                                                    <div className="fs-13">
+                                                                        {
+                                                                            info.order
+                                                                        }
+                                                                        .
+                                                                    </div>
+                                                                    <div className="w-100">
+                                                                        <label className="fs-12 text-neutral-300 pb-2">
+                                                                            {
+                                                                                info.name
+                                                                            }
+                                                                        </label>
+                                                                        <p className="fs-14 text-neutral-100 fw-semibold mb-0">
+                                                                            {
+                                                                                info.value
+                                                                            }
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            ),
+                                                        )}
+                                                    </>
+                                                )
+                                            },
+                                        )}
+                                    </div>
                                 </div>
-                            ) : null}
+                            ) : (
+                                '-'
+                            )}
                         </Card>
                     </div>
                     <div className="col-lg-8">

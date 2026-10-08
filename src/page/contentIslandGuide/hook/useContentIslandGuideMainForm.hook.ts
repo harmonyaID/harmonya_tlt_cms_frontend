@@ -36,6 +36,8 @@ const initMapForm = (passData) => {
         deletePhotoIds: [],
         catalogs: !isEmpty(passData.catalogs) ? passData.catalogs : [],
         deleteCatalogIds: [],
+        isPage: passData?.isPage ? 1 : 0,
+        pageId: passData?.pageReference?.title || '',
         seo: { ...mapSEOFormConfig(passData?.seo || {}) },
     }
 }
@@ -58,6 +60,8 @@ const initForm = {
     catalogs: [],
     deletePhotoIds: [],
     deleteCatalogIds: [],
+    isPage: 0,
+    pageId: '',
     seo: {
         ...initSEOFormConfig,
     },

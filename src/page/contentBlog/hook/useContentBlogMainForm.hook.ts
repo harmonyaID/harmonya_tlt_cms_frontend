@@ -15,7 +15,8 @@ import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 const defaultActive = '1'
 
 const initForm = {
-    categoryId: '',
+    categoryIds: [],
+    propertyIds: [],
     title: '',
     slug: '',
     excerpt: '',
@@ -25,13 +26,16 @@ const initForm = {
     isActive: defaultActive,
     tagIds: [],
     thumbnail: '',
+    promoBanner: '',
+    promoBannerUrl: '',
+    visibility: defaultActive,
     seo: {
         ...initSEOFormConfig,
     },
 }
 
 const initMapForm = (passData) => ({
-    categoryId: passData?.category?.id || '',
+    categoryIds: [],
     title: passData?.title || '',
     slug: passData?.slug || '',
     excerpt: passData?.excerpt || '',
@@ -41,6 +45,10 @@ const initMapForm = (passData) => ({
     isActive: passData?.isActive ? defaultActive : '0',
     tagIds: [],
     thumbnail: '',
+    propertyIds: [],
+    promoBanner: '',
+    visibility: passData?.visibility ? defaultActive : '0',
+    promoBannerUrl: passData?.promoBannerUrl || '',
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
@@ -58,6 +66,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
 
     const [previewThumbnail, setPreviewThumbnail] = useState('')
+    const [previewPromoBanner, setPreviewPromoBanner] = useState('')
 
     const [seoThumbnail, setSetSEOThumbnail] = useState('')
 
@@ -68,7 +77,9 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const [listTags, setListTags] = useState<any[]>([])
+    const [listProperties, setListProperties] = useState<any[]>([])
+    const [listTags, setlistTags] = useState<any[]>([])
+    const [listCategories, setlistCategories] = useState<any[]>([])
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -93,7 +104,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             nestedForm._handleArrAddMulti('tagIds', [checkData.id])
 
             // @ts-ignore
-            setListTags((prevState) => [...prevState, ...newTag])
+            setlistTags((prevState) => [...prevState, ...newTag])
         }
     }
 
@@ -107,7 +118,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             return newState
         })
 
-        setListTags((prev) => prev.filter((tag) => tag.id !== dataTag.id))
+        setlistTags((prev) => prev.filter((tag) => tag.id !== dataTag.id))
     }
 
     const _handleThumbnailRemove = () => {
@@ -116,6 +127,79 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // if (isEdit) {
         //     nestedForm.__handleChange('deleteThumbnail', '')
         // }
+    }
+
+    const _handlePromoBannerRemove = () => {
+        setPreviewPromoBanner('')
+        nestedForm.__handleChange('promoBanner', '')
+    }
+
+    const _handlePropertyRemove = (dataProperty) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.propertyIds = newState.propertyIds.filter(
+                (id) => id !== dataProperty.id,
+            )
+
+            return newState
+        })
+
+        setListProperties((prev) =>
+            prev.filter((property) => property.id !== dataProperty.id),
+        )
+    }
+
+    const _handlePropertyChoose = (newProperty) => {
+        if (formRequest.propertyIds.length == 9) {
+            return
+        }
+
+        if (!isEmpty(newProperty)) {
+            const checkData = isArray(newProperty)
+                ? newProperty[0]
+                : isObject(newProperty)
+                  ? newProperty
+                  : {}
+
+            nestedForm._handleArrAddMulti('propertyIds', [checkData.id])
+
+            // @ts-ignore
+            setListProperties((prevState) => [...prevState, ...newProperty])
+        }
+    }
+
+    const _handleCategoryRemove = (dataCategory) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.categoryIds = newState.categoryIds.filter(
+                (id) => id !== dataCategory.id,
+            )
+
+            return newState
+        })
+
+        setlistCategories((prev) =>
+            prev.filter((cat) => cat.id !== dataCategory.id),
+        )
+    }
+
+    const _handleCategoryChoose = (newCategory) => {
+        if (formRequest.categoryIds.length == 9) {
+            return
+        }
+
+        if (!isEmpty(newCategory)) {
+            const checkData = isArray(newCategory)
+                ? newCategory[0]
+                : isObject(newCategory)
+                  ? newCategory
+                  : {}
+
+            nestedForm._handleArrAddMulti('categoryIds', [checkData.id])
+
+            // @ts-ignore
+            setlistCategories((prevState) => [...prevState, ...newCategory])
+        }
     }
 
     const _handleSEOThumbnailRemove = () => {
@@ -134,15 +218,29 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 setFormRequest({
                     ...initMapForm(res),
                     tagIds: res.tags.map((vm) => vm.id),
+                    categoryIds: res.categories.map((v) => v.id),
+                    propertyIds: res.properties.map((v) => v.id),
                     author: res.author || __profile?.fullName || '',
                 })
 
                 if (res?.tags && res?.tags.length) {
-                    setListTags(res?.tags)
+                    setlistTags(res?.tags)
+                }
+
+                if (res?.properties && res?.properties.length) {
+                    setListProperties(res?.properties)
+                }
+
+                if (res?.categories && res?.categories.length) {
+                    setlistCategories(res?.categories)
                 }
 
                 if (res?.thumbnail) {
                     setPreviewThumbnail(res.thumbnail)
+                }
+
+                if (res?.promoBanner) {
+                    setPreviewPromoBanner(res.promoBanner)
                 }
 
                 if (res?.seo?.thumbnail) {
@@ -180,15 +278,28 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeWithParent: nestedForm._handleChangeWithParent,
         __handleChangeTitle: _handleChangeTitle,
 
+        __listProperties: listProperties,
+        __handlePropertyRemove: _handlePropertyRemove,
+        __handlePropertyChoose: _handlePropertyChoose,
+
         __handleTagChoose: _handleTagChoose,
         __handleTagRemove: _handleTagRemove,
 
         __listTags: listTags,
-        __setListTags: setListTags,
+        __setListTags: setlistTags,
+
+        __listCategories: listCategories,
+        __setListCategories: setlistCategories,
+        __handleCategoryChoose: _handleCategoryChoose,
+        __handleCategoryRemove: _handleCategoryRemove,
 
         __previewThumbnail: previewThumbnail,
         __setPreviewThumbnail: setPreviewThumbnail,
         __handleThumbnailRemove: _handleThumbnailRemove,
+
+        __previewPromoBanner: previewPromoBanner,
+        __setPreviewPromoBanner: setPreviewPromoBanner,
+        __handlePromoBannerRemove: _handlePromoBannerRemove,
 
         // SEO
         __seoThumbnail: seoThumbnail,

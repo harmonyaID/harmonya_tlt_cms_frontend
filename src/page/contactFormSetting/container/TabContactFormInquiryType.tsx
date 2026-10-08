@@ -116,7 +116,7 @@ const TabContactFormInquiryType = (
         <>
             <div className="row mb-4">
                 <div className="col-md">
-                    <h5 className="fs-18 fw-500">Contact Form Inquiry Type</h5>
+                    <h5 className="fs-18 fw-500">Type of Inquiry Contact</h5>
                 </div>
                 <div className="col-auto">
                     <BtnPrimary onClick={() => __actionAddModal()}>
@@ -162,16 +162,16 @@ const TabContactFormInquiryType = (
                 </div>
             </div>
 
-            {/*{isShowPagination(__isLoading, __list, __pagination) ? (*/}
-            {/*    <Pagination*/}
-            {/*        onMove={(step) => __actionPagination(step)}*/}
-            {/*        className="mt-2"*/}
-            {/*        pagination={configDefaultPagination(*/}
-            {/*            __pagination,*/}
-            {/*            'totalPage',*/}
-            {/*        )}*/}
-            {/*    />*/}
-            {/*) : null}*/}
+            {isShowPagination(__isLoading, __list, __pagination) ? (
+                <Pagination
+                    onMove={(step) => __actionPagination(step)}
+                    className="mt-2"
+                    pagination={configDefaultPagination(
+                        __pagination,
+                        'totalPage',
+                    )}
+                />
+            ) : null}
 
             <CreatePortalLayout>
                 <ConfirmRemoveListLogic
@@ -191,7 +191,7 @@ const TabContactFormInquiryType = (
                 <ModalWithActionFormCRUDLogic
                     id={MDPSTabMediaContactFormInquiryTypeAdd}
                     detail={__detailData}
-                    title="Contact Form Inquiry Type"
+                    title="Type of Inquiry Contact"
                     isEdit={__isEdit}
                     formRequest={__formRequest}
                     actions={{

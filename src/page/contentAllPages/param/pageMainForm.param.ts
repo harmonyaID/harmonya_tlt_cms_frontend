@@ -1,5 +1,6 @@
 import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
 
+const localeDefault = 'en'
 export const initPageMainForm = {
     // value: {},
     title: '',
@@ -7,7 +8,8 @@ export const initPageMainForm = {
     description: '',
     shortDescription: '',
     status: '',
-    locale: '',
+    locale: localeDefault,
+    template: '',
     seo: {
         ...initSEOFormConfig,
     },
@@ -21,5 +23,6 @@ export const initMapPageMainForm = (passData) => ({
     shortDescription: passData?.shortDescription || '',
     status: passData?.status || '',
     locale: passData?.locale || '',
+    template: passData?.template || '',
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })

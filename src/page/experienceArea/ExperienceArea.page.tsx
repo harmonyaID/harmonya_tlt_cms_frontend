@@ -5,9 +5,7 @@ import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
 import CardListData from '@/component/card/CardListData.tsx'
-import { BtnDanger,
-    BtnPrimary,
-} from '@/component/general/Button.tsx'
+import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import RenderHtml from '@/component/general/RenderHtml.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import LoadingNotAvailable from '@/component/loading/LoadingNotAvailable.tsx'
@@ -38,16 +36,8 @@ const ExperienceAreaPage = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToTrash,
+        __handleToDetail,
     } = useExperienceAreaMain({ urlAPI: apiExperienceArea.list })
-
-    const {
-        __detail,
-        __isLoadingDetail,
-
-        __handleChooseDetail,
-        __handleSetDetail,
-        __handleCloseDetail,
-    } = useExAreaDetailOffCanvasHook()
 
     const {
         __data: dataForRemove,
@@ -91,8 +81,8 @@ const ExperienceAreaPage = () => {
                     actions={{
                         __handleChooseRemove: _handleChooseRemove,
                         __actionPagination: __actionPagination,
-                        __handleChooseDetail: __handleChooseDetail,
                         __handleToEdit: __handleToEdit,
+                        __handleToDetail: __handleToDetail,
                     }}
                 />
             </CardListData>
@@ -111,78 +101,6 @@ const ExperienceAreaPage = () => {
                         },
                     }}
                 />
-
-                <OffCanvasGeneral
-                    id={OCGeneralPreviewDetail}
-                    title="Detail Information"
-                    width="600px"
-                    closeAction={() => __handleCloseDetail()}
-                    isCloseAnywhere>
-                    {__isLoadingDetail || isEmpty(__detail) ? (
-                        <LoadingNotAvailable isLoading={__isLoadingDetail} />
-                    ) : (
-                        <div className="vstack gap-4">
-                            <HorizontalLoopDataLogic
-                                list={[
-                                    objectListDetail('Name', __detail.name),
-                                    objectListDetail(
-                                        'Type',
-                                        __detail?.type?.name || '-',
-                                    ),
-                                    objectTabContent(
-                                        'Featured Image',
-                                        __detail?.featuredImage ? (
-                                            <PreviewFileModalLogic
-                                                dataUrl={__detail?.featuredImage?.toString()}
-                                                dataBy="file"
-                                                dataFile={
-                                                    __detail?.featuredImage
-                                                }
-                                                classNameWidth="w-100 max-h-120-px Pmax-h-148px"
-                                            />
-                                        ) : (
-                                            '-'
-                                        ),
-                                    ),
-                                    objectTabContent(
-                                        'Banner',
-                                        __detail?.banner ? (
-                                            <PreviewFileModalLogic
-                                                dataUrl={__detail?.banner?.toString()}
-                                                dataBy="file"
-                                                dataFile={__detail?.banner}
-                                                classNameWidth="w-100 max-h-120-px Pmax-h-148px"
-                                            />
-                                        ) : (
-                                            '-'
-                                        ),
-                                    ),
-
-                                    objectListDetail(
-                                        'Created At',
-                                        formatDateTimeByTlt(__detail.createdAt),
-                                    ),
-                                    objectListDetail(
-                                        'Description',
-                                        __detail.description ? (
-                                            <RenderHtml
-                                                className="bg-neutral-500 py-2 px-3 rounded-2 text-break"
-                                                html={__detail.description}
-                                            />
-                                        ) : (
-                                            '-'
-                                        ),
-                                    ),
-                                ]}
-                            />
-
-                            <SectionPreviewSEOInformation
-                                seo={__detail?.seo || {}}
-                                classNameColumn="col-md-12"
-                            />
-                        </div>
-                    )}
-                </OffCanvasGeneral>
             </CreatePortalLayout>
         </>
     )

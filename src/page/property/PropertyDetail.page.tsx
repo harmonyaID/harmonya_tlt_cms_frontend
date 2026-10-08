@@ -4,6 +4,7 @@ import Image from 'rc-image'
 import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
 import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import PreviewFileModalMultiLogic from '@/common/misc/PreviewFileModalMulti.logic.tsx'
 import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
 import Card from '@/component/card/Card.tsx'
@@ -16,6 +17,7 @@ import PreElement from '@/component/general/PreElement.tsx'
 import { NotAvailable } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
+import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import PropertyBoxInfo from '@/page/property/component/PropertyBoxInfo.tsx'
@@ -296,6 +298,20 @@ const PropertyDetailPage = () => {
                                                                           )
                                                                         : '-'}
                                                                 </div>,
+                                                            ),
+                                                            objectListDetail(
+                                                                'Floorplan Image',
+                                                                __detail.floorplanImage ? (
+                                                                    <PreviewFileModalLogic
+                                                                        classNameWidth="avatar-46"
+                                                                        dataUrl={
+                                                                            __detail?.floorplanImage ||
+                                                                            ''
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    '-'
+                                                                ),
                                                             ),
                                                             objectTabContent(
                                                                 'Created At',
@@ -692,9 +708,11 @@ const PropertyDetailPage = () => {
                                         <>
                                             <PreviewFileModalMultiLogic
                                                 dataFiles={__detail.photos}
-                                                dataBy="photo"
-                                                isDescription={false}
+                                                dataBy="url"
+                                                // isDescription={false}
+                                                keyDescription="caption"
                                                 classNameWrapImg="max-h-120-px"
+                                                classNameColumnPreview="col-md-3"
                                             />
                                         </>
                                     ) : (

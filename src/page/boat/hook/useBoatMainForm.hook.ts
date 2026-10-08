@@ -7,6 +7,7 @@ import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import { apiBoat } from '@/service/api/boatManage.api.ts'
+import { getMimeType } from '@/helper/fileUpload.helper.ts'
 
 const defaultActive = '1'
 
@@ -17,10 +18,14 @@ const initForm = {
     boatComponentTypeId: '',
     description: '',
     isActive: defaultActive,
-    priceFile: '',
+    priceFiles: [],
     promoPhotos: [],
     photos: [],
     customInformations: [],
+    promoLabel: '',
+    mapImage: '',
+    deleteMapImage: 0,
+    schedule: [],
     seo: {
         ...initSEOFormConfig,
     },
@@ -35,14 +40,21 @@ const initMapForm = (passData) => ({
         : [],
     isActive: passData.isActive ? defaultActive : '0',
 
-    priceFile: '',
-    deletePriceFile: '',
+    mapImage: '',
+    deleteMapImage: 0,
+
+    priceFiles: [],
+    deletePriceFileIds: [],
 
     photos: [],
     deletePhotoIds: [],
 
     promoPhotos: [],
     deletePromoPhotoIds: [],
+
+    promoLabel: passData?.promoLabel || '',
+
+    schedule: passData?.schedule?.length ? passData.schedule : [],
 
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
@@ -67,7 +79,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     }
     // END SEO
 
-    const [previewPriceFile, setPreviewPriceFile] = useState('')
+    const [listPreviousPriceFiles, setListPreviousPriceFiles] = useState([])
 
     const [formRequest, setFormRequest] = useState({ ...initForm })
 
@@ -77,6 +89,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [lisPreviousPhotosPromotion, setLisPreviousPhotosPromotion] =
         useState([])
+
+    const [mapImage, setMapImage] = useState('')
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -108,8 +122,18 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                     )
                 }
 
-                if (res?.priceFile) {
-                    setPreviewPriceFile(res?.priceFile)
+                if (res?.priceFiles?.length > 0) {
+                    setListPreviousPriceFiles(
+                        res.priceFiles.map((file) => ({
+                            ...file,
+                            isDeleted: false,
+                            type: getMimeType(file.file)
+                        })),
+                    )
+                }
+
+                if (res?.mapImage) {
+                    setMapImage(res?.mapImage)
                 }
             }
         },
@@ -178,17 +202,55 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
     }
 
-    const _handlePriceFileRemove = () => {
-        setPreviewPriceFile('')
-        nestedForm.__handleChange('priceFile', '')
+    const _handleToggleDeletePrevPriceFiles = (passId: string | number) => {
+        setFormRequest((prevState) => {
+            const newState = { ...prevState }
+
+            const photoIndex = newState['deletePriceFileIds'].findIndex(
+                (id) => id === passId,
+            )
+
+            if (photoIndex > -1) {
+                newState['deletePriceFileIds'].splice(photoIndex, 1)
+            } else {
+                newState['deletePriceFileIds'].push(passId)
+            }
+
+            return newState
+        })
+
+        setListPreviousPriceFiles((prevState) => {
+            const newState = [...prevState]
+
+            const index = newState.findIndex((vm) => vm.id === passId)
+            if (index > -1) {
+                newState[index].isDeleted = !newState[index].isDeleted
+            }
+
+            return newState
+        })
+    }
+
+    const _handleRemoveMapImage = () => {
+        nestedForm.setFormRequest((prevState) => ({
+            ...prevState,
+            mapImage: '',
+            deleteMapImage: defaultActive,
+        }))
+        setMapImage('')
     }
 
     // Start Handle Custom Info
     const _handleCustomInfoAdd = () => {
         nestedForm._handleArrToggle(-1, 'customInformations', {
             name: '',
-            value: '',
-            order: formRequest.customInformations.length + 1,
+            customInformations: [
+                {
+                    name: '',
+                    value: '',
+                    order: 1,
+                },
+            ],
         })
     }
 
@@ -207,7 +269,55 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
             }
         })
     }
+
+    const _handleChangeCustomInfo = (index, group) => {
+        setFormRequest((prev) => {
+            const updated = [...prev.customInformations]
+
+            updated[index] = group
+
+            return {
+                ...prev,
+                customInformations: updated,
+            }
+        })
+    }
     // End Handle Custom Info
+
+    // Start Handle Schedule
+    const _handleScheduleAdd = () => {
+        nestedForm._handleArrToggle(-1, 'schedule', {
+            from: '',
+            to: '',
+            times: [],
+        })
+    }
+
+    const _handleScheduleRemove = (indexToRemove) => {
+        setFormRequest((prev) => {
+            const updated = prev.schedule.filter(
+                (_, idx) => idx !== indexToRemove,
+            )
+
+            return {
+                ...prev,
+                schedule: updated,
+            }
+        })
+    }
+
+    const _handleChangeSchedule = (index, group) => {
+        setFormRequest((prev) => {
+            const updated = [...prev.schedule]
+            updated[index] = group
+
+            return {
+                ...prev,
+                schedule: updated,
+            }
+        })
+    }
+    // End Handle Schedule
 
     const _handleSubmit = () => {
         return __handleSubmit({
@@ -228,6 +338,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __isLoading: isLoading,
         __isLoadingDetail: isLoadingDetail,
         __pageStateDataSearch: restored,
+        __mapImage: mapImage,
+        __removeMapImage: _handleRemoveMapImage,
 
         // Prev Photos
         __handleToggleDeletePrevPhotos: _handleToggleDeletePrevPhotos,
@@ -245,8 +357,14 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleArrToggle: nestedForm._handleArrToggle,
         __handleArrChange: nestedForm._handleArrChange,
         __handleChangeWithParent: nestedForm._handleChangeWithParent,
+
         __handleCustomInfoAdd: _handleCustomInfoAdd,
         __handleCustomInfoRemove: _handleCustomInfoRemove,
+        __handleCustomInfoChange: _handleChangeCustomInfo,
+
+        __handleScheduleAdd: _handleScheduleAdd,
+        __handleScheduleRemove: _handleScheduleRemove,
+        __handleScheduleChange: _handleChangeSchedule,
 
         // SEO
         __seoThumbnail: seoThumbnail,
@@ -254,9 +372,9 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
 
         // Price File
-        __previewPriceFile: previewPriceFile,
-        __setPreviewPriceFile: setPreviewPriceFile,
-        __handlePriceFileRemove: _handlePriceFileRemove,
+        __handleToggleDeletePrevPriceFiles: _handleToggleDeletePrevPriceFiles,
+        __listPreviousPriceFiles: listPreviousPriceFiles,
+        __setListPreviousPriceFiles: setListPreviousPriceFiles,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,

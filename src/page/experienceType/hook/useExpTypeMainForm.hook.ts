@@ -7,6 +7,7 @@ import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import experienceTypePath from '@/path/experienceType.path.ts'
 import { apiExperienceType } from '@/service/api/contentManageSetting.api.ts'
+import { isArray, isEmpty, isObject } from 'lodash'
 
 const initForm = {
     name: '',
@@ -15,6 +16,7 @@ const initForm = {
     deleteFeaturedImage: '',
     banner: '',
     deleteBanner: '',
+    blogIds: [],
     seo: {
         ...initSEOFormConfig,
     },
@@ -27,7 +29,7 @@ const initMapForm = (passData) => ({
     deleteFeaturedImage: passData?.deleteFeaturedImage || '',
     banner: '', //passData?.banner || '',
     deleteBanner: passData?.deleteBanner || '',
-
+    blogIds: passData?.blogs?.map((blog) => blog.id) || [],
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
@@ -44,6 +46,7 @@ const useExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     // START MAIN FORM
     const [formRequest, setFormRequest] = useState(initForm)
+    const [listBlogs, setListBlogs] = useState<any[]>([])
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -107,6 +110,8 @@ const useExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 //@ts-ignore
                 setFormRequest(initMapForm(res))
 
+                setListBlogs(res.blogs)
+
                 if (res.featuredImage) {
                     setPreviewFeaturedImage(res.featuredImage)
                 }
@@ -126,6 +131,38 @@ const useExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const isLoadingDetail = isEdit
         ? dataDetail.__isLoadingDetailFormRequest
         : false
+
+    const _handleBlogChoose = (newBlog) => {
+        if(formRequest.blogIds.length == 2){
+            return
+        }
+
+        if (!isEmpty(newBlog)) {
+            const checkData = isArray(newBlog)
+                ? newBlog[0]
+                : isObject(newBlog)
+                  ? newBlog
+                  : {}
+
+            nestedForm._handleArrAddMulti('blogIds', [checkData.id])
+
+            // @ts-ignore
+            setListBlogs((prevState) => [...prevState, ...newBlog])
+        }
+    }
+
+    const _handleBlogRemove = (dataBlog) => {
+        setFormRequest((prev) => {
+            const newState = { ...prev }
+            newState.blogIds = newState.blogIds.filter(
+                (id) => id !== dataBlog.id,
+            )
+
+            return newState
+        })
+
+        setListBlogs((prev) => prev.filter((blog) => blog.id !== dataBlog.id))
+    }
 
     const _handleSubmit = () => {
         return __handleSubmit({
@@ -147,6 +184,9 @@ const useExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __pageStateDataSearch: restored,
         __isLoadingDetail: isLoadingDetail,
         __detailFormRequest: dataDetail.__detailFormRequest,
+        __listBlogs: listBlogs,
+        __handleBlogRemove: _handleBlogRemove,
+        __handleChooseBlog: _handleBlogChoose,
 
         // Chang Form
         __setFormRequest: setFormRequest,

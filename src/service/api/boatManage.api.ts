@@ -1,6 +1,9 @@
 import {
     _shapeMethodDel,
-    _shapeMethodGet, _shapeMethodGetSearch, _shapeMethodPost,
+    _shapeMethodGet,
+    _shapeMethodGetSearch,
+    _shapeMethodPatch,
+    _shapeMethodPost,
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
@@ -21,14 +24,13 @@ import {
     SrvStaffTrashWithId,
 } from '@/service/api/_staff.endPoint.ts'
 
-export const apiBoat = {..._shapeObjectMethodCRUD(SrvBoatCRUD)}
+export const apiBoat = { ..._shapeObjectMethodCRUD(SrvBoatCRUD) }
 export const getBoatTrash = (search: any) =>
     _shapeMethodGetSearch(SrvBoatTrash, search)
 export const permanentDeleteBoat = (id: string | number) =>
     _shapeMethodDel(SrvBoatTrashWithId(id))
 export const restoreBoat = (id: string | number) =>
     _shapeMethodPost(SrvBoatRestore(id))
-
 
 export const apiBoatType = { ..._shapeObjectMethodCRUD(SrvBoatTypeCRUD) }
 export const getBoatTypeTrash = (search: any) =>
@@ -41,6 +43,10 @@ export const restoreBoatType = (id: string | number) =>
 export const apiBoatContactForm = {
     ..._shapeObjectMethodCRUD(SrvBoatContactFormCRUD),
 }
+export const apiReadBoatContactForm = (id) =>
+    _shapeMethodPatch(SrvBoatContactFormCRUD.read(id), {})
+export const apiUpdateStatusBoatContactForm = (id: any, payload: any = {}) =>
+    _shapeMethodPatch(SrvBoatContactFormCRUD.status(id), payload)
 
 // Static
 export const getBoatFormStatus = () =>

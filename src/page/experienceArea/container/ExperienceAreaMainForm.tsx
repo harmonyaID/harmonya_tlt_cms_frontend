@@ -18,12 +18,20 @@ import useExpAreaMainForm from '@/page/experienceArea/hook/useExpAreaMainForm.ho
 import boatPath from '@/path/boat.path.ts'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import CustomInfoForm from '@/common/dataFeature/customInformation/CustomInfoForm.tsx'
+import { BtnPrimary } from '@/component/general/Button.tsx'
+import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
+import SelectOptionBlog from '@/common/dataForm/SelectOptionBlog.tsx'
+import SelectOptionExperience from '@/common/dataForm/SelectOptionExperience.tsx'
+import SelectOptionExperienceType from '@/common/dataForm/SelectOptionExperienceType.tsx'
 
 const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
         __formRequest,
         __isLoading,
         __pageStateDataSearch,
+        __mapImage,
+        __removeMapImage,
 
         // Detail
         __isLoadingDetail,
@@ -45,6 +53,26 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __seoThumbnail,
         __setSetSEOThumbnail,
         __handleSEOThumbnailRemove,
+
+        __handleCustomInfoAdd,
+        __handleCustomInfoRemove,
+        __handleCustomInfoChange,
+
+        __listProperties,
+        __handlePropertyRemove,
+        __handlePropertyChoose,
+
+        __handleChooseBlog,
+        __handleBlogRemove,
+        __listBlogs,
+
+        __listExperienceSection1,
+        __handleExp1Choose,
+        __handleExp1Remove,
+
+        __listExperienceSection2,
+        __handleExp2Remove,
+        __handleExp2Choose,
 
         // Submit / Cancel
         __handleSubmit,
@@ -80,6 +108,13 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         formRequest={__formRequest}
                                         actions={{
                                             change: __handleChange,
+                                            changePropertyOld:
+                                                __handlePropertyChoose,
+                                            changeBlogOld: __handleChooseBlog,
+                                            changeExperienceSection1Old:
+                                                __handleExp1Choose,
+                                            changeExperienceSection2Old:
+                                                __handleExp2Choose,
                                         }}>
                                         <GeneralRowForm
                                             label="Form Type"
@@ -104,6 +139,172 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
                                                 isSimple
                                             />
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Custom Informations">
+                                            <div className="vstack gap-3">
+                                                {__formRequest.customInformations?.map(
+                                                    (group, index) => (
+                                                        <CustomInfoForm
+                                                            key={index}
+                                                            group={group}
+                                                            actions={{
+                                                                onChange: (
+                                                                    group,
+                                                                ) =>
+                                                                    __handleCustomInfoChange(
+                                                                        index,
+                                                                        group,
+                                                                    ),
+                                                                onRemove: () =>
+                                                                    __handleCustomInfoRemove(
+                                                                        index,
+                                                                    ),
+                                                            }}
+                                                        />
+                                                    ),
+                                                )}
+                                            </div>
+
+                                            <BtnPrimary
+                                                type="button"
+                                                isOutline
+                                                className="w-100 mb-3"
+                                                handle={() =>
+                                                    __handleCustomInfoAdd()
+                                                }>
+                                                Add New Group
+                                            </BtnPrimary>
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Properties">
+                                            <SelectOptionProperty
+                                                name="propertyIds"
+                                                disabled={
+                                                    __formRequest.propertyIds
+                                                        .length == 9
+                                                }
+                                                nameOfChange="changePropertyOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.propertyIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listProperties}
+                                                dataActions={{
+                                                    remove: __handlePropertyRemove,
+                                                }}
+                                            />
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Blogs">
+                                            <SelectOptionBlog
+                                                name="blogIds"
+                                                disabled={
+                                                    __formRequest.blogIds
+                                                        ?.length == 4
+                                                }
+                                                nameOfChange="changeBlogOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.blogIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listBlogs}
+                                                dataActions={{
+                                                    remove: __handleBlogRemove,
+                                                }}
+                                            />
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Experience Section 1">
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <SelectOptionExperienceType
+                                                        name="experienceSection1TypeId"
+                                                        isUseHook
+                                                        className="mb-lg-0 mb-2"
+                                                        label="Type"
+                                                    />
+                                                </div>
+                                                <div className="col">
+                                                    <SelectOptionExperience
+                                                        name="experienceSection1Ids"
+                                                        label="Experience"
+                                                        typeId={
+                                                            __formRequest.experienceSection1TypeId
+                                                        }
+                                                        disabled={
+                                                            __formRequest
+                                                                .experienceSection1Ids
+                                                                ?.length == 4
+                                                        }
+                                                        nameOfChange="changeExperienceSection1Old"
+                                                        isUseHook
+                                                        isOnlyChoose
+                                                        isMulti
+                                                        isClearable
+                                                        ids={
+                                                            __formRequest?.experienceSection1Ids
+                                                        }
+
+                                                        // Layout Only Choose
+                                                        dataList={
+                                                            __listExperienceSection1
+                                                        }
+                                                        dataActions={{
+                                                            remove: __handleExp1Remove,
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="Experience Section 2">
+                                            <div className="row">
+                                                <div className="col-md-4">
+                                                    <SelectOptionExperienceType
+                                                        name="experienceSection2TypeId"
+                                                        isUseHook
+                                                        className="mb-lg-0 mb-2"
+                                                        label="Type"
+                                                    />
+                                                </div>
+                                                <div className="col">
+                                                    <SelectOptionExperience
+                                                        label="Experience"
+                                                        name="experienceSection2Ids"
+                                                        typeId={
+                                                            __formRequest.experienceSection2TypeId
+                                                        }
+                                                        disabled={
+                                                            __formRequest
+                                                                .experienceSection2Ids
+                                                                ?.length == 4
+                                                        }
+                                                        nameOfChange="changeExperienceSection2Old"
+                                                        isUseHook
+                                                        isOnlyChoose
+                                                        isMulti
+                                                        isClearable
+                                                        ids={
+                                                            __formRequest?.experienceSection2Ids
+                                                        }
+
+                                                        // Layout Only Choose
+                                                        dataList={
+                                                            __listExperienceSection2
+                                                        }
+                                                        dataActions={{
+                                                            remove: __handleExp2Remove,
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
                                         </GeneralRowForm>
 
                                         <GeneralRowForm label="Featured Image">
@@ -233,6 +434,42 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                 newDataFiles.url,
                                                             )
                                                         },
+                                                    }}
+                                                />
+                                            )}
+                                        </GeneralRowForm>
+                                    </WrapFormContext>
+
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                        }}>
+                                        <GeneralRowForm label="Map Image">
+                                            {__mapImage ? (
+                                                <div className="pb-3">
+                                                    <PreviewFileModalLogic
+                                                        dataUrl={__mapImage}
+                                                        dataBy="file"
+                                                        dataFile={__mapImage}
+                                                        isShowBtnRemove
+                                                        actions={{
+                                                            remove: __removeMapImage,
+                                                        }}
+                                                        classNameWidth="col-md-4"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <FormUploadFile
+                                                    name="mapImage"
+                                                    isUseHook={false}
+                                                    classNameLayoutImage="col-md-5"
+                                                    value={
+                                                        __formRequest.mapImage
+                                                    }
+                                                    actions={{
+                                                        onChange:
+                                                            __handleChange,
                                                     }}
                                                 />
                                             )}

@@ -20,6 +20,7 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import useContentBlogMainForm from '@/page/contentBlog/hook/useContentBlogMainForm.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import SelectOptionProperty from '@/common/dataForm/SelectOptionProperty.tsx'
 
 const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -31,16 +32,31 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeWithParent,
         __handleArrAddMulti,
         __handleChangeTitle,
-        __handleTagChoose,
-        __handleTagRemove,
+
+        //properties
+        __listProperties,
+        __handlePropertyRemove,
+        __handlePropertyChoose,
 
         // tags
         __listTags,
+        __handleTagChoose,
+        __handleTagRemove,
+
+        // categories
+        __listCategories,
+        __handleCategoryChoose,
+        __handleCategoryRemove,
 
         // Thumbnail
         __previewThumbnail,
         __setPreviewThumbnail,
         __handleThumbnailRemove,
+
+        // Promo Banner
+        __previewPromoBanner,
+        __setPreviewPromoBanner,
+        __handlePromoBannerRemove,
 
         // SEO Thumbnail
         __seoThumbnail,
@@ -375,6 +391,10 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             __handleTagChoose(data),
                                         changeTagsOld: (data) =>
                                             __handleTagChoose(data),
+                                        changePropertyOld:
+                                            __handlePropertyChoose,
+                                        changeCategoryOld:
+                                            __handleCategoryChoose,
                                     }}>
                                     <Card title="Other Information">
                                         <div className="">
@@ -440,6 +460,23 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             )}
 
                                             <FormRadioButtonMulti
+                                                label="Visible"
+                                                name="visibility"
+                                                className="mb-0"
+                                                required
+                                                checkBoxs={[
+                                                    {
+                                                        defaultValue: 0,
+                                                        label: 'No',
+                                                    },
+                                                    {
+                                                        defaultValue: 1,
+                                                        label: 'Yes',
+                                                    },
+                                                ]}
+                                            />
+
+                                            <FormRadioButtonMulti
                                                 label="Status Active"
                                                 name="isActive"
                                                 className="mb-0"
@@ -457,29 +494,26 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
 
                                             <SelectOptionBlogCategory
-                                                label="Category"
-                                                name="categoryId"
-                                                required
+                                                label="Categories"
+                                                name="categoryIds"
+                                                nameOfChange="changeCategoryOld"
                                                 isUseHook
-                                                ids={[
-                                                    ...(__formRequest.categoryId
-                                                        ? [
-                                                              __formRequest.categoryId,
-                                                          ]
-                                                        : []),
-                                                ]}
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.categoryIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listCategories}
+                                                dataActions={{
+                                                    remove: __handleCategoryRemove,
+                                                }}
                                             />
 
                                             <SelectOptionBlogTag
                                                 label="Tags"
                                                 name="tagIds"
                                                 nameOfChange="changeTagsOld"
-                                                required={
-                                                    __formRequest?.tagIds
-                                                        ?.length
-                                                        ? false
-                                                        : true
-                                                }
                                                 isUseHook
                                                 isOnlyChoose
                                                 isMulti
@@ -495,6 +529,93 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 dataActions={{
                                                     remove: __handleTagRemove,
                                                 }}
+                                            />
+
+                                            <SelectOptionProperty
+                                                label="Properties"
+                                                name="propertyIds"
+                                                disabled={
+                                                    __formRequest.propertyIds
+                                                        .length == 9
+                                                }
+                                                nameOfChange="changePropertyOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.propertyIds}
+
+                                                // Layout Only Choose
+                                                dataList={__listProperties}
+                                                dataActions={{
+                                                    remove: __handlePropertyRemove,
+                                                }}
+                                            />
+
+                                            {__previewPromoBanner ? (
+                                                <>
+                                                    <div className="pb-3">
+                                                        <p className="mb-2 text-neutral-100">
+                                                            Promo Banner
+                                                        </p>
+
+                                                        <PreviewFileModalLogic
+                                                            dataUrl={__previewPromoBanner?.toString()}
+                                                            dataBy="file"
+                                                            dataFile={
+                                                                __previewPromoBanner
+                                                            }
+                                                            isShowBtnRemove
+                                                            actions={{
+                                                                remove: __handlePromoBannerRemove,
+                                                            }}
+                                                            classNameWidth="w-100 max-h-148px"
+                                                        />
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <FormUploadFile
+                                                    label="Promo Banner"
+                                                    name="promoBanner"
+                                                    isUseHook={false}
+                                                    isPreview={false}
+                                                    accept="image/*"
+                                                    actions={{
+                                                        onChange: (
+                                                            _,
+                                                            newFiles,
+                                                        ) => {
+                                                            const img =
+                                                                new Image()
+                                                            const objectUrl =
+                                                                URL.createObjectURL(
+                                                                    newFiles,
+                                                                )
+
+                                                            img.onload = () => {
+                                                                __handleChange(
+                                                                    'promoBanner',
+                                                                    newFiles,
+                                                                )
+                                                            }
+
+                                                            img.src = objectUrl
+                                                        },
+                                                        handleDataFiles: (
+                                                            newDataFiles,
+                                                        ) => {
+                                                            __setPreviewPromoBanner(
+                                                                newDataFiles.url,
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+                                            )}
+
+                                            <FormInput
+                                                name="promoBannerUrl"
+                                                placeholder="http://example.com/"
+                                                label="Promo Banenr URL"
                                             />
                                         </div>
                                     </Card>

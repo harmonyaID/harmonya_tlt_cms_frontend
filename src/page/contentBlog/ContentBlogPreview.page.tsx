@@ -16,9 +16,9 @@ const ContentBlogPreviewPage = () => {
         __isLoading,
 
         // Change Page
-        __handleToDetail
+        __handleToDetail,
     } = useContentBlogDetail()
-    
+
     return (
         <>
             <div className="hstack justify-content-end mb-3">
@@ -28,14 +28,15 @@ const ContentBlogPreviewPage = () => {
             </div>
 
             {__isLoading ? (
-                <LoadingInPage/>
-                ) : (
+                <LoadingInPage />
+            ) : (
                 <div className="bg-white p-4 rounded-4">
                     {__detail && (
-                        <Image
-                            src={__detail?.thumbnail?.toString()}
-                            alt="Preview File"
-                            className="data-img data-img-contain w-100 rounded-3"
+                        <PreviewFileModalLogic
+                            dataUrl={__detail?.thumbnail?.toString()}
+                            dataBy="file"
+                            dataFile={__detail.thumbnail}
+                            classNameWidth="w-100 max-h-400px"
                         />
                     )}
 

@@ -1,9 +1,9 @@
-const dataStayPage = {
+const dataPropertyPage = {
     SECTION1: {
         backgroundImage: '',
+        content: '',
         buttonLink: '',
         buttonText: '',
-        content: '',
         searchLabelCollection: '',
         searchLabelDates: '',
         searchLabelGuest: '',
@@ -12,16 +12,16 @@ const dataStayPage = {
         searchPlaceholderGuest: '',
     },
     SECTION2: {
+        label: '',
         title: '',
-    },
-    SECTION3: {
-        title: '',
-        content: '',
         description: '',
         buttonLink: '',
         buttonText: '',
-        image: '',
+        bannerImage: '',
+    },
+    SECTION3: {
+        title: '',
     },
 }
 
-export default dataStayPage
+export default dataPropertyPage

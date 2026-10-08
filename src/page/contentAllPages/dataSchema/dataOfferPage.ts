@@ -5,9 +5,6 @@ const dataOfferPage = {
     },
     SECTION2: {
         title: '',
-    },
-    SECTION3: {
-        content: '',
         description: '',
     },
 }
