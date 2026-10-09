@@ -502,31 +502,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 placeholder="e.g https://maps.google.com/?q=-8.123,115.456"
                                                 required
                                             />
-
-                                            <FormRadioButtonMulti
-                                                label="With Page"
-                                                name="isPage"
-                                                className="mb-0"
-                                                required
-                                                checkBoxs={[
-                                                    {
-                                                        defaultValue: 0,
-                                                        label: 'No',
-                                                    },
-                                                    {
-                                                        defaultValue: 1,
-                                                        label: 'Yes',
-                                                    },
-                                                ]}
-                                            />
-
-                                            {__formRequest.isPage ? (
-                                                <SelectOptionPage
-                                                    label="Page"
-                                                    name="pageId"
-                                                    isUseHook
-                                                />
-                                            ) : null}
                                         </div>
                                     </Card>
                                 </WrapFormContext>

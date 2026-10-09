@@ -28,6 +28,7 @@ import ExpTypeTable from '@/page/experienceType/component/ExpTypeTable.tsx'
 import IslandGuideTypeTable from '@/page/islandGuideType/component/IslandGuideTypeTable.tsx'
 import useIslandGuideTypeMainHook from '@/page/islandGuideType/hook/useIslandGuideTypeMain.hook.ts'
 import useIslandGuideTypeDetailOffCanvasHook from '@/page/islandGuideType/hook/useIslandGuideTypeDetailOffCanvas.hook.ts'
+import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 
 const IslandGuideTypePage = () => {
     const {
@@ -173,6 +174,29 @@ const IslandGuideTypePage = () => {
                                             '-'
                                         ),
                                     ),
+                                    objectListDetail(
+                                        'Excerpt',
+                                        __detail.excerpt ? (
+                                            <RenderHtml
+                                                className="bg-neutral-500 py-2 px-3 rounded-2 text-break"
+                                                html={__detail.excerpt}
+                                            />
+                                        ) : (
+                                            '-'
+                                        ),
+                                    ),
+                                    objectListDetail(
+                                        'With Page',
+                                        <TextTrueOrFalse
+                                            value={__detail?.isPage}
+                                        />,
+                                    ),
+                                    __detail?.isPage
+                                        ? objectListDetail(
+                                              'Page',
+                                              __detail?.pageReference?.title,
+                                          )
+                                        : null,
                                 ]}
                             />
 
