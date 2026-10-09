@@ -53,3 +53,15 @@ export const SrvSystemRedirection = objectPathEndPointAPI(
 export const SrvSystemTrackingAnalytics = objectPathEndPointAPI(
     baseAPI + '/settings/analytics',
 )
+
+// Notification
+const baseAPINotification = baseAPI + '/settings/notification-credentials'
+export const SrvSystemNotifications = objectPathEndPointAPI(baseAPINotification)
+
+const baseAPINotificationStatic = baseAPINotification + '/statics'
+export const SrvSystemNotificationStaticProviderTypes =
+    baseAPINotificationStatic + '/provider-types'
+export const SrvSystemNotificationStaticPostmark =
+    baseAPINotificationStatic + '/postmarks'
+export const SrvSystemNotificationStaticFirebase =
+    baseAPINotificationStatic + '/firebases'

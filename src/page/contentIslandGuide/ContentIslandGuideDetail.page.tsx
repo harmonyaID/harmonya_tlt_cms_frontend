@@ -187,22 +187,6 @@ const ContentExperienceDetailPage = () => {
                                                             '-'
                                                         ),
                                                     ),
-                                                    objectListDetail(
-                                                        'With Page',
-                                                        <TextTrueOrFalse
-                                                            value={
-                                                                __detail?.isPage
-                                                            }
-                                                        />,
-                                                    ),
-                                                    __detail?.isPage
-                                                        ? objectListDetail(
-                                                              'Page',
-                                                              __detail
-                                                                  ?.pageReference
-                                                                  ?.title,
-                                                          )
-                                                        : null,
                                                 ]}
                                             />
                                         </div>

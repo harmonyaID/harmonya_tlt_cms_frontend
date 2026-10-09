@@ -16,6 +16,8 @@ import useExpTypeMainForm from '@/page/experienceType/hook/useExpTypeMainForm.ho
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import useIslandGuideTypeMainForm from '@/page/islandGuideType/hook/useIslandGuideTypeMainForm.hook.ts'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
+import SelectOptionPage from '@/common/dataForm/SelectOptionPage.tsx'
 
 const IslandGuideTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -94,6 +96,40 @@ const IslandGuideTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isSimple
                                             />
                                         </GeneralRowForm>
+
+                                        <GeneralRowForm label="Excerpt">
+                                            <FormTinyMCE
+                                                name="excerpt"
+                                                placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
+                                                isSimple
+                                            />
+                                        </GeneralRowForm>
+
+                                        <GeneralRowForm label="With Page">
+                                            <FormRadioButtonMulti
+                                                name="isPage"
+                                                className="mb-0"
+                                                checkBoxs={[
+                                                    {
+                                                        defaultValue: 0,
+                                                        label: 'No',
+                                                    },
+                                                    {
+                                                        defaultValue: 1,
+                                                        label: 'Yes',
+                                                    },
+                                                ]}
+                                            />
+                                        </GeneralRowForm>
+
+                                        {__formRequest.isPage ? (
+                                            <GeneralRowForm label="Page">
+                                                <SelectOptionPage
+                                                    name="pageId"
+                                                    isUseHook
+                                                />
+                                            </GeneralRowForm>
+                                        ) : null}
 
                                         <GeneralRowForm label="Featured Image">
                                             {__previewFeaturedImage ? (

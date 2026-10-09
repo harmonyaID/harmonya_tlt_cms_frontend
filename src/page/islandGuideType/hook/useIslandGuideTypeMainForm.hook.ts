@@ -19,6 +19,9 @@ const initForm = {
     deleteFeaturedImage: '',
     banner: '',
     deleteBanner: '',
+    isPage: 0,
+    pageId: '',
+    excerpt: '',
     seo: {
         ...initSEOFormConfig,
     },
@@ -31,6 +34,9 @@ const initMapForm = (passData) => ({
     deleteFeaturedImage: passData?.deleteFeaturedImage || '',
     banner: '', //passData?.banner || '',
     deleteBanner: passData?.deleteBanner || '',
+    isPage: passData?.isPage ? 1 : 0,
+    pageId: passData?.pageReference?.title || '',
+    excerpt: passData?.excerpt || '',
 
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
