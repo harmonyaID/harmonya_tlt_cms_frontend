@@ -124,3 +124,7 @@ export const MDPSTabRedirectionRemove = 'modalRedirectionRemove'
 // Tracking Analytic
 export const MDPSTabTrackingAnalyticAdd = 'modalTrackingAnalyticAdd'
 export const MDPSTabTrackingAnalyticRemove = 'modalTrackingAnalyticRemove'
+
+// Notification
+export const MDPSTabNotificationAdd = 'modalNotificationAdd'
+export const MDPSTabNotificationRemove = 'modalNotificationemove'

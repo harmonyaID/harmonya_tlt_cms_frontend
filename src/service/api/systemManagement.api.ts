@@ -18,6 +18,10 @@ import {
     SrvSystemInfoCacheQueueRestart,
     SrvSystemInfoCacheRouteClear,
     SrvSystemInfoCacheViewClear,
+    SrvSystemNotifications,
+    SrvSystemNotificationStaticFirebase,
+    SrvSystemNotificationStaticPostmark,
+    SrvSystemNotificationStaticProviderTypes,
     SrvSystemRedirection,
     SrvSystemTestGuestyConfig,
     SrvSystemTrackingAnalytics,
@@ -91,3 +95,18 @@ export const apiRedirectionCRUD = _shapeObjectMethodCRUD(SrvSystemRedirection)
 export const apiTrackingAnalyticsCRUD = _shapeObjectMethodCRUD(
     SrvSystemTrackingAnalytics,
 )
+
+// Notification
+export const apiNotificationsCRUD = _shapeObjectMethodCRUD(
+    SrvSystemNotifications,
+    'tcSrvNotificationsCRUD',
+)
+export const getNotificationStaticProviderType = () =>
+    _shapeMethodGet(
+        SrvSystemNotificationStaticProviderTypes,
+        'tcStaticProviderType',
+    )
+export const getNotificationStaticPostmark = () =>
+    _shapeMethodGet(SrvSystemNotificationStaticPostmark, 'tcStaticPostmark')
+export const getNotificationStaticFirebase = () =>
+    _shapeMethodGet(SrvSystemNotificationStaticFirebase, 'tcStaticFirebase')
