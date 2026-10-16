@@ -13,12 +13,14 @@ import SelectOptionPropertyRoomType from '@/common/dataForm/SelectOptionProperty
 import SelectOptionPropertySourceType from '@/common/dataForm/SelectOptionPropertySourceType.tsx'
 import SelectOptionPropertyTag from '@/common/dataForm/SelectOptionPropertyTag.tsx'
 import SelectOptionPropertyType from '@/common/dataForm/SelectOptionPropertyType.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormInputPassword from '@/component/form/FormInputPassword.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
@@ -35,8 +37,6 @@ import {
 } from '@/page/property/param/propertyMainForm.param.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import propertyPath from '@/path/property.path.ts'
-import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 
 const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -891,6 +891,13 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     type="button"
                                                     isOutline
                                                     className="w-100 mt-0 mb-3"
+                                                    isDisabled={
+                                                        __formRequest
+                                                            ?.descriptions
+                                                            ?.length > 1
+                                                            ? true
+                                                            : false
+                                                    }
                                                     handle={() =>
                                                         __handleArrToggle(
                                                             -1,
