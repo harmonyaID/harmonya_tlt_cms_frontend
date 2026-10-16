@@ -18,6 +18,7 @@ import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormInputPassword from '@/component/form/FormInputPassword.tsx'
+import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
@@ -34,6 +35,7 @@ import {
     propertyMapFormAddress,
     propertyMapFormDesc,
     propertyMapFormRoom,
+    propertyMpaFormWhyYouLoveThis,
 } from '@/page/property/param/propertyMainForm.param.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import propertyPath from '@/path/property.path.ts'
@@ -697,6 +699,117 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         }}
                                                     />
                                                 )}
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm label="Best Price">
+                                                <FormRadioButtonMulti
+                                                    name="isPopular"
+                                                    checkBoxs={[
+                                                        {
+                                                            defaultValue: 0,
+                                                            label: 'No',
+                                                        },
+                                                        {
+                                                            defaultValue: 1,
+                                                            label: 'Yes',
+                                                        },
+                                                    ]}
+                                                />
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm label="New Property">
+                                                <FormRadioButtonMulti
+                                                    name="isNewVilla"
+                                                    checkBoxs={[
+                                                        {
+                                                            defaultValue: 0,
+                                                            label: 'No',
+                                                        },
+                                                        {
+                                                            defaultValue: 1,
+                                                            label: 'Yes',
+                                                        },
+                                                    ]}
+                                                />
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm label="Why You'll Love This">
+                                                {__formRequest.whyYoullLoveThis.map(
+                                                    (vm, index) => {
+                                                        return (
+                                                            <div
+                                                                className="border border-neutral-400 p-3 rounded-3 mb-3"
+                                                                key={index}>
+                                                                <div
+                                                                    className="row align-items-top"
+                                                                    key={index}>
+                                                                    <div className="col-md">
+                                                                        <h6 className="mb-0">
+                                                                            Point{' '}
+                                                                            {index +
+                                                                                1}
+                                                                        </h6>
+                                                                    </div>
+                                                                    <div className="col-auto pb-2">
+                                                                        <BtnCircleRemove
+                                                                            actions={{
+                                                                                remove: () =>
+                                                                                    __handleArrToggle(
+                                                                                        index,
+                                                                                        'whyYoullLoveThis',
+                                                                                    ),
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+
+                                                                <WrapFormContext
+                                                                    formRequest={
+                                                                        vm
+                                                                    }
+                                                                    actions={{
+                                                                        change: (
+                                                                            name,
+                                                                            value,
+                                                                        ) =>
+                                                                            __handleArrChange(
+                                                                                index,
+                                                                                name,
+                                                                                value,
+                                                                                'whyYoullLoveThis',
+                                                                            ),
+                                                                    }}>
+                                                                    <FormInput
+                                                                        label="Title"
+                                                                        name="title"
+                                                                        placeholder="e.g Private Pool"
+                                                                    />
+
+                                                                    <FormTextArea
+                                                                        label="Description"
+                                                                        name="value"
+                                                                        className="mb-0"
+                                                                        placeholder="e.g Infinity pool overlooking the bay"
+                                                                    />
+                                                                </WrapFormContext>
+                                                            </div>
+                                                        )
+                                                    },
+                                                )}
+
+                                                <BtnPrimary
+                                                    type="button"
+                                                    isOutline
+                                                    className="w-100 mt-0 mb-3"
+                                                    handle={() =>
+                                                        __handleArrToggle(
+                                                            -1,
+                                                            'whyYoullLoveThis',
+                                                            propertyMpaFormWhyYouLoveThis(),
+                                                        )
+                                                    }>
+                                                    Add New
+                                                </BtnPrimary>
                                             </GeneralRowForm>
                                         </WrapFormContext>
                                     </div>
