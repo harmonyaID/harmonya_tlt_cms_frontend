@@ -313,6 +313,26 @@ const PropertyDetailPage = () => {
                                                                     '-'
                                                                 ),
                                                             ),
+                                                            objectListDetail(
+                                                                'Best Price',
+                                                                <TextTrueOrFalse
+                                                                    value={
+                                                                        __detail?.isPopular
+                                                                            ? true
+                                                                            : false
+                                                                    }
+                                                                />,
+                                                            ),
+                                                            objectListDetail(
+                                                                'New Property',
+                                                                <TextTrueOrFalse
+                                                                    value={
+                                                                        __detail?.isNewVilla
+                                                                            ? true
+                                                                            : false
+                                                                    }
+                                                                />,
+                                                            ),
                                                             objectTabContent(
                                                                 'Created At',
                                                                 formatDateTimeByTlt(
@@ -416,6 +436,37 @@ const PropertyDetailPage = () => {
                                                                                     vm
                                                                                         ?.bedType
                                                                                         ?.name ||
+                                                                                        '-',
+                                                                                ),
+                                                                            ]}
+                                                                        />
+                                                                    </div>
+                                                                )
+                                                            },
+                                                        )}
+                                                    </div>
+                                                </PropertySpaceInfo>
+
+                                                <PropertySpaceInfo title="Why You'll Love This">
+                                                    <div className="vstack gap-3">
+                                                        {__detail.whyYoullLoveThis.map(
+                                                            (vm, index) => {
+                                                                return (
+                                                                    <div
+                                                                        className="card card-body mb-0"
+                                                                        key={
+                                                                            index
+                                                                        }>
+                                                                        <HorizontalLoopDataLogic
+                                                                            list={[
+                                                                                objectTabContent(
+                                                                                    'Label',
+                                                                                    vm?.label ||
+                                                                                        '-',
+                                                                                ),
+                                                                                objectTabContent(
+                                                                                    'Description',
+                                                                                    vm?.value ||
                                                                                         '-',
                                                                                 ),
                                                                             ]}

@@ -39,6 +39,13 @@ export const propertyMapFormDesc = (passData: Record<string, any> = {}) => ({
     // title: passData.title || '',
 })
 
+export const propertyMpaFormWhyYouLoveThis = (
+    passData: Record<string, any> = {},
+) => ({
+    title: passData?.title || '',
+    value: passData?.value || '',
+})
+
 export const propertyInitForm = {
     nickname: '',
     propertyTypeId: '',
@@ -84,6 +91,11 @@ export const propertyInitForm = {
     seo: {
         ...initSEOFormConfig,
     },
+
+    isPopular: 0,
+    isNewVilla: 0,
+
+    whyYoullLoveThis: [],
 }
 
 export const propertyMapInitForm = (passData) => ({
@@ -132,4 +144,8 @@ export const propertyMapInitForm = (passData) => ({
     floorplanImage: '',
     deleteFloorplanImage: 0,
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
+
+    isPopular: passData.isPopular ? 1 : 0,
+    isNewVilla: passData.isNewVilla ? 1 : 0,
+    whyYoullLoveThis: passData?.whyYoullLoveThis || [],
 })
