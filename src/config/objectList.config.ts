@@ -39,12 +39,22 @@ export const objectListDetail = (
 })
 
 export const IS_TYPE_FILE_WORD = (type: string = ''): boolean => {
-    return type === 'application/msword' || type === 'doc' || type === 'docx'
+    return (
+        type === 'application/msword' ||
+        type ===
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+        type === 'doc' ||
+        type === 'docx'
+    )
 }
 
 export const IS_TYPE_FILE_EXCEL = (type: string = ''): boolean => {
     return (
-        type === 'application/vnd.ms-excel' || type === 'xls' || type === 'xlsx'
+        type === 'application/vnd.ms-excel' ||
+        type ===
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+        type === 'xls' ||
+        type === 'xlsx'
     )
 }
 

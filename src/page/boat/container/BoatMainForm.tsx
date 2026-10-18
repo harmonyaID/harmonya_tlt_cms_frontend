@@ -11,7 +11,11 @@ import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
-import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
+import {
+    BtnCircleRemove,
+    BtnInfo,
+    BtnPrimary,
+} from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import { Loading } from '@/component/general/TextDefault.tsx'
@@ -24,6 +28,18 @@ import boatPath from '@/path/boat.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import CustomInfoForm from '@/common/dataFeature/customInformation/CustomInfoForm.tsx'
 import BoatScheduleForm from '@/page/boat/component/BoatScheduleForm.tsx'
+import { Link } from 'react-router'
+import IconWORD from '@/asset/image/icon/flat-doc-icon.png'
+import IconPDF from '@/asset/image/icon/flat-pdf-icon.svg'
+import IconEXCEL from '@/asset/image/icon/flat-xls-icon.png'
+import {
+    checkFileTypeFromUrl,
+    IS_TYPE_FILE_EXCEL,
+    IS_TYPE_FILE_PDF,
+    IS_TYPE_FILE_WORD,
+} from '@/config/objectList.config.ts'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
+import Image from 'rc-image'
 
 const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -62,8 +78,9 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __lisPreviousPhotos,
 
         //Price Files
-        __listPreviousPriceFiles,
-        __handleToggleDeletePrevPriceFiles,
+        __setPreviewPriceFile,
+        __previewPriceFile,
+        __handlePriceFileRemove,
     } = useBoatMainFormHook({ isEdit })
 
     // Photos
@@ -250,48 +267,86 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     </WrapFormContext>
 
                                     {/*Price Files*/}
-                                    {isEdit &&
-                                    __listPreviousPriceFiles?.length ? (
-                                        <GeneralRowForm label="Previous Price Files">
-                                            <FormEditFileLogic
-                                                dataFiles={__listPreviousPriceFiles.filter(
-                                                    (vm) => !vm.isDeleted,
-                                                )}
-                                                dataBy="file"
-                                                actions={{
-                                                    remove: (data) =>
-                                                        __handleToggleDeletePrevPriceFiles(
-                                                            data.id,
-                                                        ),
-                                                    restore: () => {},
-                                                }}
-                                            />
-                                        </GeneralRowForm>
-                                    ) : null}
-
                                     <WrapFormContext
                                         formRequest={__formRequest}
                                         actions={{
                                             change: __handleChange,
-                                            handleAddFiles:
-                                                __actionAddFilePriceFiles,
-                                            handleSetDataFiles:
-                                                __actionSetDataFilePriceFiles,
-                                            handleRemoveDataFile:
-                                                __actionRemoveDataFilePriceFiles,
-                                            handleArrChange: __handleArrChange,
                                         }}>
-                                        <GeneralRowForm
-                                            label="New Price Files"
-                                            isRequired>
-                                            <FormUploadFileWithActionPreviewLogic
-                                                isUseInputDesc={false}
-                                                accept=".pdf,.xlsx,.xls,.doc,.docx"
-                                                subTitle="PDF, XLSX, XLS, DOC, DOCX"
-                                                formName="priceFiles"
-                                                dataFiles={__dataFilePriceFiles}
-                                                formRequest={__formRequest}
-                                            />
+                                        <GeneralRowForm label="Price File">
+                                            {__previewPriceFile ? (
+                                                <div className="pb-3 row">
+                                                    <div className="col-4">
+                                                        <div className="position-relative">
+                                                            <Link
+                                                                to={
+                                                                    __previewPriceFile
+                                                                }
+                                                                target="_blank">
+                                                                <BtnInfo
+                                                                    className="btn-sm"
+                                                                    isOutline>
+                                                                    <Image
+                                                                        src={
+                                                                            checkFileTypeFromUrl(
+                                                                                __previewPriceFile,
+                                                                                IS_TYPE_FILE_PDF,
+                                                                            )
+                                                                                ? IconPDF
+                                                                                : checkFileTypeFromUrl(
+                                                                                        __previewPriceFile,
+                                                                                        IS_TYPE_FILE_WORD,
+                                                                                    )
+                                                                                  ? IconWORD
+                                                                                  : checkFileTypeFromUrl(
+                                                                                          __previewPriceFile,
+                                                                                          IS_TYPE_FILE_EXCEL,
+                                                                                      )
+                                                                                    ? IconEXCEL
+                                                                                    : null
+                                                                        }
+                                                                        alt="Price File"
+                                                                        fallback={
+                                                                            ImgGeneralDefault
+                                                                        }
+                                                                        className="data-img data-img-contain object-fit-contain"
+                                                                    />
+                                                                </BtnInfo>
+                                                            </Link>
+
+                                                            <BtnCircleRemove
+                                                                className="btn-icon-remove-top-right z-2"
+                                                                actions={{
+                                                                    remove: __handlePriceFileRemove,
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <FormUploadFile
+                                                    name="priceFiles"
+                                                    isUseHook={false}
+                                                    classNameLayoutImage="col-md-5"
+                                                    accept=".pdf,.xlsx,.xls,.doc,.docx"
+                                                    subTitle="PDF, XLSX, XLS, DOC, DOCX"
+                                                    isGeneralFile
+                                                    value={
+                                                        __formRequest
+                                                            .priceFiles[0]
+                                                    }
+                                                    actions={{
+                                                        onChange: (
+                                                            name,
+                                                            value,
+                                                        ) => {
+                                                            __handleChange(
+                                                                name,
+                                                                [value],
+                                                            )
+                                                        },
+                                                    }}
+                                                />
+                                            )}
                                         </GeneralRowForm>
                                     </WrapFormContext>
 

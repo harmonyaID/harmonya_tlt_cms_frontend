@@ -10,6 +10,7 @@ import {
     permanentDeleteExperienceArea,
     permanentDeleteIslandGuideArea,
     restoreExperienceArea,
+    restoreIslandGuideArea,
 } from '@/service/api/contentManageSetting.api.ts'
 import ExperienceAreaTable from '@/page/experienceArea/component/ExperienceAreaTable.tsx'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
@@ -48,7 +49,7 @@ const IslandGuideAreaTrashPage = () => {
         __dataPermanentRemove,
         __dataRestore,
     } = useTrash({
-        urlAPIRestore: restoreIslandGuide,
+        urlAPIRestore: restoreIslandGuideArea,
         urlAPIPermanentRemove: permanentDeleteIslandGuideArea,
         actions: {
             onSuccess: (area) => __actionRemove(area.id),
