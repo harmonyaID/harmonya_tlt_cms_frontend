@@ -110,8 +110,6 @@ const FormEditFileLogic = ({
         </object>
     )
 
-    console.log('dataFiles: ', dataFiles)
-
     return (
         <>
             <Image.PreviewGroup

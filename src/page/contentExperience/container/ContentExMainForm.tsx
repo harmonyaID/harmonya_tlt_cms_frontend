@@ -102,7 +102,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             ...prev,
             deleteCatalogIds: [...prev.deleteCatalogIds, idFile],
         }))
-        __actionSetDataFilesCatalogs(index, idFile)
+        __actionRemoveDataFileCatalogs(index, idFile)
     }
 
     // List Option Type

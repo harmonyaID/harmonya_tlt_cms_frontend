@@ -102,7 +102,7 @@ const ExperienceAreaPage = () => {
                     id={MDExCategoryRemove}
                     configHandle={{
                         urlAPI: () =>
-                            apiExperienceArea.delete(dataForRemove.id),
+                            apiExperienceType.delete(dataForRemove.id),
                         callBack: () => {
                             __actionRemove(dataForRemove.id)
                         },

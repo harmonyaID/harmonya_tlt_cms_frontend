@@ -449,7 +449,7 @@ const PropertyDetailPage = () => {
 
                                                 <PropertySpaceInfo title="Why You'll Love This">
                                                     <div className="vstack gap-3">
-                                                        {__detail.whyYoullLoveThis.map(
+                                                        {__detail?.whyYoullLoveThis?.map(
                                                             (vm, index) => {
                                                                 return (
                                                                     <div
@@ -460,8 +460,8 @@ const PropertyDetailPage = () => {
                                                                         <HorizontalLoopDataLogic
                                                                             list={[
                                                                                 objectTabContent(
-                                                                                    'Label',
-                                                                                    vm?.label ||
+                                                                                    'Title',
+                                                                                    vm?.title ||
                                                                                         '-',
                                                                                 ),
                                                                                 objectTabContent(
