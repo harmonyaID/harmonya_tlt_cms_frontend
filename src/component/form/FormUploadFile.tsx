@@ -26,6 +26,7 @@ import IconEXCEL from '@/asset/image/icon/flat-xls-icon.png'
 import { RenderPreviewVideo } from '@/component/general/PreviewVideo.tsx'
 import {
     checkFileTypeFromUrl,
+    IS_FILE_WORD_OR_EXCEL,
     IS_TYPE_FILE_EXCEL,
     IS_TYPE_FILE_PDF,
     IS_TYPE_FILE_WORD,

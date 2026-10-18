@@ -79,8 +79,6 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     }
     // END SEO
 
-    const [listPreviousPriceFiles, setListPreviousPriceFiles] = useState([])
-
     const [formRequest, setFormRequest] = useState({ ...initForm })
 
     const [isLoading, setIsLoading] = useState(false)
@@ -91,6 +89,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         useState([])
 
     const [mapImage, setMapImage] = useState('')
+
+    const [previewPriceFile, setPreviewPriceFile] = useState('')
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -122,14 +122,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                     )
                 }
 
-                if (res?.priceFiles?.length > 0) {
-                    setListPreviousPriceFiles(
-                        res.priceFiles.map((file) => ({
-                            ...file,
-                            isDeleted: false,
-                            type: getMimeType(file.file)
-                        })),
-                    )
+                if (res?.priceFiles) {
+                    setPreviewPriceFile(res?.priceFiles[0].file)
                 }
 
                 if (res?.mapImage) {
@@ -202,33 +196,9 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
     }
 
-    const _handleToggleDeletePrevPriceFiles = (passId: string | number) => {
-        setFormRequest((prevState) => {
-            const newState = { ...prevState }
-
-            const photoIndex = newState['deletePriceFileIds'].findIndex(
-                (id) => id === passId,
-            )
-
-            if (photoIndex > -1) {
-                newState['deletePriceFileIds'].splice(photoIndex, 1)
-            } else {
-                newState['deletePriceFileIds'].push(passId)
-            }
-
-            return newState
-        })
-
-        setListPreviousPriceFiles((prevState) => {
-            const newState = [...prevState]
-
-            const index = newState.findIndex((vm) => vm.id === passId)
-            if (index > -1) {
-                newState[index].isDeleted = !newState[index].isDeleted
-            }
-
-            return newState
-        })
+    const _handlePriceFileRemove = () => {
+        setPreviewPriceFile('')
+        nestedForm.__handleChange('priceFiles', [])
     }
 
     const _handleRemoveMapImage = () => {
@@ -372,9 +342,9 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSEOThumbnailRemove: _handleSEOThumbnailRemove,
 
         // Price File
-        __handleToggleDeletePrevPriceFiles: _handleToggleDeletePrevPriceFiles,
-        __listPreviousPriceFiles: listPreviousPriceFiles,
-        __setListPreviousPriceFiles: setListPreviousPriceFiles,
+        __previewPriceFile: previewPriceFile,
+        __setPreviewPriceFile: setPreviewPriceFile,
+        __handlePriceFileRemove: _handlePriceFileRemove,
 
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
