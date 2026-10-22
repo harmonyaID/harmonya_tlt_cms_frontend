@@ -5,6 +5,7 @@
 // } from '@/page/contentAllPages/dataSchema/_typeDataSchema.ts'
 import {
     TEMPLATE_BLOG,
+    TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
     TEMPLATE_INFO_CONTACT,
     TEMPLATE_INFO_FAQ,
@@ -26,6 +27,7 @@ import {
 import dataIslandGuidePage from '@/page/contentAllPages/dataSchema/dataIslandGuidePage.ts'
 import dataOfferPage from '@/page/contentAllPages/dataSchema/dataOfferPage.ts'
 import dataPropertyPage from '@/page/contentAllPages/dataSchema/dataPropertyPage.ts'
+import { dataBoatTransferPage } from '@/page/contentAllPages/dataSchema/dataBoatTransferPage.ts'
 
 const configDataSchema = {
     [TEMPLATE_BLOG]: dataBlogPage,
@@ -33,6 +35,7 @@ const configDataSchema = {
     [TEMPLATE_OFFER]: dataOfferPage,
     [TEMPLATE_EXPERIENCE]: dataExperiencePage,
     [TEMPLATE_ISLAND_GUIDE]: dataIslandGuidePage,
+    [TEMPLATE_BOAT_TRANSFER]: dataBoatTransferPage,
 
     // Info Page
     [TEMPLATE_INFO_CONTACT]: dataContactUsPage,

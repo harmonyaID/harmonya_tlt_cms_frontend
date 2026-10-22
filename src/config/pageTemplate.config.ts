@@ -14,6 +14,7 @@ export const TEMPLATE_NEIGHBOURHOOD_DETAIL =
 export const TEMPLATE_OFFER = 'template-page-offer'
 export const TEMPLATE_PROPERTY = 'template-page-property'
 export const TEMPLATE_PROPERTY_DETAIL = 'template-page-property-detail'
+export const TEMPLATE_BOAT_TRANSFER = 'template-page-boat-transfer'
 
 // ------------------------ Page Template
 // 'template-page-blog-detail' -> 'Blog Detail'
@@ -51,4 +52,5 @@ export const listTemplatePages = createTemplateOptions([
     TEMPLATE_NEIGHBOURHOOD_DETAIL,
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
+    TEMPLATE_BOAT_TRANSFER,
 ])
