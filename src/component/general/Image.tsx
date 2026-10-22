@@ -3,6 +3,7 @@ import { Image } from 'react-feather'
 import RCImage from 'rc-image'
 import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import { imgError } from '@/helper/actionURLPhoto'
+import joinClassNameHelper from '@/helper/base/joinClassName.helper.ts'
 
 interface ImgInTableProps {
     src: string
@@ -34,14 +35,28 @@ export const ImgInTable: FC<ImgInTableProps> = ({
     </div>
 )
 
-export const BoxImage = ({ src = '' }: { src?: string }) => {
+export const BoxImage = ({
+    src = '',
+    isSizeDefault,
+    classNameImg = '',
+}: {
+    src?: string
+    isSizeDefault?: boolean
+    classNameImg?: string
+}) => {
     return (
         <div className="wp-img-preview" onClick={() => {}}>
             <RCImage
                 src={src}
                 alt="Preview File"
                 fallback={ImgGeneralDefault}
-                className="data-img data-img-contain avatar-46"
+                className={joinClassNameHelper(
+                    'data-img data-img-contain',
+                    classNameImg,
+                    {
+                        'avatar-46': isSizeDefault,
+                    },
+                )}
             />
         </div>
     )

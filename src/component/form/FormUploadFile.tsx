@@ -353,6 +353,8 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
                     ]
 
             setPreviewFiles(dataFiles)
+        } else {
+            setPreviewFiles([])
         }
 
         _handleDragDrop()

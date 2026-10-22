@@ -17,6 +17,9 @@ export const SrvInfoWebsiteUpdate = (id: string | number) =>
 export const SrvAmenitiesCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/settings/amenities',
 )
+export const SrvAmenitiesUploadImage = (id: any) =>
+    baseAPI + '/settings/amenities/' + id + '/upload-image'
+
 export const SrvAmenitiesCategoryCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/settings/amenities/categories',
 )

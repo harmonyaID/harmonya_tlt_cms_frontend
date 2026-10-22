@@ -1,10 +1,12 @@
 import {
     _shapeMethodGet,
+    _shapeMethodPost,
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
     SrvAmenitiesCategoryCRUD,
     SrvAmenitiesCRUD,
+    SrvAmenitiesUploadImage,
     SrvCountries,
     SrvInfoWebsite,
     SrvInfoWebsiteUpdate,
@@ -24,6 +26,8 @@ export const updateInfoWebsite = (id: string | number) =>
 export const apiAmenitiesCRUD = {
     ..._shapeObjectMethodCRUD(SrvAmenitiesCRUD),
 }
+export const uploadImageAmenities = (id, formRequest) =>
+    _shapeMethodPost(SrvAmenitiesUploadImage(id), formRequest, true, '', true)
 
 export const apiAmenitiesCategoryCRUD = {
     ..._shapeObjectMethodCRUD(SrvAmenitiesCategoryCRUD),

@@ -1,6 +1,10 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
 import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
+import { BtnCircleEdit } from '@/component/general/Button.tsx'
+import { BoxImage } from '@/component/general/Image.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirstPrimary,
@@ -87,6 +91,8 @@ const TabAmenities = () => {
         },
     })
 
+    console.log('__formRequest: ', __formRequest)
+
     return (
         <>
             <div className="row mb-2">
@@ -145,10 +151,12 @@ const TabAmenities = () => {
                                             {vm?.order || '-'}
                                         </TblLineSecond>
                                     </td>
-                                    <td>
-                                        <TblLineSecond>
-                                            {vm?.icon || '-'}
-                                        </TblLineSecond>
+                                    <td className="w-20">
+                                        {vm.icon ? (
+                                            <BoxImage src={vm.icon} />
+                                        ) : (
+                                            '-'
+                                        )}
                                     </td>
                                     <td>
                                         <TextTrueOrFalse value={vm.isPublish} />
@@ -157,26 +165,31 @@ const TabAmenities = () => {
                                         <TextTrueOrFalse value={vm.isPopular} />
                                     </td>
                                     <td>
-                                        {/*<div className="hstack gap-2 justify-content-end">*/}
-                                        {/*    <BtnCircleRemove*/}
-                                        {/*        actions={{*/}
-                                        {/*            remove: (e) => {*/}
-                                        {/*                e.stopPropagation()*/}
-                                        {/*                _handleChooseRemove(vm)*/}
-                                        {/*            },*/}
-                                        {/*        }}*/}
-                                        {/*    />*/}
+                                        <div className="hstack gap-2 justify-content-end">
+                                            {/*<BtnCircleRemove*/}
+                                            {/*    actions={{*/}
+                                            {/*        remove: (e) => {*/}
+                                            {/*            e.stopPropagation()*/}
+                                            {/*            _handleChooseRemove(vm)*/}
+                                            {/*        },*/}
+                                            {/*    }}*/}
+                                            {/*/>*/}
 
-                                        {/*    <BtnCircleEdit*/}
-                                        {/*        title="Edit Data"*/}
-                                        {/*        actions={{*/}
-                                        {/*            edit: (e) => {*/}
-                                        {/*                e.stopPropagation()*/}
-                                        {/*                // actions.edit(vm.id)*/}
-                                        {/*            },*/}
-                                        {/*        }}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
+                                            <BtnCircleEdit
+                                                title="Edit Data"
+                                                actions={{
+                                                    edit: (e) => {
+                                                        e.stopPropagation()
+                                                        __actionUpdateModal({
+                                                            ...vm,
+                                                            order:
+                                                                vm.order ||
+                                                                index + 1,
+                                                        })
+                                                    },
+                                                }}
+                                            />
+                                        </div>
                                     </td>
                                 </tr>
                             )
@@ -207,6 +220,44 @@ const TabAmenities = () => {
                         emptySelect: () => {
                             _handleSetData({})
                         },
+                    }}
+                />
+
+                <ModalWithActionFormCRUDLogic
+                    id={MDPropertySettingAmenities}
+                    detail={__detailData}
+                    title="Icon"
+                    isEdit
+                    formRequest={__formRequest}
+                    isUseDefaultInput={false}
+                    actions={{
+                        change: _handleChange,
+                        toggleModal: () => {
+                            __actionCloseModal()
+                        },
+                    }}
+                    externalForm={
+                        <>
+                            <FormUploadFile name="icon" accept="image/*" />
+                        </>
+                    }
+                    configHandle={{
+                        urlAPIUpdate: () =>
+                            apiAmenitiesCRUD.updateWithData(
+                                __selectedId,
+                                __formRequest,
+                            ),
+                        initialForm: () =>
+                            __setFormRequest(initMapForm(__detailData)),
+                        callBack: (newData) => {
+                            __isEdit
+                                ? __actionUpdate(newData)
+                                : __actionAdd(newData, 'id', true)
+                        },
+                        emptySelect: () =>
+                            __setFormRequest(() => ({
+                                ...initForm,
+                            })),
                     }}
                 />
             </CreatePortalLayout>
