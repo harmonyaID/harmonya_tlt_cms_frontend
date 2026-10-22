@@ -3,6 +3,7 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import {
     TEMPLATE_ABOUT,
     TEMPLATE_BLOG,
+    TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
     TEMPLATE_INFO_CONTACT,
     TEMPLATE_INFO_FAQ,
@@ -23,6 +24,7 @@ import PageTemplateGeneralHero from '@/page/contentAllPages/component/template/P
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
+import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
 
 const PageMainFormTemplatePage = ({
     template,
@@ -49,6 +51,9 @@ const PageMainFormTemplatePage = ({
         // Template Mirip Experience
         [TEMPLATE_ISLAND_GUIDE]: (
             <PageTemplateExperience {...propsPageTemplate} />
+        ),
+        [TEMPLATE_BOAT_TRANSFER]: (
+            <PageTemplateBoatTransfer {...propsPageTemplate} />
         ),
 
         // Info Page
