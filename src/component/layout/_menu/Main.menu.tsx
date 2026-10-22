@@ -20,6 +20,7 @@ import {
 
     // Property Management
     Building,
+    Buildings2,
     CalendarTick,
     Star,
     Message2,
@@ -51,6 +52,7 @@ import {
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context'
 import { autoRunSidebarRemoveOverlay } from '@/helper/base/actionSidebar.helper.ts'
 import joinClassNameHelper from '@/helper/base/joinClassName.helper'
+import { textSlug } from '@/helper/convertText.helper.ts'
 import analyticsPath from '@/path/analytics.path.ts'
 import boatPath from '@/path/boat.path.ts'
 import { boatInquiryGeneral } from '@/path/boatInquiry.path.ts'
@@ -71,12 +73,15 @@ import dashboardPath from '@/path/dashboard.path'
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import { experienceSetting } from '@/path/experienceManage.path.ts'
 import experienceTypePath from '@/path/experienceType.path.ts'
+import islandGuideAreaPath from '@/path/islandGuideArea.path.ts'
 import { islandGuideSetting } from '@/path/islandGuideManage.path.ts'
+import islandGuideTypePath from '@/path/islandGuideType.path.ts'
 import propertyPath from '@/path/property.path.ts'
 import propertyContactFormPath from '@/path/propertyContactForm.path.ts'
 import propertyInquiryFormPath from '@/path/propertyInquiryForm.path.ts'
 import propertyReviewsPath from '@/path/propertyReviews.path.ts'
 import propertySettingPath from '@/path/propertySetting.path.ts'
+import propertyVariantPath from '@/path/propertyVariant.path.ts'
 import {
     smActivityLogPath,
     smGeneralSettingPath,
@@ -84,10 +89,7 @@ import {
     smWebConfigPath,
 } from '@/path/systemManagement.path.ts'
 import userPath from '@/path/user.path.ts'
-import islandGuideTypePath from '@/path/islandGuideType.path.ts'
-import islandGuideAreaPath from '@/path/islandGuideArea.path.ts'
 import useBoatTypeStore from '@/store/useBoatType.store.ts'
-import { textSlug } from '@/helper/convertText.helper.ts'
 
 const _configParamSubMenu = (name: string, to?: string) => ({ name, to })
 
@@ -415,6 +417,13 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     name="Property"
                     icon={<Building variant="Bulk" />}
                     to={propertyPath.main}
+                />
+            </li>
+            <li className="">
+                <LinkMenu
+                    name="Property Variant"
+                    icon={<Buildings2 variant="Bulk" />}
+                    to={propertyVariantPath.main}
                 />
             </li>
             <li className="">
