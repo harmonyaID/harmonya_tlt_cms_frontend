@@ -3,7 +3,9 @@ import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import propertyPath from '@/path/property.path.ts'
+import propertyVariantPath from '@/path/propertyVariant.path.ts'
 import { apiProperty } from '@/service/api/property.api.ts'
+import { apiPropertyVariant } from '@/service/api/propertyVariant.api.ts'
 
 const usePropertyDetail = () => {
     const { id } = useParams()
@@ -11,15 +13,15 @@ const usePropertyDetail = () => {
     const restored = useLocationStateHook()
 
     const { __detail, __isLoading } = useDataDetailHook({
-        urlAPI: () => apiProperty.detail(id),
+        urlAPI: () => apiPropertyVariant.detail(id),
         isCallAPI: true,
         triggerBy: id,
     })
 
     const { __handleToAdd, __handleToEdit, __handleToMain } =
         usePageFlowHandlerHook({
-            basePath: propertyPath,
-            pathFromKey: 'property-detail',
+            basePath: propertyVariantPath,
+            pathFromKey: 'property-variant-detail',
             search: restored.dataSearch,
         })
 

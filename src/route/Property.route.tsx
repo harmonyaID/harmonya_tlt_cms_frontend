@@ -5,6 +5,7 @@ import SuspenseLayout from '@/component/layout/Suspense.layout.tsx'
 import propertyPath from '@/path/property.path.ts'
 import propertyContactFormPath from '@/path/propertyContactForm.path.ts'
 import propertyInquiryPath from '@/path/propertyInquiry.path.ts'
+import propertyVariantPath from '@/path/propertyVariant.path.ts'
 
 const PropertyMainPage = lazy(() => import('@/page/property/Property.page.tsx'))
 
@@ -32,6 +33,23 @@ const PropertyFormRequestPage = lazy(
 // Property Inquiry
 const PropertyInquiryPage = lazy(
     () => import('@/page/propertyInquiry/PropertyInquiry.page.tsx'),
+)
+
+// Property Variant
+const PropertyVariantPage = lazy(
+    () => import('@/page/propertyVariant/PropertyVariant.page.tsx'),
+)
+const PropertyVariantAddPage = lazy(
+    () => import('@/page/propertyVariant/PropertyVariantAdd.page.tsx'),
+)
+const PropertyVariantEditPage = lazy(
+    () => import('@/page/propertyVariant/PropertyVariantEdit.page.tsx'),
+)
+const PropertyVariantDetailPage = lazy(
+    () => import('@/page/propertyVariant/PropertyVariantDetail.page.tsx'),
+)
+const PropertyVariantTrashPage = lazy(
+    () => import('@/page/propertyVariant/PropertyVariantTrash.page.tsx'),
 )
 
 const PropertyRoute = () => {
@@ -97,6 +115,69 @@ const PropertyRoute = () => {
                 <Route
                     path="*"
                     element={<Page404Layout to={propertyPath.main} />}
+                />
+            </Route>
+
+            <Route path={propertyVariantPath.main}>
+                <Route
+                    index
+                    path={propertyVariantPath.main}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Variant"
+                            isCheckPermission={false}>
+                            <PropertyVariantPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    index
+                    path={propertyVariantPath.trash}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Variant"
+                            isCheckPermission={false}>
+                            <PropertyVariantTrashPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    index
+                    path={propertyVariantPath.add}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Variant"
+                            isCheckPermission={false}>
+                            <PropertyVariantAddPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    index
+                    path={propertyVariantPath.edit()}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Variant"
+                            isCheckPermission={false}>
+                            <PropertyVariantEditPage />
+                        </SuspenseLayout>
+                    }
+                />
+                <Route
+                    index
+                    path={propertyVariantPath.detail()}
+                    element={
+                        <SuspenseLayout
+                            titleNavbar="Property Variant"
+                            isCheckPermission={false}>
+                            <PropertyVariantDetailPage />
+                        </SuspenseLayout>
+                    }
+                />
+
+                <Route
+                    path="*"
+                    element={<Page404Layout to={propertyVariantPath.main} />}
                 />
             </Route>
 

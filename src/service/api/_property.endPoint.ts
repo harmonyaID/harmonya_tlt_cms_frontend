@@ -17,6 +17,29 @@ export const SrvPropertyTrashWithId = (id: string | number = ''): string =>
 export const SrvPropertyRestore = (id: string | number = ''): string =>
     baseAPIProperty + '/trash/' + id + '/restore'
 
+// Property Variant
+const baseAPIPropertyVariant =
+    String(import.meta.env.VITE_BASE_API) + '/property-variants'
+
+export const SrvPropertyVariantCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPIPropertyVariant,
+)
+
+export const SrvPropertyVariantPhotosCreate = (propertyId) =>
+    baseAPIPropertyVariant + '/' + propertyId + '/photos'
+
+export const SrvPropertyVariantPhotosRemove = (propertyId, photoId) =>
+    SrvPropertyVariantPhotosCreate(propertyId) + '/' + photoId
+
+export const SrvPropertyVariantTrash = baseAPIPropertyVariant + '/trash'
+
+export const SrvPropertyVariantTrashWithId = (
+    id: string | number = '',
+): string => baseAPIPropertyVariant + '/trash/' + id
+
+export const SrvPropertyVariantRestore = (id: string | number = ''): string =>
+    baseAPIPropertyVariant + '/trash/' + id + '/restore'
+
 // Property Inquiry
 export const SrvPropertyInquiryCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPIProperty + '/inquiry-forms',
