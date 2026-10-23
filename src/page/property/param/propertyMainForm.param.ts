@@ -112,9 +112,9 @@ export const propertyMapInitForm = (passData) => ({
         ? passData.addresses.map((vm) => propertyMapFormAddress(vm))
         : [],
     guestInfo: {
-        hostName: passData.guestInfo.hostName || '',
-        wifiName: passData.guestInfo.wifiName || '',
-        wifiPassword: passData.guestInfo.wifiPassword || '',
+        hostName: passData?.guestInfo?.hostName || '',
+        wifiName: passData?.guestInfo?.wifiName || '',
+        wifiPassword: passData?.guestInfo?.wifiPassword || '',
     },
     rooms: !isEmpty(passData.rooms)
         ? passData.rooms.map((vm) => propertyMapFormRoom(vm))

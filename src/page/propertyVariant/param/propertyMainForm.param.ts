@@ -96,6 +96,9 @@ export const propertyInitForm = {
     isNewVilla: 0,
 
     whyYoullLoveThis: [],
+
+    parentProperty: {},
+    parentPropertyId: '',
 }
 
 export const propertyMapInitForm = (passData) => ({
@@ -112,9 +115,9 @@ export const propertyMapInitForm = (passData) => ({
         ? passData.addresses.map((vm) => propertyMapFormAddress(vm))
         : [],
     guestInfo: {
-        hostName: passData.guestInfo.hostName || '',
-        wifiName: passData.guestInfo.wifiName || '',
-        wifiPassword: passData.guestInfo.wifiPassword || '',
+        hostName: passData?.guestInfo?.hostName || '',
+        wifiName: passData?.guestInfo?.wifiName || '',
+        wifiPassword: passData?.guestInfo?.wifiPassword || '',
     },
     rooms: !isEmpty(passData.rooms)
         ? passData.rooms.map((vm) => propertyMapFormRoom(vm))
@@ -148,4 +151,7 @@ export const propertyMapInitForm = (passData) => ({
     isPopular: passData.isPopular ? 1 : 0,
     isNewVilla: passData.isNewVilla ? 1 : 0,
     whyYoullLoveThis: passData?.whyYoullLoveThis || [],
+
+    parentProperty: passData?.parentProperty || {},
+    parentPropertyId: passData?.parentPropertyId || '',
 })

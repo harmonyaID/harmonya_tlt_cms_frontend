@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash'
+import SearchProperty from '@/common/dataForm/SearchProperty.tsx'
 import SearchPropertyAmenities from '@/common/dataForm/SearchPropertyAmenities.tsx'
 import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import SelectBaseOptionLanguage from '@/common/dataForm/SelectBaseOptionLanguage.tsx'
@@ -76,6 +78,8 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __floorplanImage,
         __removeFloorplanImage,
 
+        __handleChooseProperty,
+
         // Submit / Cancel
         __handleSubmit,
         __handleCancel,
@@ -113,7 +117,34 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             actions={{
                                                 change: __handleChange,
                                                 changeTags: __handleTagChoose,
+                                                chooseProperty: (_, __, data) =>
+                                                    // __handleChange(
+                                                    //     'parentPropertyId',
+                                                    //     data?.id || '',
+                                                    // ),
+                                                    __handleChooseProperty(
+                                                        data,
+                                                    ),
                                             }}>
+                                            <GeneralRowForm
+                                                label="Property Parent"
+                                                isRequired>
+                                                <SearchProperty
+                                                    name="parentPropertyId"
+                                                    // dataProperty={
+                                                    //     __detail.property
+                                                    // }
+                                                    // isUseDataNetworkSettingToHandle={
+                                                    //     !isEmpty(
+                                                    //         __detail.property,
+                                                    //     )
+                                                    // }
+                                                    nameOfChange="chooseProperty"
+                                                    isUseHook
+                                                    isEdit={isEdit}
+                                                />
+                                            </GeneralRowForm>
+
                                             <GeneralRowForm
                                                 label="Nick Name"
                                                 isRequired>

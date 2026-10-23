@@ -36,6 +36,8 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [floorplanImage, setFloorplanImage] = useState('')
 
+    const [propertyParent, setPropertyParent] = useState({})
+
     const _handleSEOThumbnailRemove = () => {
         setSetSEOThumbnail('')
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
@@ -153,6 +155,45 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         isAutoGet: isEdit,
     })
 
+    // Property Parent Start
+    const _handleChooseProperty = (passData: any = null) => {
+        if (isEdit) {
+            setFormRequest((prev) => {
+                return {
+                    ...prev,
+                    parentProperty: passData || {},
+                    parentPropertyId: passData?.id || '',
+                }
+            })
+        } else {
+            setFormRequest({
+                ...propertyMapInitForm(passData),
+                tagIds: !isEmpty(passData.tags)
+                    ? passData.tags.map((vm) => vm.id)
+                    : [],
+                amenityIds: !isEmpty(passData.amenityIds)
+                    ? passData.amenityIds.map((vm) => vm.id)
+                    : [],
+
+                parentProperty: passData || {},
+                parentPropertyId: passData?.id || '',
+            })
+
+            setListTags(
+                passData?.tags && passData?.tags.length ? passData?.tags : [],
+            )
+
+            setListAmenities(
+                passData?.amenities && passData?.amenities.length
+                    ? passData?.amenities
+                    : [],
+            )
+
+            setFloorplanImage(passData?.floorplanImage || '')
+        }
+    }
+    // Property Parent End
+
     const isLoadingDetail = isEdit
         ? dataDetail.__isLoadingDetailFormRequest
         : false
@@ -200,6 +241,8 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // Submit / Cancel
         __handleSubmit: _handleSubmit,
         __handleCancel,
+
+        __handleChooseProperty: _handleChooseProperty,
     }
 }
 

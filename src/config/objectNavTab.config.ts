@@ -7,7 +7,7 @@ export const objectTab = (name: string, id: string, count: number = 0) => ({
 })
 
 export const objectTabContent = (
-    title: string | undefined,
+    title: string | ReactNode,
     content: ReactNode,
 ) => ({
     title,
