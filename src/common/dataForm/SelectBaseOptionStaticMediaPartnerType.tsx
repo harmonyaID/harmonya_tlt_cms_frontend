@@ -10,7 +10,7 @@ const SelectBaseOptionStaticMediaPartnerType = (
     return (
         <SelectBaseOption
             label="Media Partner Type"
-            name="mediaPartnerTypeId"
+            name="typeId"
             selectEmpty="- Select MediaPartnerType -"
             isRequired
             {...props}

@@ -50,6 +50,8 @@ import {
 import { APIResponse } from '@/type/resultAPI.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import FormInputDatePicker from '@/component/form/FormInputDatePicker.tsx'
+import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
 
 const initForm = {
     name: '',
@@ -57,7 +59,8 @@ const initForm = {
     url: '',
     isPublish: 1,
     logo: '',
-    // featureImage: '',
+    title: '',
+    date: '',
     typeId: '',
 }
 
@@ -67,7 +70,8 @@ const initMapForm = (passData) => ({
     url: passData.url || '',
     isPublish: passData.isPublish ? 1 : 0,
     logo: '',
-    // featureImage: '',
+    title: passData.title || '',
+    date: passData.date || '',
     typeId: passData?.type?.id || '',
 })
 
@@ -172,12 +176,18 @@ const TabTLTMediaPartner = () => {
     })
 
     const _handleAddSync = async (): Promise<APIResponse> => {
-        const dataForm = await objectToFormData({ ...__formRequest })
+        const dataForm = await objectToFormData({
+            ...__formRequest,
+            date: actionFormatDateStrict(__formRequest.date, 'YYYY-MM-DD'),
+        })
         return apiMediaPartner.addWithData(dataForm)
     }
 
     const _handleUpdateSync = async (): Promise<APIResponse> => {
-        const dataForm = await objectToFormData({ ...__formRequest })
+        const dataForm = await objectToFormData({
+            ...__formRequest,
+            date: actionFormatDateStrict(__formRequest.date, 'YYYY-MM-DD'),
+        })
         return apiMediaPartner.updateWithData(__selectedId, dataForm)
     }
 
@@ -221,6 +231,7 @@ const TabTLTMediaPartner = () => {
                             { content: 'Logo', className: 'w-10' },
                             'Name',
                             'Type',
+                            'Date',
                             'Description',
                             'Publish',
                             'Link',
@@ -231,7 +242,6 @@ const TabTLTMediaPartner = () => {
                             return (
                                 <tr key={index}>
                                     <td>
-                                        {/*{vm.image}*/}
                                         <PreviewFileModalLogic
                                             classNameWidth="avatar-46"
                                             dataUrl={vm.logo || ''}
@@ -239,11 +249,19 @@ const TabTLTMediaPartner = () => {
                                     </td>
                                     <td>
                                         <TblLineFirst value={vm.name} />
+                                        <TblPointData
+                                            title="Title"
+                                            value={vm.title || '-'}
+                                            className="my-2"
+                                        />
                                     </td>
                                     <td>
                                         <TblLineFirst
                                             value={vm?.type?.name || '-'}
                                         />
+                                    </td>
+                                    <td>
+                                        <TblLineFirst value={vm?.date || '-'} />
                                     </td>
                                     <td>
                                         <TblLineSecond>
@@ -338,6 +356,13 @@ const TabTLTMediaPartner = () => {
                                 required
                                 placeholder="e.g Global X"
                             />
+                            <FormInput
+                                label="Title"
+                                name="title"
+                                required
+                                placeholder="e.g Global X"
+                            />
+                            <FormInputDatePicker name="date" label="Date" />
                             <FormInput
                                 label="Url"
                                 name="url"
