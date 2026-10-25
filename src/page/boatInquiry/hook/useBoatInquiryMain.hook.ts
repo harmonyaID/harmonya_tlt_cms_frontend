@@ -18,14 +18,14 @@ import { isSuccess } from '@/helper/base/condition.helper.ts'
 import { useNavigate, useParams } from 'react-router'
 import { objDataSearchOther } from '@/config/objectPassState.config.ts'
 import {
+    defaultDateRangeSearch,
     RESTORE_COUNT,
     RESTORE_COUNT_ADVANCE,
     RESTORE_IS_USE_SEARCH,
 } from '@/config/advanceSearch.config.ts'
 
 const filterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    ...defaultDateRangeSearch,
     typeIds: [],
     limit: 50,
 })

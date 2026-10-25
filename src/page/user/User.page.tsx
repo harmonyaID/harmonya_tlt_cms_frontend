@@ -25,6 +25,7 @@ import { apiStaff } from '@/service/api/staff.api.ts'
 import UserTable from '@/page/user/component/UserTable.tsx'
 import moment from 'moment'
 import UserFilter from '@/page/user/component/UserFilter.tsx'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const UserPage = () => {
     const {
@@ -43,8 +44,7 @@ const UserPage = () => {
     } = useDataListHook({
         urlAPI: apiStaff.list,
         advancedSearch: {
-            fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-            toDate: moment().format('DD/MM/YYYY'),
+            ...defaultDateRangeSearch,
             roleIds: [],
             countryId: '',
             genderId: '',
