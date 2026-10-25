@@ -8,7 +8,6 @@ export const dataBoatTransferPage = {
         subTitle: '',
         boatTypeId: '',
         bannerPromoImage: '',
-        bannerPromoLabel: '',
     },
     SECTION3: {
         title: '',
