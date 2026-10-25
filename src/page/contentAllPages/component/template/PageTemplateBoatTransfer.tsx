@@ -57,12 +57,6 @@ const PageTemplateBoatTransfer = ({
                                     actions.change('SECTION2.' + name, value),
                             }}
                         />
-                        <FormInput
-                            label="Promo Label"
-                            name="bannerPromoLabel"
-                            value={SECTION2?.bannerPromoLabel || ''}
-                            placeholder="e.g 20%"
-                        />
                         <FormUploadFile
                             label="Promo Image"
                             {...defaultUploadFileProps}

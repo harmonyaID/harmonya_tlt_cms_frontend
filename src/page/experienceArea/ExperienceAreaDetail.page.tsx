@@ -18,6 +18,7 @@ import { objectTabContent } from '@/config/objectNavTab.config.ts'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import RenderHtml from '@/component/general/RenderHtml.tsx'
+import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
 
 const ExperienceAreaDetailPage = () => {
     const { id } = useParams()
@@ -181,11 +182,11 @@ const ExperienceAreaDetailPage = () => {
                                                                                     info.name
                                                                                 }
                                                                             </label>
-                                                                            <p className="fs-14 text-neutral-100 fw-semibold mb-0">
-                                                                                {
+                                                                            <TinyMCERenderer
+                                                                                content={
                                                                                     info.value
                                                                                 }
-                                                                            </p>
+                                                                            />
                                                                         </div>
                                                                     </div>
                                                                 ),
