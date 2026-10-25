@@ -50,6 +50,8 @@ import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 
 const defaultIsActive = 1
 
@@ -289,14 +291,28 @@ const TabTLTReview = () => {
                                             {vm.photos.length > 0 && (
                                                 <div className="hstack gap-2 flex-wrap">
                                                     {vm.photos.map((photo) => (
-                                                        <PreviewFileModalLogic
-                                                            key={photo.id}
-                                                            classNameWidth="avatar-46"
-                                                            dataUrl={
-                                                                photo.photo ||
-                                                                ''
-                                                            }
-                                                        />
+                                                        <div className="row">
+                                                            <div className="col-auto">
+                                                                <div className="position-relative float-end">
+                                                                    <div className="overflow-hidden rounded position-relative">
+                                                                        <div
+                                                                            className="wp-img-preview"
+                                                                            onClick={() => {}}>
+                                                                            <Image
+                                                                                src={
+                                                                                    photo.photo
+                                                                                }
+                                                                                alt="Preview File"
+                                                                                fallback={
+                                                                                    ImgGeneralDefault
+                                                                                }
+                                                                                className="data-img data-img-contain avatar-46 object-fit-cover"
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     ))}
                                                 </div>
                                             )}
