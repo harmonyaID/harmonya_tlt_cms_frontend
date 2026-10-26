@@ -14,6 +14,7 @@ import {
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
     TEMPLATE_PROPERTY_DETAIL,
+    TEMPLATE_SEARCH,
 } from '@/config/pageTemplate.config.ts'
 import PageTemplateAbout from '@/page/contentAllPages/component/template/PageTemplateAbout.tsx'
 import PageTemplateBlog from '@/page/contentAllPages/component/template/PageTemplateBlog.tsx'
@@ -25,6 +26,7 @@ import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
 import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
+import PageTemplateSearch from '@/page/contentAllPages/component/template/PageTemplateSearch.tsx'
 
 const PageMainFormTemplatePage = ({
     template,
@@ -55,6 +57,7 @@ const PageMainFormTemplatePage = ({
         [TEMPLATE_BOAT_TRANSFER]: (
             <PageTemplateBoatTransfer {...propsPageTemplate} />
         ),
+        [TEMPLATE_SEARCH]: <PageTemplateSearch {...propsPageTemplate} />,
 
         // Info Page
         [TEMPLATE_INFO_FAQ]: <PageTemplateFAQ {...propsPageTemplate} />,
