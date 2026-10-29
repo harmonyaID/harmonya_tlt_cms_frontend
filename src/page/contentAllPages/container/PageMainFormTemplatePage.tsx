@@ -58,6 +58,7 @@ const PageMainFormTemplatePage = ({
             <PageTemplateBoatTransfer {...propsPageTemplate} />
         ),
         [TEMPLATE_SEARCH]: <PageTemplateSearch {...propsPageTemplate} />,
+        [TEMPLATE_ABOUT]: <PageTemplateAbout {...propsPageTemplate} />,
 
         // Info Page
         [TEMPLATE_INFO_FAQ]: <PageTemplateFAQ {...propsPageTemplate} />,
