@@ -3,10 +3,10 @@ import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import moment from 'moment'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const contentBlogFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    ...defaultDateRangeSearch,
     categoryIds: [],
     tagIds: [],
     limit: 50,

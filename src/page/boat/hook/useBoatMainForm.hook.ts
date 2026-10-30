@@ -123,7 +123,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                 }
 
                 if (res?.priceFiles) {
-                    setPreviewPriceFile(res?.priceFiles[0].file)
+                    setPreviewPriceFile(res?.priceFiles[0]?.file)
                 }
 
                 if (res?.mapImage) {

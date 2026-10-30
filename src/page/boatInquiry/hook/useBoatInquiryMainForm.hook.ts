@@ -15,63 +15,77 @@ const defaultActive = '1'
 
 const initForm = {
     boatId: '',
-    name: '',
-    email: '',
-    phone: '',
     ticketType: 'one_way',
-    baliLandLocation: '',
+    fromLocation: '',
+    toLocation: '',
+    departureDate: '',
+    departureTime: '',
+    returnDate: '',
+    returnTime: '',
+    adultCount: '1',
+    childCount: '0',
+    infantCount: '0',
+
+    name: '',
+    phoneCountryCode: '',
+    phone: '',
+    email: '',
+
+    needLandTransport: defaultActive,
+    departurePickupPoint: '',
+    departurePickupFlightNumber: '',
+    departurePickupArrivalTime: '',
+    departureDropOffPoint: '',
+    departureDropOffLocation: '',
+    departureDropOffArrivalTime: '',
+
+    returnPickupPoint: '',
+    returnPickupLocation: '',
+    returnPickupCheckoutTime: '',
+    returnDropOffPoint: '',
+    returnDropOffLocation: '',
+
     bookedThroughTlt: defaultActive,
     tltBookingRefName: '',
-    adultCount: 1,
-    childCount: 0,
-    infantCount: 0,
-    departureDateFromBali: '',
-    departureTimeFromBali: '',
-    pickUpLocationBali: '',
-    flightNumber: '',
-    arrivalTime: '',
-    hotelNameBali: '',
-    hotelContactBali: '',
-    departureDateFromLembongan: '',
-    departureTimeFromLembongan: '',
-    dropOffLocationBali: '',
-    flightTime: '',
-    hotelNameLembongan: '',
-    accommodationLembongan: '',
-    passengerNames: '',
-    hasSurfboard: defaultActive,
-    hearAboutUs: '',
+    hasSurfboard: '0',
     message: '',
 }
 
-const initMapForm = (passData) => ({
+const initMapForm = (passData): Record<keyof typeof initForm, any> => ({
     boatId: passData?.boat?.id || '',
+    ticketType: passData?.ticketType || 'one_way',
+    adultCount: passData?.adultCount || '1',
+    childCount: passData?.childCount || '0',
+    infantCount: passData?.infantCount || '0',
+    fromLocation: passData?.fromLocation || '',
+    toLocation: passData?.toLocation || '',
+    departureDate: passData?.departureDate || '',
+    departureTime: passData?.departureTime || '',
+    returnDate: passData?.returnDate || '',
+    returnTime: passData?.returnTime || '',
+
     name: passData?.name || '',
     email: passData?.email || '',
     phone: passData?.phone || '',
-    ticketType: passData?.ticketType || 'one_way',
-    baliLandLocation: passData?.baliLandLocation || '',
+    phoneCountryCode: passData?.phoneCountryCode || '',
+
+    needLandTransport: passData?.fromLocation || defaultActive,
+    departurePickupPoint: passData?.departurePickupPoint || '',
+    departurePickupFlightNumber: passData?.departurePickupFlightNumber || '',
+    departurePickupArrivalTime: passData?.departurePickupArrivalTime || '',
+    departureDropOffPoint: passData?.departureDropOffPoint || '',
+    departureDropOffLocation: passData?.departureDropOffLocation || '',
+    departureDropOffArrivalTime: passData?.departureDropOffArrivalTime || '',
+
+    returnPickupPoint: passData?.returnPickupPoint || '',
+    returnPickupLocation: passData?.returnPickupLocation || '',
+    returnPickupCheckoutTime: passData?.returnPickupCheckoutTime || '',
+    returnDropOffPoint: passData?.returnDropOffPoint || '',
+    returnDropOffLocation: passData?.returnDropOffLocation || '',
+
     bookedThroughTlt: passData?.bookedThroughTlt ? defaultActive : '0',
     tltBookingRefName: passData?.tltBookingRefName || '',
-    adultCount: passData?.adultCount || 1,
-    childCount: passData?.childCount || 1,
-    infantCount: passData?.infantCount || 1,
-    departureDateFromBali: passData?.departureDateFromBali || '',
-    departureTimeFromBali: passData?.departureTimeFromBali || '',
-    pickUpLocationBali: passData?.pickUpLocationBali || '',
-    flightNumber: passData?.flightNumber || '',
-    arrivalTime: passData?.arrivalTime || '',
-    hotelNameBali: passData?.hotelNameBali || '',
-    hotelContactBali: passData?.hotelContactBali || '',
-    departureDateFromLembongan: passData?.departureDateFromLembongan || '',
-    departureTimeFromLembongan: passData?.departureTimeFromLembongan || '',
-    dropOffLocationBali: passData?.dropOffLocationBali || '',
-    flightTime: passData?.flightTime || '',
-    hotelNameLembongan: passData?.hotelNameLembongan || '',
-    accommodationLembongan: passData?.accommodationLembongan || '',
-    passengerNames: passData?.passengerNames || '',
-    hasSurfboard: passData?.hasSurfBoard ? defaultActive : '0',
-    hearAboutUs: passData?.hearAboutUs || '',
+    hasSurfboard: passData?.hasSurfboard || '0',
     message: passData?.message || '',
 })
 
@@ -81,7 +95,9 @@ const useBoatInquiryMainForm = () => {
 
     const restored = useLocationStateHook()
 
-    const [formRequest, setFormRequest] = useState({ ...initForm })
+    const [formRequest, setFormRequest] = useState<
+        Record<keyof typeof initForm, any>
+    >({ ...initForm })
     const [isLoading, setIsLoading] = useState(false)
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
@@ -105,19 +121,19 @@ const useBoatInquiryMainForm = () => {
     const _handleSubmit = () => {
         const payload = {
             ...formRequest,
-            departureDateFromBali: actionFormatDateStrict(
-                formRequest.departureDateFromBali,
+            departureDate: actionFormatDateStrict(
+                formRequest.departureDate,
                 'YYYY-MM-DD',
             ),
-            departureDateFromLembongan: actionFormatDateStrict(
-                formRequest.departureDateFromLembongan,
+            returnDate: actionFormatDateStrict(
+                formRequest.returnDate,
                 'YYYY-MM-DD',
             ),
         }
 
         setIsLoading(true)
         apiBoatContactForm
-            .addWithData(payload)
+            .add(payload)
             .then((res) => {
                 if (isSuccess(res)) {
                     _handleToMain()

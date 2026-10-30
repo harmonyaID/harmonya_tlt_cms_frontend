@@ -15,6 +15,7 @@ import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.ts
 import UserTable from '@/page/user/component/UserTable.tsx'
 import UserFilter from '@/page/user/component/UserFilter.tsx'
 import moment from 'moment/moment'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const UserTrashPage = () => {
     const {
@@ -32,8 +33,7 @@ const UserTrashPage = () => {
     } = useDataListHook({
         urlAPI: getStaffTrash,
         advancedSearch: {
-            fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-            toDate: moment().format('DD/MM/YYYY'),
+            ...defaultDateRangeSearch,
             roleIds: [],
             countryId: '',
             genderId: '',

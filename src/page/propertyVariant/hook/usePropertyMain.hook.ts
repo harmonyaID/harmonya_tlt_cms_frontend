@@ -3,10 +3,10 @@ import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import propertyPath from '@/path/property.path.ts'
 import propertyVariantPath from '@/path/propertyVariant.path.ts'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const propertyFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    ...defaultDateRangeSearch,
     propertyTypeIds: [],
     tagIds: [],
     area: '',

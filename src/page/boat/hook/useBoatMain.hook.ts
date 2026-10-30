@@ -3,10 +3,10 @@ import { apiBoat } from '@/service/api/boatManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import moment from 'moment/moment'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const boatFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    ...defaultDateRangeSearch,
     typeIds: [],
     limit: 50,
 })

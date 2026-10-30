@@ -3,6 +3,7 @@ import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import {
     TEMPLATE_ABOUT,
     TEMPLATE_BLOG,
+    TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
     TEMPLATE_INFO_CONTACT,
     TEMPLATE_INFO_FAQ,
@@ -13,6 +14,7 @@ import {
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
     TEMPLATE_PROPERTY_DETAIL,
+    TEMPLATE_SEARCH,
 } from '@/config/pageTemplate.config.ts'
 import PageTemplateAbout from '@/page/contentAllPages/component/template/PageTemplateAbout.tsx'
 import PageTemplateBlog from '@/page/contentAllPages/component/template/PageTemplateBlog.tsx'
@@ -23,6 +25,8 @@ import PageTemplateGeneralHero from '@/page/contentAllPages/component/template/P
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
+import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
+import PageTemplateSearch from '@/page/contentAllPages/component/template/PageTemplateSearch.tsx'
 
 const PageMainFormTemplatePage = ({
     template,
@@ -50,6 +54,11 @@ const PageMainFormTemplatePage = ({
         [TEMPLATE_ISLAND_GUIDE]: (
             <PageTemplateExperience {...propsPageTemplate} />
         ),
+        [TEMPLATE_BOAT_TRANSFER]: (
+            <PageTemplateBoatTransfer {...propsPageTemplate} />
+        ),
+        [TEMPLATE_SEARCH]: <PageTemplateSearch {...propsPageTemplate} />,
+        [TEMPLATE_ABOUT]: <PageTemplateAbout {...propsPageTemplate} />,
 
         // Info Page
         [TEMPLATE_INFO_FAQ]: <PageTemplateFAQ {...propsPageTemplate} />,

@@ -3,6 +3,7 @@ import FormInput from '@/component/form/FormInput.tsx'
 import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import setNestedValue from '@/helper/setNestedValue.helper.ts'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 
 const CustomInfoForm = ({
     group,
@@ -73,39 +74,43 @@ const CustomInfoForm = ({
             />
             <div className="vstack gap-2 align-items-start mb-2">
                 {formRequest?.customInformations?.map((info, index) => (
-                    <div key={index} className="row align-items-end w-100">
-                        <div className="col">
-                            <FormInput
-                                label="Name"
-                                name={`customInformations[${index}].name`}
-                                className="mb-0"
-                                placeholder="e.g Capacity"
-                                required
-                                value={info.name}
-                                actions={{
-                                    onChange: _handleChange,
-                                }}
-                            />
-                        </div>
-                        <div className="col">
-                            <FormInput
-                                label="Value"
-                                name={`customInformations[${index}].value`}
-                                className="mb-0"
-                                placeholder="e.g Capacity"
-                                value={info.value}
-                                actions={{
-                                    onChange: _handleChange,
-                                }}
-                            />
-                        </div>
-                        <div className="col-auto">
-                            <BtnCircleRemove
-                                className="mb-1"
-                                actions={{
-                                    remove: () => _handleRemove(index),
-                                }}
-                            />
+                    <div key={index} className="w-100 ps-4">
+                        <div className="row">
+                            <div className="col">
+                                <div className="vstack gap-2 ">
+                                    <FormInput
+                                        label="Name"
+                                        name={`customInformations[${index}].name`}
+                                        className="mb-0"
+                                        placeholder="e.g Value"
+                                        required
+                                        value={info.name}
+                                        actions={{
+                                            onChange: _handleChange,
+                                        }}
+                                    />
+                                    <FormTinyMCE
+                                        isSimple
+                                        label="Value"
+                                        name={`customInformations[${index}].value`}
+                                        className="mb-0"
+                                        isUseHook={false}
+                                        placeholder="e.g Value"
+                                        value={info.value}
+                                        actions={{
+                                            onChange: _handleChange,
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-auto">
+                                <BtnCircleRemove
+                                    className="mb-1"
+                                    actions={{
+                                        remove: () => _handleRemove(index),
+                                    }}
+                                />
+                            </div>
                         </div>
                     </div>
                 ))}
