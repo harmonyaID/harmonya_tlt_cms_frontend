@@ -141,6 +141,14 @@ const ExperienceAreaMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
+                                        <GeneralRowForm label="Additional Content">
+                                            <FormTinyMCE
+                                                name="additionalContent"
+                                                placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
+                                                isSimple
+                                            />
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm label="Custom Informations">
                                             <div className="vstack gap-3">
                                                 {__formRequest.customInformations?.map(
