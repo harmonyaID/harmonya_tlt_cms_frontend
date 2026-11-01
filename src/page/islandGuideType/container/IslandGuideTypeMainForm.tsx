@@ -97,6 +97,14 @@ const IslandGuideTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
+                                        <GeneralRowForm label="Additional Content">
+                                            <FormTinyMCE
+                                                name="additionalContent"
+                                                placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
+                                                isSimple
+                                            />
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm label="Excerpt">
                                             <FormTinyMCE
                                                 name="excerpt"
