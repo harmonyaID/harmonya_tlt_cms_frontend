@@ -20,7 +20,6 @@ const defaultIsActive = 1
 const initMapForm = (passData) => {
     return {
         islandGuideTypeId: passData?.type?.id || '',
-        islandGuideAreaId: passData?.area?.id || '',
         name: passData.name || '',
         openHours: passData.openHours || '',
         description: passData.description || '',
@@ -44,7 +43,6 @@ const initMapForm = (passData) => {
 
 const initForm = {
     islandGuideTypeId: '',
-    islandGuideAreaId: '',
     name: '',
     openHours: '',
     description: '',

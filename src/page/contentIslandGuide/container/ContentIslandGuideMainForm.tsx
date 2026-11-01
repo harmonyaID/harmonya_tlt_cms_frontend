@@ -78,18 +78,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         urlAPI: ({ search }) => apiIslandGuideType.list({ search, page: 0 }),
     })
 
-    // List Option Category
-    // const { __list: categoryList, __isLoading: isCategoryLoading } =
-    //     useDataListHook({
-    //         urlAPI: ({ search }) =>
-    //             apiExperienceCategory.list({ search, page: 0 }),
-    //     })
-
-    // List Option Area
-    const { __list: areaList, __isLoading: isAreaLoading } = useDataListHook({
-        urlAPI: ({ search }) => apiIslandGuideArea.list({ search, page: 0 }),
-    })
-
     return (
         <>
             <NavBreadcrumb
@@ -135,14 +123,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired>
                                                 <SelectOptionIslandGuideType
                                                     name="islandGuideTypeId"
-                                                    isUseHook
-                                                />
-                                            </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Area"
-                                                isRequired>
-                                                <SelectOptionIslandGuideArea
-                                                    name="islandGuideAreaId"
                                                     isUseHook
                                                 />
                                             </GeneralRowForm>

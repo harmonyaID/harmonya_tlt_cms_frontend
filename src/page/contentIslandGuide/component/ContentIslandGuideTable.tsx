@@ -90,16 +90,6 @@ const ContentExperienceTable = ({
                                                 <TblLineFirstPrimary
                                                     value={vm?.name || '-'}
                                                 />
-
-                                                <TblPointData title="Area">
-                                                    <BadgeStatusGeneral
-                                                        value={
-                                                            vm?.area?.name ||
-                                                            '-'
-                                                        }
-                                                        className="text-bg-neutral-300 fw-normal"
-                                                    />
-                                                </TblPointData>
                                             </div>
                                         </div>
                                     </td>

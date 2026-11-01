@@ -163,11 +163,6 @@ const ContentExperienceDetailPage = () => {
                                                             '-',
                                                     ),
                                                     objectListDetail(
-                                                        'Area',
-                                                        __detail?.area?.name ||
-                                                            '-',
-                                                    ),
-                                                    objectListDetail(
                                                         'Open Hours',
                                                         __detail?.openHours ||
                                                             '-',
