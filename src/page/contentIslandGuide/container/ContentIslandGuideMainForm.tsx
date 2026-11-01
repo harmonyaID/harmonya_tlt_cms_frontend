@@ -29,6 +29,8 @@ import {
 import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
 import SelectOptionPage from '@/common/dataForm/SelectOptionPage.tsx'
 import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
+import SelectOptionIslandGuideType from '@/common/dataForm/SelectOptionIslandGuideType.tsx'
+import SelectOptionIslandGuideArea from '@/common/dataForm/SelectOptionIslandGuideArea.tsx'
 
 const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -135,64 +137,18 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <GeneralRowForm
                                                 label="Type"
                                                 isRequired>
-                                                <FormSelectOption
+                                                <SelectOptionIslandGuideType
                                                     name="islandGuideTypeId"
-                                                    disabled={isTypeLoading}
-                                                    required
-                                                    value={
-                                                        __formRequest.islandGuideTypeId
-                                                    }
-                                                    actions={{
-                                                        onChange: (
-                                                            name,
-                                                            value,
-                                                        ) => {
-                                                            __setFormRequest(
-                                                                (prev) => ({
-                                                                    ...prev,
-                                                                    [name]: value,
-                                                                }),
-                                                            )
-                                                        },
-                                                    }}>
-                                                    <option value="">
-                                                        - Select Type -
-                                                    </option>
-                                                    {typeList.map(
-                                                        (vm, index) => (
-                                                            <option
-                                                                key={index}
-                                                                value={vm.id}>
-                                                                {vm.name}
-                                                            </option>
-                                                        ),
-                                                    )}
-                                                </FormSelectOption>
+                                                    isUseHook
+                                                />
                                             </GeneralRowForm>
                                             <GeneralRowForm
                                                 label="Area"
                                                 isRequired>
-                                                <FormSelectOption
+                                                <SelectOptionIslandGuideArea
                                                     name="islandGuideAreaId"
-                                                    disabled={isAreaLoading}
-                                                    required>
-                                                    <option value="">
-                                                        - Select Area -
-                                                    </option>
-                                                    {areaList
-                                                        // .filter(
-                                                        //     (vm) =>
-                                                        //         vm.type.id !==
-                                                        //         __formRequest.experienceAreaId,
-                                                        // )
-                                                        .map((vm, index) => (
-                                                            <option
-                                                                key={index}
-                                                                value={vm.id}>
-                                                                {vm.name}
-                                                            </option>
-                                                        ))}
-                                                </FormSelectOption>
+                                                    isUseHook
+                                                />
                                             </GeneralRowForm>
                                             <GeneralRowForm
                                                 label="Open Hours"
