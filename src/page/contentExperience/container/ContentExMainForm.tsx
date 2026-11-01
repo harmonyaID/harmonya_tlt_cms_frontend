@@ -243,6 +243,14 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     isSimple
                                                 />
                                             </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Additional Content"
+                                                isRequired>
+                                                <FormTinyMCE
+                                                    name="additionalContent"
+                                                    isSimple
+                                                />
+                                            </GeneralRowForm>
                                         </WrapFormContext>
 
                                         <WrapFormContext
