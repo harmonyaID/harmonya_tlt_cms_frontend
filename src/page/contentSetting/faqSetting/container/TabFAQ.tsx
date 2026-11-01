@@ -55,7 +55,7 @@ const initForm = {
 }
 
 const initMapForm = (passData) => ({
-    typeId: passData.typeId || 1,
+    typeId: passData.type?.id || 1,
     question: passData.question || '',
     answer: passData.answer || '',
     order: passData.order || '',
