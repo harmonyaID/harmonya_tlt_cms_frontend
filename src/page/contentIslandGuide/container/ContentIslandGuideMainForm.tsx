@@ -16,10 +16,6 @@ import { objectNavBread } from '@/config/objectNavBread.config.ts'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useFormDataFilesHook from '@/hook/dev/useFormDataFiles.hook.ts'
-import useUploadFileFormRequestHook from '@/hook/useUploadFileFormRequest.hook.ts'
-import useContentExMainFormHook from '@/page/contentExperience/hook/useContentExMainForm.hook.ts'
-import contentBlogPath from '@/path/contentBlog.path.ts'
-import contentExperiencePath from '@/path/contentExperience.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import useContentIslandGuideMainFormHook from '@/page/contentIslandGuide/hook/useContentIslandGuideMainForm.hook.ts'
 import {
@@ -164,6 +160,14 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired>
                                                 <FormTinyMCE
                                                     name="description"
+                                                    isSimple
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Additional Content"
+                                                isRequired>
+                                                <FormTinyMCE
+                                                    name="additionalContent"
                                                     isSimple
                                                 />
                                             </GeneralRowForm>

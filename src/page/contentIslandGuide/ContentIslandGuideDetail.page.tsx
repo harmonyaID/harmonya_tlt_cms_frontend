@@ -187,6 +187,21 @@ const ContentExperienceDetailPage = () => {
                                                             '-'
                                                         ),
                                                     ),
+                                                    objectListDetail(
+                                                        'Additional Content',
+                                                        __detail.additionalContent ? (
+                                                            <div
+                                                                className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        __detail?.additionalContent ||
+                                                                        '-',
+                                                                }}
+                                                            />
+                                                        ) : (
+                                                            '-'
+                                                        ),
+                                                    ),
                                                 ]}
                                             />
                                         </div>
