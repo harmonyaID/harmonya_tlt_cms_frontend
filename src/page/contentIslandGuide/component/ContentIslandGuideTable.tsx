@@ -90,6 +90,8 @@ const ContentExperienceTable = ({
                                                 <TblLineFirstPrimary
                                                     value={vm?.name || '-'}
                                                 />
+
+                                                <TblPointData title="Type" value={vm?.type?.name || '-'}/>
                                             </div>
                                         </div>
                                     </td>
