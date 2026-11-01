@@ -47,8 +47,8 @@ const usePageMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     // START SECTION NESTED FORM
     const _handleSectionInput = (name?: any, value: any = '') => {
-        console.log('name: ', name)
-        console.log('value: ', value)
+        // console.log('name: ', name)
+        // console.log('value: ', value)
         setFormRequest((prevState) => setNestedValue(prevState, name, value))
     }
 
