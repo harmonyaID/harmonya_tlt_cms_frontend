@@ -112,6 +112,20 @@ const ContentBlogDetailPage = () => {
                                                 '-'
                                             ),
                                         ),
+                                        objectListDetail(
+                                            'Additional Content',
+                                            __detail.additionalContent ? (
+                                                <div className="p-3 bg-neutral-600 rounded-2 border-neutral-500">
+                                                    <TinyMCERenderer
+                                                        content={
+                                                            __detail.additionalContent
+                                                        }
+                                                    />
+                                                </div>
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
                                     ]}
                                 />
 
