@@ -28,6 +28,7 @@ import {
 } from '@/service/api/contentManageSetting.api.ts'
 import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
 import SelectOptionPage from '@/common/dataForm/SelectOptionPage.tsx'
+import FormEditFileLogic from '@/common/misc/FormEditFile.logic.tsx'
 
 const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -36,6 +37,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __isLoading,
         __isLoadingDetail,
         __pageStateDataSearch,
+
         __handleChange,
         __handleChangeWithParent,
         __handleArrAddMulti,
@@ -45,6 +47,10 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __previewThumbnail,
         __setPreviewThumbnail,
         __handleThumbnailRemove,
+
+        //Photos
+        __listPreviousPhotos,
+        __handleToggleDeletePrevPhotos,
 
         // Map Image
         __previewMapImage,
@@ -64,26 +70,10 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     // Photos
     const {
         __dataFiles,
-        __handleAddFiles: __actionAddFiles,
-        __handleSetDataFiles: __actionSetDataFiles,
-        __handleRemoveDataFile: __actionRemoveDataFile,
-    } = useUploadFileFormRequestHook({
-        formRequest: __formRequest,
-        setFormRequest: __setFormRequest,
-        keyFormRequest: 'photos',
-        withMimeType: true,
-        isLoadData: isEdit,
-        externalFormRequest: { order: 0 },
-    })
-
-    const _handleRemovePhoto = (index, idFile) => {
-        __setFormRequest((prev) => ({
-            ...prev,
-            deletePhotoIds: [...prev.deletePhotoIds, idFile],
-        }))
-
-        __actionRemoveDataFile(index, idFile)
-    }
+        __actionAddFiles,
+        __actionSetDataFiles,
+        __actionRemoveDataFile,
+    } = useFormDataFilesHook(__formRequest, __setFormRequest, 'photos')
 
     // List Option Type
     const { __list: typeList, __isLoading: isTypeLoading } = useDataListHook({
@@ -223,6 +213,25 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             </GeneralRowForm>
                                         </WrapFormContext>
 
+                                        {/*New Photos*/}
+                                        {isEdit &&
+                                        __listPreviousPhotos?.length ? (
+                                            <GeneralRowForm label="Previous Photos">
+                                                <FormEditFileLogic
+                                                    dataFiles={__listPreviousPhotos.filter(
+                                                        (vm) => !vm.isDeleted,
+                                                    )}
+                                                    dataBy="photo"
+                                                    actions={{
+                                                        remove: (data) =>
+                                                            __handleToggleDeletePrevPhotos(
+                                                                data.id,
+                                                            ),
+                                                        restore: () => {},
+                                                    }}
+                                                />
+                                            </GeneralRowForm>
+                                        ) : null}
                                         <WrapFormContext
                                             formRequest={__formRequest}
                                             actions={{
@@ -232,7 +241,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 handleSetDataFiles:
                                                     __actionSetDataFiles,
                                                 handleRemoveDataFile:
-                                                    _handleRemovePhoto,
+                                                    __actionRemoveDataFile,
                                                 handleArrChange:
                                                     __handleArrChange,
                                             }}>
@@ -241,7 +250,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired>
                                                 <FormUploadFileWithActionPreviewLogic
                                                     isUseInputDesc={false}
-                                                    dataBy="photo"
                                                     formName="photos"
                                                     dataFiles={__dataFiles}
                                                     formRequest={__formRequest}
