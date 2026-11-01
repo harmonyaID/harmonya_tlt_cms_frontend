@@ -16,6 +16,7 @@ import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
+import RenderHtml from '@/component/general/RenderHtml.tsx'
 
 const BoatDetailPage = () => {
     const {
@@ -138,6 +139,12 @@ const BoatDetailPage = () => {
                                     objectListDetail(
                                         'Created At',
                                         __detail.createdAt || '-',
+                                    ),
+                                    objectListDetail(
+                                        'Additional Content',
+                                        <RenderHtml
+                                            html={__detail.additionalContent}
+                                        />,
                                     ),
                                 ]}
                             />

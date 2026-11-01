@@ -247,6 +247,13 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
+                                        <GeneralRowForm label="Additional Content">
+                                            <FormTinyMCE
+                                                name="additionalContent"
+                                                isSimple
+                                            />
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm
                                             label="Status Active"
                                             isRequired>
