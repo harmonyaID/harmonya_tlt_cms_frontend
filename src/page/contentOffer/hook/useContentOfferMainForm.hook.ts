@@ -24,6 +24,7 @@ const initForm = {
     title: '',
     slug: '',
     excerpt: '',
+    additionalContent: '',
     content: '', // text editor
     publishedAt: moment().format('DD/MM/YYYY') || '',
     startDate: moment().format('DD/MM/YYYY') || '',
@@ -41,12 +42,13 @@ const initMapForm = (passData) => ({
     title: passData?.title || '',
     slug: passData?.slug || '',
     excerpt: passData?.excerpt || '',
+    additionalContent: passData?.additionalContent || '',
     content: passData?.content || '', // text editor
     publishedAt: passData?.publishedAt || moment().format('DD/MM/YYYY'),
     startDate: passData?.startDate || moment().format('DD/MM/YYYY'),
     endDate: passData?.endDate || moment().format('DD/MM/YYYY'),
     isActive: passData?.isActive ? defaultActive : '0',
-    thumbnail: passData?.thumbnail || '',
+    thumbnail: '',
     propertyIds: passData?.properties?.map((p) => p.id),
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
