@@ -58,6 +58,7 @@ import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 const initForm = {
     name: '',
     description: '',
+    additionalContent: '',
     url: '',
     isPublish: 1,
     logo: '',
@@ -69,6 +70,7 @@ const initForm = {
 const initMapForm = (passData) => ({
     name: passData.name || '',
     description: passData.description || '',
+    additionalContent: passData.additionalContent || '',
     url: passData.url || '',
     isPublish: passData.isPublish ? 1 : 0,
     logo: '',
@@ -285,6 +287,12 @@ const TabTLTMediaPartner = () => {
                                         <TblLineSecond>
                                             {vm.description || '-'}
                                         </TblLineSecond>
+
+                                        <TblPointData
+                                            title="Additional Content"
+                                            value={vm.additionalContent || '-'}
+                                            className="my-2"
+                                        />
                                     </td>
                                     <td>
                                         <TextTrueOrFalse value={vm.isPublish} />
@@ -391,6 +399,12 @@ const TabTLTMediaPartner = () => {
                             <FormTextArea
                                 label="Description"
                                 name="description"
+                                required
+                                placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
+                            />
+                            <FormTextArea
+                                label="Additional Content"
+                                name="additionalContent"
                                 required
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
                             />
