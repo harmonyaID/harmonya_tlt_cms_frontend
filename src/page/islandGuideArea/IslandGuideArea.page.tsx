@@ -177,6 +177,19 @@ const IslandGuideAreaPage = () => {
                                             '-'
                                         ),
                                     ),
+                                    objectListDetail(
+                                        'Additional Content',
+                                        __detail.additionalContent ? (
+                                            <RenderHtml
+                                                className="bg-neutral-500 py-2 px-3 rounded-2 text-break"
+                                                html={
+                                                    __detail.additionalContent
+                                                }
+                                            />
+                                        ) : (
+                                            '-'
+                                        ),
+                                    ),
                                 ]}
                             />
 

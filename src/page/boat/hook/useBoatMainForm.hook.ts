@@ -17,6 +17,7 @@ const initForm = {
     name: '',
     boatComponentTypeId: '',
     description: '',
+    additionalContent: '',
     isActive: defaultActive,
     priceFiles: [],
     promoPhotos: [],
@@ -35,6 +36,7 @@ const initMapForm = (passData) => ({
     name: passData?.name || '',
     boatComponentTypeId: passData?.boatComponentType?.id || '',
     description: passData.description || '',
+    additionalContent: passData.additionalContent || '',
     customInformations: passData?.customInformations?.length
         ? passData.customInformations
         : [],

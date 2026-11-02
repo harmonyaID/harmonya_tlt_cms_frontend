@@ -12,6 +12,7 @@ import { isArray, isEmpty, isObject } from 'lodash'
 const initForm = {
     name: '',
     description: '',
+    additionalContent: '',
     featuredImage: '',
     deleteFeaturedImage: '',
     banner: '',
@@ -25,6 +26,7 @@ const initForm = {
 const initMapForm = (passData) => ({
     name: passData.name || '',
     description: passData?.description || '',
+    additionalContent: passData?.additionalContent || '',
     featuredImage: '', //passData?.featuredImage || '',
     deleteFeaturedImage: passData?.deleteFeaturedImage || '',
     banner: '', //passData?.banner || '',
@@ -133,7 +135,7 @@ const useExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         : false
 
     const _handleBlogChoose = (newBlog) => {
-        if(formRequest.blogIds.length == 2){
+        if (formRequest.blogIds.length == 2) {
             return
         }
 

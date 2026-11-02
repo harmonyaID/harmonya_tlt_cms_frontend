@@ -5,6 +5,7 @@ import SelectBaseOptionExpType from '@/common/dataForm/SelectBaseOptionExpType.t
 import SelectBaseOptionExpArea from '@/common/dataForm/SelectBaseOptionExpArea.tsx'
 import SelectOptionExperienceArea from '@/common/dataForm/SelectOptionExperienceArea.tsx'
 import SelectOptionExperienceType from '@/common/dataForm/SelectOptionExperienceType.tsx'
+import SelectOptionIslandGuideType from '@/common/dataForm/SelectOptionIslandGuideType.tsx'
 
 const ContentIslandGuideFilter = ({
     __search,
@@ -41,17 +42,8 @@ const ContentIslandGuideFilter = ({
             baseContent={
                 <>
                     <div className="col-md-4 col-lg-2">
-                        <SelectOptionExperienceArea
-                            name="islandGuidesAreaIds"
-                            placeholder="Select Area"
-                            isUseHook
-                            className="mb-lg-0 mb-2"
-                            label="Area"
-                        />
-                    </div>
-                    <div className="col-md-4 col-lg-2">
-                        <SelectOptionExperienceType
-                            name="islandGuidesTypeIds"
+                        <SelectOptionIslandGuideType
+                            name="islandGuideTypeIds"
                             isUseHook
                             className="mb-lg-0 mb-2"
                             label="Type"

@@ -21,6 +21,7 @@ const initForm = {
     slug: '',
     excerpt: '',
     content: '', // text editor
+    additionalContent: '',
     author: '',
     publishedAt: formatDatePublish() || '',
     isActive: defaultActive,
@@ -40,6 +41,7 @@ const initMapForm = (passData) => ({
     slug: passData?.slug || '',
     excerpt: passData?.excerpt || '',
     content: passData?.content || '', // text editor
+    additionalContent: passData?.additionalContent || '',
     author: passData?.author || '',
     publishedAt: formatDatePublish() || '',
     isActive: passData?.isActive ? defaultActive : '0',

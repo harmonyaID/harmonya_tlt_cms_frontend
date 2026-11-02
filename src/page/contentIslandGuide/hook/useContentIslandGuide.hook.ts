@@ -8,8 +8,7 @@ import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const filterParam = () => ({
     ...defaultDateRangeSearch,
-    islandGuidesTypeIds: [],
-    islandGuidesAreaIds: [],
+    islandGuideTypeIds: [],
     limit: 50,
 })
 

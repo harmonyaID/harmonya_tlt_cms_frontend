@@ -376,7 +376,7 @@ const MainMenu = ({ idDataBsParent = '#sidebarMenu' }: MainMenuProps) => {
                     idControl="island-guide-setting"
                     subMenus={[
                         _configParamSubMenu('Type', islandGuideTypePath.main),
-                        _configParamSubMenu('Area', islandGuideAreaPath.main),
+                        // _configParamSubMenu('Area', islandGuideAreaPath.main),
                     ]}
                 />
             </li>

@@ -22,6 +22,7 @@ const initMapForm = (passData) => {
         name: passData.name || '',
         openHours: passData.openHours || '',
         description: passData.description || '',
+        additionalContent: passData.additionalContent || '',
         mapLocationUrl: passData.mapLocationUrl || '',
         whatsapp: passData.whatsapp || '',
         instagram: passData.instagram || '',
@@ -44,6 +45,7 @@ const initForm = {
     name: '',
     openHours: '',
     description: '',
+    additionalContent: '',
     mapLocationUrl: '',
     whatsapp: '',
     instagram: '',
@@ -143,7 +145,9 @@ const useContentExMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
     const _handlePrepareData = (): any => {
         const updated = { ...formRequest }
 
-        updated.photos = updated.photos.filter((vm) => !('id' in vm)).map((vm) => vm.file)
+        updated.photos = updated.photos
+            .filter((vm) => !('id' in vm))
+            .map((vm) => vm.file)
         updated.catalogs = updated.catalogs.filter((vm) => !('id' in vm))
 
         return updated
