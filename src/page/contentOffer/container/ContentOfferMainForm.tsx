@@ -144,6 +144,13 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     placeholder="e.g Nusa Lembongan is a stunning island just 30 minutes from Bali."
                                                 />
                                             </GeneralRowForm>
+                                            <GeneralRowForm label="Additional Content">
+                                                <FormTinyMCE
+                                                    name="additionalContent"
+                                                    height={300}
+                                                    placeholder="e.g Nusa Lembongan is a stunning island just 30 minutes from Bali."
+                                                />
+                                            </GeneralRowForm>
 
                                             <GeneralRowForm
                                                 label="Content"

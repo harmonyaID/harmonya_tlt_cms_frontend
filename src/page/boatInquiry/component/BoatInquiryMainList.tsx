@@ -218,8 +218,8 @@ const BoatInquiryMainList = ({ title }: { title: string }) => {
                                         __detail.boat?.name || '-',
                                     ),
                                     objectListDetail(
-                                        'Name',
-                                        __detail.name || '-',
+                                        'Ticket Type',
+                                        __detail.ticketType || '-',
                                     ),
                                     objectListDetail(
                                         'Status',
@@ -234,32 +234,20 @@ const BoatInquiryMainList = ({ title }: { title: string }) => {
                                         />,
                                     ),
                                     objectListDetail(
-                                        'Email',
-                                        __detail.email || '-',
+                                        'Departure Date',
+                                        __detail.departureDate || '-',
                                     ),
                                     objectListDetail(
-                                        'Phone',
-                                        __detail.phone || '-',
+                                        'Departure Time',
+                                        __detail.departureTime || '-',
                                     ),
                                     objectListDetail(
-                                        'Ticket Type',
-                                        __detail.ticketType || '-',
+                                        'Return Date',
+                                        __detail.returnDate || '-',
                                     ),
                                     objectListDetail(
-                                        'Bali Land Location',
-                                        __detail.baliLandLocation || '-',
-                                    ),
-                                    objectListDetail(
-                                        'Booked Through TLT',
-                                        <TextTrueOrFalse
-                                            value={
-                                                __detail.bookedThroughTlt || '-'
-                                            }
-                                        />,
-                                    ),
-                                    objectListDetail(
-                                        'TLT Booking Ref Name',
-                                        __detail.tltBookingRefName || '-',
+                                        'Return Time',
+                                        __detail.returnTime || '-',
                                     ),
                                     objectListDetail(
                                         'Adult Count',
@@ -273,63 +261,103 @@ const BoatInquiryMainList = ({ title }: { title: string }) => {
                                         'Infant Count',
                                         __detail.infantCount || '-',
                                     ),
+
+                                    objectListDetail('', null),
+
                                     objectListDetail(
-                                        'Departure Date from Bali',
-                                        `${__detail.departureDateFromBali} ${__detail.departureTimeFromBali}`,
+                                        'Name',
+                                        __detail.name || '-',
                                     ),
                                     objectListDetail(
-                                        'Pick Up Location Bali',
-                                        __detail.pickUpLocationBali || '-',
+                                        'Email',
+                                        __detail.email || '-',
+                                    ),
+                                    objectListDetail(
+                                        'Phone',
+                                        __detail.phone || '-',
+                                    ),
+
+                                    objectListDetail('', null),
+
+                                    objectListDetail(
+                                        'Need Land Transport',
+                                        <TextTrueOrFalse
+                                            value={
+                                                __detail.needLandTransport ||
+                                                '-'
+                                            }
+                                        />,
+                                    ),
+                                    objectListDetail(
+                                        'Departure Pickup Point',
+                                        __detail.departurePickupPoint || '-',
                                     ),
                                     objectListDetail(
                                         'Flight Number',
-                                        __detail.flightNumber || '-',
+                                        __detail.departurePickupFlightNumber ||
+                                            '-',
                                     ),
                                     objectListDetail(
                                         'Arrival Time',
-                                        __detail.arrivalTime || '-',
+                                        __detail.departurePickupArrivalTime ||
+                                            '-',
                                     ),
                                     objectListDetail(
-                                        'Hotel Name Bali',
-                                        __detail.hotelNameBali || '-',
+                                        'Departure Drop Off Point',
+                                        __detail.departureDropOffPoint || '-',
                                     ),
                                     objectListDetail(
-                                        'Hotel Contact Bali',
-                                        __detail.hotelContactBali || '-',
+                                        'Departure Drop Off Location',
+                                        __detail.departureDropOffLocation ||
+                                            '-',
                                     ),
                                     objectListDetail(
-                                        'Departure Date from Lembongan',
-                                        `${__detail.departureDateFromLembongan} ${__detail.departureTimeFromLembongan}`,
+                                        'Arrival Time',
+                                        __detail.departureDropArrivalTime ||
+                                            '-',
                                     ),
                                     objectListDetail(
-                                        'Drop Off Location Bali',
-                                        __detail.dropOffLocationBali || '-',
+                                        'Return Pickup Point',
+                                        __detail.returnPickupPoint || '-',
                                     ),
                                     objectListDetail(
-                                        'Flight Time',
-                                        __detail.flightTime || '-',
+                                        'Return Pickup Location',
+                                        __detail.returnPickupLocation || '-',
                                     ),
                                     objectListDetail(
-                                        'Hotel Name Lembongan',
-                                        __detail.hotelNameLembongan || '-',
+                                        'Checkout Time',
+                                        __detail.returnPickupCheckoutTime ||
+                                            '-',
                                     ),
                                     objectListDetail(
-                                        'Accommodation Lembongan',
-                                        __detail.accommodationLembongan || '-',
+                                        'Return Drop Off Point',
+                                        __detail.returnDropOffPoint || '-',
                                     ),
                                     objectListDetail(
-                                        'Passenger Names',
-                                        __detail.passengerNames || '-',
+                                        'Return Drop Off Location',
+                                        __detail.returnDropOffLocation || '-',
                                     ),
+
+                                    objectListDetail('', null),
+
+                                    objectListDetail(
+                                        'Booked Through TLT',
+                                        <TextTrueOrFalse
+                                            value={
+                                                __detail.bookedThroughTlt || '-'
+                                            }
+                                        />,
+                                    ),
+                                    objectListDetail(
+                                        'TLT Booking Ref Name',
+                                        __detail.tltBookingRefName || '-',
+                                    ),
+
                                     objectListDetail(
                                         'Has Surfboard',
                                         <TextTrueOrFalse
                                             value={__detail.hasSurfboard}
                                         />,
-                                    ),
-                                    objectListDetail(
-                                        'Hear About Us',
-                                        __detail.hearAboutUs || '-',
                                     ),
                                     objectListDetail(
                                         'Message',

@@ -12,6 +12,7 @@ import actionModal from '@/helper/base/actionModal.helper.ts'
 import useContactFormDetailHook from '@/page/contactForm/hook/useContactFormDetail.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import { contactFormPath } from '@/path/contactFormManage.path.ts'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const useContactFormMain = ({ urlAPI }: { urlAPI: any }) => {
     const initForm = {
@@ -35,8 +36,7 @@ const useContactFormMain = ({ urlAPI }: { urlAPI: any }) => {
     })
 
     const contactFormFilterParam = () => ({
-        fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-        toDate: moment().format('DD/MM/YYYY'),
+        ...defaultDateRangeSearch,
         contactFormTypeIds: [],
         contactFormInquiryTypeIds: [],
         limit: 50,

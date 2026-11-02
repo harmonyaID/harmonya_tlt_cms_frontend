@@ -3,10 +3,10 @@ import { apiExperienceContent } from '@/service/api/contentManage.api.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import moment from 'moment'
+import { defaultDateRangeSearch } from '@/config/advanceSearch.config.ts'
 
 const experienceFilterParam = () => ({
-    fromDate: moment().subtract({ months: 1 }).format('DD/MM/YYYY'),
-    toDate: moment().format('DD/MM/YYYY'),
+    ...defaultDateRangeSearch,
     experienceTypeIds: [],
     experienceAreaIds: [],
     limit: 50,

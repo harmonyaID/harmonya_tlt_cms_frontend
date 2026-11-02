@@ -56,6 +56,8 @@ import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.ts
 import RenderHtml from '@/component/general/RenderHtml.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 
 const defaultIsActive = 1
 
@@ -218,10 +220,28 @@ const TabTLTTestimonial = () => {
                                 return (
                                     <tr key={index}>
                                         <td>
-                                            <PreviewFileModalLogic
-                                                classNameWidth="avatar-46"
-                                                dataUrl={vm.photo || ''}
-                                            />
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="position-relative float-end">
+                                                        <div className="overflow-hidden rounded position-relative">
+                                                            <div
+                                                                className="wp-img-preview"
+                                                                onClick={() => {}}>
+                                                                <Image
+                                                                    src={
+                                                                        vm?.photo
+                                                                    }
+                                                                    alt="Preview File"
+                                                                    fallback={
+                                                                        ImgGeneralDefault
+                                                                    }
+                                                                    className="data-img data-img-contain avatar-46 object-fit-cover"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                         <td>{vm.order}</td>
                                         <td>

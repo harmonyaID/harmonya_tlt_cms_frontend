@@ -41,6 +41,8 @@ import { useEffect, useState } from 'react'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
+import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
 
 const defaultActive = '1'
 
@@ -53,7 +55,7 @@ const initForm = {
 }
 
 const initMapForm = (passData) => ({
-    typeId: passData.typeId || 1,
+    typeId: passData.type?.id || 1,
     question: passData.question || '',
     answer: passData.answer || '',
     order: passData.order || '',
@@ -193,7 +195,9 @@ const TabFAQ = () => {
                                                 {vm.question || '-'}
                                             </TblPointData>
                                             <TblPointData title="Answer">
-                                                {vm.answer || '-'}
+                                                <TinyMCERenderer
+                                                    content={vm.answer || '-'}
+                                                />
                                             </TblPointData>
                                         </td>
                                         <td>{vm.type?.name || '-'}</td>
@@ -347,12 +351,15 @@ const TabFAQ = () => {
                                 required
                                 placeholder="e.g Is Lembongan Good For Kids ?"
                             />
-                            <FormTextArea
-                                label="Answer"
-                                name="answer"
-                                required
-                                placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
-                            />
+                            <div className="mb-3">
+                                <FormTinyMCE
+                                    isSimple
+                                    label="Answer"
+                                    name="answer"
+                                    required
+                                    placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
+                                />
+                            </div>
 
                             <FormRadioButtonMulti
                                 label="Active"

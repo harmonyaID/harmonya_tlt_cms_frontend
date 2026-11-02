@@ -17,6 +17,7 @@ const initForm = {
     name: '',
     boatComponentTypeId: '',
     description: '',
+    additionalContent: '',
     isActive: defaultActive,
     priceFiles: [],
     promoPhotos: [],
@@ -35,6 +36,7 @@ const initMapForm = (passData) => ({
     name: passData?.name || '',
     boatComponentTypeId: passData?.boatComponentType?.id || '',
     description: passData.description || '',
+    additionalContent: passData.additionalContent || '',
     customInformations: passData?.customInformations?.length
         ? passData.customInformations
         : [],
@@ -123,7 +125,7 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
                 }
 
                 if (res?.priceFiles) {
-                    setPreviewPriceFile(res?.priceFiles[0].file)
+                    setPreviewPriceFile(res?.priceFiles[0]?.file)
                 }
 
                 if (res?.mapImage) {

@@ -15,6 +15,8 @@ import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import useBoatDetailHook from '@/page/boat/hook/useBoatDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import TinyMCERenderer from '@/component/general/TinyMCERenderer.tsx'
+import RenderHtml from '@/component/general/RenderHtml.tsx'
 
 const BoatDetailPage = () => {
     const {
@@ -138,6 +140,12 @@ const BoatDetailPage = () => {
                                         'Created At',
                                         __detail.createdAt || '-',
                                     ),
+                                    objectListDetail(
+                                        'Additional Content',
+                                        <RenderHtml
+                                            html={__detail.additionalContent}
+                                        />,
+                                    ),
                                 ]}
                             />
 
@@ -226,11 +234,11 @@ const BoatDetailPage = () => {
                                                                                 info.name
                                                                             }
                                                                         </label>
-                                                                        <p className="fs-14 text-neutral-100 fw-semibold mb-0">
-                                                                            {
+                                                                        <TinyMCERenderer
+                                                                            content={
                                                                                 info.value
                                                                             }
-                                                                        </p>
+                                                                        />
                                                                     </div>
                                                                 </div>
                                                             ),

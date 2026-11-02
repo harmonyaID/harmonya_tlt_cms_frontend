@@ -12,6 +12,8 @@ import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import TrashActionButtons from '@/common/dataFeature/trash/TrashActionButtons.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 
 const ContentExperienceTable = ({
     isTrash = false,
@@ -61,10 +63,28 @@ const ContentExperienceTable = ({
                                     }}>
                                     <td>
                                         <div className="hstack gap-3 align-items-start">
-                                            <PreviewFileModalLogic
-                                                classNameWidth="avatar-46"
-                                                dataUrl={vm.thumbnail || ''}
-                                            />
+                                            <div className="row">
+                                                <div className="col-auto">
+                                                    <div className="position-relative float-end">
+                                                        <div className="overflow-hidden rounded position-relative">
+                                                            <div
+                                                                className="wp-img-preview"
+                                                                onClick={() => {}}>
+                                                                <Image
+                                                                    src={
+                                                                        vm?.thumbnail
+                                                                    }
+                                                                    alt="Preview File"
+                                                                    fallback={
+                                                                        ImgGeneralDefault
+                                                                    }
+                                                                    className="data-img data-img-contain avatar-46 object-fit-cover"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div>
                                                 <TblLineFirstPrimary

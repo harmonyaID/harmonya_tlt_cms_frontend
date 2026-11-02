@@ -20,10 +20,10 @@ const defaultIsActive = 1
 const initMapForm = (passData) => {
     return {
         islandGuideTypeId: passData?.type?.id || '',
-        islandGuideAreaId: passData?.area?.id || '',
         name: passData.name || '',
         openHours: passData.openHours || '',
         description: passData.description || '',
+        additionalContent: passData.additionalContent || '',
         mapLocationUrl: passData.mapLocationUrl || '',
         whatsapp: passData.whatsapp || '',
         instagram: passData.instagram || '',
@@ -32,7 +32,7 @@ const initMapForm = (passData) => {
         showInquiry: passData?.showInquiry ? 1 : 0,
         thumbnail: '',
         mapImage: '',
-        photos: !isEmpty(passData.photos) ? passData.photos : [],
+        photos: [],
         deletePhotoIds: [],
         catalogs: !isEmpty(passData.catalogs) ? passData.catalogs : [],
         deleteCatalogIds: [],
@@ -43,10 +43,10 @@ const initMapForm = (passData) => {
 
 const initForm = {
     islandGuideTypeId: '',
-    islandGuideAreaId: '',
     name: '',
     openHours: '',
     description: '',
+    additionalContent: '',
     mapLocationUrl: '',
     whatsapp: '',
     instagram: '',
@@ -86,6 +86,8 @@ const useContentIslandGuideMainFormHook = ({
     const [previewMapImage, setPreviewMapImage] = useState('')
 
     const [seoThumbnail, setSetSEOThumbnail] = useState('')
+
+    const [listPreviousPhotos, setListPreviousPhotos] = useState([])
 
     const [formRequest, setFormRequest] = useState({
         ...initForm,
@@ -138,6 +140,15 @@ const useContentIslandGuideMainFormHook = ({
                 if (res?.seo?.thumbnail) {
                     setSetSEOThumbnail(res.seo.thumbnail)
                 }
+
+                if (res?.photos?.length > 0) {
+                    setListPreviousPhotos(
+                        res.photos.map((photo) => ({
+                            ...photo,
+                            isDeleted: false,
+                        })),
+                    )
+                }
             }
         },
         isAutoGet: isEdit,
@@ -147,25 +158,41 @@ const useContentIslandGuideMainFormHook = ({
         ? dataDetail.__isLoadingDetailFormRequest
         : false
 
-    const _handlePrepareData = (): any => {
-        const updated = { ...formRequest }
+    const _handleToggleDeletePrevPhotos = (passId: string | number) => {
+        setFormRequest((prevState) => {
+            const newState = { ...prevState }
 
-        updated.photos = updated.photos
-            .filter((vm) => !('id' in vm))
-            .map((vm) => vm.file)
-        updated.catalogs = updated.catalogs.filter((vm) => !('id' in vm))
+            const photoIndex = newState['deletePhotoIds'].findIndex(
+                (id) => id === passId,
+            )
 
-        return updated
+            if (photoIndex > -1) {
+                newState['deletePhotoIds'].splice(photoIndex, 1)
+            } else {
+                newState['deletePhotoIds'].push(passId)
+            }
+
+            return newState
+        })
+
+        setListPreviousPhotos((prevState) => {
+            const newState = [...prevState]
+
+            const index = newState.findIndex((vm) => vm.id === passId)
+            if (index > -1) {
+                newState[index].isDeleted = !newState[index].isDeleted
+            }
+
+            return newState
+        })
     }
 
     const _handleSubmit = () => {
-        const form = _handlePrepareData()
-
         return __handleSubmit({
             apiCall: () =>
                 isEdit
-                    ? apiIslandGuide.updateWithData(id, form)
-                    : apiIslandGuide.addWithData(form),
+                    ? apiIslandGuide.updateWithData(id, formRequest)
+                    : apiIslandGuide.addWithData(formRequest),
             setIsLoading,
             isDirectToDetail: true,
         })
@@ -192,6 +219,9 @@ const useContentIslandGuideMainFormHook = ({
         __previewMapImage: previewMapImage,
         __setPreviewMapImage: setPreviewMapImage,
         __handleMapImageRemove: _handleMapImageRemove,
+
+        __handleToggleDeletePrevPhotos: _handleToggleDeletePrevPhotos,
+        __listPreviousPhotos: listPreviousPhotos,
 
         // SEO
         __seoThumbnail: seoThumbnail,

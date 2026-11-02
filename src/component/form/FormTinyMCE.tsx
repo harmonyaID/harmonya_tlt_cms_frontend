@@ -93,7 +93,7 @@ const FormTinyMCE = ({
                         menubar: false,
                         plugins: 'lists link',
                         toolbar:
-                            ' undo redo | blocks | bold italic underline strikethrough | bullist numlist | link',
+                            ' undo redo | blocks | bold italic underline strikethrough | bullist numlist | link | | forecolor backcolor',
                         block_formats:
                             'Paragraph=p;' +
                             'Heading 1=h1;' +

@@ -50,24 +50,32 @@ import {
 import { APIResponse } from '@/type/resultAPI.ts'
 import useTrash from '@/common/dataFeature/trash/hook/useTrash.ts'
 import TrashConfirmModals from '@/common/dataFeature/trash/TrashConfirmModals.tsx'
+import FormInputDatePicker from '@/component/form/FormInputDatePicker.tsx'
+import { actionFormatDateStrict } from '@/helper/actionFormatDate.helper.ts'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 
 const initForm = {
     name: '',
     description: '',
+    additionalContent: '',
     url: '',
     isPublish: 1,
     logo: '',
-    // featureImage: '',
+    title: '',
+    date: '',
     typeId: '',
 }
 
 const initMapForm = (passData) => ({
     name: passData.name || '',
     description: passData.description || '',
+    additionalContent: passData.additionalContent || '',
     url: passData.url || '',
     isPublish: passData.isPublish ? 1 : 0,
     logo: '',
-    // featureImage: '',
+    title: passData.title || '',
+    date: passData.date || '',
     typeId: passData?.type?.id || '',
 })
 
@@ -172,12 +180,18 @@ const TabTLTMediaPartner = () => {
     })
 
     const _handleAddSync = async (): Promise<APIResponse> => {
-        const dataForm = await objectToFormData({ ...__formRequest })
+        const dataForm = await objectToFormData({
+            ...__formRequest,
+            date: actionFormatDateStrict(__formRequest.date, 'YYYY-MM-DD'),
+        })
         return apiMediaPartner.addWithData(dataForm)
     }
 
     const _handleUpdateSync = async (): Promise<APIResponse> => {
-        const dataForm = await objectToFormData({ ...__formRequest })
+        const dataForm = await objectToFormData({
+            ...__formRequest,
+            date: actionFormatDateStrict(__formRequest.date, 'YYYY-MM-DD'),
+        })
         return apiMediaPartner.updateWithData(__selectedId, dataForm)
     }
 
@@ -218,9 +232,10 @@ const TabTLTMediaPartner = () => {
                         isLoading={__isLoading}
                         isNoWrap
                         ths={[
-                            { content: 'Logo', className: 'w-10' },
+                            'Logo',
                             'Name',
                             'Type',
+                            'Date',
                             'Description',
                             'Publish',
                             'Link',
@@ -231,14 +246,34 @@ const TabTLTMediaPartner = () => {
                             return (
                                 <tr key={index}>
                                     <td>
-                                        {/*{vm.image}*/}
-                                        <PreviewFileModalLogic
-                                            classNameWidth="avatar-46"
-                                            dataUrl={vm.logo || ''}
-                                        />
+                                        <div className="row">
+                                            <div className="col-auto">
+                                                <div className="position-relative float-end">
+                                                    <div className="overflow-hidden rounded position-relative">
+                                                        <div
+                                                            className="wp-img-preview"
+                                                            onClick={() => {}}>
+                                                            <Image
+                                                                src={vm?.logo}
+                                                                alt="Preview File"
+                                                                fallback={
+                                                                    ImgGeneralDefault
+                                                                }
+                                                                className="data-img data-img-contain avatar-46 object-fit-cover"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <TblLineFirst value={vm.name} />
+                                        <TblPointData
+                                            title="Title"
+                                            value={vm.title || '-'}
+                                            className="my-2"
+                                        />
                                     </td>
                                     <td>
                                         <TblLineFirst
@@ -246,9 +281,18 @@ const TabTLTMediaPartner = () => {
                                         />
                                     </td>
                                     <td>
+                                        <TblLineFirst value={vm?.date || '-'} />
+                                    </td>
+                                    <td>
                                         <TblLineSecond>
                                             {vm.description || '-'}
                                         </TblLineSecond>
+
+                                        <TblPointData
+                                            title="Additional Content"
+                                            value={vm.additionalContent || '-'}
+                                            className="my-2"
+                                        />
                                     </td>
                                     <td>
                                         <TextTrueOrFalse value={vm.isPublish} />
@@ -339,6 +383,13 @@ const TabTLTMediaPartner = () => {
                                 placeholder="e.g Global X"
                             />
                             <FormInput
+                                label="Title"
+                                name="title"
+                                required
+                                placeholder="e.g Global X"
+                            />
+                            <FormInputDatePicker name="date" label="Date" />
+                            <FormInput
                                 label="Url"
                                 name="url"
                                 required
@@ -348,6 +399,12 @@ const TabTLTMediaPartner = () => {
                             <FormTextArea
                                 label="Description"
                                 name="description"
+                                required
+                                placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
+                            />
+                            <FormTextArea
+                                label="Additional Content"
+                                name="additionalContent"
                                 required
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
                             />
@@ -399,7 +456,7 @@ const TabTLTMediaPartner = () => {
                                         accept="image/*"
                                         actions={{
                                             onChange: (name, newFiles) => {
-                                                const img = new Image()
+                                                const img = new window.Image()
                                                 const objectUrl =
                                                     URL.createObjectURL(
                                                         newFiles,

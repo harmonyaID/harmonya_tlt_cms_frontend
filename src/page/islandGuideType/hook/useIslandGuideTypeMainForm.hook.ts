@@ -15,6 +15,7 @@ import islandGuideTypePath from '@/path/islandGuideType.path.ts'
 const initForm = {
     name: '',
     description: '',
+    additionalContent: '',
     featuredImage: '',
     deleteFeaturedImage: '',
     banner: '',
@@ -30,6 +31,7 @@ const initForm = {
 const initMapForm = (passData) => ({
     name: passData.name || '',
     description: passData?.description || '',
+    additionalContent: passData?.additionalContent || '',
     featuredImage: '', //passData?.featuredImage || '',
     deleteFeaturedImage: passData?.deleteFeaturedImage || '',
     banner: '', //passData?.banner || '',

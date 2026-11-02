@@ -104,14 +104,12 @@ const BoatInquiryTable = ({
                                     <td>
                                         <TblPointData
                                             title="From Bali"
-                                            value={vm?.departureDateFromBali}
+                                            value={vm?.departureDate}
                                             className="mb-2"
                                         />
                                         <TblPointData
                                             title="From Lembongan"
-                                            value={
-                                                vm?.departureDateFromLembongan
-                                            }
+                                            value={vm?.returnDate}
                                             className="my-2"
                                         />
                                     </td>

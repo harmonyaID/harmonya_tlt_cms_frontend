@@ -163,11 +163,6 @@ const ContentExperienceDetailPage = () => {
                                                             '-',
                                                     ),
                                                     objectListDetail(
-                                                        'Area',
-                                                        __detail?.area?.name ||
-                                                            '-',
-                                                    ),
-                                                    objectListDetail(
                                                         'Open Hours',
                                                         __detail?.openHours ||
                                                             '-',
@@ -180,6 +175,21 @@ const ContentExperienceDetailPage = () => {
                                                                 dangerouslySetInnerHTML={{
                                                                     __html:
                                                                         __detail?.description ||
+                                                                        '-',
+                                                                }}
+                                                            />
+                                                        ) : (
+                                                            '-'
+                                                        ),
+                                                    ),
+                                                    objectListDetail(
+                                                        'Additional Content',
+                                                        __detail.additionalContent ? (
+                                                            <div
+                                                                className="p-3 bg-neutral-600 rounded-2 border-neutral-500"
+                                                                dangerouslySetInnerHTML={{
+                                                                    __html:
+                                                                        __detail?.additionalContent ||
                                                                         '-',
                                                                 }}
                                                             />
