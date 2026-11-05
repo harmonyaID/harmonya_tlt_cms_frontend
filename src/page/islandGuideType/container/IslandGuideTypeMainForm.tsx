@@ -18,6 +18,7 @@ import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import useIslandGuideTypeMainForm from '@/page/islandGuideType/hook/useIslandGuideTypeMainForm.hook.ts'
 import FormRadioButtonMulti from '@/component/form/FormRadioButtonMulti.tsx'
 import SelectOptionPage from '@/common/dataForm/SelectOptionPage.tsx'
+import islandGuideTypePath from '@/path/islandGuideType.path.ts'
 
 const IslandGuideTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -56,7 +57,7 @@ const IslandGuideTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             <NavBreadcrumb
                 navs={[
                     objectNavBread('Type', {
-                        url: experienceAreaPath.main,
+                        url: islandGuideTypePath.main,
                         state: __pageStateDataSearch,
                     }),
                     objectNavBread(isEdit ? 'Edit' : 'Add'),
