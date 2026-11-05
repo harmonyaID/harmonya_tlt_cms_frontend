@@ -11,6 +11,7 @@ import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
     MDPropertySettingAmenities,
     MDPropertySettingAmenitiesRemove,
+    MDPSTabMediaPartnerAdd,
 } from '@/config/modal.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
@@ -20,10 +21,20 @@ import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
 import { apiAmenitiesCRUD } from '@/service/api/setting.api.ts'
+import Image from 'rc-image'
+import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
+import { BtnCircleEdit } from '@/component/general/Button.tsx'
+import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
+import { APIResponse } from '@/type/resultAPI.ts'
+import { objectToFormData } from '@/helper/convertFormData.helper.ts'
+import { useState } from 'react'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 
 const initForm = {
     name: '',
     icon: '',
+    deleteIcon: '',
     order: '',
     isPopular: false,
     isPublish: false,
@@ -31,7 +42,8 @@ const initForm = {
 
 const initMapForm = (passData) => ({
     name: passData?.name || '',
-    icon: passData?.icon || '',
+    icon: '',
+    deleteIcon: '',
     order: passData?.order || '',
     isPopular: passData?.isPopular || false,
     isPublish: passData?.isPublish || false,
@@ -86,6 +98,22 @@ const TabAmenities = () => {
                 actionModal(MDPropertySettingAmenitiesRemove, false),
         },
     })
+
+    const [previewIcon, setPreviewIcon] = useState()
+
+    const _handleUpdateSync = async (): Promise<APIResponse> => {
+        const dataForm = await objectToFormData(__formRequest)
+        return apiAmenitiesCRUD.updateWithData(__selectedId, dataForm)
+    }
+
+    const _handleRemoveIcon = () => {
+        __setFormRequest((prev) => ({
+            ...prev,
+            icon: '',
+            deleteIcon: previewIcon,
+        }))
+        setPreviewIcon(undefined)
+    }
 
     return (
         <>
@@ -146,9 +174,26 @@ const TabAmenities = () => {
                                         </TblLineSecond>
                                     </td>
                                     <td>
-                                        <TblLineSecond>
-                                            {vm?.icon || '-'}
-                                        </TblLineSecond>
+                                        <div className="row">
+                                            <div className="col-auto">
+                                                <div className="position-relative float-end">
+                                                    <div className="overflow-hidden rounded position-relative">
+                                                        <div
+                                                            className="wp-img-preview"
+                                                            onClick={() => {}}>
+                                                            <Image
+                                                                src={vm?.icon}
+                                                                alt="Preview File"
+                                                                fallback={
+                                                                    ImgGeneralDefault
+                                                                }
+                                                                className="data-img data-img-contain avatar-46 object-fit-cover"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <TextTrueOrFalse value={vm.isPublish} />
@@ -157,26 +202,26 @@ const TabAmenities = () => {
                                         <TextTrueOrFalse value={vm.isPopular} />
                                     </td>
                                     <td>
-                                        {/*<div className="hstack gap-2 justify-content-end">*/}
-                                        {/*    <BtnCircleRemove*/}
-                                        {/*        actions={{*/}
-                                        {/*            remove: (e) => {*/}
-                                        {/*                e.stopPropagation()*/}
-                                        {/*                _handleChooseRemove(vm)*/}
-                                        {/*            },*/}
-                                        {/*        }}*/}
-                                        {/*    />*/}
+                                        <div className="hstack gap-2 justify-content-end">
+                                            {/*    <BtnCircleRemove*/}
+                                            {/*        actions={{*/}
+                                            {/*            remove: (e) => {*/}
+                                            {/*                e.stopPropagation()*/}
+                                            {/*                _handleChooseRemove(vm)*/}
+                                            {/*            },*/}
+                                            {/*        }}*/}
+                                            {/*    />*/}
 
-                                        {/*    <BtnCircleEdit*/}
-                                        {/*        title="Edit Data"*/}
-                                        {/*        actions={{*/}
-                                        {/*            edit: (e) => {*/}
-                                        {/*                e.stopPropagation()*/}
-                                        {/*                // actions.edit(vm.id)*/}
-                                        {/*            },*/}
-                                        {/*        }}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
+                                            <BtnCircleEdit
+                                                title="Edit Data"
+                                                actions={{
+                                                    edit: (e) => {
+                                                        e.stopPropagation()
+                                                        __actionUpdateModal(vm)
+                                                    },
+                                                }}
+                                            />
+                                        </div>
                                     </td>
                                 </tr>
                             )
@@ -207,6 +252,79 @@ const TabAmenities = () => {
                         emptySelect: () => {
                             _handleSetData({})
                         },
+                    }}
+                />
+
+                <ModalWithActionFormCRUDLogic
+                    id={MDPropertySettingAmenities}
+                    detail={__detailData}
+                    title="Amenities"
+                    isEdit={__isEdit}
+                    formRequest={__formRequest}
+                    actions={{
+                        change: _handleChange,
+                        toggleModal: __actionCloseModal,
+                    }}
+                    isUseDefaultInput={false}
+                    externalForm={
+                        <>
+                            {previewIcon ? (
+                                <div className="my-3">
+                                    <p className="mb-2 text-neutral-100">
+                                        Icon
+                                    </p>
+
+                                    <PreviewFileModalLogic
+                                        dataUrl={String(previewIcon)}
+                                        dataBy="file"
+                                        dataFile={previewIcon}
+                                        isShowBtnRemove
+                                        actions={{
+                                            remove: () => _handleRemoveIcon(),
+                                        }}
+                                    />
+                                </div>
+                            ) : (
+                                <FormUploadFile
+                                    label="Icon"
+                                    name="icon"
+                                    isUseHook={false}
+                                    isPreview={false}
+                                    accept="image/*"
+                                    actions={{
+                                        onChange: (name, newFiles) => {
+                                            const img = new window.Image()
+                                            const objectUrl =
+                                                URL.createObjectURL(newFiles)
+
+                                            img.onload = () => {
+                                                _handleChange('icon', newFiles)
+                                            }
+
+                                            img.src = objectUrl
+                                        },
+
+                                        handleDataFiles: (newDataFiles) =>
+                                            setPreviewIcon(newDataFiles.url),
+                                    }}
+                                />
+                            )}
+                        </>
+                    }
+                    configHandle={{
+                        urlAPIAdd: null,
+                        urlAPIUpdate: _handleUpdateSync,
+                        initialForm: () =>
+                            __setFormRequest(initMapForm(__detailData)),
+                        callBack: (newData) => {
+                            __isEdit
+                                ? __actionUpdate(newData)
+                                : __actionAdd(newData, 'id', true)
+                        },
+                        emptySelect: () =>
+                            __setFormRequest(() => ({
+                                ...initForm,
+                            })),
                     }}
                 />
             </CreatePortalLayout>
