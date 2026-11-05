@@ -176,7 +176,6 @@ const ContentHomePageEditPage = () => {
             //     required
             // />
             <FormTinyMCE
-                isSimple
                 {...other}
                 name={sectionName ? sectionName + '.' + name : name}
                 isUseHook={false}
@@ -1527,7 +1526,6 @@ const ContentHomePageEditPage = () => {
                                                 <FormInputTextEditor
                                                     sectionName="SECTION13"
                                                     name="content"
-                                                    // isSimple={false}
                                                     value={
                                                         SECTION13?.content || ''
                                                     }

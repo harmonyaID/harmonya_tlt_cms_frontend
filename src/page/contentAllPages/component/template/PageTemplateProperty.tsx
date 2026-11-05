@@ -26,7 +26,6 @@ const PageTemplateProperty = ({
         return (
             <div className="form-group">
                 <FormTinyMCE
-                    isSimple
                     {...other}
                     name={sectionName ? sectionName + '.' + name : name}
                     isUseHook={false}

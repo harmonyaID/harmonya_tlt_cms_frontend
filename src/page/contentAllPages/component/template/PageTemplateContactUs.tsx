@@ -99,7 +99,6 @@ const PageTemplateContactUs = ({
                             name="description"
                             value={SECTION3?.description || ''}
                             isUseHook={false}
-                            isSimple
                             actions={{
                                 // ...actions,
                                 onChange: (passName, passValue) =>

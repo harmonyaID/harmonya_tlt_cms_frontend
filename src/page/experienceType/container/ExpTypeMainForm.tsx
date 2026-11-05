@@ -96,7 +96,6 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <FormTinyMCE
                                                 name="description"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
-                                                isSimple
                                             />
                                         </GeneralRowForm>
 
@@ -104,7 +103,6 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <FormTinyMCE
                                                 name="additionalContent"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
-                                                isSimple
                                             />
                                         </GeneralRowForm>
 
