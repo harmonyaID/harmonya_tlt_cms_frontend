@@ -5,6 +5,7 @@
 // } from '@/page/contentAllPages/dataSchema/_typeDataSchema.ts'
 import {
     TEMPLATE_ABOUT,
+    TEMPLATE_ABOUT_THE_ISLANDS,
     TEMPLATE_BLOG,
     TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
@@ -18,7 +19,10 @@ import {
     TEMPLATE_PROPERTY,
     TEMPLATE_SEARCH,
 } from '@/config/pageTemplate.config.ts'
+import { dataAboutPage } from '@/page/contentAllPages/dataSchema/dataAboutPage.ts'
+import { dataAboutTheIslandsMain } from '@/page/contentAllPages/dataSchema/dataAboutTheIslands.ts'
 import dataBlogPage from '@/page/contentAllPages/dataSchema/dataBlogPage.ts'
+import { dataBoatTransferPage } from '@/page/contentAllPages/dataSchema/dataBoatTransferPage.ts'
 import { dataContactUsPage } from '@/page/contentAllPages/dataSchema/dataContactUsPage.ts'
 import dataExperiencePage from '@/page/contentAllPages/dataSchema/dataExperiencePage.ts'
 import {
@@ -29,9 +33,7 @@ import {
 import dataIslandGuidePage from '@/page/contentAllPages/dataSchema/dataIslandGuidePage.ts'
 import dataOfferPage from '@/page/contentAllPages/dataSchema/dataOfferPage.ts'
 import dataPropertyPage from '@/page/contentAllPages/dataSchema/dataPropertyPage.ts'
-import { dataBoatTransferPage } from '@/page/contentAllPages/dataSchema/dataBoatTransferPage.ts'
 import { dataSearchPage } from '@/page/contentAllPages/dataSchema/dataSearchPage.ts'
-import { dataAboutPage } from '@/page/contentAllPages/dataSchema/dataAboutPage.ts'
 
 const configDataSchema = {
     [TEMPLATE_BLOG]: dataBlogPage,
@@ -49,6 +51,9 @@ const configDataSchema = {
     [TEMPLATE_INFO_TNC]: dataGeneralAndContentInfoPage,
     [TEMPLATE_INFO_PRIVACY_POLICY]: dataGeneralAndContentInfoPage,
     [TEMPLATE_INFO_PRES_AND_MEDIA]: dataGeneralInfoPage,
+
+    // Feature detail by page
+    [TEMPLATE_ABOUT_THE_ISLANDS]: dataAboutTheIslandsMain,
 }
 
 export default configDataSchema

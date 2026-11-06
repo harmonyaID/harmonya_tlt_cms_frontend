@@ -2,6 +2,7 @@ import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import {
     TEMPLATE_ABOUT,
+    TEMPLATE_ABOUT_THE_ISLANDS,
     TEMPLATE_BLOG,
     TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
@@ -17,7 +18,9 @@ import {
     TEMPLATE_SEARCH,
 } from '@/config/pageTemplate.config.ts'
 import PageTemplateAbout from '@/page/contentAllPages/component/template/PageTemplateAbout.tsx'
+import PageTemplateAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateAboutTheIsland.tsx'
 import PageTemplateBlog from '@/page/contentAllPages/component/template/PageTemplateBlog.tsx'
+import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
 import PageTemplateContactUs from '@/page/contentAllPages/component/template/PageTemplateContactUs.tsx'
 import PageTemplateExperience from '@/page/contentAllPages/component/template/PageTemplateExperience.tsx'
 import PageTemplateFAQ from '@/page/contentAllPages/component/template/PageTemplateFAQ.tsx'
@@ -25,7 +28,6 @@ import PageTemplateGeneralHero from '@/page/contentAllPages/component/template/P
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
-import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
 import PageTemplateSearch from '@/page/contentAllPages/component/template/PageTemplateSearch.tsx'
 
 const PageMainFormTemplatePage = ({
@@ -73,6 +75,11 @@ const PageMainFormTemplatePage = ({
         ),
         [TEMPLATE_INFO_CONTACT]: (
             <PageTemplateContactUs {...propsPageTemplate} />
+        ),
+
+        // Feature detail by page
+        [TEMPLATE_ABOUT_THE_ISLANDS]: (
+            <PageTemplateAboutTheIsland {...propsPageTemplate} />
         ),
     }
 
