@@ -39,7 +39,6 @@ const PageTemplateAbout = ({
                             placeholder="e.g Boat Transfer"
                         />
                         <FormTinyMCE
-                            isSimple
                             name="description"
                             label="Description"
                             value={SECTION2?.description || ''}

@@ -90,7 +90,6 @@ const CustomInfoForm = ({
                                         }}
                                     />
                                     <FormTinyMCE
-                                        isSimple
                                         label="Value"
                                         name={`customInformations[${index}].value`}
                                         className="mb-0"

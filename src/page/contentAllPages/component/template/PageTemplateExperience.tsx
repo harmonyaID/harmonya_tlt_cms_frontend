@@ -62,7 +62,6 @@ const PageTemplateExperience = ({
                     <div className="form-group">
                         <FormTinyMCE
                             label="Title"
-                            isSimple
                             name="title"
                             value={SECTION2?.title || ''}
                             isUseHook={false}
@@ -77,7 +76,6 @@ const PageTemplateExperience = ({
                     <div className="form-group">
                         <FormTinyMCE
                             label="Description"
-                            isSimple
                             name="description"
                             value={SECTION2?.description || ''}
                             isUseHook={false}

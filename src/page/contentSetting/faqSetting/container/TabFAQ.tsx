@@ -353,7 +353,6 @@ const TabFAQ = () => {
                             />
                             <div className="mb-3">
                                 <FormTinyMCE
-                                    isSimple
                                     label="Answer"
                                     name="answer"
                                     required

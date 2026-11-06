@@ -986,10 +986,7 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                     {/*    placeholder="e.g Root"*/}
                                                                     {/*/>*/}
 
-                                                                    <FormTinyMCE
-                                                                        name="summary"
-                                                                        isSimple
-                                                                    />
+                                                                    <FormTinyMCE name="summary" />
                                                                 </GeneralRowForm>
                                                             </WrapFormContext>
                                                         </div>

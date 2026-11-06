@@ -19,6 +19,7 @@ import useContentBlogDetail from '@/page/contentBlog/hook/useContentBlogDetail.h
 import boatPath from '@/path/boat.path.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import useContentOfferDetail from '@/page/contentOffer/hook/useContentOfferDetail.hook.ts'
+import contentOfferPath from '@/path/contentOffer.path.ts'
 
 const ContentOfferDetailPage = () => {
     const {
@@ -40,7 +41,7 @@ const ContentOfferDetailPage = () => {
                     {
                         name: 'Offer',
                         actions: {
-                            url: contentBlogPath.main,
+                            url: contentOfferPath.main,
                             state: { ...__pageStateDataSearch },
                         },
                     },
