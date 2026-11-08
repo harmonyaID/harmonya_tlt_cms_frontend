@@ -11,8 +11,11 @@ export const dataContactUsPage = {
     SECTION2: {
         title: '',
         description: '',
-        phones: [],
-        emails: [],
+        phoneID: '',
+        phoneAU: '',
+        reservationEmail: '',
+        propertyEmail: '',
+        businessEmail: '',
     },
     SECTION3: {
         title: '',
