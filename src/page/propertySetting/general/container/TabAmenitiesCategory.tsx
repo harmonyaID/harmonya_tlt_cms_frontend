@@ -35,14 +35,14 @@ import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 const initForm = {
     name: '',
     icon: '',
-    deleteIcon: '',
+    deletedIcon: '',
     order: '',
 }
 
 const initMapForm = (passData) => ({
     name: passData?.name || '',
     icon: '',
-    deleteIcon: '',
+    deletedIcon: '',
     order: passData?.order || '',
 })
 
@@ -104,9 +104,14 @@ const TabAmenitiesCategory = () => {
         __setFormRequest((prev) => ({
             ...prev,
             icon: '',
-            deleteIcon: previewIcon,
+            deletedIcon: previewIcon,
         }))
         setPreviewIcon(undefined)
+    }
+
+    const _handleEdit = (vm) => {
+        __actionUpdateModal(vm)
+        setPreviewIcon(vm.icon)
     }
 
     return (
@@ -186,7 +191,7 @@ const TabAmenitiesCategory = () => {
                                                 actions={{
                                                     edit: (e) => {
                                                         e.stopPropagation()
-                                                        __actionUpdateModal(vm)
+                                                        _handleEdit(vm)
                                                     },
                                                 }}
                                             />
