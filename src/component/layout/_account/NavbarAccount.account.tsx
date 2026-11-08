@@ -21,6 +21,7 @@ import {
 } from '@/service/api/auth.api.ts'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 
 const NavbarAccountAccount = ({ __profile }: { __profile: any }) => {
     const [selected, setSelected] = useState<any>()
@@ -114,6 +115,13 @@ const NavbarAccountAccount = ({ __profile }: { __profile: any }) => {
                                     {__profile.email}
                                 </p>
                             ) : null}
+
+                            {__profile?.isSuperadmin && (
+                                <BadgeStatusGeneral
+                                    value="Superadmin"
+                                    className="bg-primary mt-1"
+                                />
+                            )}
                         </div>
                     </div>
                 ) : null}
