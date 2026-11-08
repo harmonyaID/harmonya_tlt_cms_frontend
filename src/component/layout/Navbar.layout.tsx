@@ -1,59 +1,14 @@
 'use client'
 import { useState } from 'react'
 import { Menu as IconFeatherMenu, Plus } from 'react-feather'
-import { Link } from 'react-router'
-import {
-    Cpu,
-    LocationTick,
-    Menu,
-    Notification,
-    Moon,
-    Sun1,
-    Home3,
-    Refresh,
-    Logout,
-    User,
-} from 'iconsax-react'
-import defaultAvatar from '@/asset/image/avatar_small2x.jpeg'
-import ButtonNavbarSearchServiceLoc from '@/common/misc/ButtonNavbarSearchServiceLoc'
+import { Notification } from 'iconsax-react'
 import ModalConfirmLogout from '@/common/misc/ModalConfirmLogout'
-import {
-    LS_ACCOUNT,
-    // LS_FCM_TOKEN,
-    LS_TOKEN,
-} from '@/config/localStrorage.config'
-import {
-    MDGeneralCheckCoverage,
-    MDGeneralCheckOnu,
-    MDGeneralServiceApp,
-    MDLogout,
-} from '@/config/modal.config'
-import { useBuildContext } from '@/context/Build.context.tsx'
 import { useGlobalPrivateContext } from '@/context/GlobalPrivate.context.tsx'
-import actionModal from '@/helper/base/actionModal.helper'
 import { sidebarToggleSize } from '@/helper/base/actionSidebar.helper'
-import { settingThemeMode } from '@/helper/base/actionThemeMode.helper.js'
-import {
-    checkThemeMode,
-    isDarkMode,
-    isSuccess,
-} from '@/helper/base/condition.helper'
-import { defaultURLAvatarText } from '@/helper/base/generateAvatar.helper'
-import {
-    clearLocalStorage,
-    getLocalStorage,
-} from '@/helper/base/localStorage.helper'
-// import { customerSupportManagementLogout } from '@/service/api/auth/auth.api.js'
-// import ModalConfirmLogout from '../modal/ModalConfirmLogout'
-// import { businessRefreshAccess } from '@/service/api/auth/auth.api'
-// import { apiAuthLogout } from '@/service/api/auth/auth.api.ts'
-import userPath from '@/path/user.path.ts'
 import { apiAuthLogout } from '@/service/api/auth.api.ts'
-import { AvatarInTable } from '../general/Avatar'
 import { Loading, NotAvailable } from '../general/TextDefault'
-// import LoadingSpinner from '../loading/LoadingSpinner'
-import ShortAddDropdownMenu from './_menu/ShortAddDropdown.menu'
 import { NavbarProps } from './type/layout.type'
+import NavbarAccountAccount from '@/component/layout/_account/NavbarAccount.account.tsx'
 
 const NavbarLayout = ({ title = '' }: NavbarProps) => {
     // const {
@@ -67,10 +22,6 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
     const { __titleNavbar, __profile, __actions } = useGlobalPrivateContext()
 
     const [isLoadingRefreshAccess, setIsLoadingRefreshAccess] = useState(false)
-
-    const _handleConfirmLogout = (isClose = false) => {
-        actionModal(MDLogout, isClose)
-    }
 
     const _handleRefreshAccess = () => {
         setIsLoadingRefreshAccess(true)
@@ -164,102 +115,7 @@ const NavbarLayout = ({ title = '' }: NavbarProps) => {
                     </li>
 
                     <li className="dropdown">
-                        <a
-                            className="align-items-center text-neutral-100 d-flex dropdown-toggle hide-arrow"
-                            data-toggle="dropdown"
-                            href="#"
-                            role="button"
-                            id="dropdownMenuProfile"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                            data-bs-toggle="dropdown">
-                            <div className="thumbnail-wrapper circular d32">
-                                <img
-                                    src={
-                                        __profile?.fullName
-                                            ? defaultURLAvatarText(
-                                                  __profile?.fullName,
-                                              )
-                                            : defaultAvatar
-                                    }
-                                    alt="Avatar"
-                                />
-                            </div>
-                        </a>
-                        <div
-                            className="dropdown-menu topbar-dropdown-menu"
-                            aria-labelledby="dropdownMenuProfile">
-                            {__profile ? (
-                                <div className="px-3 py-2 mb-2">
-                                    <div className="w-100">
-                                        <p className="text-neutral-100 fs-14 fw-600 mb-0 text-truncate">
-                                            {__profile.fullName}
-                                        </p>
-
-                                        {__profile?.email ? (
-                                            <p className="text-neutral-400 fs-12 mb-0 text-truncate">
-                                                {__profile.email}
-                                            </p>
-                                        ) : null}
-                                    </div>
-                                </div>
-                            ) : null}
-
-                            <div className="dropdown-item p">
-                                Version {String(__APP_VERSION__)}
-                            </div>
-                            {/*<button*/}
-                            {/*    type="button"*/}
-                            {/*    className="dropdown-item profile-item py-2"*/}
-                            {/*    onClick={() =>*/}
-                            {/*        settingThemeMode(checkThemeMode())*/}
-                            {/*    }>*/}
-                            {/*    {!isDarkMode() ? (*/}
-                            {/*        <>*/}
-                            {/*            <span className="me-2">*/}
-                            {/*                <Moon variant="Bulk" />*/}
-                            {/*            </span>*/}
-                            {/*            Dark Mode*/}
-                            {/*        </>*/}
-                            {/*    ) : (*/}
-                            {/*        <>*/}
-                            {/*            <span className="me-2">*/}
-                            {/*                <Sun1 variant="Bulk" />*/}
-                            {/*            </span>*/}
-                            {/*            Light Mode*/}
-                            {/*        </>*/}
-                            {/*    )}*/}
-                            {/*</button>*/}
-
-                            <Link
-                                to={userPath.myProfile}
-                                className="dropdown-item profile-item py-2">
-                                <span className="me-2">
-                                    <User variant="Bulk" />
-                                </span>
-                                My Profile
-                            </Link>
-
-                            {/*<button*/}
-                            {/*    type="button"*/}
-                            {/*    className="dropdown-item profile-item py-2"*/}
-                            {/*    disabled={isLoadingRefreshAccess}*/}
-                            {/*    onClick={_handleRefreshAccess}>*/}
-                            {/*    <span className="me-2">*/}
-                            {/*        <Refresh variant="Bulk" />*/}
-                            {/*    </span>*/}
-                            {/*    Refresh Access*/}
-                            {/*</button>*/}
-                            <button
-                                className="dropdown-item profile-item py-2"
-                                id="logout-btn"
-                                onClick={() => _handleConfirmLogout()}>
-                                <span className="me-2">
-                                    <Logout variant="Bulk" />
-                                </span>
-                                Log Out
-                            </button>
-                        </div>
+                        <NavbarAccountAccount __profile={__profile} />
                     </li>
                 </ul>
             </header>
