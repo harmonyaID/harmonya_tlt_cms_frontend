@@ -1,10 +1,12 @@
 'use client'
 import {
+    _shapeMethodDel,
     _shapeMethodGet,
     _shapeMethodPatch,
     _shapeMethodPost,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import * as endPoint from '@/service/api/_auth.endPoint.ts'
+import { SrvAuthSessions } from '@/service/api/_auth.endPoint.ts'
 
 export const apiAuthLogin = (formRequest: object = {}) =>
     _shapeMethodPost(endPoint.SrvLogin, formRequest, false, '', false)
@@ -25,3 +27,10 @@ export const apiAuthProfile = () => _shapeMethodGet(endPoint.SrvProfile)
 
 export const refreshAccess = () =>
     _shapeMethodPost(endPoint.SrvAuthRefreshAccess)
+
+export const apiGetAuthSessions = () => _shapeMethodGet(SrvAuthSessions)
+
+export const apiDeleteAuthSession = (id: any) =>
+    _shapeMethodDel(SrvAuthSessions + '/' + id)
+
+export const apiDeleteAllAuthSession = () => _shapeMethodDel(SrvAuthSessions)

@@ -128,3 +128,8 @@ export const MDPSTabTrackingAnalyticRemove = 'modalTrackingAnalyticRemove'
 // Notification
 export const MDPSTabNotificationAdd = 'modalNotificationAdd'
 export const MDPSTabNotificationRemove = 'modalNotificationemove'
+
+//Session
+export const MDAuthSessions = 'modalAuthSessions'
+export const MDAuthSessionsRemove = 'modalAuthSessionsRemove'
+export const MDAuthSessionsRemoveAll = 'modalAuthSessionsRemoveAll'

@@ -34,7 +34,7 @@ import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 const initForm = {
     name: '',
     icon: '',
-    deleteIcon: '',
+    deletedIcon: '',
     order: '',
     isPopular: false,
     isPublish: false,
@@ -43,7 +43,7 @@ const initForm = {
 const initMapForm = (passData) => ({
     name: passData?.name || '',
     icon: '',
-    deleteIcon: '',
+    deletedIcon: '',
     order: passData?.order || '',
     isPopular: passData?.isPopular || false,
     isPublish: passData?.isPublish || false,
@@ -100,6 +100,7 @@ const TabAmenities = () => {
     })
 
     const [previewIcon, setPreviewIcon] = useState()
+    const [selected, setSelected] = useState<any>()
 
     const _handleUpdateSync = async (): Promise<APIResponse> => {
         const dataForm = await objectToFormData(__formRequest)
@@ -110,9 +111,14 @@ const TabAmenities = () => {
         __setFormRequest((prev) => ({
             ...prev,
             icon: '',
-            deleteIcon: previewIcon,
+            deletedIcon: previewIcon,
         }))
         setPreviewIcon(undefined)
+    }
+
+    const _handleEdit = (vm) => {
+        __actionUpdateModal(vm)
+        setPreviewIcon(vm.icon)
     }
 
     return (
@@ -217,7 +223,7 @@ const TabAmenities = () => {
                                                 actions={{
                                                     edit: (e) => {
                                                         e.stopPropagation()
-                                                        __actionUpdateModal(vm)
+                                                        _handleEdit(vm)
                                                     },
                                                 }}
                                             />
