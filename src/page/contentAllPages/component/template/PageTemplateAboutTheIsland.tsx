@@ -148,8 +148,20 @@ const PageTemplateAboutTheIsland = ({
                                 {SECTION3.points.map((vm, index) => {
                                     return (
                                         <div
-                                            className="card border-neutral-400 p-3 vstack gap-3"
+                                            className="card border-neutral-400 p-3 vstack gap-3 mt-3"
                                             key={index}>
+                                            <div className="row">
+                                                <div className="col-md-6">
+                                                    <p className="fs-16 mb-0">
+                                                        Information{' '}
+                                                        <span className="fw-500">
+                                                            #{index + 1}
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div className="col-md-6"></div>
+                                            </div>
+
                                             <FormUploadFile
                                                 label="Icon"
                                                 // Default
