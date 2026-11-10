@@ -14,6 +14,7 @@ import {
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
     TEMPLATE_ISLAND_GUIDE,
+    TEMPLATE_ISLAND_GUIDE_ABOUT_THE_ISLAND,
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
     TEMPLATE_SEARCH,
@@ -26,7 +27,10 @@ import {
     dataGeneralAndContentInfoPage,
     dataGeneralInfoPage,
 } from '@/page/contentAllPages/dataSchema/dataInfoPage.ts'
-import dataIslandGuidePage from '@/page/contentAllPages/dataSchema/dataIslandGuidePage.ts'
+import {
+    dataIslandGuideAboutTheIslandPage,
+    dataIslandGuidePage,
+} from '@/page/contentAllPages/dataSchema/dataIslandGuidePage.ts'
 import dataOfferPage from '@/page/contentAllPages/dataSchema/dataOfferPage.ts'
 import dataPropertyPage from '@/page/contentAllPages/dataSchema/dataPropertyPage.ts'
 import { dataBoatTransferPage } from '@/page/contentAllPages/dataSchema/dataBoatTransferPage.ts'
@@ -42,6 +46,7 @@ const configDataSchema = {
     [TEMPLATE_BOAT_TRANSFER]: dataBoatTransferPage,
     [TEMPLATE_SEARCH]: dataSearchPage,
     [TEMPLATE_ABOUT]: dataAboutPage,
+    [TEMPLATE_ISLAND_GUIDE_ABOUT_THE_ISLAND]: dataIslandGuideAboutTheIslandPage,
 
     // Info Page
     [TEMPLATE_INFO_CONTACT]: dataContactUsPage,

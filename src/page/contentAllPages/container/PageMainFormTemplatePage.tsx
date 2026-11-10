@@ -11,6 +11,7 @@ import {
     TEMPLATE_INFO_PRIVACY_POLICY,
     TEMPLATE_INFO_TNC,
     TEMPLATE_ISLAND_GUIDE,
+    TEMPLATE_ISLAND_GUIDE_ABOUT_THE_ISLAND,
     TEMPLATE_OFFER,
     TEMPLATE_PROPERTY,
     TEMPLATE_PROPERTY_DETAIL,
@@ -27,6 +28,7 @@ import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTem
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
 import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
 import PageTemplateSearch from '@/page/contentAllPages/component/template/PageTemplateSearch.tsx'
+import PageTemplateIslandGuideAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateIslandGuideAboutTheIsland.tsx'
 
 const PageMainFormTemplatePage = ({
     template,
@@ -59,6 +61,9 @@ const PageMainFormTemplatePage = ({
         ),
         [TEMPLATE_SEARCH]: <PageTemplateSearch {...propsPageTemplate} />,
         [TEMPLATE_ABOUT]: <PageTemplateAbout {...propsPageTemplate} />,
+        [TEMPLATE_ISLAND_GUIDE_ABOUT_THE_ISLAND]: (
+            <PageTemplateIslandGuideAboutTheIsland {...propsPageTemplate} />
+        ),
 
         // Info Page
         [TEMPLATE_INFO_FAQ]: <PageTemplateFAQ {...propsPageTemplate} />,
