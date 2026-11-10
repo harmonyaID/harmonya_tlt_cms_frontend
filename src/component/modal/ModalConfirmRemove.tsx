@@ -7,7 +7,7 @@ const ModalConfirmRemove: FC<ModalConfirmRemoveProps> = (props) => {
     return (
         <ModalConfirm
             id={props.id || MDGeneralRemove}
-            title="Are you sure to remove?"
+            title={props.title || 'Are you sure to remove?'}
             titleButton={props.titleButton || 'Continue'}
             isLoading={props.isLoading}
             isMDRemove
