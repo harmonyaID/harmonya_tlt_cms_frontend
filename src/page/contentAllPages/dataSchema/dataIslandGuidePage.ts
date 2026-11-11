@@ -15,7 +15,9 @@ export const dataIslandGuideAboutTheIslandPage = {
         title: '',
     },
     SECTION2: {
-        images: [],
+        title: '',
+        description: '',
+        images: [{ image: '' }],
         mapImage: '',
         mapTitle: '',
         mapSize: '',
@@ -45,8 +47,6 @@ export const dataIslandGuideAboutTheIslandPage = {
         ],
     },
     SECTION4: {
-        title: '',
-        description: '',
         vsTitle: '',
         vsDescription: '', //text editor
         vsContents: [
@@ -54,7 +54,7 @@ export const dataIslandGuideAboutTheIslandPage = {
                 image: '',
                 title: '',
                 subTitle: '',
-                content: '',
+                description: '',
             },
         ],
     },
