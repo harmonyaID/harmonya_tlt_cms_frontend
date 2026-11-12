@@ -4,66 +4,12 @@ import { Link } from 'react-router'
 import userPath from '@/path/user.path.ts'
 import { Devices, Logout, User } from 'iconsax-react'
 import actionModal from '@/helper/base/actionModal.helper.ts'
-import {
-    MDAuthSessions,
-    MDAuthSessionsRemove,
-    MDAuthSessionsRemoveAll,
-    MDLogout,
-} from '@/config/modal.config.ts'
-import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
-import SessionListModalAccount from '@/component/layout/_account/SessionListModal.account.tsx'
-import { useState } from 'react'
-import ModalConfirmRemove from '@/component/modal/ModalConfirmRemove.tsx'
-import {
-    apiDeleteAllAuthSession,
-    apiDeleteAuthSession,
-    apiGetAuthSessions,
-} from '@/service/api/auth.api.ts'
-import { isSuccess } from '@/helper/base/condition.helper.ts'
-import useDataListHook from '@/hook/base/useDataList.hook.ts'
+import { MDLogout } from '@/config/modal.config.ts'
 import { BadgeStatusGeneral } from '@/component/general/Badge.tsx'
 
 const NavbarAccountAccount = ({ __profile }: { __profile: any }) => {
-    const [selected, setSelected] = useState<any>()
-
-    const { __list, __actionRemove } = useDataListHook({
-        urlAPI: apiGetAuthSessions,
-    })
-
     const _handleConfirmLogout = (isClose = false) => {
         actionModal(MDLogout, isClose)
-    }
-
-    const _handleConfirmRemove = (session) => {
-        setSelected(session)
-        actionModal(MDAuthSessions, true)
-        actionModal(MDAuthSessionsRemove)
-    }
-
-    const _handleConfirmRemoveAll = () => {
-        actionModal(MDAuthSessions, true)
-        actionModal(MDAuthSessionsRemoveAll)
-    }
-
-    const _handleSessionRemove = () => {
-        apiDeleteAuthSession(selected?.id).then((res) => {
-            if (isSuccess(res)) {
-                __actionRemove(selected.id, 'id')
-                setSelected(undefined)
-                actionModal(MDAuthSessionsRemove, true)
-                actionModal(MDAuthSessions, false)
-            }
-        })
-    }
-
-    const _handleSessionRemoveAll = () => {
-        apiDeleteAllAuthSession().then((res) => {
-            if (isSuccess(res)) {
-                setSelected(undefined)
-                actionModal(MDAuthSessionsRemoveAll, true)
-                actionModal(MDAuthSessions, false)
-            }
-        })
     }
 
     return (
@@ -174,15 +120,6 @@ const NavbarAccountAccount = ({ __profile }: { __profile: any }) => {
                 <button
                     className="dropdown-item profile-item py-2"
                     id="logout-btn"
-                    onClick={() => actionModal(MDAuthSessions)}>
-                    <span className="me-2">
-                        <Devices variant="Bulk" />
-                    </span>
-                    Logged in Devices
-                </button>
-                <button
-                    className="dropdown-item profile-item py-2"
-                    id="logout-btn"
                     onClick={() => _handleConfirmLogout()}>
                     <span className="me-2">
                         <Logout variant="Bulk" />
@@ -190,43 +127,6 @@ const NavbarAccountAccount = ({ __profile }: { __profile: any }) => {
                     Log Out
                 </button>
             </div>
-
-            <CreatePortalLayout>
-                <SessionListModalAccount
-                    list={__list}
-                    actions={{
-                        onConfirmRemoveAll: _handleConfirmRemoveAll,
-                        onConfirmRemove: _handleConfirmRemove,
-                    }}
-                />
-
-                <ModalConfirmRemove
-                    id={MDAuthSessionsRemove}
-                    handleDelete={_handleSessionRemove}
-                    titleButton={`Logout ${selected?.deviceName}`}
-                    closeModal={() => {
-                        actionModal(MDAuthSessionsRemove, true)
-                        actionModal(MDAuthSessions, false)
-                    }}>
-                    <p>
-                        This will logged out the {selected?.deviceName} session
-                    </p>
-                </ModalConfirmRemove>
-
-                <ModalConfirmRemove
-                    id={MDAuthSessionsRemoveAll}
-                    handleDelete={_handleSessionRemoveAll}
-                    titleButton="Logout All"
-                    closeModal={() => {
-                        actionModal(MDAuthSessionsRemoveAll, true)
-                        actionModal(MDAuthSessions, false)
-                    }}>
-                    <p>
-                        This will logged out all sessions, including the current
-                        one
-                    </p>
-                </ModalConfirmRemove>
-            </CreatePortalLayout>
         </>
     )
 }

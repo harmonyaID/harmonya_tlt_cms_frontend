@@ -9,7 +9,7 @@ import { BtnDanger, BtnInfo } from '@/component/general/Button.tsx'
 import { IconButtonRemove } from '@/component/general/IconButton.tsx'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 
-const SessionListModalAccount = ({
+const SessionList = ({
     actions,
     list,
 }: {
@@ -20,11 +20,8 @@ const SessionListModalAccount = ({
     }
 }) => {
     return (
-        <ModalMiddle
-            id={MDAuthSessions}
-            title="Logged In Devices"
-            isScrollable={false}>
-            <div className="vstack gap-3">
+        <>
+            <div className="vstack gap-3 max-h-dropdown-400 overflow-y-scroll">
                 {list?.map((item) => (
                     <div
                         key={item.id}
@@ -67,8 +64,8 @@ const SessionListModalAccount = ({
                     Logout All
                 </BtnDanger>
             </div>
-        </ModalMiddle>
+        </>
     )
 }
 
-export default SessionListModalAccount
+export default SessionList
