@@ -5,6 +5,7 @@ import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import { WrapFormContext } from '@/context/Form.context.tsx'
 import { defaultUploadFileProps } from '@/page/contentAllPages/param/configThemeProps.param.ts'
+import FormInputPhone from '@/component/form/FormInputPhone.tsx'
 
 const PageTemplateContactUs = ({
     formContent,
@@ -75,6 +76,49 @@ const PageTemplateContactUs = ({
                         required
                         placeholder="e.g Day trips, transport, services, and the community"
                     />
+
+                    <FormInputPhone
+                        value={SECTION2.phoneID}
+                        label="Phone Indonesia"
+                        defaultCountry="ID"
+                        actions={{
+                            onChange: (value) =>
+                                actions.change('SECTION2.phoneID', value),
+                        }}
+                    />
+
+                    <FormInputPhone
+                        value={SECTION2.phoneAU}
+                        label="Phone Australia"
+                        actions={{
+                            onChange: (value) =>
+                                actions.change('SECTION2.phoneAU', value),
+                        }}
+                    />
+
+                    <FormInput
+                        type="email"
+                        label="Reservation Email"
+                        name="reservationEmail"
+                        value={SECTION2?.reservationEmail || ''}
+                        placeholder="e.g john@gmail.com"
+                    />
+
+                    <FormInput
+                        type="email"
+                        label="Poperty Email"
+                        name="propertyEmail"
+                        value={SECTION2?.propertyEmail || ''}
+                        placeholder="e.g john@gmail.com"
+                    />
+
+                    <FormInput
+                        type="email"
+                        label="Business Email"
+                        name="businessEmail"
+                        value={SECTION2?.businessEmail || ''}
+                        placeholder="e.g john@gmail.com"
+                    />
                 </WrapFormContext>
             </GeneralRowForm>
 
@@ -99,7 +143,6 @@ const PageTemplateContactUs = ({
                             name="description"
                             value={SECTION3?.description || ''}
                             isUseHook={false}
-                            isSimple
                             actions={{
                                 // ...actions,
                                 onChange: (passName, passValue) =>

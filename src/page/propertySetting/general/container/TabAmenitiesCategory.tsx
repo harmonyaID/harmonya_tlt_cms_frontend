@@ -1,9 +1,5 @@
 import ConfirmRemoveListLogic from '@/common/misc/ConfirmRemoveList.logic.tsx'
-import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
-import FormUploadFile from '@/component/form/FormUploadFile.tsx'
-import { BtnCircleEdit } from '@/component/general/Button.tsx'
-import { BoxImage } from '@/component/general/Image.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirstPrimary,
@@ -11,7 +7,7 @@ import {
 } from '@/component/general/TablePartial.tsx'
 import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
-    MDPropertySettingAmenitiesCategory,
+    MDPropertySettingAmenities,
     MDPropertySettingAmenitiesCategoryRemove,
 } from '@/config/modal.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
@@ -21,10 +17,7 @@ import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import useCRUDModalRequestHook from '@/hook/useCRUDModalRequest.hook.ts'
-import {
-    apiAmenitiesCategoryCRUD,
-    apiAmenitiesCRUD,
-} from '@/service/api/setting.api.ts'
+import { apiAmenitiesCategoryCRUD } from '@/service/api/setting.api.ts'
 
 const initForm = {
     name: '',
@@ -66,8 +59,8 @@ const TabAmenitiesCategory = () => {
         __actionCloseModal,
         __actionRemoveModal,
     } = useCRUDModalRequestHook({
-        modalId: MDPropertySettingAmenitiesCategory,
-        modalRemoveId: MDPropertySettingAmenitiesCategory + 'Remove',
+        modalId: MDPropertySettingAmenities,
+        modalRemoveId: MDPropertySettingAmenities + 'Remove',
         emptyParam: { ...initForm },
         mapDetailToFormRequest: initMapForm,
     })
@@ -124,12 +117,10 @@ const TabAmenitiesCategory = () => {
                                             {vm?.order || '-'}
                                         </TblLineSecond>
                                     </td>
-                                    <td className="w-20">
-                                        {vm.icon ? (
-                                            <BoxImage src={vm.icon} />
-                                        ) : (
-                                            '-'
-                                        )}
+                                    <td>
+                                        <TblLineSecond>
+                                            {vm?.icon || '-'}
+                                        </TblLineSecond>
                                     </td>
                                     <td>
                                         {/*<div className="hstack gap-2 justify-content-end">*/}
@@ -152,21 +143,6 @@ const TabAmenitiesCategory = () => {
                                         {/*        }}*/}
                                         {/*    />*/}
                                         {/*</div>*/}
-
-                                        <BtnCircleEdit
-                                            title="Edit Data"
-                                            actions={{
-                                                edit: (e) => {
-                                                    e.stopPropagation()
-                                                    __actionUpdateModal({
-                                                        ...vm,
-                                                        order:
-                                                            vm.order ||
-                                                            index + 1,
-                                                    })
-                                                },
-                                            }}
-                                        />
                                     </td>
                                 </tr>
                             )
@@ -198,44 +174,6 @@ const TabAmenitiesCategory = () => {
                         emptySelect: () => {
                             _handleSetData({})
                         },
-                    }}
-                />
-
-                <ModalWithActionFormCRUDLogic
-                    id={MDPropertySettingAmenitiesCategory}
-                    detail={__detailData}
-                    title="Icon"
-                    isEdit
-                    formRequest={__formRequest}
-                    isUseDefaultInput={false}
-                    actions={{
-                        change: _handleChange,
-                        toggleModal: () => {
-                            __actionCloseModal()
-                        },
-                    }}
-                    externalForm={
-                        <>
-                            <FormUploadFile name="icon" accept="image/*" />
-                        </>
-                    }
-                    configHandle={{
-                        urlAPIUpdate: () =>
-                            apiAmenitiesCRUD.updateWithData(
-                                __selectedId,
-                                __formRequest,
-                            ),
-                        initialForm: () =>
-                            __setFormRequest(initMapForm(__detailData)),
-                        callBack: (newData) => {
-                            __isEdit
-                                ? __actionUpdate(newData)
-                                : __actionAdd(newData, 'id', true)
-                        },
-                        emptySelect: () =>
-                            __setFormRequest(() => ({
-                                ...initForm,
-                            })),
                     }}
                 />
             </CreatePortalLayout>

@@ -24,6 +24,7 @@ import TabInquiryForm from '@/page/contentExperience/container/TabInquiryForm.ts
 import useContentExDetail from '@/page/contentExperience/hook/useContentExDetail.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
 import useContentIslandGuideDetail from '@/page/contentIslandGuide/hook/useContentIslandGuideDetail.hook.ts'
+import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
 
 const ContentExperienceDetailPage = () => {
     const {
@@ -45,7 +46,7 @@ const ContentExperienceDetailPage = () => {
                     {
                         name: 'Island Guide',
                         actions: {
-                            url: contentExperiencePath.main,
+                            url: contentIslandGuidePath.main,
                             state: { ...__pageStateDataSearch },
                         },
                     },

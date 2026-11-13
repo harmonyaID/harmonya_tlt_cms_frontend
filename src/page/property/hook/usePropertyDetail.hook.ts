@@ -13,15 +13,15 @@ const usePropertyDetail = () => {
     const restored = useLocationStateHook()
 
     const { __detail, __isLoading } = useDataDetailHook({
-        urlAPI: () => apiPropertyVariant.detail(id),
+        urlAPI: () => apiProperty.detail(id),
         isCallAPI: true,
         triggerBy: id,
     })
 
     const { __handleToAdd, __handleToEdit, __handleToMain } =
         usePageFlowHandlerHook({
-            basePath: propertyVariantPath,
-            pathFromKey: 'property-variant-detail',
+            basePath: propertyPath,
+            pathFromKey: 'property-detail',
             search: restored.dataSearch,
         })
 

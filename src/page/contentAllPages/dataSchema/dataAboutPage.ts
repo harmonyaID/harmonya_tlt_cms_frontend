@@ -22,24 +22,21 @@ export const dataAboutPage = {
             title: '',
             subTitle: '',
             description: '', //Text editor
-            buttonTitle: '',
-            buttonLink: '',
+            file: '',
         },
         SubSection2: {
             image: '',
             title: '',
             subTitle: '',
             description: '', //Text editor
-            buttonTitle: '',
-            buttonLink: '',
+            file: '',
         },
         SubSection3: {
             image: '',
             title: '',
             subTitle: '',
             description: '', //Text editor
-            buttonTitle: '',
-            buttonLink: '',
+            file: '',
         },
     },
     SECTION4: {

@@ -76,7 +76,6 @@ const PageTemplateOffer = ({
 
                             <FormTinyMCE
                                 label="Description"
-                                isSimple
                                 name="description"
                                 value={formContent?.SECTION2?.description || ''}
                                 isUseHook={false}

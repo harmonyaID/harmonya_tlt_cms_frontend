@@ -16,6 +16,7 @@ import useExpTypeMainForm from '@/page/experienceType/hook/useExpTypeMainForm.ho
 import experienceAreaPath from '@/path/experienceArea.path.ts'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import SelectOptionBlog from '@/common/dataForm/SelectOptionBlog.tsx'
+import experienceTypePath from '@/path/experienceType.path.ts'
 
 const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const {
@@ -57,7 +58,7 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
             <NavBreadcrumb
                 navs={[
                     objectNavBread('Type', {
-                        url: experienceAreaPath.main,
+                        url: experienceTypePath.main,
                         state: __pageStateDataSearch,
                     }),
                     objectNavBread(isEdit ? 'Edit' : 'Add'),
@@ -95,7 +96,6 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <FormTinyMCE
                                                 name="description"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
-                                                isSimple
                                             />
                                         </GeneralRowForm>
 
@@ -103,7 +103,6 @@ const ExpTypeMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             <FormTinyMCE
                                                 name="additionalContent"
                                                 placeholder="e.g Nestled along a pristine stretch of coastline in Nusa Lembongan."
-                                                isSimple
                                             />
                                         </GeneralRowForm>
 

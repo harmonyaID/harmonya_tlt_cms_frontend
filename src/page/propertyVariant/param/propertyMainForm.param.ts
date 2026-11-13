@@ -102,25 +102,25 @@ export const propertyInitForm = {
 }
 
 export const propertyMapInitForm = (passData) => ({
-    nickname: passData.nickname || '',
+    nickname: passData?.nickname || '',
     propertyTypeId: passData?.type?.id || '',
     unitTypeId: passData?.unitType?.id || '',
     listingTypeId: passData?.listingType?.id || '',
-    occupancy: passData.occupancy || '',
+    occupancy: passData?.occupancy || '',
     statusId: passData?.status?.id || '',
     cleaningStatusId: passData?.cleaningStatus?.id || '',
     sourceTypeId: passData?.sourceType?.id || '',
     currency: 'AUD',
-    addresses: !isEmpty(passData.addresses)
-        ? passData.addresses.map((vm) => propertyMapFormAddress(vm))
+    addresses: !isEmpty(passData?.addresses)
+        ? passData?.addresses?.map((vm) => propertyMapFormAddress(vm))
         : [],
     guestInfo: {
         hostName: passData?.guestInfo?.hostName || '',
         wifiName: passData?.guestInfo?.wifiName || '',
         wifiPassword: passData?.guestInfo?.wifiPassword || '',
     },
-    rooms: !isEmpty(passData.rooms)
-        ? passData.rooms.map((vm) => propertyMapFormRoom(vm))
+    rooms: !isEmpty(passData?.rooms)
+        ? passData?.rooms.map((vm) => propertyMapFormRoom(vm))
         : [],
     availability: {
         defaultAvailabilityId:
@@ -138,8 +138,8 @@ export const propertyMapInitForm = (passData) => ({
         weeklyDiscount: passData?.pricing?.weeklyDiscount || '',
         monthlyDiscount: passData?.pricing?.monthlyDiscount || '',
     },
-    descriptions: !isEmpty(passData.descriptions)
-        ? passData.descriptions.map((vm) => propertyMapFormDesc(vm))
+    descriptions: !isEmpty(passData?.descriptions)
+        ? passData?.descriptions.map((vm) => propertyMapFormDesc(vm))
         : [],
     amenityIds: [],
     tagIds: [],
@@ -148,8 +148,8 @@ export const propertyMapInitForm = (passData) => ({
     deleteFloorplanImage: 0,
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 
-    isPopular: passData.isPopular ? 1 : 0,
-    isNewVilla: passData.isNewVilla ? 1 : 0,
+    isPopular: passData?.isPopular ? 1 : 0,
+    isNewVilla: passData?.isNewVilla ? 1 : 0,
     whyYoullLoveThis: passData?.whyYoullLoveThis || [],
 
     parentProperty: passData?.parentProperty || {},

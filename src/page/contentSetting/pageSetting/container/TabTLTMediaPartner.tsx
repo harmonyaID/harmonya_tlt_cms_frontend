@@ -62,6 +62,7 @@ const initForm = {
     url: '',
     isPublish: 1,
     logo: '',
+    featuredImage: '',
     title: '',
     date: '',
     typeId: '',
@@ -74,13 +75,14 @@ const initMapForm = (passData) => ({
     url: passData.url || '',
     isPublish: passData.isPublish ? 1 : 0,
     logo: '',
+    featuredImage: '',
     title: passData.title || '',
     date: passData.date || '',
     typeId: passData?.type?.id || '',
 })
 
 const PARAM_LOGO = 'logo'
-const PARAM_FEATURE_IMAGE = 'featureImage'
+const PARAM_FEATURE_IMAGE = 'featuredImage'
 
 const TabTLTMediaPartner = () => {
     const [isShowTrash, setIsShowTrash] = useState<boolean>(false)
@@ -233,6 +235,7 @@ const TabTLTMediaPartner = () => {
                         isNoWrap
                         ths={[
                             'Logo',
+                            'Featured Image',
                             'Name',
                             'Type',
                             'Date',
@@ -255,6 +258,30 @@ const TabTLTMediaPartner = () => {
                                                             onClick={() => {}}>
                                                             <Image
                                                                 src={vm?.logo}
+                                                                alt="Preview File"
+                                                                fallback={
+                                                                    ImgGeneralDefault
+                                                                }
+                                                                className="data-img data-img-contain avatar-46 object-fit-cover"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="row">
+                                            <div className="col-auto">
+                                                <div className="position-relative float-end">
+                                                    <div className="overflow-hidden rounded position-relative">
+                                                        <div
+                                                            className="wp-img-preview"
+                                                            onClick={() => {}}>
+                                                            <Image
+                                                                src={
+                                                                    vm?.featuredImage
+                                                                }
                                                                 alt="Preview File"
                                                                 fallback={
                                                                     ImgGeneralDefault
@@ -405,7 +432,6 @@ const TabTLTMediaPartner = () => {
                             <FormTextArea
                                 label="Additional Content"
                                 name="additionalContent"
-                                required
                                 placeholder="e.g Nusa Lembongan is a great place to bring children of all ages. It’s a very safe island and the locals adore children."
                             />
 
@@ -482,66 +508,66 @@ const TabTLTMediaPartner = () => {
                                 </>
                             )}
 
-                            {/*{previewDataImage[PARAM_FEATURE_IMAGE] ? (*/}
-                            {/*    <div className="my-3">*/}
-                            {/*        <p className="mb-2 text-neutral-100">*/}
-                            {/*            Featured Image*/}
-                            {/*        </p>*/}
+                            {previewDataImage[PARAM_FEATURE_IMAGE] ? (
+                                <div className="my-3">
+                                    <p className="mb-2 text-neutral-100">
+                                        Featured Image
+                                    </p>
 
-                            {/*        <PreviewFileModalLogic*/}
-                            {/*            dataUrl={previewDataImage[*/}
-                            {/*                PARAM_FEATURE_IMAGE*/}
-                            {/*            ]?.toString()}*/}
-                            {/*            dataBy="file"*/}
-                            {/*            dataFile={*/}
-                            {/*                previewDataImage[*/}
-                            {/*                    PARAM_FEATURE_IMAGE*/}
-                            {/*                ]*/}
-                            {/*            }*/}
-                            {/*            isShowBtnRemove*/}
-                            {/*            actions={{*/}
-                            {/*                remove: () =>*/}
-                            {/*                    _handleRemoveImage(*/}
-                            {/*                        PARAM_FEATURE_IMAGE,*/}
-                            {/*                    ),*/}
-                            {/*            }}*/}
-                            {/*        />*/}
-                            {/*    </div>*/}
-                            {/*) : (*/}
-                            {/*    <>*/}
-                            {/*        <FormUploadFile*/}
-                            {/*            label="Feature Image"*/}
-                            {/*            name={PARAM_FEATURE_IMAGE}*/}
-                            {/*            isUseHook={false}*/}
-                            {/*            isPreview={false}*/}
-                            {/*            accept="image/*"*/}
-                            {/*            actions={{*/}
-                            {/*                onChange: (name, newFiles) => {*/}
-                            {/*                    const img = new Image()*/}
-                            {/*                    const objectUrl =*/}
-                            {/*                        URL.createObjectURL(*/}
-                            {/*                            newFiles,*/}
-                            {/*                        )*/}
+                                    <PreviewFileModalLogic
+                                        dataUrl={previewDataImage[
+                                            PARAM_FEATURE_IMAGE
+                                        ]?.toString()}
+                                        dataBy="file"
+                                        dataFile={
+                                            previewDataImage[
+                                                PARAM_FEATURE_IMAGE
+                                            ]
+                                        }
+                                        isShowBtnRemove
+                                        actions={{
+                                            remove: () =>
+                                                _handleRemoveImage(
+                                                    PARAM_FEATURE_IMAGE,
+                                                ),
+                                        }}
+                                    />
+                                </div>
+                            ) : (
+                                <>
+                                    <FormUploadFile
+                                        label="Feature Image"
+                                        name={PARAM_FEATURE_IMAGE}
+                                        isUseHook={false}
+                                        isPreview={false}
+                                        accept="image/*"
+                                        actions={{
+                                            onChange: (name, newFiles) => {
+                                                const img = new window.Image()
+                                                const objectUrl =
+                                                    URL.createObjectURL(
+                                                        newFiles,
+                                                    )
 
-                            {/*                    img.onload = () => {*/}
-                            {/*                        _handleChange(*/}
-                            {/*                            PARAM_FEATURE_IMAGE,*/}
-                            {/*                            newFiles,*/}
-                            {/*                        )*/}
-                            {/*                    }*/}
+                                                img.onload = () => {
+                                                    _handleChange(
+                                                        PARAM_FEATURE_IMAGE,
+                                                        newFiles,
+                                                    )
+                                                }
 
-                            {/*                    img.src = objectUrl*/}
-                            {/*                },*/}
+                                                img.src = objectUrl
+                                            },
 
-                            {/*                handleDataFiles: (newDataFiles) =>*/}
-                            {/*                    _handleDataImage(*/}
-                            {/*                        PARAM_FEATURE_IMAGE,*/}
-                            {/*                        newDataFiles.url,*/}
-                            {/*                    ),*/}
-                            {/*            }}*/}
-                            {/*        />*/}
-                            {/*    </>*/}
-                            {/*)}*/}
+                                            handleDataFiles: (newDataFiles) =>
+                                                _handleDataImage(
+                                                    PARAM_FEATURE_IMAGE,
+                                                    newDataFiles.url,
+                                                ),
+                                        }}
+                                    />
+                                </>
+                            )}
                         </>
                     }
                     configHandle={{
