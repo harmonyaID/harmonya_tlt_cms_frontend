@@ -80,6 +80,7 @@ export interface ModalConfirmMaxThreeMonthProps {
 // Modal Confirm Remove
 export interface ModalConfirmRemoveProps {
     id?: string
+    title?: string
     titleButton?: string
     isLoading?: boolean
     handleDelete: () => void

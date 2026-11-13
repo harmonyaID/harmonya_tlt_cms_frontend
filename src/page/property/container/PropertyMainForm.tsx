@@ -588,12 +588,6 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     name="tagIds"
                                                     nameOfChange="changeTags"
                                                     isMarginBottom={false}
-                                                    required={
-                                                        __formRequest?.tagIds
-                                                            ?.length
-                                                            ? false
-                                                            : true
-                                                    }
                                                     isUseHook
                                                     isOnlyChoose
                                                     isMulti

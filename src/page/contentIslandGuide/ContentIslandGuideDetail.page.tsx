@@ -20,9 +20,6 @@ import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData
 import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
-import TabInquiryForm from '@/page/contentExperience/container/TabInquiryForm.tsx'
-import useContentExDetail from '@/page/contentExperience/hook/useContentExDetail.hook.ts'
-import contentExperiencePath from '@/path/contentExperience.path.ts'
 import useContentIslandGuideDetail from '@/page/contentIslandGuide/hook/useContentIslandGuideDetail.hook.ts'
 import contentIslandGuidePath from '@/path/contentIslandGuide.path.ts'
 
@@ -139,7 +136,7 @@ const ContentExperienceDetailPage = () => {
                             ),
                             objectTab('General', 'tabGeneral'),
                             objectTab('Photos', 'tabPhotos'),
-                            objectTab('Catalogs', 'tabCatalogs'),
+                            // objectTab('Catalogs', 'tabCatalogs'),
                             // objectTab('Inquiry Form', 'tabInquiryForm'),
                             objectTab('SEO Information', 'tabSEOInformation'),
                         ]}

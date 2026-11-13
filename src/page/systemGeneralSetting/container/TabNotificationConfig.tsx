@@ -180,7 +180,7 @@ const TabNotificationConfig = () => {
                             <tr key={type.id}>
                                 <td>{type.name}</td>
                                 <td>{type.provider?.name || '-'}</td>
-                                <td>
+                                <td className="max-w-200px text-wrap">
                                     {type.provider?.id == FIREBASE_ID && (
                                         <>
                                             <TblPointData title="Project ID">
@@ -399,7 +399,7 @@ const TabNotificationConfig = () => {
                             __setFormRequest(initMapForm(__detailData)),
                         callBack: (newData) => {
                             __isEdit
-                                ? __actionUpdate(newData)
+                                ? __actionUpdate(newData, 'id', true)
                                 : __actionAdd(newData, 'id', true)
                         },
                         emptySelect: () =>

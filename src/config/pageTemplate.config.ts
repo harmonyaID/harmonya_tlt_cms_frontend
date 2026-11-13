@@ -16,7 +16,8 @@ export const TEMPLATE_PROPERTY = 'template-page-property'
 export const TEMPLATE_PROPERTY_DETAIL = 'template-page-property-detail'
 export const TEMPLATE_BOAT_TRANSFER = 'template-page-boat-transfer'
 export const TEMPLATE_SEARCH = 'template-page-search'
-export const TEMPLATE_ABOUT_THE_ISLANDS = 'template-page-about-the-islands'
+export const TEMPLATE_ISLAND_GUIDE_ABOUT_THE_ISLAND =
+    'template-page-island-guide-about-the-island'
 
 // ------------------------ Page Template
 // 'template-page-blog-detail' -> 'Blog Detail'
@@ -56,5 +57,4 @@ export const listTemplatePages = createTemplateOptions([
     TEMPLATE_PROPERTY,
     TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_SEARCH,
-    TEMPLATE_ABOUT_THE_ISLANDS,
 ])
