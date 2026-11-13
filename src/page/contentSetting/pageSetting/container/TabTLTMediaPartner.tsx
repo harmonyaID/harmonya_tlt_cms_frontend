@@ -66,6 +66,7 @@ const initForm = {
     title: '',
     date: '',
     typeId: '',
+    isPublishHomepage: 0,
 }
 
 const initMapForm = (passData) => ({
@@ -79,6 +80,7 @@ const initMapForm = (passData) => ({
     title: passData.title || '',
     date: passData.date || '',
     typeId: passData?.type?.id || '',
+    isPublishHomepage: passData?.isPublishHomepage ? 1 : 0,
 })
 
 const PARAM_LOGO = 'logo'
@@ -294,7 +296,7 @@ const TabTLTMediaPartner = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td className="max-w-300px">
                                         <TblLineFirst value={vm.name} />
                                         <TblPointData
                                             title="Title"
@@ -310,7 +312,7 @@ const TabTLTMediaPartner = () => {
                                     <td>
                                         <TblLineFirst value={vm?.date || '-'} />
                                     </td>
-                                    <td>
+                                    <td className="max-w-300px">
                                         <TblLineSecond>
                                             {vm.description || '-'}
                                         </TblLineSecond>
@@ -323,6 +325,16 @@ const TabTLTMediaPartner = () => {
                                     </td>
                                     <td>
                                         <TextTrueOrFalse value={vm.isPublish} />
+
+                                        <TblPointData
+                                            title="Home Page"
+                                            className="mt-3"
+                                            value={
+                                                <TextTrueOrFalse
+                                                    value={vm.isPublishHomepage}
+                                                />
+                                            }
+                                        />
                                     </td>
                                     <td>
                                         <TblLineSecond>
@@ -440,6 +452,22 @@ const TabTLTMediaPartner = () => {
                             <FormRadioButtonMulti
                                 label="Share Publish ?"
                                 name="isPublish"
+                                required
+                                checkBoxs={[
+                                    {
+                                        defaultValue: 0,
+                                        label: 'No',
+                                    },
+                                    {
+                                        defaultValue: 1,
+                                        label: 'Yes',
+                                    },
+                                ]}
+                            />
+
+                            <FormRadioButtonMulti
+                                label="Publish in Homepage"
+                                name="isPublishHomepage"
                                 required
                                 checkBoxs={[
                                     {
