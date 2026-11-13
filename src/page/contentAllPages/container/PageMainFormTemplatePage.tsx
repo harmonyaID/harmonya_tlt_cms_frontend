@@ -2,7 +2,6 @@ import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
 import {
     TEMPLATE_ABOUT,
-    TEMPLATE_ABOUT_THE_ISLANDS,
     TEMPLATE_BLOG,
     TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
@@ -27,10 +26,10 @@ import PageTemplateExperience from '@/page/contentAllPages/component/template/Pa
 import PageTemplateFAQ from '@/page/contentAllPages/component/template/PageTemplateFAQ.tsx'
 import PageTemplateGeneralHero from '@/page/contentAllPages/component/template/PageTemplateGeneralHero.tsx'
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
+import PageTemplateIslandGuideAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateIslandGuideAboutTheIsland.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
 import PageTemplateSearch from '@/page/contentAllPages/component/template/PageTemplateSearch.tsx'
-import PageTemplateIslandGuideAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateIslandGuideAboutTheIsland.tsx'
 
 const PageMainFormTemplatePage = ({
     template,
@@ -80,11 +79,6 @@ const PageMainFormTemplatePage = ({
         ),
         [TEMPLATE_INFO_CONTACT]: (
             <PageTemplateContactUs {...propsPageTemplate} />
-        ),
-
-        // Feature detail by page
-        [TEMPLATE_ABOUT_THE_ISLANDS]: (
-            <PageTemplateAboutTheIsland {...propsPageTemplate} />
         ),
     }
 

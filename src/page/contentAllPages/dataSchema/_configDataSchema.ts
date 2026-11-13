@@ -5,7 +5,6 @@
 // } from '@/page/contentAllPages/dataSchema/_typeDataSchema.ts'
 import {
     TEMPLATE_ABOUT,
-    TEMPLATE_ABOUT_THE_ISLANDS,
     TEMPLATE_BLOG,
     TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_EXPERIENCE,
@@ -56,9 +55,6 @@ const configDataSchema = {
     [TEMPLATE_INFO_TNC]: dataGeneralAndContentInfoPage,
     [TEMPLATE_INFO_PRIVACY_POLICY]: dataGeneralAndContentInfoPage,
     [TEMPLATE_INFO_PRES_AND_MEDIA]: dataGeneralInfoPage,
-
-    // Feature detail by page
-    [TEMPLATE_ABOUT_THE_ISLANDS]: dataAboutTheIslandsMain,
 }
 
 export default configDataSchema
