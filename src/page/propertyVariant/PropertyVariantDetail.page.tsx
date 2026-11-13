@@ -190,6 +190,20 @@ const PropertyVariantDetailPage = () => {
                                                     <HorizontalLoopDataLogic
                                                         list={[
                                                             objectTabContent(
+                                                                <>
+                                                                    Property
+                                                                    Parent
+                                                                    <span className="text-danger-200">
+                                                                        *
+                                                                    </span>
+                                                                </>,
+                                                                __detail
+                                                                    ?.parentProperty
+                                                                    ?.nickname ||
+                                                                    '-',
+                                                            ),
+
+                                                            objectTabContent(
                                                                 'Status Active',
                                                                 <TextTrueOrFalse
                                                                     value={

@@ -96,6 +96,9 @@ export const propertyInitForm = {
     isNewVilla: 0,
 
     whyYoullLoveThis: [],
+
+    parentProperty: {},
+    parentPropertyId: '',
 }
 
 export const propertyMapInitForm = (passData) => ({
@@ -148,4 +151,7 @@ export const propertyMapInitForm = (passData) => ({
     isPopular: passData?.isPopular ? 1 : 0,
     isNewVilla: passData?.isNewVilla ? 1 : 0,
     whyYoullLoveThis: passData?.whyYoullLoveThis || [],
+
+    parentProperty: passData?.parentProperty || {},
+    parentPropertyId: passData?.parentPropertyId || '',
 })

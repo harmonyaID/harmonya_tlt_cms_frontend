@@ -74,19 +74,22 @@ export const sortFileFromImageToPDF: SortDataType = ({
     data = [],
     key = 'type',
 }) => {
-    return data.sort((a, b) => {
-        const isImageA = !IS_TYPE_FILE_PDF(a[key])
-        const isImageB = !IS_TYPE_FILE_PDF(b[key])
-        const isPdfA = IS_TYPE_FILE_PDF(a[key])
-        const isPdfB = IS_TYPE_FILE_PDF(b[key])
+    if (data && data.length) {
+        return data.sort((a, b) => {
+            const isImageA = !IS_TYPE_FILE_PDF(a[key])
+            const isImageB = !IS_TYPE_FILE_PDF(b[key])
+            const isPdfA = IS_TYPE_FILE_PDF(a[key])
+            const isPdfB = IS_TYPE_FILE_PDF(b[key])
 
-        if (isImageA && !isImageB) return -1
-        if (!isImageA && isImageB) return 1
-        if (isPdfA && !isPdfB) return -1
-        if (!isPdfA && isPdfB) return 1
+            if (isImageA && !isImageB) return -1
+            if (!isImageA && isImageB) return 1
+            if (isPdfA && !isPdfB) return -1
+            if (!isPdfA && isPdfB) return 1
 
-        return 0
-    })
+            return 0
+        })
+    }
+    return []
 }
 
 export const sortDataByNameWithOrder: SortDataType = ({

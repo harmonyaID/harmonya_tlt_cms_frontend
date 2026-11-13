@@ -18,17 +18,18 @@ import {
     TEMPLATE_SEARCH,
 } from '@/config/pageTemplate.config.ts'
 import PageTemplateAbout from '@/page/contentAllPages/component/template/PageTemplateAbout.tsx'
+import PageTemplateAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateAboutTheIsland.tsx'
 import PageTemplateBlog from '@/page/contentAllPages/component/template/PageTemplateBlog.tsx'
+import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
 import PageTemplateContactUs from '@/page/contentAllPages/component/template/PageTemplateContactUs.tsx'
 import PageTemplateExperience from '@/page/contentAllPages/component/template/PageTemplateExperience.tsx'
 import PageTemplateFAQ from '@/page/contentAllPages/component/template/PageTemplateFAQ.tsx'
 import PageTemplateGeneralHero from '@/page/contentAllPages/component/template/PageTemplateGeneralHero.tsx'
 import PageTemplateGeneralHeroAndContent from '@/page/contentAllPages/component/template/PageTemplateGeneralHeroAndContent.tsx'
+import PageTemplateIslandGuideAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateIslandGuideAboutTheIsland.tsx'
 import PageTemplateOffer from '@/page/contentAllPages/component/template/PageTemplateOffer.tsx'
 import PageTemplateProperty from '@/page/contentAllPages/component/template/PageTemplateProperty.tsx'
-import PageTemplateBoatTransfer from '@/page/contentAllPages/component/template/PageTemplateBoatTransfer.tsx'
 import PageTemplateSearch from '@/page/contentAllPages/component/template/PageTemplateSearch.tsx'
-import PageTemplateIslandGuideAboutTheIsland from '@/page/contentAllPages/component/template/PageTemplateIslandGuideAboutTheIsland.tsx'
 
 const PageMainFormTemplatePage = ({
     template,

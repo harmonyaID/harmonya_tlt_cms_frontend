@@ -57,5 +57,4 @@ export const listTemplatePages = createTemplateOptions([
     TEMPLATE_PROPERTY,
     TEMPLATE_BOAT_TRANSFER,
     TEMPLATE_SEARCH,
-    TEMPLATE_ISLAND_GUIDE_ABOUT_THE_ISLAND,
 ])

@@ -37,7 +37,7 @@ interface Tab {
 }
 
 interface TabContent {
-    title?: string
+    title?: string | ReactNode
     content: ReactNode
     classNameTitle?: string
 }

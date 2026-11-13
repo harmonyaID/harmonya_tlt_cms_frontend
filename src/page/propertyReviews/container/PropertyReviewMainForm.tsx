@@ -37,6 +37,8 @@ const PropertyReviewMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleCancel,
     } = usePropertyReviewMainFormHook({ isEdit })
 
+    console.log('__detail: ', __detail)
+
     // Photos
     const {
         __dataFiles,

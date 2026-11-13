@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 export interface DataListItem {
-   [key: string]: any
+    [key: string]: any | ReactNode
 }

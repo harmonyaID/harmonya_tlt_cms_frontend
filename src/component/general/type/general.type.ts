@@ -175,7 +175,7 @@ export interface FooterSubmitProps {
 
 // Horizontal Data Preview
 export interface HorizontalDataPreviewProps {
-    title?: string
+    title?: string | ReactNode
     className?: string
     content?: ReactNode
     isLayoutContentDefault?: boolean
