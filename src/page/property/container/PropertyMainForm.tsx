@@ -23,6 +23,7 @@ import FormTextArea from '@/component/form/FormTextArea.tsx'
 import FormTinyMCE from '@/component/form/FormTinyMCE.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import GeneralRowForm from '@/component/form/GeneralRowForm.tsx'
+import LocationPicker from '@/component/form/LocationPickert.tsx'
 import { BtnCircleRemove, BtnPrimary } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
@@ -267,6 +268,34 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                     </div>
 
                                                                     <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <LocationPicker
+                                                                                latitude={
+                                                                                    vm.latitude
+                                                                                }
+                                                                                longitude={
+                                                                                    vm.longitude
+                                                                                }
+                                                                                onChange={(
+                                                                                    lat,
+                                                                                    lng,
+                                                                                ) => {
+                                                                                    __handleArrChange(
+                                                                                        index,
+                                                                                        'latitude',
+                                                                                        lat,
+                                                                                        'addresses',
+                                                                                    )
+                                                                                    __handleArrChange(
+                                                                                        index,
+                                                                                        'longitude',
+                                                                                        lng,
+                                                                                        'addresses',
+                                                                                    )
+                                                                                }}
+                                                                            />
+                                                                        </div>
+
                                                                         <div className="col-md-6">
                                                                             <FormInput
                                                                                 label="Latitude"
