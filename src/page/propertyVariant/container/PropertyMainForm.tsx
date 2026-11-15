@@ -303,7 +303,6 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                             <FormInput
                                                                                 label="Latitude"
                                                                                 name="latitude"
-                                                                                isNumberOnly
                                                                                 placeholder="e.g -8.679556"
                                                                             />
                                                                         </div>
@@ -311,7 +310,6 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                             <FormInput
                                                                                 label="Longitude"
                                                                                 name="longitude"
-                                                                                isNumberOnly
                                                                                 placeholder="e.g 115.446632"
                                                                             />
                                                                         </div>
