@@ -381,6 +381,18 @@ const PageTemplateIslandGuideAboutTheIsland = ({
                             placeholder="e.g Island Guide"
                         />
                         <FormInput
+                            label="Button 1 URL"
+                            name="button1Link"
+                            value={SECTION5?.button1Link || ''}
+                            placeholder="e.g https://google.com"
+                        />
+                        <FormInput
+                            label="Button 2 URL"
+                            name="button2Link"
+                            value={SECTION5?.button2Link || ''}
+                            placeholder="e.g https://google.com"
+                        />
+                        <FormInput
                             label="FAQ Title"
                             name="FAQTitle"
                             value={SECTION2?.FAQTitle || ''}
