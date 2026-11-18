@@ -12,7 +12,7 @@ import {
     propertyInitForm,
     propertyMapInitForm,
 } from '@/page/propertyVariant/param/propertyMainForm.param.ts'
-import propertyPath from '@/path/property.path.ts'
+import propertyVariantPath from '@/path/propertyVariant.path.ts'
 import { apiPropertyVariant } from '@/service/api/propertyVariant.api.ts'
 
 // Normalize feature from API detail: { featureId | feature.id | id, name, hasValue, value }
@@ -36,7 +36,7 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const { __handleSubmit, __handleCancel, __handleToMain } =
         usePageFlowHandlerHook({
-            basePath: propertyPath,
+            basePath: propertyVariantPath,
             pathFromKey: restored.from,
         })
 
