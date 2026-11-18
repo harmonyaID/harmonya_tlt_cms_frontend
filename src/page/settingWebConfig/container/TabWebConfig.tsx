@@ -468,6 +468,14 @@ const TabWebConfig = () => {
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            {index == 0 && (
+                                                                <p className="m-0 text-primary">
+                                                                    *This will
+                                                                    be used as
+                                                                    Whatsapp
+                                                                    Contact
+                                                                </p>
+                                                            )}
                                                         </div>
                                                     )
                                                 },
