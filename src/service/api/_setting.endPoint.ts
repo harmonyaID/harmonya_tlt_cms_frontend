@@ -23,3 +23,8 @@ export const SrvAmenitiesUploadImage = (id: any) =>
 export const SrvAmenitiesCategoryCRUD: SrvWithFeature = objectPathEndPointAPI(
     baseAPI + '/settings/amenities/categories',
 )
+
+// Property Feature
+export const SrvPropertyFeatureCRUD: SrvWithFeature = objectPathEndPointAPI(
+    baseAPI + '/settings/property-features',
+)

@@ -10,6 +10,7 @@ import {
     SrvCountries,
     SrvInfoWebsite,
     SrvInfoWebsiteUpdate,
+    SrvPropertyFeatureCRUD,
 } from '@/service/api/_setting.endPoint.ts'
 
 export const getCountries = () =>
@@ -31,4 +32,9 @@ export const uploadImageAmenities = (id, formRequest) =>
 
 export const apiAmenitiesCategoryCRUD = {
     ..._shapeObjectMethodCRUD(SrvAmenitiesCategoryCRUD),
+}
+
+// Property Feature
+export const apiPropertyFeatureCRUD = {
+    ..._shapeObjectMethodCRUD(SrvPropertyFeatureCRUD),
 }

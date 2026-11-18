@@ -5,6 +5,7 @@ import TabAmenities from '@/page/propertySetting/general/container/TabAmenities.
 import TabAmenitiesCategory from '@/page/propertySetting/general/container/TabAmenitiesCategory.tsx'
 import TabPropertyBedType from '@/page/propertySetting/general/container/TabPropertyBedType.tsx'
 import TabPropertyRoomRoomType from '@/page/propertySetting/general/container/TabPropertyRoomType.tsx'
+import TabPropertyFeature from '@/page/propertySetting/general/container/TabPropertyFeature.tsx'
 import TabPropertyTag from '@/page/propertySetting/general/container/TabPropertyTag.tsx'
 import TabPropertyType from '@/page/propertySetting/general/container/TabPropertyType.tsx'
 
@@ -21,6 +22,7 @@ const PropertyGeneralSettingPage = () => {
                     objectTab('Tag', 'tabTag'),
                     objectTab('Amenities Category', 'tagAmenitiesCategory'),
                     objectTab('Amenities', 'tagAmenities'),
+                    objectTab('Feature', 'tabFeature'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabPropertyType />),
@@ -29,6 +31,7 @@ const PropertyGeneralSettingPage = () => {
                     objectTabContent('', <TabPropertyTag />),
                     objectTabContent('', <TabAmenitiesCategory />),
                     objectTabContent('', <TabAmenities />),
+                    objectTabContent('', <TabPropertyFeature />),
                 ]}
             />
         </>

@@ -141,7 +141,7 @@ const PropertyVariantDetailPage = () => {
                                 </h5>
 
                                 <div className="hstack gap-2 flex-wrap">
-                                    {__detail?.tags
+                                    {__detail?.tags && __detail?.tags?.length
                                         ? __detail?.tags.map((tag) => {
                                               return (
                                                   <BadgeStatusGeneral
@@ -266,53 +266,99 @@ const PropertyVariantDetailPage = () => {
                                                             ),
                                                             objectTabContent(
                                                                 'Tags',
-                                                                <div className="hstack gap-2 flex-wrap p-2 rounded-2 bg-neutral-600">
-                                                                    {__detail?.tags
-                                                                        ? __detail?.tags.map(
-                                                                              (
-                                                                                  tag,
-                                                                              ) => {
-                                                                                  return (
-                                                                                      <BadgeStatusGeneral
-                                                                                          key={
-                                                                                              tag.name
-                                                                                          }
-                                                                                          value={
-                                                                                              tag.name
-                                                                                          }
-                                                                                          className="text-bg-neutral-500"
-                                                                                          inTable
-                                                                                      />
-                                                                                  )
-                                                                              },
-                                                                          )
-                                                                        : '-'}
-                                                                </div>,
+                                                                __detail?.tags &&
+                                                                    __detail
+                                                                        ?.tags
+                                                                        ?.length ? (
+                                                                    <div className="hstack gap-2 flex-wrap p-2 rounded-2 bg-neutral-600">
+                                                                        {__detail?.tags.map(
+                                                                            (
+                                                                                tag,
+                                                                            ) => {
+                                                                                return (
+                                                                                    <BadgeStatusGeneral
+                                                                                        key={
+                                                                                            tag.name
+                                                                                        }
+                                                                                        value={
+                                                                                            tag.name
+                                                                                        }
+                                                                                        className="text-bg-neutral-500"
+                                                                                        inTable
+                                                                                    />
+                                                                                )
+                                                                            },
+                                                                        )}
+                                                                    </div>
+                                                                ) : (
+                                                                    '-'
+                                                                ),
                                                             ),
                                                             objectTabContent(
                                                                 'Amenities',
-                                                                <div className="hstack gap-2 flex-wrap p-3 rounded-2 bg-neutral-600">
-                                                                    {__detail?.amenities
-                                                                        ? __detail?.amenities.map(
-                                                                              (
-                                                                                  dataBadge,
-                                                                              ) => {
-                                                                                  return (
-                                                                                      <BadgeStatusGeneral
-                                                                                          key={
-                                                                                              dataBadge.name
-                                                                                          }
-                                                                                          value={
-                                                                                              dataBadge.name
-                                                                                          }
-                                                                                          className="text-bg-tint-500"
-                                                                                          inTable
-                                                                                      />
-                                                                                  )
-                                                                              },
-                                                                          )
-                                                                        : '-'}
-                                                                </div>,
+                                                                __detail?.amenities &&
+                                                                    __detail
+                                                                        ?.amenities
+                                                                        ?.length ? (
+                                                                    <div className="hstack gap-2 flex-wrap p-3 rounded-2 bg-neutral-600">
+                                                                        {__detail?.amenities.map(
+                                                                            (
+                                                                                dataBadge,
+                                                                            ) => {
+                                                                                return (
+                                                                                    <BadgeStatusGeneral
+                                                                                        key={
+                                                                                            dataBadge.name
+                                                                                        }
+                                                                                        value={
+                                                                                            dataBadge.name
+                                                                                        }
+                                                                                        className="text-bg-tint-500"
+                                                                                        inTable
+                                                                                    />
+                                                                                )
+                                                                            },
+                                                                        )}
+                                                                    </div>
+                                                                ) : (
+                                                                    '-'
+                                                                ),
+                                                            ),
+                                                            objectTabContent(
+                                                                'Features',
+                                                                __detail?.features &&
+                                                                    __detail
+                                                                        ?.features
+                                                                        ?.length ? (
+                                                                    <div className="hstack gap-2 flex-wrap p-3 rounded-2 bg-neutral-600">
+                                                                        {__detail.features.map(
+                                                                            (
+                                                                                dataBadge,
+                                                                                index,
+                                                                            ) => (
+                                                                                <BadgeStatusGeneral
+                                                                                    key={
+                                                                                        index
+                                                                                    }
+                                                                                    value={
+                                                                                        (dataBadge?.name ??
+                                                                                            dataBadge
+                                                                                                ?.feature
+                                                                                                ?.name) +
+                                                                                        (dataBadge?.value
+                                                                                            ? ': ' +
+                                                                                              dataBadge.value
+                                                                                            : '')
+                                                                                    }
+                                                                                    className="text-bg-tint-500"
+                                                                                    inTable
+                                                                                />
+                                                                            ),
+                                                                        )}
+                                                                    </div>
+                                                                ) : (
+                                                                    '-'
+                                                                ),
                                                             ),
                                                             objectListDetail(
                                                                 'Floorplan Image',
@@ -376,19 +422,19 @@ const PropertyVariantDetailPage = () => {
                                                                                 objectTabContent(
                                                                                     'Address',
                                                                                     vm?.address ||
-                                                                                        '',
+                                                                                        '-',
                                                                                 ),
                                                                                 objectTabContent(
                                                                                     'Building Name',
                                                                                     vm?.buildingName ||
-                                                                                        '',
+                                                                                        '-',
                                                                                 ),
                                                                                 objectTabContent(
                                                                                     'Type',
                                                                                     vm
                                                                                         ?.type
                                                                                         ?.name ||
-                                                                                        '',
+                                                                                        '-',
                                                                                 ),
                                                                                 objectTabContent(
                                                                                     'Longitude & Latitude',
@@ -403,7 +449,7 @@ const PropertyVariantDetailPage = () => {
                                                                                 objectTabContent(
                                                                                     'Zip Code',
                                                                                     vm?.zipCode ||
-                                                                                        '',
+                                                                                        '-',
                                                                                 ),
                                                                             ]}
                                                                         />
@@ -463,34 +509,42 @@ const PropertyVariantDetailPage = () => {
                                                 </PropertySpaceInfo>
 
                                                 <PropertySpaceInfo title="Why You'll Love This">
-                                                    <div className="vstack gap-3">
-                                                        {__detail?.whyYoullLoveThis?.map(
-                                                            (vm, index) => {
-                                                                return (
-                                                                    <div
-                                                                        className="card card-body mb-0"
-                                                                        key={
-                                                                            index
-                                                                        }>
-                                                                        <HorizontalLoopDataLogic
-                                                                            list={[
-                                                                                objectTabContent(
-                                                                                    'Title',
-                                                                                    vm?.title ||
-                                                                                        '-',
-                                                                                ),
-                                                                                objectTabContent(
-                                                                                    'Description',
-                                                                                    vm?.value ||
-                                                                                        '-',
-                                                                                ),
-                                                                            ]}
-                                                                        />
-                                                                    </div>
-                                                                )
-                                                            },
-                                                        )}
-                                                    </div>
+                                                    {__detail?.whyYoullLoveThis &&
+                                                    __detail?.whyYoullLoveThis
+                                                        ?.length ? (
+                                                        <div className="vstack gap-3">
+                                                            {__detail?.whyYoullLoveThis?.map(
+                                                                (vm, index) => {
+                                                                    return (
+                                                                        <div
+                                                                            className="card card-body mb-0"
+                                                                            key={
+                                                                                index
+                                                                            }>
+                                                                            <HorizontalLoopDataLogic
+                                                                                list={[
+                                                                                    objectTabContent(
+                                                                                        'Title',
+                                                                                        vm?.title ||
+                                                                                            '-',
+                                                                                    ),
+                                                                                    objectTabContent(
+                                                                                        'Description',
+                                                                                        vm?.value ||
+                                                                                            '-',
+                                                                                    ),
+                                                                                ]}
+                                                                            />
+                                                                        </div>
+                                                                    )
+                                                                },
+                                                            )}
+                                                        </div>
+                                                    ) : (
+                                                        <p className="fs-16 text-neutral-300 mb-0">
+                                                            Not Available
+                                                        </p>
+                                                    )}
                                                 </PropertySpaceInfo>
                                             </div>
                                         </div>

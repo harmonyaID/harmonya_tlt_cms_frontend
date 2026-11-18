@@ -114,6 +114,11 @@ export const MDPropertySettingAmenitiesCategory =
 export const MDPropertySettingAmenitiesCategoryRemove =
     'modalPropertySettingAmenitiesCategoryRemove'
 
+export const MDPropertySettingFeature = 'modalPropertySettingFeature'
+
+export const MDPropertySettingFeatureRemove =
+    'modalPropertySettingFeatureRemove'
+
 // Property Form Request
 export const MDPropertyFormRequestRemove = 'modalPropertyInquiryRemove'
 
