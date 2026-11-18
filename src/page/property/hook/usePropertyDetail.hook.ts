@@ -12,7 +12,7 @@ const usePropertyDetail = () => {
 
     const restored = useLocationStateHook()
 
-    const { __detail, __isLoading } = useDataDetailHook({
+    const { __detail, __isLoading, __actionUpdate } = useDataDetailHook({
         urlAPI: () => apiProperty.detail(id),
         isCallAPI: true,
         triggerBy: id,
@@ -29,6 +29,12 @@ const usePropertyDetail = () => {
         __id: id,
         __detail,
         __isLoading,
+        __reloadPhotos: () =>
+            apiProperty.detail(id).then((res) => {
+                if (res?.result) {
+                    __actionUpdate({ photos: res.result.photos || [] })
+                }
+            }),
         __pageStateDataSearch: restored,
 
         // Change Page
