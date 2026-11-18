@@ -119,6 +119,8 @@ export const MDPropertySettingFeature = 'modalPropertySettingFeature'
 export const MDPropertySettingFeatureRemove =
     'modalPropertySettingFeatureRemove'
 
+export const MDPropertyPhotoForm = 'modalPropertyPhotoForm'
+
 // Property Form Request
 export const MDPropertyFormRequestRemove = 'modalPropertyInquiryRemove'
 

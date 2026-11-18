@@ -1,11 +1,7 @@
-import { Map, Location } from 'iconsax-react'
-import { isEmpty } from 'lodash'
 import Image from 'rc-image'
 import ImgGeneralDefault from '@/asset/image/default/general-default.svg'
 import HorizontalLoopDataLogic from '@/common/list/HorizontalLoopData.logic.tsx'
-import VerticalLoopDataLogic from '@/common/list/VerticalLoopData.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
-import PreviewFileModalMultiLogic from '@/common/misc/PreviewFileModalMulti.logic.tsx'
 import SectionPreviewSEOInformation from '@/common/misc/SectionPreviewSEOInformation.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardNavTab from '@/component/card/CardNavTab.tsx'
@@ -14,18 +10,15 @@ import { BtnPrimary } from '@/component/general/Button.tsx'
 import NavBreadcrumb from '@/component/general/NavBreadcrumb.tsx'
 import PageTitle from '@/component/general/PageTitle.tsx'
 import PreElement from '@/component/general/PreElement.tsx'
-import { NotAvailable } from '@/component/general/TextDefault.tsx'
 import TextTrueOrFalse from '@/component/general/TextTrueOrFalse.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
-import PropertyBoxInfo from '@/page/property/component/PropertyBoxInfo.tsx'
 import PropertySpaceInfo from '@/page/property/component/PropertySpaceInfo.tsx'
-import PropertyTitleInfo from '@/page/property/component/PropertyTitleInfo.tsx'
+import PropertyTabPhotos from '@/page/property/container/PropertyTabPhotos.tsx'
 import PropertyTabReview from '@/page/property/container/PropertyTabReview.tsx'
 import usePropertyDetail from '@/page/property/hook/usePropertyDetail.hook.ts'
-import contentExperiencePath from '@/path/contentExperience.path.ts'
 import propertyPath from '@/path/property.path.ts'
 
 const PropertyDetailPage = () => {
@@ -33,6 +26,7 @@ const PropertyDetailPage = () => {
         __id,
         __detail,
         __isLoading,
+        __reloadPhotos,
         __pageStateDataSearch,
 
         // Change Page
@@ -786,23 +780,12 @@ const PropertyDetailPage = () => {
                             ),
 
                             objectTabContent(
-                                'Photos',
-                                <>
-                                    {!isEmpty(__detail.photos) ? (
-                                        <>
-                                            <PreviewFileModalMultiLogic
-                                                dataFiles={__detail.photos}
-                                                dataBy="url"
-                                                // isDescription={false}
-                                                keyDescription="caption"
-                                                classNameWrapImg="max-h-120-px"
-                                                classNameColumnPreview="col-md-3"
-                                            />
-                                        </>
-                                    ) : (
-                                        <NotAvailable />
-                                    )}
-                                </>,
+                                '',
+                                <PropertyTabPhotos
+                                    propertyId={__id}
+                                    photos={__detail.photos}
+                                    onSuccess={__reloadPhotos}
+                                />,
                             ),
                             objectTabContent(
                                 '',

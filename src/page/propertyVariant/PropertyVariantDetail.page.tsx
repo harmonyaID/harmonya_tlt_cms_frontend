@@ -23,6 +23,8 @@ import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
 import PropertyBoxInfo from '@/page/propertyVariant/component/PropertyBoxInfo.tsx'
 import PropertySpaceInfo from '@/page/propertyVariant/component/PropertySpaceInfo.tsx'
 import PropertyTitleInfo from '@/page/propertyVariant/component/PropertyTitleInfo.tsx'
+import PropertyTabPhotos from '@/page/property/container/PropertyTabPhotos.tsx'
+import { uploadPhotosProperty as uploadPhotosPropertyVariant } from '@/service/api/propertyVariant.api.ts'
 import PropertyTabReview from '@/page/propertyVariant/container/PropertyTabReview.tsx'
 import usePropertyDetail from '@/page/propertyVariant/hook/usePropertyDetail.hook.ts'
 import contentExperiencePath from '@/path/contentExperience.path.ts'
@@ -34,6 +36,7 @@ const PropertyVariantDetailPage = () => {
         __id,
         __detail,
         __isLoading,
+        __reloadPhotos,
         __pageStateDataSearch,
 
         // Change Page
@@ -822,23 +825,13 @@ const PropertyVariantDetailPage = () => {
                             ),
 
                             objectTabContent(
-                                'Photos',
-                                <>
-                                    {!isEmpty(__detail.photos) ? (
-                                        <>
-                                            <PreviewFileModalMultiLogic
-                                                dataFiles={__detail.photos}
-                                                dataBy="url"
-                                                // isDescription={false}
-                                                keyDescription="caption"
-                                                classNameWrapImg="max-h-120-px"
-                                                classNameColumnPreview="col-md-3"
-                                            />
-                                        </>
-                                    ) : (
-                                        <NotAvailable />
-                                    )}
-                                </>,
+                                '',
+                                <PropertyTabPhotos
+                                    propertyId={__id}
+                                    photos={__detail.photos}
+                                    onSuccess={__reloadPhotos}
+                                    apiUpload={uploadPhotosPropertyVariant}
+                                />,
                             ),
                             objectTabContent(
                                 '',
