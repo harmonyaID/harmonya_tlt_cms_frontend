@@ -15,6 +15,20 @@ import {
 import propertyPath from '@/path/property.path.ts'
 import { apiPropertyVariant } from '@/service/api/propertyVariant.api.ts'
 
+// Normalize feature from API detail: { featureId | feature.id | id, name, hasValue, value }
+const mapFeatureDetail = (vm: any) => ({
+    id: vm?.featureId ?? vm?.feature?.id ?? vm?.id,
+    name: vm?.name ?? vm?.feature?.name ?? '',
+    hasValue: vm?.hasValue ?? vm?.feature?.hasValue ?? false,
+    value: vm?.value ?? '',
+})
+
+const mapFeaturesToForm = (list: any[] = []) =>
+    list.map(mapFeatureDetail).map((vm) => ({
+        featureId: vm.id,
+        value: vm.value,
+    }))
+
 const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const { id } = useParams()
 
@@ -111,6 +125,42 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     }
     // END AMENITIES
 
+    // START FEATURES
+    const [listFeatures, setListFeatures] = useState<any[]>([])
+
+    const _handleFeaturesChoose = (newFeature) => {
+        if (newFeature && newFeature.id) {
+            setFormRequest((prev: any) => ({
+                ...prev,
+                features: [
+                    ...(prev.features || []),
+                    { featureId: newFeature.id, value: '' },
+                ],
+            }))
+            setListFeatures((prev) => [...prev, newFeature])
+        }
+    }
+
+    const _handleFeaturesRemove = (passData) => {
+        setFormRequest((prev: any) => ({
+            ...prev,
+            features: (prev.features || []).filter(
+                (vm) => vm.featureId !== passData.id,
+            ),
+        }))
+        setListFeatures((prev) => prev.filter((vm) => vm.id !== passData.id))
+    }
+
+    const _handleFeaturesValueChange = (featureId, value) => {
+        setFormRequest((prev: any) => ({
+            ...prev,
+            features: (prev.features || []).map((vm) =>
+                vm.featureId === featureId ? { ...vm, value } : vm,
+            ),
+        }))
+    }
+    // END FEATURES
+
     // Data Detail
     const dataDetail = useDetailFormRequestHook({
         urlAPI: () => apiPropertyVariant.detail(id),
@@ -129,7 +179,10 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     amenityIds: !isEmpty(res.amenityIds)
                         ? res.amenityIds.map((vm) => vm.id)
                         : [],
+                    features: mapFeaturesToForm(res?.features || []),
                 })
+
+                setListFeatures((res?.features || []).map(mapFeatureDetail))
 
                 if (res?.tags && res?.tags.length) {
                     setListTags(res?.tags)
@@ -174,6 +227,7 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 amenityIds: !isEmpty(passData.amenityIds)
                     ? passData.amenityIds.map((vm) => vm.id)
                     : [],
+                features: mapFeaturesToForm(passData?.features || []),
 
                 parentProperty: passData || {},
                 parentPropertyId: passData?.id || '',
@@ -188,6 +242,8 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     ? passData?.amenities
                     : [],
             )
+
+            setListFeatures((passData?.features || []).map(mapFeatureDetail))
 
             setFloorplanImage(passData?.floorplanImage || '')
         }
@@ -228,6 +284,13 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __listAmenitiesIds: listAmenities?.map((vm) => vm.id) || [],
         __handleAmenitiesChoose: _handleAmenitiesChoose,
         __handleAmenitiesRemove: _handleAmenitiesRemove,
+
+        // Features
+        __listFeatures: listFeatures,
+        __listFeaturesIds: listFeatures?.map((vm) => vm.id) || [],
+        __handleFeaturesChoose: _handleFeaturesChoose,
+        __handleFeaturesRemove: _handleFeaturesRemove,
+        __handleFeaturesValueChange: _handleFeaturesValueChange,
 
         // SEO
         __seoThumbnail: seoThumbnail,

@@ -1,6 +1,7 @@
 import { isEmpty } from 'lodash'
 import SearchProperty from '@/common/dataForm/SearchProperty.tsx'
 import SearchPropertyAmenities from '@/common/dataForm/SearchPropertyAmenities.tsx'
+import SearchPropertyFeature from '@/common/dataForm/SearchPropertyFeature.tsx'
 import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import SelectBaseOptionLanguage from '@/common/dataForm/SelectBaseOptionLanguage.tsx'
 import SelectBaseOptionStaticStatus from '@/common/dataForm/SelectBaseOptionStaticAddressType.tsx'
@@ -70,6 +71,13 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleAmenitiesChoose,
         __handleAmenitiesRemove,
 
+        // Features
+        __listFeatures,
+        __listFeaturesIds,
+        __handleFeaturesChoose,
+        __handleFeaturesRemove,
+        __handleFeaturesValueChange,
+
         // SEO
         __seoThumbnail,
         __setSetSEOThumbnail,
@@ -85,6 +93,8 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleSubmit,
         __handleCancel,
     } = usePropertyMainForm({ isEdit })
+
+    console.log('__formRequest: ', __formRequest)
 
     return (
         <>
@@ -132,9 +142,10 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired>
                                                 <SearchProperty
                                                     name="parentPropertyId"
-                                                    // dataProperty={
-                                                    //     __detail.property
-                                                    // }
+                                                    dataProperty={
+                                                        __formRequest?.parentProperty ||
+                                                        {}
+                                                    }
                                                     // isUseDataNetworkSettingToHandle={
                                                     //     !isEmpty(
                                                     //         __detail.property,
@@ -723,6 +734,86 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                             )}
                                                         </div>
                                                     </>
+                                                ) : null}
+                                            </GeneralRowForm>
+
+                                            <GeneralRowForm label="Features">
+                                                <SearchPropertyFeature
+                                                    isOnlyChoose
+                                                    isUseHook={false}
+                                                    name="features"
+                                                    featureIds={
+                                                        __listFeaturesIds
+                                                    }
+                                                    actions={{
+                                                        onChange: (
+                                                            name,
+                                                            value,
+                                                            data,
+                                                        ) =>
+                                                            __handleFeaturesChoose(
+                                                                data,
+                                                            ),
+                                                    }}
+                                                />
+
+                                                {__listFeatures?.length ? (
+                                                    <div className="mb-4 max-h-400px bg-neutral-600 px-3 pb-3 pt-1 rounded-2 overflow-auto">
+                                                        {__listFeatures.map(
+                                                            (vm) => (
+                                                                <div
+                                                                    className="hstack gap-3 justify-content-between align-items-center border-dashed border-neutral-400 border-1 py-2"
+                                                                    key={vm.id}>
+                                                                    <h6 className="fw-400 mb-0">
+                                                                        {
+                                                                            vm.name
+                                                                        }
+                                                                    </h6>
+
+                                                                    <div className="hstack gap-2 flex-shrink-0">
+                                                                        {vm.hasValue ? (
+                                                                            <input
+                                                                                type="text"
+                                                                                className="form-control"
+                                                                                placeholder="Value"
+                                                                                value={
+                                                                                    __formRequest?.features?.find(
+                                                                                        (
+                                                                                            f,
+                                                                                        ) =>
+                                                                                            f.featureId ===
+                                                                                            vm.id,
+                                                                                    )
+                                                                                        ?.value ||
+                                                                                    ''
+                                                                                }
+                                                                                onChange={(
+                                                                                    e,
+                                                                                ) =>
+                                                                                    __handleFeaturesValueChange(
+                                                                                        vm.id,
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                    )
+                                                                                }
+                                                                            />
+                                                                        ) : null}
+
+                                                                        <BtnCircleRemove
+                                                                            className="ms-auto"
+                                                                            actions={{
+                                                                                remove: () =>
+                                                                                    __handleFeaturesRemove(
+                                                                                        vm,
+                                                                                    ),
+                                                                            }}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            ),
+                                                        )}
+                                                    </div>
                                                 ) : null}
                                             </GeneralRowForm>
 

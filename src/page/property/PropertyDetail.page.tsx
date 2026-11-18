@@ -299,6 +299,39 @@ const PropertyDetailPage = () => {
                                                                         : '-'}
                                                                 </div>,
                                                             ),
+                                                            objectTabContent(
+                                                                'Features',
+                                                                <div className="hstack gap-2 flex-wrap p-3 rounded-2 bg-neutral-600">
+                                                                    {__detail
+                                                                        ?.features
+                                                                        ?.length
+                                                                        ? __detail.features.map(
+                                                                              (
+                                                                                  dataBadge,
+                                                                                  index,
+                                                                              ) => (
+                                                                                  <BadgeStatusGeneral
+                                                                                      key={
+                                                                                          index
+                                                                                      }
+                                                                                      value={
+                                                                                          (dataBadge?.name ??
+                                                                                              dataBadge
+                                                                                                  ?.feature
+                                                                                                  ?.name) +
+                                                                                          (dataBadge?.value
+                                                                                              ? ': ' +
+                                                                                                dataBadge.value
+                                                                                              : '')
+                                                                                      }
+                                                                                      className="text-bg-tint-500"
+                                                                                      inTable
+                                                                                  />
+                                                                              ),
+                                                                          )
+                                                                        : '-'}
+                                                                </div>,
+                                                            ),
                                                             objectListDetail(
                                                                 'Floorplan Image',
                                                                 __detail.floorplanImage ? (

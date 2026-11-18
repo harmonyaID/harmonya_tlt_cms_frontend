@@ -60,6 +60,8 @@ export const dataIslandGuideAboutTheIslandPage = {
     },
     SECTION5: {
         title: '',
+        button1Link: '',
+        button2Link: '',
         FAQTitle: '',
         FAQTypeId: '',
     },
