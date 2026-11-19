@@ -194,6 +194,7 @@ const PropertyReview = ({
                             isNoWrap
                             ths={[
                                 'Reviewer',
+                                'Country',
                                 { content: 'Review', className: 'max-w-200px' },
                                 'Rating',
                                 'Status Active',
@@ -216,6 +217,11 @@ const PropertyReview = ({
                                                 className="mb-1 fw-500"
                                                 isUseDefaultMargin={false}
                                             />
+                                        </td>
+                                        <td>
+                                            <TblLineSecond>
+                                                {vm?.country || '-'}
+                                            </TblLineSecond>
                                         </td>
                                         <td>
                                             <PreElement>{vm.review}</PreElement>
@@ -326,6 +332,10 @@ const PropertyReview = ({
                         }}
                         list={[
                             objectListDetail('Name', dataForDetail?.name || ''),
+                            objectListDetail(
+                                'Country',
+                                dataForDetail?.country || '-',
+                            ),
                             objectListDetail(
                                 'Rating',
                                 <ReviewRating
