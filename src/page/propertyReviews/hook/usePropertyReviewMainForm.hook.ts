@@ -10,6 +10,7 @@ import { apiPropertyReviews } from '@/service/api/property.api.ts'
 const initForm = {
     propertyId: '',
     name: '',
+    country: '',
     rating: '',
     review: '',
     isActive: 0,
@@ -20,6 +21,7 @@ const initForm = {
 const initMapForm = (passData) => ({
     propertyId: passData?.property?.id || '',
     name: passData.name || '',
+    country: passData.country || '',
     rating: passData.rating || '',
     review: passData.review || '',
     isActive: passData.isActive ? 1 : 0,

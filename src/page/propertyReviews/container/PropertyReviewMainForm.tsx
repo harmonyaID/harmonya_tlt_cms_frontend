@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash'
 import SearchProperty from '@/common/dataForm/SearchProperty.tsx'
+import SelectOptionCountryList from '@/common/dataForm/SelectOptionCountryList.tsx'
 import FormUploadFileWithActionPreviewLogic from '@/common/misc/FormUploadFileWithActionPreview.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
@@ -101,6 +102,9 @@ const PropertyReviewMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 placeholder="e.g D’STARS FAST FERRY"
                                                 required
                                             />
+                                        </GeneralRowForm>
+                                        <GeneralRowForm label="Country">
+                                            <SelectOptionCountryList name="country" />
                                         </GeneralRowForm>
                                         <GeneralRowForm label="Rating">
                                             {/*<FormInput*/}
