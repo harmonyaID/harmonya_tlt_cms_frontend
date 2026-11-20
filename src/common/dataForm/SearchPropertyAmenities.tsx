@@ -202,7 +202,7 @@ const SearchPropertyAmenities = (props: any) => {
                 id={idInput}
                 className="custom-dropdown-employee"
                 isLoading={isLoading}
-                minLength={3}
+                minLength={2}
                 labelKey={(option: object | any) => `${option.name}`}
                 onSearch={_handleSearch}
                 onPaginate={_handlePagination}
