@@ -126,13 +126,10 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     isUseHook
                                                 />
                                             </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Open Hours"
-                                                isRequired>
+                                            <GeneralRowForm label="Open Hours">
                                                 <FormInput
                                                     name="openHours"
                                                     placeholder="e.g Open Everyday 6.30AM - Late"
-                                                    required
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
