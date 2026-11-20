@@ -8,6 +8,7 @@ import {
     apiOfferContent,
 } from '@/service/api/contentManage.api.ts'
 import contentOfferPath from '@/path/contentOffer.path.ts'
+import { objDataSearchOther } from '@/config/objectPassState.config.ts'
 
 const useContentOfferDetail = () => {
     const { id } = useParams()
@@ -28,6 +29,15 @@ const useContentOfferDetail = () => {
             search: restored.dataSearch,
         })
 
+    const _handleToPreview = (id: number | string) => {
+        navigate(contentOfferPath.preview(id), {
+            state: {
+                ...objDataSearchOther(restored.dataSearch),
+                from: contentOfferPath.detail(id),
+            },
+        })
+    }
+
     return {
         __id: id,
         __detail,
@@ -38,6 +48,7 @@ const useContentOfferDetail = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToMain,
+        __handleToPreview: _handleToPreview,
         __handleToDetail,
     }
 }

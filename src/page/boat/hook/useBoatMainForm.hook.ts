@@ -26,6 +26,8 @@ const initForm = {
     promoLabel: '',
     mapImage: '',
     deleteMapImage: 0,
+    featuredImage: '',
+    deleteFeaturedImage: 0,
     schedule: [],
     seo: {
         ...initSEOFormConfig,
@@ -44,6 +46,8 @@ const initMapForm = (passData) => ({
 
     mapImage: '',
     deleteMapImage: 0,
+    featuredImage: '',
+    deleteFeaturedImage: 0,
 
     priceFiles: [],
     deletePriceFileIds: [],
@@ -92,6 +96,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
     const [mapImage, setMapImage] = useState('')
 
+    const [featuredImage, setFeaturedImage] = useState('')
+
     const [previewPriceFile, setPreviewPriceFile] = useState('')
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
@@ -130,6 +136,10 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
 
                 if (res?.mapImage) {
                     setMapImage(res?.mapImage)
+                }
+
+                if (res?.featuredImage) {
+                    setFeaturedImage(res?.featuredImage)
                 }
             }
         },
@@ -210,6 +220,15 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
             deleteMapImage: defaultActive,
         }))
         setMapImage('')
+    }
+
+    const _handleRemoveFeaturedImage = () => {
+        nestedForm.setFormRequest((prevState) => ({
+            ...prevState,
+            featuredImage: '',
+            deleteFeaturedImage: defaultActive,
+        }))
+        setFeaturedImage('')
     }
 
     // Start Handle Custom Info
@@ -312,6 +331,8 @@ const useBoatMainFormHook = ({ isEdit = false }: { isEdit?: boolean }) => {
         __pageStateDataSearch: restored,
         __mapImage: mapImage,
         __removeMapImage: _handleRemoveMapImage,
+        __removeFeaturedImage: _handleRemoveFeaturedImage,
+        __featuredImage: featuredImage,
 
         // Prev Photos
         __handleToggleDeletePrevPhotos: _handleToggleDeletePrevPhotos,
