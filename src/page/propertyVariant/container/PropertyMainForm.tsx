@@ -366,19 +366,22 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     },
                                                 )}
 
-                                                <BtnPrimary
-                                                    type="button"
-                                                    isOutline
-                                                    className="w-100 mt-0 mb-3"
-                                                    handle={() =>
-                                                        __handleArrToggle(
-                                                            -1,
-                                                            'addresses',
-                                                            propertyMapFormAddress(),
-                                                        )
-                                                    }>
-                                                    Add New Address
-                                                </BtnPrimary>
+                                                {(__formRequest?.addresses
+                                                    ?.length || 0) < 1 ? (
+                                                    <BtnPrimary
+                                                        type="button"
+                                                        isOutline
+                                                        className="w-100 mt-0 mb-3"
+                                                        handle={() =>
+                                                            __handleArrToggle(
+                                                                -1,
+                                                                'addresses',
+                                                                propertyMapFormAddress(),
+                                                            )
+                                                        }>
+                                                        Add New Address
+                                                    </BtnPrimary>
+                                                ) : null}
                                             </GeneralRowForm>
 
                                             <GeneralRowForm
