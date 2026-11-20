@@ -278,7 +278,6 @@ const TabPropertyFeature = () => {
                     isUseDefaultInput={false}
                     externalForm={
                         <>
-                            {/*
                             <FormInput
                                 label="Order"
                                 name="order"
@@ -296,7 +295,6 @@ const TabPropertyFeature = () => {
                                 }
                                 className="cursor-pointer my-3"
                             />
-                            */}
 
                             {previewIcon ? (
                                 <div className="my-3">
