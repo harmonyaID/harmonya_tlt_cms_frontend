@@ -56,6 +56,8 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleChangeWithParent,
         __mapImage,
         __removeMapImage,
+        __featuredImage,
+        __removeFeaturedImage,
 
         __handleCustomInfoAdd,
         __handleCustomInfoRemove,
@@ -161,13 +163,6 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
 
-                                        <GeneralRowForm label="Promo Label">
-                                            <FormInput
-                                                name="promoLabel"
-                                                placeholder="20% Off"
-                                            />
-                                        </GeneralRowForm>
-
                                         <GeneralRowForm label="Custom Informations">
                                             <div className="vstack gap-3">
                                                 {__formRequest.customInformations?.map(
@@ -267,109 +262,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </GeneralRowForm>
                                     </WrapFormContext>
 
-                                    {/*Price Files*/}
-                                    <WrapFormContext
-                                        formRequest={__formRequest}
-                                        actions={{
-                                            change: __handleChange,
-                                        }}>
-                                        <GeneralRowForm label="Price File">
-                                            {__previewPriceFile ? (
-                                                <div className="pb-3 row">
-                                                    <div className="col-4">
-                                                        <div className="position-relative">
-                                                            <Link
-                                                                to={
-                                                                    __previewPriceFile
-                                                                }
-                                                                target="_blank">
-                                                                <BtnInfo
-                                                                    className="btn-sm"
-                                                                    isOutline>
-                                                                    <Image
-                                                                        src={
-                                                                            checkFileTypeFromUrl(
-                                                                                __previewPriceFile,
-                                                                                IS_TYPE_FILE_PDF,
-                                                                            )
-                                                                                ? IconPDF
-                                                                                : checkFileTypeFromUrl(
-                                                                                        __previewPriceFile,
-                                                                                        IS_TYPE_FILE_WORD,
-                                                                                    )
-                                                                                  ? IconWORD
-                                                                                  : checkFileTypeFromUrl(
-                                                                                          __previewPriceFile,
-                                                                                          IS_TYPE_FILE_EXCEL,
-                                                                                      )
-                                                                                    ? IconEXCEL
-                                                                                    : null
-                                                                        }
-                                                                        alt="Price File"
-                                                                        fallback={
-                                                                            ImgGeneralDefault
-                                                                        }
-                                                                        className="data-img data-img-contain object-fit-contain"
-                                                                    />
-                                                                </BtnInfo>
-                                                            </Link>
-
-                                                            <BtnCircleRemove
-                                                                className="btn-icon-remove-top-right z-2"
-                                                                actions={{
-                                                                    remove: __handlePriceFileRemove,
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ) : (
-                                                <FormUploadFile
-                                                    name="priceFiles"
-                                                    isUseHook={false}
-                                                    classNameLayoutImage="col-md-5"
-                                                    accept=".pdf,.xlsx,.xls,.doc,.docx"
-                                                    subTitle="PDF, XLSX, XLS, DOC, DOCX"
-                                                    isGeneralFile
-                                                    value={
-                                                        __formRequest
-                                                            .priceFiles[0]
-                                                    }
-                                                    actions={{
-                                                        onChange: (
-                                                            name,
-                                                            value,
-                                                        ) => {
-                                                            __handleChange(
-                                                                name,
-                                                                [value],
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                        </GeneralRowForm>
-                                    </WrapFormContext>
-
                                     {/*New Photos*/}
-                                    {isEdit && __lisPreviousPhotos?.length ? (
-                                        <GeneralRowForm label="Previous Photos">
-                                            <FormEditFileLogic
-                                                dataFiles={__lisPreviousPhotos.filter(
-                                                    (vm) => !vm.isDeleted,
-                                                )}
-                                                dataBy="photo"
-                                                actions={{
-                                                    remove: (data) =>
-                                                        __handleToggleDeletePrevPhotos(
-                                                            data.id,
-                                                        ),
-                                                    restore: () => {},
-                                                }}
-                                            />
-                                        </GeneralRowForm>
-                                    ) : null}
-
                                     <WrapFormContext
                                         formRequest={__formRequest}
                                         actions={{
@@ -382,7 +275,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             handleArrChange: __handleArrChange,
                                         }}>
                                         <GeneralRowForm
-                                            label="New Photos"
+                                            label="Gallery Photos"
                                             isRequired>
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}
@@ -392,19 +285,16 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
                                     </WrapFormContext>
-
-                                    {/*New Photos*/}
-                                    {isEdit &&
-                                    __lisPreviousPhotosPromotion?.length ? (
-                                        <GeneralRowForm label="Previous Photos Promotion">
+                                    {isEdit && __lisPreviousPhotos?.length ? (
+                                        <GeneralRowForm label="">
                                             <FormEditFileLogic
-                                                dataFiles={__lisPreviousPhotosPromotion.filter(
+                                                dataFiles={__lisPreviousPhotos.filter(
                                                     (vm) => !vm.isDeleted,
                                                 )}
-                                                dataBy="file"
+                                                dataBy="photo"
                                                 actions={{
                                                     remove: (data) =>
-                                                        __handleToggleDeletePrevPhotoPromotion(
+                                                        __handleToggleDeletePrevPhotos(
                                                             data.id,
                                                         ),
                                                     restore: () => {},
@@ -426,6 +316,13 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 __actionRemoveDataFilePromo,
                                             handleArrChange: __handleArrChange,
                                         }}>
+                                        <GeneralRowForm label="Promo Label">
+                                            <FormInput
+                                                name="promoLabel"
+                                                placeholder="20% Off"
+                                            />
+                                        </GeneralRowForm>
+
                                         <GeneralRowForm label="Promo Photos">
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}
@@ -435,6 +332,25 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             />
                                         </GeneralRowForm>
                                     </WrapFormContext>
+
+                                    {isEdit &&
+                                    __lisPreviousPhotosPromotion?.length ? (
+                                        <GeneralRowForm label="">
+                                            <FormEditFileLogic
+                                                dataFiles={__lisPreviousPhotosPromotion.filter(
+                                                    (vm) => !vm.isDeleted,
+                                                )}
+                                                dataBy="file"
+                                                actions={{
+                                                    remove: (data) =>
+                                                        __handleToggleDeletePrevPhotoPromotion(
+                                                            data.id,
+                                                        ),
+                                                    restore: () => {},
+                                                }}
+                                            />
+                                        </GeneralRowForm>
+                                    ) : null}
 
                                     <WrapFormContext
                                         formRequest={__formRequest}
@@ -462,6 +378,46 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     classNameLayoutImage="col-md-5"
                                                     value={
                                                         __formRequest.mapImage
+                                                    }
+                                                    actions={{
+                                                        onChange:
+                                                            __handleChange,
+                                                    }}
+                                                />
+                                            )}
+                                        </GeneralRowForm>
+                                    </WrapFormContext>
+
+                                    <WrapFormContext
+                                        formRequest={__formRequest}
+                                        actions={{
+                                            change: __handleChange,
+                                        }}>
+                                        <GeneralRowForm label="Featured Image">
+                                            {__featuredImage ? (
+                                                <div className="pb-3">
+                                                    <PreviewFileModalLogic
+                                                        dataUrl={
+                                                            __featuredImage
+                                                        }
+                                                        dataBy="file"
+                                                        dataFile={
+                                                            __featuredImage
+                                                        }
+                                                        isShowBtnRemove
+                                                        actions={{
+                                                            remove: __removeFeaturedImage,
+                                                        }}
+                                                        classNameWidth="col-md-4"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <FormUploadFile
+                                                    name="featuredImage"
+                                                    isUseHook={false}
+                                                    classNameLayoutImage="col-md-5"
+                                                    value={
+                                                        __formRequest.featuredImage
                                                     }
                                                     actions={{
                                                         onChange:

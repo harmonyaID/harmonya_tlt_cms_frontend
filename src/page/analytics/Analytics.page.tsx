@@ -1,34 +1,53 @@
-import PageComingSoonLayout from '@/component/layout/PageComingSoon.layout.tsx'
-import TopTenCard from '@/page/analytics/component/TopTenCard.tsx'
-import BarChart from '@/page/analytics/component/BarChart.tsx'
-import LineChart from '@/page/analytics/component/LineChart.tsx'
+import { getDashboardAnalytics } from '@/service/api/dashboard.api.ts'
+import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
+import { Analytics } from '@/page/analytics/type/analytics.type.ts'
+import TopBlogViewsCard from '@/page/analytics/component/TopBlogViewsCard.tsx'
+import TopPropertyViewsCard from '@/page/analytics/component/TopPropertyViewsCard.tsx'
+import TopBoatInquiriesCard from '@/page/analytics/component/TopBoatInquiriesCard.tsx'
+import PropertyRatedCard from '@/page/analytics/component/PropertyRatedCard.tsx'
 
 const AnalyticsPage = () => {
+    const { __detail, __isLoading } = useDataDetailHook({
+        urlAPI: getDashboardAnalytics,
+    })
+
+    const analytics: Analytics = __detail as Analytics
+
     return (
         <>
             <div className="row g-4">
                 <div className="col-12 col-md-4">
-                    <TopTenCard title="Top 10 Property view" />
+                    <TopPropertyViewsCard
+                        properties={analytics.topPropertyViews}
+                    />
                 </div>
                 <div className="col-12 col-md-4">
-                    <TopTenCard title="Top 10 Blog view" />
+                    <TopBlogViewsCard blogs={analytics.topBlogViews} />
                 </div>
                 <div className="col-12 col-md-4">
-                    <TopTenCard title="Top 10 Boat Inquiry" />
+                    <TopBoatInquiriesCard
+                        inquiries={analytics.topBoatInquiries}
+                    />
                 </div>
                 <div className="col-12 col-md-4">
-                    <TopTenCard title="10 Lowest Review Property" />
+                    <PropertyRatedCard
+                        properties={analytics.lowestRatedProperties}
+                        title="Lowest Review Property"
+                    />
                 </div>
                 <div className="col-12 col-md-4">
-                    <TopTenCard title="10 Highest Review Property " />
+                    <PropertyRatedCard
+                        properties={analytics.highestRatedProperties}
+                        title="Highest Review Property "
+                    />
                 </div>
             </div>
-            <div className="mt-4">
-                <BarChart />
-            </div>
-            <div className="mt-4">
-                <LineChart />
-            </div>
+            {/*<div className="mt-4">*/}
+            {/*    <BarChart />*/}
+            {/*</div>*/}
+            {/*<div className="mt-4">*/}
+            {/*    <LineChart />*/}
+            {/*</div>*/}
         </>
     )
 }
