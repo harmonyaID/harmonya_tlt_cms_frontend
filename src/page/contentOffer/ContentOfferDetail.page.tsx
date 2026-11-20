@@ -32,6 +32,7 @@ const ContentOfferDetailPage = () => {
         __handleToAdd,
         __handleToEdit,
         __handleToMain,
+        __handleToPreview,
     } = useContentOfferDetail()
 
     return (
@@ -56,6 +57,12 @@ const ContentOfferDetailPage = () => {
 
                 <div className="col-auto">
                     <div className="hstack gap-2 flex-wrap">
+                        <BtnPrimary
+                            isOutline
+                            onClick={() => __handleToPreview(__detail.id)}>
+                            Preview
+                        </BtnPrimary>
+
                         <BtnPrimary
                             isOutline
                             onClick={() =>

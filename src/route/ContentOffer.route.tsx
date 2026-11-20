@@ -7,6 +7,9 @@ import Page404Layout from '@/component/layout/Page404.layout.tsx'
 const ContentOfferPage = lazy(
     () => import('@/page/contentOffer/ContentOffer.page.tsx'),
 )
+const ContentOfferPreviewPage = lazy(
+    () => import('@/page/contentOffer/ContentOfferPreview.page.tsx'),
+)
 const ContentOfferTrashPage = lazy(
     () => import('@/page/contentOffer/ContentOfferTrash.page.tsx'),
 )
@@ -63,6 +66,17 @@ const ContentOfferRoute = () => {
                         titleNavbar="Offer"
                         isCheckPermission={false}>
                         <ContentOfferEditPage />
+                    </SuspenseLayout>
+                }
+            />
+
+            <Route
+                path={contentOfferPath.preview(':id')}
+                element={
+                    <SuspenseLayout
+                        titleNavbar="Offer"
+                        isCheckPermission={false}>
+                        <ContentOfferPreviewPage />
                     </SuspenseLayout>
                 }
             />
