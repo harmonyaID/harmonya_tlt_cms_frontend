@@ -275,7 +275,7 @@ const BoatMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             handleArrChange: __handleArrChange,
                                         }}>
                                         <GeneralRowForm
-                                            label="Photos"
+                                            label="Gallery Photos"
                                             isRequired>
                                             <FormUploadFileWithActionPreviewLogic
                                                 isUseInputDesc={false}

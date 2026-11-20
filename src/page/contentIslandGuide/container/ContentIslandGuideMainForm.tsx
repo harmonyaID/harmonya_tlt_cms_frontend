@@ -145,24 +145,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         </WrapFormContext>
 
                                         {/*New Photos*/}
-                                        {isEdit &&
-                                        __listPreviousPhotos?.length ? (
-                                            <GeneralRowForm label="Previous Photos">
-                                                <FormEditFileLogic
-                                                    dataFiles={__listPreviousPhotos.filter(
-                                                        (vm) => !vm.isDeleted,
-                                                    )}
-                                                    dataBy="photo"
-                                                    actions={{
-                                                        remove: (data) =>
-                                                            __handleToggleDeletePrevPhotos(
-                                                                data.id,
-                                                            ),
-                                                        restore: () => {},
-                                                    }}
-                                                />
-                                            </GeneralRowForm>
-                                        ) : null}
                                         <WrapFormContext
                                             formRequest={__formRequest}
                                             actions={{
@@ -177,7 +159,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     __handleArrChange,
                                             }}>
                                             <GeneralRowForm
-                                                label="New Photos"
+                                                label="Photos"
                                                 isRequired>
                                                 <FormUploadFileWithActionPreviewLogic
                                                     isUseInputDesc={false}
@@ -186,6 +168,26 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     formRequest={__formRequest}
                                                 />
                                             </GeneralRowForm>
+
+                                            {isEdit &&
+                                            __listPreviousPhotos?.length ? (
+                                                <GeneralRowForm label="">
+                                                    <FormEditFileLogic
+                                                        dataFiles={__listPreviousPhotos.filter(
+                                                            (vm) =>
+                                                                !vm.isDeleted,
+                                                        )}
+                                                        dataBy="photo"
+                                                        actions={{
+                                                            remove: (data) =>
+                                                                __handleToggleDeletePrevPhotos(
+                                                                    data.id,
+                                                                ),
+                                                            restore: () => {},
+                                                        }}
+                                                    />
+                                                </GeneralRowForm>
+                                            ) : null}
                                         </WrapFormContext>
 
                                         {/*<WrapFormContext*/}
