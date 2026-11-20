@@ -137,6 +137,20 @@ const BoatDetailPage = () => {
                                         ),
                                     ),
                                     objectListDetail(
+                                        'Featured Image',
+                                        __detail.featuredImage ? (
+                                            <PreviewFileModalLogic
+                                                classNameWidth="avatar-46"
+                                                dataUrl={
+                                                    __detail?.featuredImage ||
+                                                    ''
+                                                }
+                                            />
+                                        ) : (
+                                            '-'
+                                        ),
+                                    ),
+                                    objectListDetail(
                                         'Created At',
                                         __detail.createdAt || '-',
                                     ),
