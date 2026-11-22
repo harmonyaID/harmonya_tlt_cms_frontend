@@ -37,6 +37,9 @@ export const MDPSTabTLTTestimonialAdd = 'modalSettingPageTLTTestimonialAdd'
 export const MDPSTabTLTTestimonialRemove =
     'modalSettingPageTLTTestimonialRemove'
 
+export const MDBSTabAffiliateAdd = 'modalSettingBlogAffiliateAdd'
+export const MDBSTabAffiliateRemove = 'modalSettingBlogAffiliateRemove'
+
 export const MDPSTabMediaPartnerAdd = 'modalSettingPageMediaPartnerAdd'
 export const MDPSTabMediaPartnerRemove = 'modalSettingPageMediaPartnerRemove'
 

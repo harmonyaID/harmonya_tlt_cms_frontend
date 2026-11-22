@@ -32,6 +32,9 @@ export const SrvBlogCategoryTrashWithId = (id: string | number = ''): string =>
 export const SrvBlogCategoryRestore = (id: string | number = ''): string =>
     baseAPIBlogCategory + '/trash/' + id + '/restore'
 
+const baseAPIBlogAffiliate = baseAPI + '/blogs/affiliates'
+export const SrvBlogAffiliateCRUD = objectPathEndPointAPI(baseAPIBlogAffiliate)
+
 const baseAPIBlogTag = baseAPI + '/blogs/tags'
 export const SrvBlogTagCRUD = objectPathEndPointAPI(baseAPIBlogTag)
 export const SrvBlogTagTrash = baseAPIBlogTag + '/trash'
