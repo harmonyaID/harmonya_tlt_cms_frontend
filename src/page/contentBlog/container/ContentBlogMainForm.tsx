@@ -146,9 +146,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 <FormTinyMCE name="content" />
                                             </GeneralRowForm>
 
-                                            <GeneralRowForm
-                                                label="Additional Content"
-                                                isRequired>
+                                            <GeneralRowForm label="Additional Content">
                                                 <FormTinyMCE name="additionalContent" />
                                             </GeneralRowForm>
                                         </WrapFormContext>
