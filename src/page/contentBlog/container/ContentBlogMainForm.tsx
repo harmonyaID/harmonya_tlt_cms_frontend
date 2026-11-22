@@ -1,5 +1,6 @@
 import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
 import SelectOptionBlogCategory from '@/common/dataForm/SelectOptionBlogCategory.tsx'
+import SelectOptionBlogAffiliate from '@/common/dataForm/SelectOptionBlogAffiliate.tsx'
 import SelectOptionBlogTag from '@/common/dataForm/SelectOptionBlogTag.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
@@ -53,10 +54,10 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __setPreviewThumbnail,
         __handleThumbnailRemove,
 
-        // Promo Banner
-        __previewPromoBanner,
-        __setPreviewPromoBanner,
-        __handlePromoBannerRemove,
+        // affiliates
+        __listAffiliates,
+        __handleAffiliateChoose,
+        __handleAffiliateRemove,
 
         // SEO Thumbnail
         __seoThumbnail,
@@ -145,9 +146,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 <FormTinyMCE name="content" />
                                             </GeneralRowForm>
 
-                                            <GeneralRowForm
-                                                label="Additional Content"
-                                                isRequired>
+                                            <GeneralRowForm label="Additional Content">
                                                 <FormTinyMCE name="additionalContent" />
                                             </GeneralRowForm>
                                         </WrapFormContext>
@@ -401,6 +400,8 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                             __handlePropertyChoose,
                                         changeCategoryOld:
                                             __handleCategoryChoose,
+                                        changeAffiliateOld:
+                                            __handleAffiliateChoose,
                                     }}>
                                     <Card title="Other Information">
                                         <div className="">
@@ -558,70 +559,21 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 }}
                                             />
 
-                                            {__previewPromoBanner ? (
-                                                <>
-                                                    <div className="pb-3">
-                                                        <p className="mb-2 text-neutral-100">
-                                                            Promo Banner
-                                                        </p>
-
-                                                        <PreviewFileModalLogic
-                                                            dataUrl={__previewPromoBanner?.toString()}
-                                                            dataBy="file"
-                                                            dataFile={
-                                                                __previewPromoBanner
-                                                            }
-                                                            isShowBtnRemove
-                                                            actions={{
-                                                                remove: __handlePromoBannerRemove,
-                                                            }}
-                                                            classNameWidth="w-100 max-h-148px"
-                                                        />
-                                                    </div>
-                                                </>
-                                            ) : (
-                                                <FormUploadFile
-                                                    label="Promo Banner"
-                                                    name="promoBanner"
-                                                    isUseHook={false}
-                                                    isPreview={false}
-                                                    accept="image/*"
-                                                    actions={{
-                                                        onChange: (
-                                                            _,
-                                                            newFiles,
-                                                        ) => {
-                                                            const img =
-                                                                new Image()
-                                                            const objectUrl =
-                                                                URL.createObjectURL(
-                                                                    newFiles,
-                                                                )
-
-                                                            img.onload = () => {
-                                                                __handleChange(
-                                                                    'promoBanner',
-                                                                    newFiles,
-                                                                )
-                                                            }
-
-                                                            img.src = objectUrl
-                                                        },
-                                                        handleDataFiles: (
-                                                            newDataFiles,
-                                                        ) => {
-                                                            __setPreviewPromoBanner(
-                                                                newDataFiles.url,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-
-                                            <FormInput
-                                                name="promoBannerUrl"
-                                                placeholder="http://example.com/"
-                                                label="Promo Banenr URL"
+                                            <SelectOptionBlogAffiliate
+                                                label="Affiliates"
+                                                name="affiliateIds"
+                                                nameOfChange="changeAffiliateOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={
+                                                    __formRequest?.affiliateIds
+                                                }
+                                                dataList={__listAffiliates}
+                                                dataActions={{
+                                                    remove: __handleAffiliateRemove,
+                                                }}
                                             />
                                         </div>
                                     </Card>

@@ -3,6 +3,7 @@ import CardNavTab from '@/component/card/CardNavTab.tsx'
 import { objectTab, objectTabContent } from '@/config/objectNavTab.config.ts'
 import TabBlogTag from '@/page/contentSetting/blogSetting/container/TabBlogTag.tsx'
 import TabBlogCategory from '@/page/contentSetting/blogSetting/container/TabBlogCategory.tsx'
+import TabBlogAffiliate from '@/page/contentSetting/blogSetting/container/TabBlogAffiliate.tsx'
 
 const BlogSettingPage = () => (
     <>
@@ -12,10 +13,12 @@ const BlogSettingPage = () => (
             tabs={[
                 objectTab('Category', 'tabCategory'),
                 objectTab('Tag', 'tabTag'),
+                objectTab('Affiliate', 'tabAffiliate'),
             ]}
             tabContents={[
                 objectTabContent('', <TabBlogCategory />),
                 objectTabContent('', <TabBlogTag />),
+                objectTabContent('', <TabBlogAffiliate />),
             ]}
         />
     </>

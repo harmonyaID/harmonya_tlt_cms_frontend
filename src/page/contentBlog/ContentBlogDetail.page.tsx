@@ -18,7 +18,6 @@ import { objectListDetail } from '@/config/objectList.config.ts'
 import useContentBlogDetail from '@/page/contentBlog/hook/useContentBlogDetail.hook.ts'
 import boatPath from '@/path/boat.path.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
-import { Link } from 'react-router'
 
 const ContentBlogDetailPage = () => {
     const {
@@ -233,28 +232,28 @@ const ContentBlogDetailPage = () => {
                                     />
                                 </div>
 
-                                <div className="pb-3">
-                                    <p className="mb-2 text-neutral-100">
-                                        Promo Banner
-                                    </p>
-
-                                    <PreviewFileModalLogic
-                                        dataUrl={__detail?.promoBanner?.toString()}
-                                        dataBy="file"
-                                        dataFile={__detail.promoBanner}
-                                        classNameWidth="w-100 max-h-148px"
-                                    />
-                                </div>
-
                                 <VerticalLoopDataLogic
                                     list={[
                                         objectListDetail(
-                                            'Promo Banner URL',
-                                            <Link
-                                                target="_blank"
-                                                to={__detail.promoBannerUrl}>
-                                                {__detail.promoBannerUrl}
-                                            </Link>,
+                                            'Affiliates',
+                                            __detail?.affiliates?.length > 0 ? (
+                                                <div className="hstack gap-2 flex-wrap">
+                                                    {__detail.affiliates.map(
+                                                        (aff) => (
+                                                            <BadgeStatusGeneral
+                                                                value={
+                                                                    aff?.title ||
+                                                                    '-'
+                                                                }
+                                                                className="text-bg-neutral-300 fw-normal"
+                                                                key={aff.id}
+                                                            />
+                                                        ),
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                '-'
+                                            ),
                                         ),
                                         objectListDetail(
                                             'Status Active',
