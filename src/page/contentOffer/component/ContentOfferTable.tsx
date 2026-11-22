@@ -77,9 +77,51 @@ const ContentOfferTable = ({
                                                     </div>
                                                 </div>
                                             </div>
-                                            <TblLineFirstPrimary
-                                                value={vm?.title || '-'}
-                                            />
+                                            <div>
+                                                <TblLineFirstPrimary
+                                                    value={vm?.title || '-'}
+                                                />
+                                                <TblPointData title="Categories">
+                                                    <div className="hstack gap-2 flex-wrap">
+                                                        {vm?.categories?.length
+                                                            ? vm.categories.map(
+                                                                  (cat) => (
+                                                                      <BadgeStatusGeneral
+                                                                          key={
+                                                                              cat.id
+                                                                          }
+                                                                          value={
+                                                                              cat.name ||
+                                                                              '-'
+                                                                          }
+                                                                          className="text-bg-neutral-300 fw-normal"
+                                                                      />
+                                                                  ),
+                                                              )
+                                                            : '-'}
+                                                    </div>
+                                                </TblPointData>
+                                                <TblPointData title="Tags">
+                                                    <div className="hstack gap-2 flex-wrap">
+                                                        {vm?.tags?.length
+                                                            ? vm?.tags?.map(
+                                                                  (tag) => (
+                                                                      <BadgeStatusGeneral
+                                                                          key={
+                                                                              tag.id
+                                                                          }
+                                                                          value={
+                                                                              tag.name ||
+                                                                              '-'
+                                                                          }
+                                                                          className="text-bg-neutral-300 fw-normal"
+                                                                      />
+                                                                  ),
+                                                              )
+                                                            : '-'}
+                                                    </div>
+                                                </TblPointData>
+                                            </div>
                                         </div>
                                     </td>
 

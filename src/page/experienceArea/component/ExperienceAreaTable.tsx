@@ -77,10 +77,16 @@ const ExperienceAreaTable = ({
                                         </TblLineSecond>
                                     </td>
                                     <td>
-                                        <BoxImage src={vm.featuredImage} />
+                                        <BoxImage
+                                            isSizeDefault={true}
+                                            src={vm.featuredImage}
+                                        />
                                     </td>
                                     <td>
-                                        <BoxImage src={vm.banner} />
+                                        <BoxImage
+                                            isSizeDefault={true}
+                                            src={vm.banner}
+                                        />
                                     </td>
                                     {/*<td>*/}
                                     {/*    {vm.description ? (*/}

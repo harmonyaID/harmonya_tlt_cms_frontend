@@ -1,6 +1,6 @@
 import SectionFormSEOInfo from '@/common/dataForm/SectionFormSEOInfo.tsx'
-import SelectOptionBlogCategory from '@/common/dataForm/SelectOptionBlogCategory.tsx'
-import SelectOptionBlogTag from '@/common/dataForm/SelectOptionBlogTag.tsx'
+import SelectOptionOfferCategory from '@/common/dataForm/SelectOptionOfferCategory.tsx'
+import SelectOptionOfferTag from '@/common/dataForm/SelectOptionOfferTag.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import CardDropdown from '@/component/card/CardDropdown.tsx'
@@ -36,7 +36,17 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleArrAddMulti,
         __handleChangeTitle,
 
+        // categories
+        __listCategories,
+        __handleCategoryChoose,
+        __handleCategoryRemove,
+
         // tags
+        __listTags,
+        __handleTagChoose,
+        __handleTagRemove,
+
+        // properties
         __listProperties,
         __handlePropertyChoose,
         __handlePropertyRemove,
@@ -184,6 +194,10 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     formRequest={__formRequest}
                                     actions={{
                                         change: __handleChange,
+                                        changeCategoryOld: (data) =>
+                                            __handleCategoryChoose(data),
+                                        changeTagsOld: (data) =>
+                                            __handleTagChoose(data),
                                         changePropertyOld: (data) =>
                                             __handlePropertyChoose(data),
                                     }}>
@@ -265,6 +279,36 @@ const ContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         label: 'Yes',
                                                     },
                                                 ]}
+                                            />
+
+                                            <SelectOptionOfferCategory
+                                                label="Categories"
+                                                name="categoryIds"
+                                                nameOfChange="changeCategoryOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.categoryIds}
+                                                dataList={__listCategories}
+                                                dataActions={{
+                                                    remove: __handleCategoryRemove,
+                                                }}
+                                            />
+
+                                            <SelectOptionOfferTag
+                                                label="Tags"
+                                                name="tagIds"
+                                                nameOfChange="changeTagsOld"
+                                                isUseHook
+                                                isOnlyChoose
+                                                isMulti
+                                                isClearable
+                                                ids={__formRequest?.tagIds}
+                                                dataList={__listTags}
+                                                dataActions={{
+                                                    remove: __handleTagRemove,
+                                                }}
                                             />
 
                                             <SelectOptionProperty
