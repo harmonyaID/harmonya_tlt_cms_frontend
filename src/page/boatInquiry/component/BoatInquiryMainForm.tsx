@@ -247,12 +247,22 @@ const BoatInquiryMainForm = ({
                                                     label="Pickup Point"
                                                     name="departurePickupPoint"
                                                 />
-                                                <FormInput
-                                                    label="Flight Number"
-                                                    name="departurePickupFlightNumber"
-                                                    isNumberOnly
-                                                    placeholder="e.g Number"
-                                                />
+                                                {__formRequest.departurePickupPoint ===
+                                                'airport' ? (
+                                                    <FormInput
+                                                        label="Flight Number"
+                                                        name="departurePickupFlightNumber"
+                                                        isNumberOnly
+                                                        placeholder="e.g Number"
+                                                    />
+                                                ) : (
+                                                    <FormInput
+                                                        label="Pickup Location "
+                                                        name="departurePickupLocation"
+                                                        isNumberOnly
+                                                        placeholder="e.g Hotel"
+                                                    />
+                                                )}
                                                 <FormInputTimePicker
                                                     label="Arrival Time"
                                                     name="arrivalTime"
@@ -271,11 +281,20 @@ const BoatInquiryMainForm = ({
                                                     label="Drop Off Point"
                                                     name="departureDropOffPoint"
                                                 />
-                                                <FormInput
-                                                    label="Drop Off Location"
-                                                    name="departureDropOffLocation"
-                                                    placeholder="e.g Location"
-                                                />
+                                                {__formRequest.departureDropOffPoint ===
+                                                'airport' ? (
+                                                    <FormInput
+                                                        label="Flight Number"
+                                                        name="departureDropOffFlightNumber"
+                                                        placeholder="e.g Location"
+                                                    />
+                                                ) : (
+                                                    <FormInput
+                                                        label="Drop Off Location"
+                                                        name="departureDropOffLocation"
+                                                        placeholder="e.g Location"
+                                                    />
+                                                )}
                                                 <FormInputTimePicker
                                                     label="Drop Off Arrival Time"
                                                     name="departureDropOffArrivalTime"
@@ -299,11 +318,20 @@ const BoatInquiryMainForm = ({
                                                         label="Return Pickup Point"
                                                         name="returnPickupPoint"
                                                     />
-                                                    <FormInput
-                                                        label="Return Pickup Location"
-                                                        name="returnPickupLocation"
-                                                        placeholder="e.g Location"
-                                                    />
+                                                    {__formRequest.returnPickupPoint ===
+                                                    'airport' ? (
+                                                        <FormInput
+                                                            label="Flight Number"
+                                                            name="returnPickupFlightNumber"
+                                                            placeholder="e.g Location"
+                                                        />
+                                                    ) : (
+                                                        <FormInput
+                                                            label="Return Pickup Location"
+                                                            name="returnPickupLocation"
+                                                            placeholder="e.g Location"
+                                                        />
+                                                    )}
                                                     <FormInputTimePicker
                                                         label="Return Checkout Time"
                                                         name="returnPickupCheckoutTime"
@@ -322,11 +350,20 @@ const BoatInquiryMainForm = ({
                                                         label="Return Drop Off Point"
                                                         name="returnDropOffPoint"
                                                     />
-                                                    <FormInput
-                                                        label="Return Drop Off Location"
-                                                        name="returnDropOffLocation"
-                                                        placeholder="e.g Location"
-                                                    />
+                                                    {__formRequest.returnDropOffPoint ===
+                                                    'airport' ? (
+                                                        <FormInput
+                                                            label="Flight Number"
+                                                            name="returnDropOffFlightNumber"
+                                                            placeholder="e.g 428024"
+                                                        />
+                                                    ) : (
+                                                        <FormInput
+                                                            label="Return Drop Off Location"
+                                                            name="returnDropOffLocation"
+                                                            placeholder="e.g Location"
+                                                        />
+                                                    )}
                                                 </GeneralRowForm>
                                             )}
                                         </>
