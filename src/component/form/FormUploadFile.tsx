@@ -58,6 +58,7 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
     const {
         label = '',
         subTitle = 'Webp, JPG, PNG, & JPEG',
+        recommendedSize = '',
         id = '',
         required = false,
         isMulti = false,
@@ -515,8 +516,20 @@ const FormUploadFile: FC<FormUploadFileProps> = (props) => {
                         </p>
 
                         {subTitle ? (
-                            <p className="fs-12 text-neutral-400">{subTitle}</p>
+                            <p className="fs-12 m-0 text-neutral-400">
+                                {subTitle}
+                            </p>
                         ) : null}
+
+                        {recommendedSize && (
+                            <p className="fs-12 m-0 text-neutral-400">
+                                Recommended Size :{' '}
+                                <span className="text-primary">
+                                    {' '}
+                                    {recommendedSize}
+                                </span>
+                            </p>
+                        )}
                     </div>
 
                     <div className="d-flex w-100 justify-content-center">
