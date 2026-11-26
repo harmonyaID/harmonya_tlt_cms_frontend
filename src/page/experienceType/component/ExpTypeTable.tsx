@@ -1,7 +1,11 @@
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
 import { TblLineFirstPrimary } from '@/component/general/TablePartial.tsx'
 import { BoxImage } from '@/component/general/Image.tsx'
-import { BtnCircleDetail, BtnCircleEdit, BtnCircleRemove } from '@/component/general/Button.tsx'
+import {
+    BtnCircleDetail,
+    BtnCircleEdit,
+    BtnCircleRemove,
+} from '@/component/general/Button.tsx'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import Pagination from '@/component/general/Pagination.tsx'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
@@ -64,10 +68,16 @@ const ExpTypeTable = ({
                                         />
                                     </td>
                                     <td>
-                                        <BoxImage src={vm.featuredImage} />
+                                        <BoxImage
+                                            isSizeDefault={true}
+                                            src={vm.featuredImage}
+                                        />
                                     </td>
                                     <td>
-                                        <BoxImage src={vm.banner} />
+                                        <BoxImage
+                                            isSizeDefault={true}
+                                            src={vm.banner}
+                                        />
                                     </td>
                                     {/*<td>*/}
                                     {/*    {vm.description ? (*/}
@@ -84,8 +94,10 @@ const ExpTypeTable = ({
                                                 <TrashActionButtons
                                                     selected={vm}
                                                     actions={{
-                                                        restore: actions?.__handleChooseRestore,
-                                                        permanentRemove:actions?.__handleChoosePermanentRemove
+                                                        restore:
+                                                            actions?.__handleChooseRestore,
+                                                        permanentRemove:
+                                                            actions?.__handleChoosePermanentRemove,
                                                     }}
                                                 />
                                             ) : (

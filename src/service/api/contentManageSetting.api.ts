@@ -6,6 +6,7 @@ import {
     _shapeObjectMethodCRUD,
 } from '@/service/api/_coreAPI/_config.api.ts'
 import {
+    SrvBlogAffiliateCRUD,
     SrvBlogCategoryCRUD,
     SrvBlogCategoryRestore,
     SrvBlogCategoryTrash,
@@ -110,6 +111,10 @@ export const permanentDeleteBlogCategory = (id: string | number) =>
     _shapeMethodDel(SrvBlogCategoryTrashWithId(id))
 export const restoreBlogCategory = (id: string | number) =>
     _shapeMethodPost(SrvBlogCategoryRestore(id))
+
+export const apiBlogAffiliate = {
+    ..._shapeObjectMethodCRUD(SrvBlogAffiliateCRUD),
+}
 
 export const apiBlogTag = { ..._shapeObjectMethodCRUD(SrvBlogTagCRUD) }
 export const getBlogTagTrash = (search: any) =>

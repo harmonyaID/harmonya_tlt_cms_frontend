@@ -281,6 +281,7 @@ export interface FormUploadFileProps extends InputHTMLAttributes<HTMLInputElemen
 
     isPreviewVideo?: boolean
     classNameLayoutVideo?: string
+    recommendedSize?: string
 }
 
 export interface LayoutImageAndDocumentProps {

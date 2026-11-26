@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { isArray, isEmpty, isObject } from 'lodash'
 import { initSEOFormConfig, mapSEOFormConfig } from '@/config/SEOForm.config.ts'
@@ -10,6 +10,7 @@ import useDetailFormRequestHook from '@/hook/useDetailFormRequest.hook.ts'
 import useLocationStateHook from '@/hook/useLocationState.hook.ts'
 import usePageFlowHandlerHook from '@/hook/usePageFlowHandler.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
+import useBlogAffiliateStore from '@/store/useBlogAffiliate.store.ts'
 import { apiBlogContent } from '@/service/api/contentManage.api.ts'
 
 const defaultActive = '1'
@@ -27,8 +28,7 @@ const initForm = {
     isActive: defaultActive,
     tagIds: [],
     thumbnail: '',
-    promoBanner: '',
-    promoBannerUrl: '',
+    affiliateIds: [],
     visibility: defaultActive,
     seo: {
         ...initSEOFormConfig,
@@ -48,9 +48,8 @@ const initMapForm = (passData) => ({
     tagIds: [],
     thumbnail: '',
     propertyIds: [],
-    promoBanner: '',
+    affiliateIds: [],
     visibility: passData?.visibility ? defaultActive : '0',
-    promoBannerUrl: passData?.promoBannerUrl || '',
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
@@ -68,7 +67,6 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         })
 
     const [previewThumbnail, setPreviewThumbnail] = useState('')
-    const [previewPromoBanner, setPreviewPromoBanner] = useState('')
 
     const [seoThumbnail, setSetSEOThumbnail] = useState('')
 
@@ -82,6 +80,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const [listProperties, setListProperties] = useState<any[]>([])
     const [listTags, setlistTags] = useState<any[]>([])
     const [listCategories, setlistCategories] = useState<any[]>([])
+    const [listAffiliates, setListAffiliates] = useState<any[]>([])
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -129,11 +128,6 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // if (isEdit) {
         //     nestedForm.__handleChange('deleteThumbnail', '')
         // }
-    }
-
-    const _handlePromoBannerRemove = () => {
-        setPreviewPromoBanner('')
-        nestedForm.__handleChange('promoBanner', '')
     }
 
     const _handlePropertyRemove = (dataProperty) => {
@@ -204,6 +198,70 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         }
     }
 
+    // Auto-select affiliates that apply to all blogs (create & edit)
+    const { __list: allAffiliates } = useBlogAffiliateStore({
+        isFormatList: false,
+    })
+
+    useEffect(() => {
+        const applied = allAffiliates.filter((vm) => vm.isAppliedToAll)
+        const missing = applied.filter(
+            (vm) => !formRequest.affiliateIds.includes(vm.id),
+        )
+
+        if (!isEmpty(missing)) {
+            setFormRequest((prev) => ({
+                ...prev,
+                affiliateIds: [
+                    ...prev.affiliateIds,
+                    ...missing.map((vm) => vm.id),
+                ],
+            }))
+        }
+
+        setListAffiliates((prev) => {
+            const merged = prev.map(
+                (vm) => applied.find((a) => a.id === vm.id) || vm,
+            )
+            const toAdd = applied.filter(
+                (a) => !prev.some((vm) => vm.id === a.id),
+            )
+
+            return toAdd.length ? [...toAdd, ...merged] : merged
+        })
+    }, [allAffiliates, formRequest.affiliateIds])
+
+    const _handleAffiliateChoose = (newAffiliate) => {
+        if (!isEmpty(newAffiliate)) {
+            const checkData = isArray(newAffiliate)
+                ? newAffiliate[0]
+                : isObject(newAffiliate)
+                  ? newAffiliate
+                  : {}
+
+            nestedForm._handleArrAddMulti('affiliateIds', [checkData.id])
+
+            // @ts-ignore
+            setListAffiliates((prev) => [...prev, ...newAffiliate])
+        }
+    }
+
+    const _handleAffiliateRemove = (dataAffiliate) => {
+        // affiliates applied to all blogs cannot be removed
+        if (dataAffiliate?.isAppliedToAll) return
+
+        setFormRequest((prev) => ({
+            ...prev,
+            affiliateIds: prev.affiliateIds.filter(
+                (id) => id !== dataAffiliate.id,
+            ),
+        }))
+
+        setListAffiliates((prev) =>
+            prev.filter((aff) => aff.id !== dataAffiliate.id),
+        )
+    }
+
     const _handleSEOThumbnailRemove = () => {
         setSetSEOThumbnail('')
         nestedForm.__handleChangeWithParent('thumbnail', '', 'seo')
@@ -222,6 +280,7 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     tagIds: res.tags.map((vm) => vm.id),
                     categoryIds: res.categories.map((v) => v.id),
                     propertyIds: res.properties.map((v) => v.id),
+                    affiliateIds: (res.affiliates || []).map((v) => v.id),
                     author: res.author || __profile?.fullName || '',
                 })
 
@@ -241,8 +300,8 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                     setPreviewThumbnail(res.thumbnail)
                 }
 
-                if (res?.promoBanner) {
-                    setPreviewPromoBanner(res.promoBanner)
+                if (res?.affiliates?.length) {
+                    setListAffiliates(res.affiliates)
                 }
 
                 if (res?.seo?.thumbnail) {
@@ -299,9 +358,9 @@ const useContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __setPreviewThumbnail: setPreviewThumbnail,
         __handleThumbnailRemove: _handleThumbnailRemove,
 
-        __previewPromoBanner: previewPromoBanner,
-        __setPreviewPromoBanner: setPreviewPromoBanner,
-        __handlePromoBannerRemove: _handlePromoBannerRemove,
+        __listAffiliates: listAffiliates,
+        __handleAffiliateChoose: _handleAffiliateChoose,
+        __handleAffiliateRemove: _handleAffiliateRemove,
 
         // SEO
         __seoThumbnail: seoThumbnail,

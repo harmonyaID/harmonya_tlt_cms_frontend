@@ -226,13 +226,10 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                         ))}
                                                 </FormSelectOption>
                                             </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Open Hours"
-                                                isRequired>
+                                            <GeneralRowForm label="Open Hours">
                                                 <FormInput
                                                     name="openHours"
                                                     placeholder="e.g Open Everyday 6.30AM - Late"
-                                                    required
                                                 />
                                             </GeneralRowForm>
                                             <GeneralRowForm
@@ -240,9 +237,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 isRequired>
                                                 <FormTinyMCE name="description" />
                                             </GeneralRowForm>
-                                            <GeneralRowForm
-                                                label="Additional Content"
-                                                isRequired>
+                                            <GeneralRowForm label="Additional Content">
                                                 <FormTinyMCE name="additionalContent" />
                                             </GeneralRowForm>
                                         </WrapFormContext>
@@ -261,7 +256,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     __handleArrChange,
                                             }}>
                                             <GeneralRowForm
-                                                label="New Photos"
+                                                label="Gallery"
                                                 isRequired>
                                                 <FormUploadFileWithActionPreviewLogic
                                                     isUseInputDesc={false}
@@ -311,7 +306,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         {/*    </GeneralRowForm>*/}
                                         {/*</WrapFormContext>*/}
 
-                                        <GeneralRowForm label="Catalogs">
+                                        <GeneralRowForm label="Menu File">
                                             <WrapFormContext
                                                 formRequest={__formRequest}
                                                 actions={{
@@ -455,7 +450,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 <FormUploadFile
                                                     label="Map Image"
                                                     name="mapImage"
-                                                    required
                                                     isUseHook={false}
                                                     isPreview={false}
                                                     accept="image/*"
@@ -530,14 +524,12 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 name="whatsapp"
                                                 placeholder="e.g 628700xxxx"
                                                 isNumberOnly
-                                                required
                                             />
 
                                             <FormInput
                                                 label="Instagram"
                                                 name="instagram"
                                                 placeholder="e.g @3monkeyslembongan"
-                                                required
                                             />
 
                                             <FormInput
@@ -545,14 +537,12 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 name="website"
                                                 placeholder="e.g https://www.3monkeys.com"
                                                 type="url"
-                                                required
                                             />
 
                                             <FormInput
                                                 label="Map Location Url"
                                                 name="mapLocationUrl"
                                                 placeholder="e.g https://maps.google.com/?q=-8.123,115.456"
-                                                required
                                             />
                                         </div>
                                     </Card>

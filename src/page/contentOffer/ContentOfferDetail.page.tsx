@@ -251,6 +251,50 @@ const ContentOfferDetailPage = () => {
                                             />,
                                         ),
                                         objectListDetail(
+                                            'Categories',
+                                            __detail?.categories?.length > 0 ? (
+                                                <div className="hstack gap-2 flex-wrap">
+                                                    {__detail.categories.map(
+                                                        (category) => (
+                                                            <BadgeStatusGeneral
+                                                                value={
+                                                                    category?.name ||
+                                                                    '-'
+                                                                }
+                                                                className="text-bg-neutral-300 fw-normal"
+                                                                key={
+                                                                    category.id
+                                                                }
+                                                            />
+                                                        ),
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
+                                        objectListDetail(
+                                            'Tags',
+                                            __detail?.tags?.length > 0 ? (
+                                                <div className="hstack gap-2 flex-wrap">
+                                                    {__detail.tags.map(
+                                                        (tag) => (
+                                                            <BadgeStatusGeneral
+                                                                value={
+                                                                    tag?.name ||
+                                                                    '-'
+                                                                }
+                                                                className="text-bg-neutral-300 fw-normal"
+                                                                key={tag.id}
+                                                            />
+                                                        ),
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                '-'
+                                            ),
+                                        ),
+                                        objectListDetail(
                                             'Properties',
                                             __detail?.properties &&
                                                 __detail?.properties.length ? (

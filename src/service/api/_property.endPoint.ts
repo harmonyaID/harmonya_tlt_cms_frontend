@@ -121,8 +121,7 @@ export const SrvPropertyStaticStatus = baseAPIDataStatic + '/property-statuses'
 export const SrvPropertyStaticAddressType =
     baseAPIDataStatic + '/property-address-types'
 
-export const SrvPropertyStaticSourceType =
-    baseAPIDataStatic + '/property-source-types'
+export const SrvPropertyStaticSourceType = baseAPIProperty + '/source-types'
 
 export const SrvPropertyStaticAvailabilityType =
     baseAPIDataStatic + '/property-availability-types'

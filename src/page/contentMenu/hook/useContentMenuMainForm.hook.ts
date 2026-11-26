@@ -115,7 +115,7 @@ const useContentMenuMainFormHook = ({
         return __handleSubmit({
             apiCall: () =>
                 isEdit
-                    ? apiMenu.update(id, formRequest)
+                    ? apiMenu.updateWithData(id, formRequest)
                     : apiMenu.add(formRequest),
             setIsLoading,
             isDirectToDetail: false,

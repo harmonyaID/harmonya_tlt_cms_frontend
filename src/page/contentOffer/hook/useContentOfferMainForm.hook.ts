@@ -31,6 +31,8 @@ const initForm = {
     endDate: moment().format('DD/MM/YYYY') || '',
     isActive: defaultActive,
     propertyIds: [],
+    categoryIds: [],
+    tagIds: [],
     locale: 'en',
     thumbnail: '',
     seo: {
@@ -49,7 +51,9 @@ const initMapForm = (passData) => ({
     endDate: passData?.endDate || moment().format('DD/MM/YYYY'),
     isActive: passData?.isActive ? defaultActive : '0',
     thumbnail: '',
-    propertyIds: passData?.properties?.map((p) => p.id),
+    propertyIds: passData?.properties?.map((p) => p.id) || [],
+    categoryIds: passData?.categories?.map((c) => c.id) || [],
+    tagIds: passData?.tags?.map((t) => t.id) || [],
     seo: { ...mapSEOFormConfig(passData?.seo || {}) },
 })
 
@@ -78,6 +82,8 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const [listProperties, setListProperties] = useState<any[]>([])
+    const [listCategories, setListCategories] = useState<any[]>([])
+    const [listTags, setListTags] = useState<any[]>([])
 
     const nestedForm = useNestedFormHook(formRequest, setFormRequest)
 
@@ -128,6 +134,14 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 if (!isEmpty(res?.properties)) {
                     setListProperties(res?.properties)
                 }
+
+                if (!isEmpty(res?.categories)) {
+                    setListCategories(res?.categories)
+                }
+
+                if (!isEmpty(res?.tags)) {
+                    setListTags(res?.tags)
+                }
             }
         },
         isAutoGet: isEdit,
@@ -161,6 +175,56 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         setListProperties((prev) =>
             prev.filter((property) => property.id !== dataProperty.id),
         )
+    }
+
+    const _handleCategoryChoose = (newCategory) => {
+        if (!isEmpty(newCategory)) {
+            const checkData = isArray(newCategory)
+                ? newCategory[0]
+                : isObject(newCategory)
+                  ? newCategory
+                  : {}
+
+            nestedForm._handleArrAddMulti('categoryIds', [checkData.id])
+
+            // @ts-ignore
+            setListCategories((prev) => [...prev, ...newCategory])
+        }
+    }
+
+    const _handleCategoryRemove = (dataCategory) => {
+        setFormRequest((prev) => ({
+            ...prev,
+            categoryIds: prev.categoryIds.filter((id) => id !== dataCategory.id),
+        }))
+
+        setListCategories((prev) =>
+            prev.filter((cat) => cat.id !== dataCategory.id),
+        )
+    }
+
+    const _handleTagChoose = (newTag) => {
+        if (!isEmpty(newTag)) {
+            const checkData = isArray(newTag)
+                ? newTag[0]
+                : isObject(newTag)
+                  ? newTag
+                  : {}
+
+            nestedForm._handleArrAddMulti('tagIds', [checkData.id])
+
+            // @ts-ignore
+            setListTags((prev) => [...prev, ...newTag])
+        }
+    }
+
+    const _handleTagRemove = (dataTag) => {
+        setFormRequest((prev) => ({
+            ...prev,
+            tagIds: prev.tagIds.filter((id) => id !== dataTag.id),
+        }))
+
+        setListTags((prev) => prev.filter((tag) => tag.id !== dataTag.id))
     }
 
     const isLoadingDetail = isEdit
@@ -207,6 +271,14 @@ const useContentOfferMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __setListProperties: setListProperties,
         __handlePropertyChoose: _handlePropertyChoose,
         __handlePropertyRemove: _handlePropertyRemove,
+
+        __listCategories: listCategories,
+        __handleCategoryChoose: _handleCategoryChoose,
+        __handleCategoryRemove: _handleCategoryRemove,
+
+        __listTags: listTags,
+        __handleTagChoose: _handleTagChoose,
+        __handleTagRemove: _handleTagRemove,
 
         __previewThumbnail: previewThumbnail,
         __setPreviewThumbnail: setPreviewThumbnail,
