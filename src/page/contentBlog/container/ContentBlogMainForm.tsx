@@ -433,6 +433,7 @@ const ContentBlogMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                     required
                                                     isUseHook={false}
                                                     isPreview={false}
+                                                    recommendedSize="1200 x 627 px"
                                                     accept="image/*"
                                                     actions={{
                                                         onChange: (

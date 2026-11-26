@@ -47,15 +47,7 @@ const BoatInquiryTable = ({
                     <TableThemeLogic
                         isLoading={__isLoading}
                         isNoWrap
-                        ths={[
-                            'Name',
-                            'Boat',
-                            'Ticket Info',
-                            'Departure',
-                            'Status',
-                            'Read',
-                            '',
-                        ]}
+                        ths={['Name', 'Boat', 'Ticket Info', 'Departure', '']}
                         tds={__list}>
                         {__list.map((vm, index) => {
                             return (
@@ -113,46 +105,46 @@ const BoatInquiryTable = ({
                                             className="my-2"
                                         />
                                     </td>
-                                    <td>
-                                        <div className="hstack gap-2">
-                                            <BoatInquiryStatus
-                                                status={vm?.status}
-                                            />
-                                            {vm?.status?.id !== 3 && (
-                                                <BtnCircleEdit
-                                                    title="Edit Data"
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            actions?.__handleUpdateStatus(
-                                                                vm.id,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="hstack gap-2">
-                                            <TextTrueOrFalse
-                                                value={vm?.isRead}
-                                            />
-                                            {!vm.isRead && (
-                                                <BtnCircleEdit
-                                                    title="Edit Data"
-                                                    actions={{
-                                                        edit: (e) => {
-                                                            e.stopPropagation()
-                                                            actions?.__handleRead(
-                                                                vm.id,
-                                                            )
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                        </div>
-                                    </td>
+                                    {/*<td>*/}
+                                    {/*    <div className="hstack gap-2">*/}
+                                    {/*        <BoatInquiryStatus*/}
+                                    {/*            status={vm?.status}*/}
+                                    {/*        />*/}
+                                    {/*        {vm?.status?.id !== 3 && (*/}
+                                    {/*            <BtnCircleEdit*/}
+                                    {/*                title="Edit Data"*/}
+                                    {/*                actions={{*/}
+                                    {/*                    edit: (e) => {*/}
+                                    {/*                        e.stopPropagation()*/}
+                                    {/*                        actions?.__handleUpdateStatus(*/}
+                                    {/*                            vm.id,*/}
+                                    {/*                        )*/}
+                                    {/*                    },*/}
+                                    {/*                }}*/}
+                                    {/*            />*/}
+                                    {/*        )}*/}
+                                    {/*    </div>*/}
+                                    {/*</td>*/}
+                                    {/*<td>*/}
+                                    {/*    <div className="hstack gap-2">*/}
+                                    {/*        <TextTrueOrFalse*/}
+                                    {/*            value={vm?.isRead}*/}
+                                    {/*        />*/}
+                                    {/*        {!vm.isRead && (*/}
+                                    {/*            <BtnCircleEdit*/}
+                                    {/*                title="Edit Data"*/}
+                                    {/*                actions={{*/}
+                                    {/*                    edit: (e) => {*/}
+                                    {/*                        e.stopPropagation()*/}
+                                    {/*                        actions?.__handleRead(*/}
+                                    {/*                            vm.id,*/}
+                                    {/*                        )*/}
+                                    {/*                    },*/}
+                                    {/*                }}*/}
+                                    {/*            />*/}
+                                    {/*        )}*/}
+                                    {/*    </div>*/}
+                                    {/*</td>*/}
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
                                             {isTrash ? (
