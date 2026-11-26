@@ -29,6 +29,7 @@ import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isShowPagination } from '@/helper/base/condition.helper.ts'
 import { objectToFormData } from '@/helper/convertFormData.helper.ts'
+import { handleOrderInput } from '@/helper/inputOrder.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useNestedFormHook from '@/hook/base/useNestedForm.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
@@ -48,7 +49,7 @@ const initMapForm = (passData) => ({
     name: passData?.name || '',
     icon: '',
     deletedIcon: '',
-    order: passData?.order || '',
+    order: passData?.order ?? '',
     hasValue: passData?.hasValue || false,
 })
 
@@ -182,7 +183,7 @@ const TabPropertyFeature = () => {
                                     </td>
                                     <td>
                                         <TblLineSecond>
-                                            {vm?.order || '-'}
+                                            {vm?.order === 0 || vm?.order ? vm.order : '-'}
                                         </TblLineSecond>
                                     </td>
                                     <td>
@@ -288,9 +289,8 @@ const TabPropertyFeature = () => {
                             <FormInput
                                 label="Order"
                                 name="order"
-                                placeholder="e.g 1"
-                                type="number"
-                                isNumberOnly
+                                placeholder="e.g 1 or -"
+                                other={{ onInput: handleOrderInput }}
                             />
 
                             <FormCheckbox

@@ -21,7 +21,7 @@ export const propertyMapFormRoom = (passData: Record<string, any> = {}) => ({
 
 export const propertyMapFormDesc = (passData: Record<string, any> = {}) => ({
     channel: passData.channel || '',
-    language: passData.language || '',
+    language: passData.language || 'en',
     title: passData.title || '',
     summary: passData.summary || '',
     theSpace: passData.theSpace || '',
@@ -84,7 +84,7 @@ export const propertyInitForm = {
         weeklyDiscount: '',
         monthlyDiscount: '',
     },
-    descriptions: [],
+    descriptions: [propertyMapFormDesc()],
     amenityIds: [],
     tagIds: [],
     features: [],
@@ -140,7 +140,7 @@ export const propertyMapInitForm = (passData) => ({
     },
     descriptions: !isEmpty(passData.descriptions)
         ? passData.descriptions.map((vm) => propertyMapFormDesc(vm))
-        : [],
+        : [propertyMapFormDesc()],
     amenityIds: [],
     tagIds: [],
     features: [],
