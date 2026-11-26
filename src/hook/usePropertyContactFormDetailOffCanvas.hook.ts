@@ -4,7 +4,11 @@ import useDataDetailHook from '@/hook/base/useDataDetail.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import { apiPropertyContactFormCRUD } from '@/service/api/property.api.ts'
 
-const usePropertyContactFormDetailOffCanvasHook = () => {
+const usePropertyContactFormDetailOffCanvasHook = ({
+    urlAPI,
+}: {
+    urlAPI: any
+}) => {
     const {
         __data: dataForDetail,
         __handleChooseAndNextStep: __handleChooseDetail,
@@ -19,7 +23,7 @@ const usePropertyContactFormDetailOffCanvasHook = () => {
     const isAutoGet: boolean = id ? true : false
 
     const { __detail, __isLoading: __isLoadingDetail } = useDataDetailHook({
-        urlAPI: () => apiPropertyContactFormCRUD.detail(id),
+        urlAPI: () => urlAPI(id),
         triggerBy: id,
         isAutoGet: isAutoGet,
     })

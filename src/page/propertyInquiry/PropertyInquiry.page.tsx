@@ -33,6 +33,7 @@ import { viewData } from '@/helper/condition.helper.ts'
 import usePropertyInquiryMainHook from '@/page/propertyInquiry/hook/usePropertyInquiryMain.hook.ts'
 import propertyPath from '@/path/property.path.ts'
 import { apiPropertyInquiryCRUD } from '@/service/api/property.api.ts'
+import currencyHelper from '@/helper/currency.helper.ts'
 
 const PropertyInquiryPage = () => {
     const {
@@ -83,7 +84,7 @@ const PropertyInquiryPage = () => {
                                 'Full Name',
                                 'Email',
                                 'Phone',
-                                'Event Date',
+                                'Date',
                                 'Total Guest',
                                 'Status',
                                 'Created',
@@ -95,10 +96,10 @@ const PropertyInquiryPage = () => {
                                     <tr key={index}>
                                         <td>
                                             <TblLineFirstPrimary
-                                                value={vm?.fullName || ''}
+                                                value={vm?.name || ''}
                                             />
                                             <TblPointData title="Property">
-                                                {vm?.property?.name ? (
+                                                {vm?.property?.nickname ? (
                                                     <HyperLink
                                                         isOpenNewTab
                                                         className="fs-13"
@@ -106,7 +107,7 @@ const PropertyInquiryPage = () => {
                                                             vm.property.id ||
                                                                 '#',
                                                         )}>
-                                                        {vm.property.name}
+                                                        {vm.property.nickname}
                                                     </HyperLink>
                                                 ) : (
                                                     '-'
@@ -120,19 +121,23 @@ const PropertyInquiryPage = () => {
                                         </td>
                                         <td>
                                             <TblLineSecond
-                                                value={vm?.phone || '-'}
+                                                value={vm?.mobileNumber || '-'}
                                             />
                                         </td>
                                         <td>
                                             <TblLineSecond>
-                                                {formatDateByTlt(vm?.eventDate)}
+                                                {formatDateByTlt(
+                                                    vm?.checkInDate,
+                                                )}{' '}
+                                                -{' '}
+                                                {formatDateByTlt(
+                                                    vm?.checkOutDate,
+                                                )}
                                             </TblLineSecond>
                                         </td>
                                         <td>
                                             <TblLineSecond>
-                                                {viewData(
-                                                    vm?.totalGuests.toString(),
-                                                )}
+                                                {vm?.adultCount}
                                             </TblLineSecond>
                                         </td>
                                         <td>
@@ -238,33 +243,31 @@ const PropertyInquiryPage = () => {
                                 list={[
                                     objectListDetail(
                                         'Full Name',
-                                        viewData(__detail?.fullName),
+                                        viewData(__detail?.name),
                                     ),
                                     objectListDetail(
-                                        'Experience',
-                                        viewData(__detail?.experience?.name),
+                                        'Checkin Date',
+                                        formatDateByTlt(__detail?.checkInDate),
+                                    ),
+                                    objectListDetail(
+                                        'Checkout Date',
+                                        formatDateByTlt(__detail?.checkOutDate),
                                     ),
                                     objectListDetail(
                                         'Phone',
-                                        viewData(__detail?.phone),
+                                        viewData(__detail?.mobileNumber),
                                     ),
                                     objectListDetail(
                                         'Email',
                                         viewData(__detail?.email),
                                     ),
                                     objectListDetail(
-                                        'Total Guests',
-                                        viewData(
-                                            __detail?.totalGuests.toString(),
-                                        ),
+                                        'Guest',
+                                        __detail?.adultCount,
                                     ),
                                     objectListDetail(
-                                        'Event Date',
-                                        viewData(
-                                            formatDateByTlt(
-                                                __detail?.eventDate,
-                                            ),
-                                        ),
+                                        'Total',
+                                        viewData(__detail?.quote?.total),
                                     ),
                                     objectListDetail(
                                         'Status',
@@ -282,15 +285,6 @@ const PropertyInquiryPage = () => {
                                     objectListDetail(
                                         'Created At',
                                         formatDateTimeByTlt(__detail.createdAt),
-                                    ),
-
-                                    objectListDetail(
-                                        'Country Of Residence',
-                                        <PreElement>
-                                            {viewData(
-                                                __detail?.countryOfResidence,
-                                            )}
-                                        </PreElement>,
                                     ),
                                 ]}
                             />

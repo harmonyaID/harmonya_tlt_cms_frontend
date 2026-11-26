@@ -84,9 +84,9 @@ const BoatInquiryMainList = ({ title }: { title: string }) => {
                 title={title}
                 componentAction={
                     <div className="hstack gap-2">
-                        <BtnPrimary onClick={() => __handleToAdd()}>
-                            Add New
-                        </BtnPrimary>
+                        {/*<BtnPrimary onClick={() => __handleToAdd()}>*/}
+                        {/*    Add New*/}
+                        {/*</BtnPrimary>*/}
                     </div>
                 }>
                 <FilterBarBasic

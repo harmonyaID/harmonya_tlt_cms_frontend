@@ -46,7 +46,9 @@ const usePropertyContactFormList = (
         __handleChooseDetail,
         __handleSetDetail,
         __handleCloseDetail,
-    } = usePropertyContactFormDetailOffCanvasHook()
+    } = usePropertyContactFormDetailOffCanvasHook({
+        urlAPI: (id) => apiPropertyContactFormCRUD.detail(id),
+    })
 
     return {
         // List
