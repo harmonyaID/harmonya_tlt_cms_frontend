@@ -11,6 +11,7 @@ export const propertyMapFormAddress = (passData: Record<string, any> = {}) => ({
 })
 
 export const propertyMapFormRoom = (passData: Record<string, any> = {}) => ({
+    ...(passData?.id ? { id: passData.id } : {}),
     roomTypeId: passData?.roomType?.id || '',
     bedTypeId: passData?.bedType?.id || '',
     bedCount: passData.bedCount || '',
@@ -68,6 +69,7 @@ export const propertyInitForm = {
         // trashInstructions: ''
     },
     rooms: [],
+    deleteRoomIds: [],
     availability: {
         defaultAvailabilityId: '',
         advanceNoticeValue: '',
@@ -122,6 +124,7 @@ export const propertyMapInitForm = (passData) => ({
     rooms: !isEmpty(passData?.rooms)
         ? passData?.rooms.map((vm) => propertyMapFormRoom(vm))
         : [],
+    deleteRoomIds: [],
     availability: {
         defaultAvailabilityId:
             passData?.availability?.defaultAvailability?.id || '',

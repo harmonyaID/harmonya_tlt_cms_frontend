@@ -56,6 +56,9 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         // Data Page
         __pageStateDataSearch,
 
+        // Rooms
+        __handleRoomRemove,
+
         // Tag's
         __handleTagChoose,
         __handleTagRemove,
@@ -413,9 +416,8 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                                         <BtnCircleRemove
                                                                             actions={{
                                                                                 remove: () =>
-                                                                                    __handleArrToggle(
+                                                                                    __handleRoomRemove(
                                                                                         index,
-                                                                                        'rooms',
                                                                                     ),
                                                                             }}
                                                                         />
