@@ -3,7 +3,10 @@ import actionModal from '@/helper/base/actionModal.helper.ts'
 import useDataListHook from '@/hook/base/useDataList.hook.ts'
 import useChooseData from '@/hook/useChooseData.hook.ts'
 import usePropertyContactFormDetailOffCanvasHook from '@/hook/usePropertyContactFormDetailOffCanvas.hook.ts'
-import { apiPropertyInquiryCRUD } from '@/service/api/property.api.ts'
+import {
+    apiPropertyContactFormCRUD,
+    apiPropertyInquiryCRUD,
+} from '@/service/api/property.api.ts'
 
 const usePropertyInquiryMainHook = (
     {
@@ -46,7 +49,9 @@ const usePropertyInquiryMainHook = (
         __handleChooseDetail,
         __handleSetDetail,
         __handleCloseDetail,
-    } = usePropertyContactFormDetailOffCanvasHook()
+    } = usePropertyContactFormDetailOffCanvasHook({
+        urlAPI: (id) => apiPropertyInquiryCRUD.detail(id),
+    })
 
     return {
         // List
