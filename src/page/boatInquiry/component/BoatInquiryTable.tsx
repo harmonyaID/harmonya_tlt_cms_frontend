@@ -147,41 +147,40 @@ const BoatInquiryTable = ({
                                     {/*</td>*/}
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
-                                            {isTrash ? (
-                                                <TrashActionButtons
-                                                    selected={vm}
-                                                    actions={{
-                                                        restore:
-                                                            actions?.__handleChooseRestore,
-                                                        permanentRemove:
-                                                            actions?.__handleChoosePermanentRemove,
-                                                    }}
-                                                />
-                                            ) : (
-                                                <>
-                                                    <BtnCircleRemove
-                                                        actions={{
-                                                            remove: (e) => {
-                                                                e.stopPropagation()
-                                                                actions?.__handleChooseRemove(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-
-                                                    <BtnCircleDetail
-                                                        actions={{
-                                                            onClick: (e) => {
-                                                                e.stopPropagation()
-                                                                actions?.__handleChooseDetail(
-                                                                    vm,
-                                                                )
-                                                            },
-                                                        }}
-                                                    />
-                                                </>
-                                            )}
+                                            {/*    {isTrash ? (*/}
+                                            {/*        <TrashActionButtons*/}
+                                            {/*            selected={vm}*/}
+                                            {/*            actions={{*/}
+                                            {/*                restore:*/}
+                                            {/*                    actions?.__handleChooseRestore,*/}
+                                            {/*                permanentRemove:*/}
+                                            {/*                    actions?.__handleChoosePermanentRemove,*/}
+                                            {/*            }}*/}
+                                            {/*        />*/}
+                                            {/*    ) : (*/}
+                                            {/*        <>*/}
+                                            {/*            <BtnCircleRemove*/}
+                                            {/*                actions={{*/}
+                                            {/*                    remove: (e) => {*/}
+                                            {/*                        e.stopPropagation()*/}
+                                            {/*                        actions?.__handleChooseRemove(*/}
+                                            {/*                            vm,*/}
+                                            {/*                        )*/}
+                                            {/*                    },*/}
+                                            {/*                }}*/}
+                                            {/*            />*/}
+                                            {/*        </>*/}
+                                            {/*    )}*/}
+                                            <BtnCircleDetail
+                                                actions={{
+                                                    onClick: (e) => {
+                                                        e.stopPropagation()
+                                                        actions?.__handleChooseDetail(
+                                                            vm,
+                                                        )
+                                                    },
+                                                }}
+                                            />
                                         </div>
                                     </td>
                                 </tr>
