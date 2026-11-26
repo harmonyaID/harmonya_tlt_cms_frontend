@@ -933,204 +933,114 @@ const PropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                     <div className="col-md-10">
                                         <WrapFormContext
                                             formRequest={
-                                                __formRequest.descriptions
+                                                __formRequest.descriptions?.[0]
                                             }
                                             actions={{
                                                 change: (name, value) =>
-                                                    __handleChangeWithParent(
+                                                    __handleArrChange(
+                                                        0,
                                                         name,
                                                         value,
                                                         'descriptions',
                                                     ),
                                             }}>
-                                            {__formRequest?.descriptions?.map(
-                                                (vm, index) => {
-                                                    const order = index + 1
+                                            <GeneralRowForm
+                                                label="Language"
+                                                isRequired>
+                                                <SelectBaseOptionLanguage
+                                                    name="language"
+                                                    isRequired
+                                                />
+                                            </GeneralRowForm>
 
-                                                    return (
-                                                        <div
-                                                            className="border border-neutral-400 px-3 pt-3 rounded-3 mb-3"
-                                                            key={index}>
-                                                            <div
-                                                                className="row align-items-top pb-4"
-                                                                key={index}>
-                                                                <div className="col-md">
-                                                                    <h6 className="mb-0">
-                                                                        Description{' '}
-                                                                        {index +
-                                                                            1}
-                                                                    </h6>
-                                                                </div>
-                                                                <div className="col-auto">
-                                                                    <BtnCircleRemove
-                                                                        actions={{
-                                                                            remove: () =>
-                                                                                __handleArrToggle(
-                                                                                    index,
-                                                                                    'descriptions',
-                                                                                ),
-                                                                        }}
-                                                                    />
-                                                                </div>
-                                                            </div>
+                                            <GeneralRowForm
+                                                label="Title"
+                                                isRequired={false}>
+                                                <FormInput
+                                                    // label="Title"
+                                                    name="title"
+                                                    placeholder="e.g Primary"
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Channel"
+                                                isRequired={false}>
+                                                <FormInput
+                                                    name="channel"
+                                                    placeholder="e.g Primary"
+                                                />
+                                            </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="The Space"
+                                                isRequired={false}>
+                                                <FormInput
+                                                    name="theSpace"
+                                                    placeholder="e.g Primary"
+                                                />
+                                            </GeneralRowForm>
 
-                                                            <WrapFormContext
-                                                                formRequest={vm}
-                                                                actions={{
-                                                                    change: (
-                                                                        name,
-                                                                        value,
-                                                                    ) =>
-                                                                        __handleArrChange(
-                                                                            index,
-                                                                            name,
-                                                                            value,
-                                                                            'descriptions',
-                                                                        ),
-                                                                }}>
-                                                                <GeneralRowForm
-                                                                    label="Language"
-                                                                    isRequired>
-                                                                    <SelectBaseOptionLanguage
-                                                                        name="language"
-                                                                        isRequired
-                                                                    />
-                                                                </GeneralRowForm>
+                                            {/*<GeneralRowForm*/}
+                                            {/*    label="Channel"*/}
+                                            {/*    isRequired={*/}
+                                            {/*        false*/}
+                                            {/*    }>*/}
+                                            {/*    <FormInput*/}
+                                            {/*        // label="Channel"*/}
+                                            {/*        name="channel"*/}
+                                            {/*        placeholder="e.g Primary"*/}
+                                            {/*    />*/}
+                                            {/*</GeneralRowForm>*/}
 
-                                                                <GeneralRowForm
-                                                                    label="Title"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        // label="Title"
-                                                                        name="title"
-                                                                        placeholder="e.g Primary"
-                                                                    />
-                                                                </GeneralRowForm>
-                                                                <GeneralRowForm
-                                                                    label="Channel"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        name="channel"
-                                                                        placeholder="e.g Primary"
-                                                                    />
-                                                                </GeneralRowForm>
-                                                                <GeneralRowForm
-                                                                    label="The Space"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        name="theSpace"
-                                                                        placeholder="e.g Primary"
-                                                                    />
-                                                                </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Getting Around"
+                                                isRequired={false}>
+                                                <FormInput
+                                                    // label="Getting Around"
+                                                    name="gettingAround"
+                                                    placeholder="e.g Car"
+                                                />
+                                            </GeneralRowForm>
 
-                                                                {/*<GeneralRowForm*/}
-                                                                {/*    label="Channel"*/}
-                                                                {/*    isRequired={*/}
-                                                                {/*        false*/}
-                                                                {/*    }>*/}
-                                                                {/*    <FormInput*/}
-                                                                {/*        // label="Channel"*/}
-                                                                {/*        name="channel"*/}
-                                                                {/*        placeholder="e.g Primary"*/}
-                                                                {/*    />*/}
-                                                                {/*</GeneralRowForm>*/}
+                                            <GeneralRowForm
+                                                label="The Neighborhood"
+                                                isRequired={false}>
+                                                <FormInput
+                                                    // label="Getting Around"
+                                                    name="theNeighborhood"
+                                                    placeholder="e.g Car"
+                                                />
+                                            </GeneralRowForm>
 
-                                                                <GeneralRowForm
-                                                                    label="Getting Around"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        // label="Getting Around"
-                                                                        name="gettingAround"
-                                                                        placeholder="e.g Car"
-                                                                    />
-                                                                </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Other Things To Note"
+                                                isRequired={false}>
+                                                <FormTextArea
+                                                    name="otherThingsToNote"
+                                                    placeholder="e.g Car"
+                                                />
+                                            </GeneralRowForm>
 
-                                                                <GeneralRowForm
-                                                                    label="The Neighborhood"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        // label="Getting Around"
-                                                                        name="theNeighborhood"
-                                                                        placeholder="e.g Car"
-                                                                    />
-                                                                </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Guest Access"
+                                                isRequired={false}>
+                                                <FormInput
+                                                    // label="Guest Access"
+                                                    name="guestAccess"
+                                                    placeholder="e.g Root"
+                                                />
+                                            </GeneralRowForm>
 
-                                                                <GeneralRowForm
-                                                                    label="Other Things To Note"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormTextArea
-                                                                        name="otherThingsToNote"
-                                                                        placeholder="e.g Car"
-                                                                    />
-                                                                </GeneralRowForm>
+                                            <GeneralRowForm
+                                                label="Summary"
+                                                isRequired={false}>
+                                                {/*<FormTextArea*/}
+                                                {/*    name="summary"*/}
+                                                {/*    placeholder="e.g Root"*/}
+                                                {/*/>*/}
 
-                                                                <GeneralRowForm
-                                                                    label="Guest Access"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    <FormInput
-                                                                        // label="Guest Access"
-                                                                        name="guestAccess"
-                                                                        placeholder="e.g Root"
-                                                                    />
-                                                                </GeneralRowForm>
-
-                                                                <GeneralRowForm
-                                                                    label="Summary"
-                                                                    isRequired={
-                                                                        false
-                                                                    }>
-                                                                    {/*<FormTextArea*/}
-                                                                    {/*    name="summary"*/}
-                                                                    {/*    placeholder="e.g Root"*/}
-                                                                    {/*/>*/}
-
-                                                                    <FormTinyMCE name="summary" />
-                                                                </GeneralRowForm>
-                                                            </WrapFormContext>
-                                                        </div>
-                                                    )
-                                                },
-                                            )}
+                                                <FormTinyMCE name="summary" />
+                                            </GeneralRowForm>
                                         </WrapFormContext>
-
-                                        <div className="row justify-content-center">
-                                            <div className="col-md-12">
-                                                <BtnPrimary
-                                                    type="button"
-                                                    isOutline
-                                                    className="w-100 mt-0 mb-3"
-                                                    isDisabled={
-                                                        __formRequest
-                                                            ?.descriptions
-                                                            ?.length > 1
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    handle={() =>
-                                                        __handleArrToggle(
-                                                            -1,
-                                                            'descriptions',
-                                                            propertyMapFormDesc(),
-                                                        )
-                                                    }>
-                                                    Add New Description
-                                                </BtnPrimary>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </CardDropdown>
