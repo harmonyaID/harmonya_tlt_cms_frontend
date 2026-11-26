@@ -156,9 +156,7 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 handleArrChange:
                                                     __handleArrChange,
                                             }}>
-                                            <GeneralRowForm
-                                                label="Photos"
-                                                isRequired>
+                                            <GeneralRowForm label="Photos">
                                                 <FormUploadFileWithActionPreviewLogic
                                                     isUseInputDesc={false}
                                                     formName="photos"
@@ -342,7 +340,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 <FormUploadFile
                                                     label="Map Image"
                                                     name="mapImage"
-                                                    required
                                                     isUseHook={false}
                                                     isPreview={false}
                                                     accept="image/*"
@@ -382,7 +379,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 label="Status Active"
                                                 name="isActive"
                                                 className="mb-0"
-                                                required
                                                 checkBoxs={[
                                                     {
                                                         defaultValue: 0,
@@ -399,7 +395,6 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 label="Show Inquiry"
                                                 name="showInquiry"
                                                 className="mb-0"
-                                                required
                                                 checkBoxs={[
                                                     {
                                                         defaultValue: 0,
@@ -417,14 +412,12 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 name="whatsapp"
                                                 placeholder="e.g 628700xxxx"
                                                 isNumberOnly
-                                                required
                                             />
 
                                             <FormInput
                                                 label="Instagram"
                                                 name="instagram"
                                                 placeholder="e.g @3monkeyslembongan"
-                                                required
                                             />
 
                                             <FormInput
@@ -432,14 +425,12 @@ const ContentExMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                                 name="website"
                                                 placeholder="e.g https://www.3monkeys.com"
                                                 type="url"
-                                                required
                                             />
 
                                             <FormInput
                                                 label="Map Location Url"
                                                 name="mapLocationUrl"
                                                 placeholder="e.g https://maps.google.com/?q=-8.123,115.456"
-                                                required
                                             />
                                         </div>
                                     </Card>
