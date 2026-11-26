@@ -1,4 +1,13 @@
+import { cloneDeepWith } from 'lodash'
+
 export const MAX_MENU_DEPTH = 3 // parent(0) -> child(1) -> child(2)
+
+// Deep clone the menu tree but keep File/Blob (e.g. featuredImage) as-is.
+// JSON.parse(JSON.stringify()) turns a File into {} and drops the upload.
+const cloneMenuItems = (items) =>
+    cloneDeepWith(items, (value) =>
+        value instanceof Blob ? value : undefined,
+    )
 
 export const generateMenuId = () =>
     `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
@@ -48,7 +57,7 @@ export const getSiblingsLength = (items, parentId) => {
 
 // ADD / EDIT / REORDER jadi satu fungsi (posisi ditentukan dari menuOrder)
 export const upsertMenuItem = (items, parentId, itemData) => {
-    const newItems = JSON.parse(JSON.stringify(items))
+    const newItems = cloneMenuItems(items)
     const isEditing = Boolean(itemData.id)
 
     let nodeToInsert = { ...itemData }
@@ -94,7 +103,7 @@ export const upsertMenuItem = (items, parentId, itemData) => {
 
 // REMOVE + reindex sibling yang tersisa
 export const removeMenuItem = (items, id) => {
-    const newItems = JSON.parse(JSON.stringify(items))
+    const newItems = cloneMenuItems(items)
     const found = findSiblingsById(newItems, id)
     if (!found) return newItems
 

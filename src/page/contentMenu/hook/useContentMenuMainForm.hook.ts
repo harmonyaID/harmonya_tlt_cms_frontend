@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { isEmpty, isArray } from 'lodash'
-import { MENU_ID } from '@/config/menu.config.ts'
+import {
+    getMenuItemTypeId,
+    MEGA_MENU_ID,
+    MENU_ID,
+} from '@/config/menu.config.ts'
 import { MDContentMenuAddMenuItem } from '@/config/modal.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { isSuccess } from '@/helper/base/condition.helper.ts'
@@ -38,6 +42,7 @@ const initMenuParam = {
     children: [],
 
     typeId: MENU_ID,
+    featuredImage: '',
 }
 
 const initMenuParamMap = (passData) => ({})
@@ -54,6 +59,24 @@ const initForm = {
     featuredImage: '',
 }
 
+// Normalize menu items from API detail so the form always works with typeId
+// (detail may return type as { id, name }), recursively through children
+const mapMenuItemsFromDetail = (items: any[] = []): any[] =>
+    items.map((item) => {
+        const { type, children, ...rest } = item
+
+        return {
+            ...rest,
+            typeId: getMenuItemTypeId(item),
+            description: item?.description || '',
+            featuredImage: item?.featuredImage || '',
+            children:
+                !isEmpty(children) && isArray(children)
+                    ? mapMenuItemsFromDetail(children)
+                    : [],
+        }
+    })
+
 const initMapForm = (passData) => ({
     title: passData?.title || '',
     handle: passData?.handle || '',
@@ -64,7 +87,7 @@ const initMapForm = (passData) => ({
 
     items:
         !isEmpty(passData.items) && isArray(passData.items)
-            ? passData.items
+            ? mapMenuItemsFromDetail(passData.items)
             : [],
 })
 
@@ -113,10 +136,12 @@ const useContentMenuMainFormHook = ({
 
     const _handleSubmit = () => {
         return __handleSubmit({
+            // featuredImage: File for a new upload, URL string to keep the
+            // existing image, empty string when removed
             apiCall: () =>
                 isEdit
                     ? apiMenu.updateWithData(id, formRequest)
-                    : apiMenu.add(formRequest),
+                    : apiMenu.addWithData(formRequest),
             setIsLoading,
             isDirectToDetail: false,
             callBack: () => __handleToMain(),
@@ -224,12 +249,26 @@ const useContentMenuMainFormHook = ({
         }))
     }
 
+    const _handleMenuParentRemoveImage = () => {
+        setFormRequestMenuParent((prev) => ({ ...prev, featuredImage: '' }))
+    }
+
     const _handleMenuPushNew = () => {
+        const typeId = getMenuItemTypeId(formRequestMenuParent)
+        const isMegaMenu = typeId === MEGA_MENU_ID
+
+        // Description & image only belong to Mega Menu
+        const menuItem = {
+            ...formRequestMenuParent,
+            typeId,
+            ...(isMegaMenu ? {} : { description: '', featuredImage: '' }),
+        }
+
         setFormRequest((prevState) => {
             const newItems = upsertMenuItem(
                 prevState.items,
                 menuTargetParentId,
-                formRequestMenuParent,
+                menuItem,
             )
 
             _handleMenuParentCancel()
@@ -289,6 +328,7 @@ const useContentMenuMainFormHook = ({
         __handleMenuParentCancel: _handleMenuParentCancel,
         __handleMenuParentEdit: _handleMenuParentEdit,
         __handleMenuPushNew: _handleMenuPushNew,
+        __handleMenuParentRemoveImage: _handleMenuParentRemoveImage,
         __lengthOptionMenu: lengthOptionMenu,
         __handleMenuRemove: _handleMenuRemove,
         __canAddChild: _canAddChild,

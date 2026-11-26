@@ -93,6 +93,7 @@ const TabNotificationConfig = () => {
                 serverToken: credential.serverToken,
                 fromEmail: credential.fromEmail,
                 fromName: credential.fromName,
+                toEmail: credential.toEmail || '',
             },
         }))
     }
@@ -205,6 +206,10 @@ const TabNotificationConfig = () => {
                                             </TblPointData>
                                             <TblPointData title="From Email">
                                                 {type.credentials?.fromEmail}
+                                            </TblPointData>
+                                            <TblPointData title="To Email">
+                                                {type.credentials?.toEmail ||
+                                                    '-'}
                                             </TblPointData>
                                             <TblPointData title="Server Token">
                                                 {_handleMask(
@@ -364,6 +369,17 @@ const TabNotificationConfig = () => {
                                                         .fromName
                                                 }
                                                 label="From Name"
+                                            />
+
+                                            <FormInput
+                                                name="credentials.toEmail"
+                                                value={
+                                                    __formRequest.credentials
+                                                        .toEmail || ''
+                                                }
+                                                type="email"
+                                                label="To Email"
+                                                placeholder="e.g admin@example.com"
                                             />
                                         </>
                                     )}

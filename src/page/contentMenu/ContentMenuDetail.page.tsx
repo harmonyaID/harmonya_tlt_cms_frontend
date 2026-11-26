@@ -7,6 +7,10 @@ import PageTitle from '@/component/general/PageTitle.tsx'
 import LoadingStatePreviewData from '@/component/loading/LoadingStatePreviewData.tsx'
 import { objectListDetail } from '@/config/objectList.config.ts'
 import { formatDateTimeByTlt } from '@/helper/actionFormatDate.helper.ts'
+import MenuItemImage, {
+    isMegaMenuItem,
+    MenuItemTypeBadge,
+} from '@/page/contentMenu/component/MenuItemImage.tsx'
 import useContentMenuDetailHook from '@/page/contentMenu/hook/useContentMenuDetail.hook.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
 
@@ -22,14 +26,23 @@ const RowMenus = ({
             {menus.map((item: any, index: number) => {
                 return (
                     <div key={index} className={'vstack gap-3 ' + className}>
-                        <div className="card card-body py-2 bg-neutral-600 border-0">
-                            <p className="fs-14 fw-500 mb-1">
-                                {item.menuLabel}
-                            </p>
+                        <div className="card card-body py-2 bg-neutral-600 border-0 hstack gap-3">
+                            {isMegaMenuItem(item) ? (
+                                <MenuItemImage image={item.featuredImage} />
+                            ) : null}
 
-                            <p className="fs-12 mb-0 text-primary">
-                                {item.menuUrl}
-                            </p>
+                            <div>
+                                <div className="hstack gap-2 mb-1">
+                                    <p className="fs-14 fw-500 mb-0">
+                                        {item.menuLabel}
+                                    </p>
+                                    <MenuItemTypeBadge item={item} />
+                                </div>
+
+                                <p className="fs-12 mb-0 text-primary">
+                                    {item.menuUrl}
+                                </p>
+                            </div>
                         </div>
 
                         {!isEmpty(item.children) ? (

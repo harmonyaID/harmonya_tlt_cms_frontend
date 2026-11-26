@@ -66,6 +66,23 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         setFloorplanImage('')
     }
 
+    // START ROOMS
+    const _handleRoomRemove = (index: number) => {
+        setFormRequest((prev: any) => {
+            const room = prev.rooms?.[index]
+
+            return {
+                ...prev,
+                rooms: (prev.rooms || []).filter((_, i) => i !== index),
+                deleteRoomIds:
+                    isEdit && room?.id
+                        ? [...(prev.deleteRoomIds || []), room.id]
+                        : prev.deleteRoomIds || [],
+            }
+        })
+    }
+    // END ROOMS
+
     // START TAGS
     const [listTags, setListTags] = useState<any[]>([])
 
@@ -219,8 +236,12 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                 }
             })
         } else {
+            const mappedForm = propertyMapInitForm(passData)
+
             setFormRequest({
-                ...propertyMapInitForm(passData),
+                ...mappedForm,
+                // Rooms copied from parent must be created as new rooms
+                rooms: mappedForm.rooms.map(({ id, ...room }: any) => room),
                 tagIds: !isEmpty(passData.tags)
                     ? passData.tags.map((vm) => vm.id)
                     : [],
@@ -272,6 +293,9 @@ const usePropertyMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
 
         // Data Page
         __pageStateDataSearch: restored,
+
+        // Rooms
+        __handleRoomRemove: _handleRoomRemove,
 
         // Tags
         __handleTagChoose: _handleTagChoose,
