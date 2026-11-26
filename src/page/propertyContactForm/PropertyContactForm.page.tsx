@@ -83,8 +83,8 @@ const PropertyContactFormPage = () => {
                                 'Full Name',
                                 'Email',
                                 'Phone',
-                                'Event Date',
-                                'Total Guest',
+                                // 'Event Date',
+                                // 'Total Guest',
                                 'Status',
                                 'Created',
                                 '',
@@ -98,7 +98,7 @@ const PropertyContactFormPage = () => {
                                                 value={vm?.fullName || ''}
                                             />
                                             <TblPointData title="Property">
-                                                {vm?.property?.name ? (
+                                                {vm?.property?.nickname ? (
                                                     <HyperLink
                                                         isOpenNewTab
                                                         className="fs-13"
@@ -106,7 +106,7 @@ const PropertyContactFormPage = () => {
                                                             vm.property.id ||
                                                                 '#',
                                                         )}>
-                                                        {vm.property.name}
+                                                        {vm.property.nickname}
                                                     </HyperLink>
                                                 ) : (
                                                     '-'
@@ -123,18 +123,18 @@ const PropertyContactFormPage = () => {
                                                 value={vm?.phone || '-'}
                                             />
                                         </td>
-                                        <td>
-                                            <TblLineSecond>
-                                                {formatDateByTlt(vm?.eventDate)}
-                                            </TblLineSecond>
-                                        </td>
-                                        <td>
-                                            <TblLineSecond>
-                                                {viewData(
-                                                    vm?.totalGuests.toString(),
-                                                )}
-                                            </TblLineSecond>
-                                        </td>
+                                        {/*<td>*/}
+                                        {/*    <TblLineSecond>*/}
+                                        {/*        {formatDateByTlt(vm?.eventDate)}*/}
+                                        {/*    </TblLineSecond>*/}
+                                        {/*</td>*/}
+                                        {/*<td>*/}
+                                        {/*    <TblLineSecond>*/}
+                                        {/*        /!*{viewData(*!/*/}
+                                        {/*        /!*    vm?.totalGuests.toString(),*!/*/}
+                                        {/*        /!*)}*!/*/}
+                                        {/*    </TblLineSecond>*/}
+                                        {/*</td>*/}
                                         <td>
                                             {vm?.status?.name ? (
                                                 <BadgeStatusGeneral

@@ -279,6 +279,13 @@ const TabPropertyFeature = () => {
                     externalForm={
                         <>
                             <FormInput
+                                label="Name"
+                                name="name"
+                                placeholder="e.g Private Pool"
+                                required
+                            />
+
+                            <FormInput
                                 label="Order"
                                 name="order"
                                 placeholder="e.g 1"

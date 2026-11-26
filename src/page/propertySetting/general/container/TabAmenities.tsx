@@ -6,8 +6,14 @@ import FilterBarBasic from '@/common/misc/FilterBarBasic.tsx'
 import ModalWithActionFormCRUDLogic from '@/common/misc/ModalWithActionFormCRUD.logic.tsx'
 import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import TableThemeLogic from '@/common/table/TableTheme.logic.tsx'
+import FormCheckbox from '@/component/form/FormCheckbox.tsx'
+import FormInput from '@/component/form/FormInput.tsx'
 import FormUploadFile from '@/component/form/FormUploadFile.tsx'
-import { BtnCircleEdit } from '@/component/general/Button.tsx'
+import {
+    BtnCircleEdit,
+    BtnCircleRemove,
+    BtnPrimary,
+} from '@/component/general/Button.tsx'
 import Pagination from '@/component/general/Pagination.tsx'
 import {
     TblLineFirstPrimary,
@@ -18,7 +24,6 @@ import CreatePortalLayout from '@/component/layout/CreatePortal.layout.tsx'
 import {
     MDPropertySettingAmenities,
     MDPropertySettingAmenitiesRemove,
-    MDPSTabMediaPartnerAdd,
 } from '@/config/modal.config.ts'
 import { configDefaultPagination } from '@/config/pagination.config.ts'
 import actionModal from '@/helper/base/actionModal.helper.ts'
@@ -107,6 +112,11 @@ const TabAmenities = () => {
         return apiAmenitiesCRUD.updateWithData(__selectedId, dataForm)
     }
 
+    const _handleAddSync = async (): Promise<APIResponse> => {
+        const dataForm = await objectToFormData(__formRequest)
+        return apiAmenitiesCRUD.addWithData(dataForm)
+    }
+
     const _handleRemoveIcon = () => {
         __setFormRequest((prev) => ({
             ...prev,
@@ -128,13 +138,19 @@ const TabAmenities = () => {
                     <h5 className="fs-18 fw-500">Amenities</h5>
                 </div>
                 <div className="col-auto">
-                    {/*<BtnPrimary>Add New</BtnPrimary>*/}
+                    <BtnPrimary
+                        handle={() => {
+                            setPreviewIcon(undefined)
+                            __actionAddModal()
+                        }}>
+                        Add New
+                    </BtnPrimary>
                 </div>
             </div>
 
             <FilterBarBasic
                 formRequest={__search}
-                searchTextPlaceholder="e.g D'Stars Fast Ferry"
+                searchTextPlaceholder="e.g Swimming Pool"
                 classNameWrap="pb-3"
                 isDateRange={false}
                 actions={{
@@ -209,14 +225,14 @@ const TabAmenities = () => {
                                     </td>
                                     <td>
                                         <div className="hstack gap-2 justify-content-end">
-                                            {/*    <BtnCircleRemove*/}
-                                            {/*        actions={{*/}
-                                            {/*            remove: (e) => {*/}
-                                            {/*                e.stopPropagation()*/}
-                                            {/*                _handleChooseRemove(vm)*/}
-                                            {/*            },*/}
-                                            {/*        }}*/}
-                                            {/*    />*/}
+                                            <BtnCircleRemove
+                                                actions={{
+                                                    remove: (e) => {
+                                                        e.stopPropagation()
+                                                        _handleChooseRemove(vm)
+                                                    },
+                                                }}
+                                            />
 
                                             <BtnCircleEdit
                                                 title="Edit Data"
@@ -274,6 +290,41 @@ const TabAmenities = () => {
                     isUseDefaultInput={false}
                     externalForm={
                         <>
+                            <FormInput
+                                label="Name"
+                                name="name"
+                                placeholder="e.g Swimming Pool"
+                                required
+                            />
+
+                            <FormInput
+                                label="Order"
+                                name="order"
+                                placeholder="e.g 1"
+                                type="number"
+                                isNumberOnly
+                            />
+
+                            <FormCheckbox
+                                id="amenitiesIsPublish"
+                                label="Publish"
+                                defaultChecked={!!__formRequest.isPublish}
+                                change={(e) =>
+                                    _handleChange('isPublish', e.target.checked)
+                                }
+                                className="cursor-pointer mt-3"
+                            />
+
+                            <FormCheckbox
+                                id="amenitiesIsPopular"
+                                label="Popular"
+                                defaultChecked={!!__formRequest.isPopular}
+                                change={(e) =>
+                                    _handleChange('isPopular', e.target.checked)
+                                }
+                                className="cursor-pointer my-3"
+                            />
+
                             {previewIcon ? (
                                 <div className="my-3">
                                     <p className="mb-2 text-neutral-100">
@@ -318,7 +369,7 @@ const TabAmenities = () => {
                         </>
                     }
                     configHandle={{
-                        urlAPIAdd: null,
+                        urlAPIAdd: _handleAddSync,
                         urlAPIUpdate: _handleUpdateSync,
                         initialForm: () =>
                             __setFormRequest(initMapForm(__detailData)),
