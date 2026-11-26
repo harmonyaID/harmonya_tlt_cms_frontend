@@ -1,10 +1,13 @@
+import { useEffect, useMemo } from 'react'
 import { Additem } from 'iconsax-react'
 import { isEmpty } from 'lodash'
 import SelectOptionCountry from '@/common/dataForm/SelectOptionCountry.tsx'
+import PreviewFileModalLogic from '@/common/misc/PreviewFileModal.logic.tsx'
 import Card from '@/component/card/Card.tsx'
 import FormInput from '@/component/form/FormInput.tsx'
 import FormSelectOption from '@/component/form/FormSelectOption.tsx'
 import FormTextArea from '@/component/form/FormTextArea.tsx'
+import FormUploadFile from '@/component/form/FormUploadFile.tsx'
 import SelectOption from '@/component/form/SelectOption.tsx'
 import { BtnDanger, BtnPrimary } from '@/component/general/Button.tsx'
 import FooterSubmit from '@/component/general/FooterSubmit.tsx'
@@ -27,6 +30,10 @@ import { WrapFormContext } from '@/context/Form.context.tsx'
 import actionModal from '@/helper/base/actionModal.helper.ts'
 import { textSlug } from '@/helper/convertText.helper.ts'
 import { generateOptionByLength } from '@/helper/generateOption.helper.ts'
+import MenuItemImage, {
+    isMegaMenuItem,
+    MenuItemTypeBadge,
+} from '@/page/contentMenu/component/MenuItemImage.tsx'
 import useContentMenuMainFormHook from '@/page/contentMenu/hook/useContentMenuMainForm.hook.ts'
 import contentBlogPath from '@/path/contentBlog.path.ts'
 import contentMenuPath from '@/path/contentMenu.path.ts'
@@ -42,8 +49,15 @@ const MenuItemRow = ({
     return (
         <div style={{ marginLeft: depth * 24 }}>
             <div className="card card-body py-2 bg-neutral-600 border-0 hstack gap-3 mb-2">
+                {isMegaMenuItem(item) ? (
+                    <MenuItemImage image={item.featuredImage} />
+                ) : null}
+
                 <div className="me-auto">
-                    <p className="fs-16 fw-500 mb-1">{item.menuLabel}</p>
+                    <div className="hstack gap-2 mb-1">
+                        <p className="fs-16 fw-500 mb-0">{item.menuLabel}</p>
+                        <MenuItemTypeBadge item={item} />
+                    </div>
                     {/*<p className="fs-12 text-gray-500 mb-3">*/}
                     {/*    Order {item.menuOrder}*/}
                     {/*</p>*/}
@@ -116,10 +130,31 @@ const ContentMenuMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
         __handleMenuParentCancel,
         __handleMenuParentEdit,
         __handleMenuPushNew,
+        __handleMenuParentRemoveImage,
         __lengthOptionMenu,
         __handleMenuRemove,
         __canAddChild,
     } = useContentMenuMainFormHook({ isEdit })
+
+    // Stable preview URL for the image in the menu item modal
+    const menuParentImage = __formRequestMenuParent.featuredImage
+    const menuParentImageUrl = useMemo(
+        () =>
+            menuParentImage instanceof Blob
+                ? URL.createObjectURL(menuParentImage)
+                : menuParentImage
+                  ? String(menuParentImage)
+                  : '',
+        [menuParentImage],
+    )
+
+    useEffect(() => {
+        return () => {
+            if (menuParentImageUrl.startsWith('blob:')) {
+                URL.revokeObjectURL(menuParentImageUrl)
+            }
+        }
+    }, [menuParentImageUrl])
 
     return (
         <>
@@ -337,13 +372,54 @@ const ContentMenuMainForm = ({ isEdit = false }: { isEdit?: boolean }) => {
                                         ))}
                                     </FormSelectOption>
 
-                                    {__formRequestMenuParent.typeId ===
+                                    {Number(__formRequestMenuParent.typeId) ===
                                     MEGA_MENU_ID ? (
                                         <>
                                             <FormTextArea
                                                 label="Description"
                                                 name="description"
                                             />
+
+                                            {__formRequestMenuParent.featuredImage ? (
+                                                <div className="my-3">
+                                                    <p className="mb-2 text-neutral-100">
+                                                        Image
+                                                    </p>
+
+                                                    <PreviewFileModalLogic
+                                                        dataUrl={
+                                                            menuParentImageUrl
+                                                        }
+                                                        dataBy="file"
+                                                        dataFile={
+                                                            __formRequestMenuParent.featuredImage
+                                                        }
+                                                        isShowBtnRemove
+                                                        actions={{
+                                                            remove: () =>
+                                                                __handleMenuParentRemoveImage(),
+                                                        }}
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <FormUploadFile
+                                                    label="Image"
+                                                    name="featuredImage"
+                                                    isUseHook={false}
+                                                    isPreview={false}
+                                                    accept="image/*"
+                                                    actions={{
+                                                        onChange: (
+                                                            name,
+                                                            newFiles,
+                                                        ) =>
+                                                            __changeMenuParent(
+                                                                'featuredImage',
+                                                                newFiles,
+                                                            ),
+                                                    }}
+                                                />
+                                            )}
                                         </>
                                     ) : null}
                                 </WrapFormContext>
