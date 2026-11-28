@@ -8,6 +8,7 @@ import TabLlms from '@/page/systemGeneralSetting/container/TabLlms.tsx'
 import TabNewsletterConfig from '@/page/systemGeneralSetting/container/TabNewsletterConfig.tsx'
 import TabNotificationConfig from '@/page/systemGeneralSetting/container/TabNotificationConfig.tsx'
 import TabRedirection from '@/page/systemGeneralSetting/container/TabRedirection.tsx'
+import TabRobots from '@/page/systemGeneralSetting/container/TabRobots.tsx'
 import TabTrackingAnalytic from '@/page/systemGeneralSetting/container/TabTrackingAnalytic.tsx'
 
 const SystemGeneralSettingPage = () => {
@@ -23,6 +24,7 @@ const SystemGeneralSettingPage = () => {
                     objectTab('Redirection', 'tabRedirection'),
                     objectTab('Tracking Analytics', 'tabTrackingAnalytics'),
                     objectTab('LLMS File', 'tabLLMSFile'),
+                    objectTab('Robots File', 'tabRobotsFile'),
                 ]}
                 tabContents={[
                     objectTabContent('', <TabLanguage />),
@@ -31,6 +33,7 @@ const SystemGeneralSettingPage = () => {
                     objectTabContent('', <TabRedirection />),
                     objectTabContent('', <TabTrackingAnalytic />),
                     objectTabContent('', <TabLlms />),
+                    objectTabContent('', <TabRobots />),
                 ]}
             />
         </>
